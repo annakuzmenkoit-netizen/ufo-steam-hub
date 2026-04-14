@@ -45,10 +45,10 @@ export function Footer() {
               </li>
             </ul>
             <div className="flex gap-3 mt-4">
-              <a href="https://www.instagram.com/ufo.steam.hub/" className="p-2 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors" aria-label="Instagram">
+              <a href="https://www.instagram.com/ufo.steam.hub/" target="_blank" className="p-2 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors" aria-label="Instagram">
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="https://www.facebook.com/profile.php?id=61560801226427" className="p-2 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors" aria-label="Facebook">
+              <a href="https://www.facebook.com/profile.php?id=61560801226427" target="_blank" className="p-2 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors" aria-label="Facebook">
                 <Facebook className="h-5 w-5" />
               </a>
             </div>
