@@ -35,6 +35,12 @@ export const Route = createRootRoute({
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "UFO STEAM HUB — Дитячий освітній центр" },
       { name: "description", content: "UFO STEAM HUB — дитячий освітній центр STEAM-освіти. Курси робототехніки, анімації, 3D моделювання та математики для дітей 6-14 років." },
+      { property: "og:title", content: "UFO STEAM HUB — Дитячий освітній центр" },
+      { name: "twitter:title", content: "UFO STEAM HUB — Дитячий освітній центр" },
+      { property: "og:description", content: "UFO STEAM HUB — дитячий освітній центр STEAM-освіти. Курси робототехніки, анімації, 3D моделювання та математики для дітей 6-14 років." },
+      { name: "twitter:description", content: "UFO STEAM HUB — дитячий освітній центр STEAM-освіти. Курси робототехніки, анімації, 3D моделювання та математики для дітей 6-14 років." },
+      { name: "twitter:card", content: "summary" },
+      { property: "og:type", content: "website" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
