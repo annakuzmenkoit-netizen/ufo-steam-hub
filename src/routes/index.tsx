@@ -10,9 +10,9 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "UFO STEAM HUB — Освіта на дотик" },
-      { name: "description", content: "Дитячий освітній центр STEAM-освіти у Києві. Робототехніка, анімація, 3D моделювання та математика для дітей 6-14 років." },
+      { name: "description", content: "Освітній центр STEAM-освіти у Кременчуці. Робототехніка, анімація, 3D моделювання та математика для дітей 6-14 років." },
       { property: "og:title", content: "UFO STEAM HUB — Освіта на дотик" },
-      { property: "og:description", content: "Дитячий освітній центр STEAM-освіти у Києві." },
+      { property: "og:description", content: "Освітній центр STEAM-освіти у Кременчуці" },
     ],
   }),
   component: HomePage,
@@ -46,7 +46,7 @@ function HomePage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <div className="inline-flex items-center gap-2 rounded-full bg-ufo-yellow/30 px-4 py-1.5 text-sm font-semibold text-foreground mb-6">
-              <Sparkles className="h-4 w-4 text-ufo-pink" /> Дитячий освітній центр
+              <Sparkles className="h-4 w-4 text-ufo-pink" /> Освітній центр
             </div>
             <h1 className="text-5xl md:text-7xl font-black text-primary tracking-tight">
               UFO STEAM HUB

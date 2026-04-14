@@ -12,7 +12,7 @@ export function Footer() {
               <img src={ufoLogo} alt="UFO STEAM HUB" className="h-12 w-auto object-contain brightness-0 invert" />
             </div>
             <p className="text-primary-foreground/80 text-sm leading-relaxed">
-              Дитячий освітній центр, де наука, технології та творчість зустрічаються.
+              Освітній центр, де наука, технології та творчість зустрічаються.
             </p>
           </div>
 
@@ -33,15 +33,15 @@ export function Footer() {
             <ul className="space-y-3 text-sm text-primary-foreground/80">
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-ufo-yellow" />
-                +380 (XX) XXX-XX-XX
+                +380 (96) 066-26-04
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-ufo-yellow" />
-                info@ufosteamhub.ua
+                ufosteamhub@gmail.com
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 text-ufo-yellow mt-0.5" />
-                м. Київ, вул. Прикладна, 1
+                м. Кременчук, ТЦ "Лідер", каб. 208
               </li>
             </ul>
             <div className="flex gap-3 mt-4">

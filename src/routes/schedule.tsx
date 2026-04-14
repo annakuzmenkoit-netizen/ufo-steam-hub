@@ -7,7 +7,7 @@ export const Route = createFileRoute("/schedule")({
       { title: "Розклад — UFO STEAM HUB" },
       { name: "description", content: "Розклад занять UFO STEAM HUB — знайдіть зручний час для вашої дитини." },
       { property: "og:title", content: "Розклад — UFO STEAM HUB" },
-      { property: "og:description", content: "Розклад занять дитячого освітнього центру." },
+      { property: "og:description", content: "Розклад занять освітнього центру." },
     ],
   }),
   component: SchedulePage,

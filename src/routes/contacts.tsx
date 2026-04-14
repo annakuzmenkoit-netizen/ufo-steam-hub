@@ -18,9 +18,9 @@ export const Route = createFileRoute("/contacts")({
 });
 
 const contactInfo = [
-  { icon: Phone, label: "Телефон", value: "+380 (XX) XXX-XX-XX" },
-  { icon: Mail, label: "Email", value: "info@ufosteamhub.ua" },
-  { icon: MapPin, label: "Адреса", value: "м. Київ, вул. Прикладна, 1" },
+  { icon: Phone, label: "Телефон", value: "+380 (96) 066-26-04" },
+  { icon: Mail, label: "Email", value: "ufosteamhub@gmail.com" },
+  { icon: MapPin, label: "Адреса", value: "м. Кременчук, ТЦ Лідер, каб. 208" },
   { icon: Clock, label: "Графік", value: "Пн–Пт: 14:00–19:00, Сб: 10:00–16:00" },
 ];
 
