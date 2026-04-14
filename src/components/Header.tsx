@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, X, Rocket } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -19,9 +19,11 @@ export function Header() {
     <header className="sticky top-0 z-50 bg-ufo-cream/95 backdrop-blur-md border-b border-border">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 font-bold text-xl text-primary">
-            <Rocket className="h-6 w-6 text-ufo-pink" />
-            <span>UFO STEAM HUB</span>
+          <Link to="/" className="flex items-center gap-2 shrink-0">
+            {/* Logo placeholder — replace src with actual logo */}
+            <div className="w-[150px] h-[40px] rounded-lg bg-primary/10 flex items-center justify-center overflow-hidden">
+              <span className="text-sm font-bold text-primary">UFO STEAM HUB</span>
+            </div>
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
@@ -38,7 +40,7 @@ export function Header() {
             ))}
             <Link
               to="/contacts"
-              className="rounded-full bg-ufo-pink px-5 py-2 text-sm font-semibold text-white shadow-md hover:shadow-lg hover:scale-105 transition-all"
+              className="rounded-full bg-ufo-pink px-5 py-2 text-sm font-semibold text-primary-foreground shadow-md hover:shadow-lg hover:scale-105 transition-all"
             >
               Записатись
             </Link>
@@ -77,7 +79,7 @@ export function Header() {
               ))}
               <Link
                 to="/contacts"
-                className="rounded-full bg-ufo-pink px-5 py-2.5 text-center text-sm font-semibold text-white shadow-md mt-2"
+                className="rounded-full bg-ufo-pink px-5 py-2.5 text-center text-sm font-semibold text-primary-foreground shadow-md mt-2"
                 onClick={() => setMobileOpen(false)}
               >
                 Записатись

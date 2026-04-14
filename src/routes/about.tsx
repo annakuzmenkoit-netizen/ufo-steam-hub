@@ -22,23 +22,23 @@ const values = [
 ];
 
 const team = [
-  { name: "Катерина", role: "Засновниця та керівниця", color: "from-ufo-pink/20 to-ufo-yellow/20" },
-  { name: "Анна", role: "Викладачка STEAM", color: "from-ufo-blue/20 to-ufo-green/20" },
-  { name: "Станіслав", role: "Викладач робототехніки", color: "from-ufo-green/20 to-ufo-blue/20" },
-  { name: "Олександра", role: "Викладачка анімації", color: "from-ufo-pink/20 to-ufo-blue/20" },
-  { name: "Валерія", role: "Викладачка математики", color: "from-ufo-yellow/20 to-ufo-green/20" },
+  { name: "Катерина", role: "Засновниця та керівниця", bio: "Понад 10 років у сфері дитячої освіти. Натхненниця всіх наших проєктів та ініціатив.", color: "from-ufo-pink/30 to-ufo-yellow/30" },
+  { name: "Анна", role: "Викладачка STEAM", bio: "Біолог за освітою, дослідниця за покликанням. Перетворює науку на захоплюючу пригоду.", color: "from-ufo-blue/30 to-ufo-green/30" },
+  { name: "Станіслав", role: "Викладач робототехніки", bio: "Інженер та ентузіаст технологій. Вчить дітей створювати роботів та програмувати.", color: "from-ufo-green/30 to-ufo-blue/30" },
+  { name: "Олександра", role: "Викладачка анімації", bio: "Художниця та аніматорка. Допомагає дітям оживлювати персонажів та створювати мультфільми.", color: "from-ufo-pink/30 to-ufo-blue/30" },
+  { name: "Валерія", role: "Викладачка математики", bio: "Математик та педагог. Робить цифри зрозумілими та цікавими для кожної дитини.", color: "from-ufo-yellow/30 to-ufo-green/30" },
 ];
 
 function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="py-20 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
-        <div className="absolute top-10 right-20 w-24 h-24 rounded-full bg-ufo-yellow/30 blur-xl" />
+      <section className="py-20 md:py-28 bg-ufo-yellow text-center relative overflow-hidden">
+        <div className="absolute top-10 right-20 w-24 h-24 rounded-full bg-ufo-blue/20 blur-xl" />
         <div className="absolute bottom-10 left-10 w-20 h-20 rounded-full bg-ufo-green/20 blur-xl" />
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground">Про нас</h1>
-          <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+          <h1 className="text-4xl md:text-5xl font-bold text-primary">Про нас</h1>
+          <p className="mt-6 text-lg text-foreground/80 leading-relaxed">
             UFO STEAM HUB — це простір для дітей, де наука стає пригодою, а навчання — захоплюючою грою. Ми віримо, що кожна дитина має потенціал стати дослідником, винахідником та творцем.
           </p>
         </AnimatedSection>
@@ -67,21 +67,23 @@ function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="py-20 bg-ufo-cream">
+      <section className="py-20 bg-ufo-yellow/40">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14">
             <h2 className="text-3xl font-bold text-foreground">Наша команда</h2>
-            <p className="mt-4 text-muted-foreground">Люди, які надихають дітей щодня</p>
+            <p className="mt-4 text-foreground/70">Люди, які надихають дітей щодня</p>
           </AnimatedSection>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {team.map((t, i) => (
               <AnimatedSection key={t.name} delay={i * 0.1}>
-                <div className="rounded-2xl bg-card border border-border p-6 text-center shadow-sm hover:shadow-lg transition-shadow">
-                  <div className={`mx-auto w-20 h-20 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center mb-4`}>
-                    <span className="text-2xl font-bold text-primary">{t.name[0]}</span>
+                <div className="rounded-2xl bg-card border border-border p-6 text-center shadow-sm hover:shadow-lg transition-shadow h-full flex flex-col items-center">
+                  {/* Circular photo placeholder */}
+                  <div className={`w-24 h-24 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center mb-4 border-4 border-card shadow-md`}>
+                    <span className="text-3xl font-bold text-primary">{t.name[0]}</span>
                   </div>
                   <h3 className="font-bold text-foreground">{t.name}</h3>
-                  <p className="mt-1 text-xs text-muted-foreground">{t.role}</p>
+                  <p className="mt-1 text-xs font-semibold text-primary">{t.role}</p>
+                  <p className="mt-3 text-xs text-muted-foreground leading-relaxed">{t.bio}</p>
                 </div>
               </AnimatedSection>
             ))}

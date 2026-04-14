@@ -38,36 +38,35 @@ function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-ufo-cream py-20 md:py-32">
-        <div className="absolute top-10 left-10 w-20 h-20 rounded-full bg-ufo-yellow/40 blur-xl" />
-        <div className="absolute bottom-10 right-10 w-32 h-32 rounded-full bg-ufo-blue/20 blur-2xl" />
-        <div className="absolute top-1/2 right-1/4 w-16 h-16 rounded-full bg-ufo-pink/20 blur-xl" />
-        <div className="absolute bottom-1/3 left-1/3 w-24 h-24 rounded-full bg-ufo-green/20 blur-2xl" />
+      <section className="relative overflow-hidden bg-ufo-yellow py-20 md:py-32">
+        <div className="absolute top-10 left-10 w-20 h-20 rounded-full bg-ufo-blue/20 blur-xl" />
+        <div className="absolute bottom-10 right-10 w-32 h-32 rounded-full bg-ufo-pink/15 blur-2xl" />
+        <div className="absolute top-1/2 right-1/4 w-16 h-16 rounded-full bg-ufo-green/20 blur-xl" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <div className="inline-flex items-center gap-2 rounded-full bg-ufo-yellow/30 px-4 py-1.5 text-sm font-semibold text-foreground mb-6">
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary mb-6">
               <Sparkles className="h-4 w-4 text-ufo-pink" /> Дитячий освітній центр
             </div>
             <h1 className="text-5xl md:text-7xl font-black text-primary tracking-tight">
               UFO STEAM HUB
             </h1>
-            <p className="mt-4 text-xl md:text-2xl text-muted-foreground font-medium">
+            <p className="mt-4 text-xl md:text-2xl text-foreground/80 font-medium">
               Освіта на дотик
             </p>
-            <p className="mt-4 max-w-xl mx-auto text-base text-muted-foreground">
+            <p className="mt-4 max-w-xl mx-auto text-base text-foreground/70">
               Місце, де діти відкривають науку, технології та мистецтво через гру, дослід та творчість.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/contacts"
-                className="rounded-full bg-ufo-pink px-8 py-3.5 text-base font-bold text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all inline-flex items-center gap-2"
+                className="rounded-full bg-ufo-pink px-8 py-3.5 text-base font-bold text-primary-foreground shadow-lg hover:shadow-xl hover:scale-105 transition-all inline-flex items-center gap-2"
               >
                 Записатись на пробний урок <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 to="/courses"
-                className="rounded-full border-2 border-primary px-8 py-3.5 text-base font-bold text-primary hover:bg-primary hover:text-primary-foreground transition-all"
+                className="rounded-full border-2 border-primary bg-primary-foreground px-8 py-3.5 text-base font-bold text-primary hover:bg-primary hover:text-primary-foreground transition-all"
               >
                 Наші курси
               </Link>
@@ -93,11 +92,11 @@ function HomePage() {
                   whileHover={{ y: -5, scale: 1.02 }}
                   className="group relative rounded-2xl bg-card border border-border p-6 shadow-sm hover:shadow-xl transition-all h-full"
                 >
-                  <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl ${course.color} text-white mb-4`}>
+                  <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl ${course.color} text-primary-foreground mb-4`}>
                     <course.icon className="h-6 w-6" />
                   </div>
                   <h3 className="text-lg font-bold text-foreground">{course.title}</h3>
-                  <span className="inline-block mt-1 text-xs font-semibold text-ufo-blue bg-ufo-blue/10 rounded-full px-3 py-0.5">
+                  <span className="inline-block mt-1 text-xs font-semibold text-primary bg-primary/10 rounded-full px-3 py-0.5">
                     {course.age}
                   </span>
                   <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{course.desc}</p>
@@ -109,11 +108,11 @@ function HomePage() {
       </section>
 
       {/* Why Us */}
-      <section className="py-20 bg-ufo-cream">
+      <section className="py-20 bg-ufo-yellow/40">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">Що робить нас особливими</h2>
-            <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">
+            <p className="mt-4 max-w-2xl mx-auto text-foreground/70">
               Ми створили місце, де діти навчаються цікаво, безпечно та з увагою до кожного:
             </p>
           </AnimatedSection>
@@ -150,7 +149,7 @@ function HomePage() {
                 {["Science", "Technology", "Engineering", "Art", "Mathematics"].map((item, i) => {
                   const colors = ["bg-ufo-blue", "bg-ufo-green", "bg-ufo-pink", "bg-ufo-yellow", "bg-primary"];
                   return (
-                    <span key={item} className={`${colors[i]} text-white text-sm font-bold rounded-full px-4 py-2`}>
+                    <span key={item} className={`${colors[i]} text-primary-foreground text-sm font-bold rounded-full px-4 py-2`}>
                       {item}
                     </span>
                   );
@@ -176,7 +175,7 @@ function HomePage() {
       </section>
 
       {/* Contact Form */}
-      <section className="py-20 bg-ufo-cream">
+      <section className="py-20 bg-ufo-yellow/30">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <AnimatedSection>
@@ -203,7 +202,7 @@ function HomePage() {
                   <label className="text-sm font-medium text-foreground">Повідомлення</label>
                   <Textarea placeholder="Ваше повідомлення" className="mt-1 rounded-xl" rows={4} />
                 </div>
-                <Button className="rounded-full bg-ufo-pink hover:bg-ufo-pink/90 text-white px-8 py-3 font-semibold">
+                <Button className="rounded-full bg-ufo-pink hover:bg-ufo-pink/90 text-primary-foreground px-8 py-3 font-semibold">
                   Відправити
                 </Button>
               </form>
