@@ -15,9 +15,9 @@ export const Route = createFileRoute("/camps")({
 });
 
 const upcomingCamps = [
-  { title: "Літній STEAM-табір", date: "Червень 2026", desc: "Два тижні досліджень, експериментів та пригод.", color: "border-ufo-blue" },
-  { title: "Табір з робототехніки", date: "Липень 2026", desc: "Створюємо роботів та змагаємося у робо-баталіях.", color: "border-ufo-green" },
-  { title: "Анімаційний табір", date: "Серпень 2026", desc: "Від ідеї до готового мультфільму за один тиждень.", color: "border-ufo-pink" },
+  { title: "Літній STEAM-табір", date: "Червень 2026", desc: "Два тижні досліджень, експериментів та пригод.", color: "border-l-ufo-blue" },
+  { title: "Табір з робототехніки", date: "Липень 2026", desc: "Створюємо роботів та змагаємося у робо-баталіях.", color: "border-l-ufo-green" },
+  { title: "Анімаційний табір", date: "Серпень 2026", desc: "Від ідеї до готового мультфільму за один тиждень.", color: "border-l-ufo-pink" },
 ];
 
 const reviews = [
@@ -30,7 +30,7 @@ function CampsPage() {
   return (
     <>
       <section className="py-20 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
-        <div className="absolute bottom-10 right-20 w-24 h-24 rounded-full bg-ufo-pink/20 blur-xl" />
+        <div className="absolute bottom-10 right-20 w-24 h-24 rounded-full bg-ufo-yellow/20 blur-xl" />
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground">Табори</h1>
           <p className="mt-6 text-lg text-muted-foreground">
@@ -39,7 +39,6 @@ function CampsPage() {
         </AnimatedSection>
       </section>
 
-      {/* Upcoming */}
       <section className="py-20 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14">
@@ -48,7 +47,7 @@ function CampsPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {upcomingCamps.map((camp, i) => (
               <AnimatedSection key={camp.title} delay={i * 0.1}>
-                <div className={`rounded-2xl bg-card border-t-4 ${camp.color} border border-border p-6 shadow-sm hover:shadow-lg transition-shadow h-full`}>
+                <div className={`rounded-2xl bg-card border-l-4 ${camp.color} border border-border p-6 shadow-sm shadow-ufo-yellow/10 hover:shadow-lg transition-shadow h-full`}>
                   <div className="flex items-center gap-2 text-sm font-semibold text-primary mb-3">
                     <CalendarDays className="h-4 w-4" /> {camp.date}
                   </div>
@@ -61,7 +60,6 @@ function CampsPage() {
         </div>
       </section>
 
-      {/* Gallery placeholder */}
       <section className="py-20 bg-ufo-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14">
@@ -80,7 +78,6 @@ function CampsPage() {
         </div>
       </section>
 
-      {/* Reviews */}
       <section className="py-20 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14">

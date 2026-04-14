@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Rocket, Phone, Mail, MapPin, Instagram, Facebook } from "lucide-react";
+import { Phone, Mail, MapPin, Instagram, Facebook } from "lucide-react";
+import ufoLogo from "@/assets/ufo-logo.png";
 
 export function Footer() {
   return (
@@ -7,9 +8,8 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div>
-            <div className="flex items-center gap-2 font-bold text-xl mb-4">
-              <Rocket className="h-6 w-6 text-ufo-yellow" />
-              <span>UFO STEAM HUB</span>
+            <div className="mb-4">
+              <img src={ufoLogo} alt="UFO STEAM HUB" className="h-12 w-auto object-contain brightness-0 invert" />
             </div>
             <p className="text-primary-foreground/80 text-sm leading-relaxed">
               Дитячий освітній центр, де наука, технології та творчість зустрічаються.
