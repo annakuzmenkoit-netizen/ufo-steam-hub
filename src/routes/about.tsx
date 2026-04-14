@@ -33,12 +33,12 @@ function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="py-20 md:py-28 bg-ufo-yellow text-center relative overflow-hidden">
-        <div className="absolute top-10 right-20 w-24 h-24 rounded-full bg-ufo-blue/20 blur-xl" />
-        <div className="absolute bottom-10 left-10 w-20 h-20 rounded-full bg-ufo-green/20 blur-xl" />
+      <section className="py-20 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
+        <div className="absolute top-10 right-20 w-24 h-24 rounded-full bg-ufo-yellow/20 blur-xl" />
+        <div className="absolute bottom-10 left-10 w-20 h-20 rounded-full bg-ufo-green/10 blur-xl" />
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-primary">Про нас</h1>
-          <p className="mt-6 text-lg text-foreground/80 leading-relaxed">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground">Про нас</h1>
+          <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
             UFO STEAM HUB — це простір для дітей, де наука стає пригодою, а навчання — захоплюючою грою. Ми віримо, що кожна дитина має потенціал стати дослідником, винахідником та творцем.
           </p>
         </AnimatedSection>
@@ -54,7 +54,7 @@ function AboutPage() {
             {values.map((v, i) => (
               <AnimatedSection key={v.title} delay={i * 0.1}>
                 <div className="rounded-2xl bg-card border border-border p-6 text-center h-full shadow-sm hover:shadow-lg transition-shadow">
-                  <div className="mx-auto w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-4">
+                  <div className="mx-auto w-14 h-14 rounded-2xl bg-ufo-yellow/20 flex items-center justify-center mb-4">
                     <v.icon className="h-7 w-7 text-primary" />
                   </div>
                   <h3 className="font-bold text-foreground">{v.title}</h3>
@@ -67,18 +67,18 @@ function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="py-20 bg-ufo-yellow/40">
+      <section className="py-20 bg-ufo-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14">
             <h2 className="text-3xl font-bold text-foreground">Наша команда</h2>
-            <p className="mt-4 text-foreground/70">Люди, які надихають дітей щодня</p>
+            <p className="mt-4 text-muted-foreground">Люди, які надихають дітей щодня</p>
           </AnimatedSection>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {team.map((t, i) => (
               <AnimatedSection key={t.name} delay={i * 0.1}>
                 <div className="rounded-2xl bg-card border border-border p-6 text-center shadow-sm hover:shadow-lg transition-shadow h-full flex flex-col items-center">
                   {/* Circular photo placeholder */}
-                  <div className={`w-24 h-24 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center mb-4 border-4 border-card shadow-md`}>
+                  <div className={`w-24 h-24 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center mb-4 border-4 border-ufo-yellow/30 shadow-md`}>
                     <span className="text-3xl font-bold text-primary">{t.name[0]}</span>
                   </div>
                   <h3 className="font-bold text-foreground">{t.name}</h3>

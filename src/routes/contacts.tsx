@@ -28,7 +28,7 @@ function ContactsPage() {
   return (
     <>
       <section className="py-20 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
-        <div className="absolute top-20 left-10 w-20 h-20 rounded-full bg-ufo-green/20 blur-xl" />
+        <div className="absolute top-20 left-10 w-20 h-20 rounded-full bg-ufo-yellow/20 blur-xl" />
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground">Контакти</h1>
           <p className="mt-6 text-lg text-muted-foreground">
@@ -45,7 +45,7 @@ function ContactsPage() {
               <div className="space-y-5">
                 {contactInfo.map((c) => (
                   <div key={c.label} className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-ufo-yellow/20 flex items-center justify-center shrink-0">
                       <c.icon className="h-5 w-5 text-primary" />
                     </div>
                     <div>
@@ -79,7 +79,7 @@ function ContactsPage() {
                   <label className="text-sm font-medium text-foreground">Повідомлення</label>
                   <Textarea placeholder="Ваше повідомлення" className="mt-1 rounded-xl" rows={5} />
                 </div>
-                <Button className="w-full rounded-full bg-ufo-pink hover:bg-ufo-pink/90 text-white py-3 font-semibold text-base">
+                <Button className="w-full rounded-full bg-ufo-yellow hover:bg-ufo-yellow/90 text-primary py-3 font-bold text-base shadow-md">
                   Відправити
                 </Button>
               </form>

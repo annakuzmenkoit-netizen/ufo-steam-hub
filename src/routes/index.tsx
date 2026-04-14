@@ -19,12 +19,12 @@ export const Route = createFileRoute("/")({
 });
 
 const courses = [
-  { title: "STEAM-гурток", age: "7-12 років", desc: "Щомісяця — нова тема: світло, магніти, вода, повітря, ґрунт. Діти досліджують явища через дослід, гру та власні проєкти.", icon: Beaker, color: "bg-ufo-blue" },
-  { title: "Робототехніка", age: "6-12 років", desc: "Конструювання, програмування та створення власних роботів.", icon: Bot, color: "bg-ufo-green" },
-  { title: "Анімація і мультиплікація", age: "7-12 років", desc: "Оживляємо своїх героїв — створюємо мультики від ідеї до анімації та озвучки.", icon: Film, color: "bg-ufo-pink" },
-  { title: "Math&mind", age: "2-6 клас", desc: "Цікава математика, нестандартні задачі.", icon: Calculator, color: "bg-ufo-yellow" },
-  { title: "Математика", age: "1-11 клас", desc: "Шкільна математика зрозуміло та ефективно.", icon: PenTool, color: "bg-ufo-blue" },
-  { title: "3D моделювання", age: "7-14 років", desc: "Основи 3D друку, моделювання і ШІ.", icon: Cuboid, color: "bg-ufo-green" },
+  { title: "STEAM-гурток", age: "7-12 років", desc: "Щомісяця — нова тема: світло, магніти, вода, повітря, ґрунт. Діти досліджують явища через дослід, гру та власні проєкти.", icon: Beaker, accent: "border-ufo-blue shadow-ufo-yellow/20" },
+  { title: "Робототехніка", age: "6-12 років", desc: "Конструювання, програмування та створення власних роботів.", icon: Bot, accent: "border-ufo-green shadow-ufo-yellow/20" },
+  { title: "Анімація і мультиплікація", age: "7-12 років", desc: "Оживляємо своїх героїв — створюємо мультики від ідеї до анімації та озвучки.", icon: Film, accent: "border-ufo-pink shadow-ufo-yellow/20" },
+  { title: "Math&mind", age: "2-6 клас", desc: "Цікава математика, нестандартні задачі.", icon: Calculator, accent: "border-ufo-yellow shadow-ufo-yellow/20" },
+  { title: "Математика", age: "1-11 клас", desc: "Шкільна математика зрозуміло та ефективно.", icon: PenTool, accent: "border-ufo-blue shadow-ufo-yellow/20" },
+  { title: "3D моделювання", age: "7-14 років", desc: "Основи 3D друку, моделювання і ШІ.", icon: Cuboid, accent: "border-ufo-green shadow-ufo-yellow/20" },
 ];
 
 const features = [
@@ -38,35 +38,35 @@ function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-ufo-yellow py-20 md:py-32">
-        <div className="absolute top-10 left-10 w-20 h-20 rounded-full bg-ufo-blue/20 blur-xl" />
-        <div className="absolute bottom-10 right-10 w-32 h-32 rounded-full bg-ufo-pink/15 blur-2xl" />
-        <div className="absolute top-1/2 right-1/4 w-16 h-16 rounded-full bg-ufo-green/20 blur-xl" />
+      <section className="relative overflow-hidden bg-ufo-cream py-20 md:py-32">
+        <div className="absolute top-10 left-10 w-20 h-20 rounded-full bg-ufo-yellow/30 blur-xl" />
+        <div className="absolute bottom-10 right-10 w-32 h-32 rounded-full bg-ufo-blue/10 blur-2xl" />
+        <div className="absolute top-1/2 right-1/4 w-16 h-16 rounded-full bg-ufo-pink/10 blur-xl" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary mb-6">
+            <div className="inline-flex items-center gap-2 rounded-full bg-ufo-yellow/30 px-4 py-1.5 text-sm font-semibold text-foreground mb-6">
               <Sparkles className="h-4 w-4 text-ufo-pink" /> Дитячий освітній центр
             </div>
             <h1 className="text-5xl md:text-7xl font-black text-primary tracking-tight">
               UFO STEAM HUB
             </h1>
-            <p className="mt-4 text-xl md:text-2xl text-foreground/80 font-medium">
+            <p className="mt-4 text-xl md:text-2xl text-muted-foreground font-medium">
               Освіта на дотик
             </p>
-            <p className="mt-4 max-w-xl mx-auto text-base text-foreground/70">
+            <p className="mt-4 max-w-xl mx-auto text-base text-muted-foreground">
               Місце, де діти відкривають науку, технології та мистецтво через гру, дослід та творчість.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/contacts"
-                className="rounded-full bg-ufo-pink px-8 py-3.5 text-base font-bold text-primary-foreground shadow-lg hover:shadow-xl hover:scale-105 transition-all inline-flex items-center gap-2"
+                className="rounded-full bg-ufo-yellow px-8 py-3.5 text-base font-bold text-primary shadow-lg hover:shadow-xl hover:scale-105 transition-all inline-flex items-center gap-2"
               >
                 Записатись на пробний урок <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 to="/courses"
-                className="rounded-full border-2 border-primary bg-primary-foreground px-8 py-3.5 text-base font-bold text-primary hover:bg-primary hover:text-primary-foreground transition-all"
+                className="rounded-full border-2 border-primary px-8 py-3.5 text-base font-bold text-primary hover:bg-primary hover:text-primary-foreground transition-all"
               >
                 Наші курси
               </Link>
@@ -90,10 +90,10 @@ function HomePage() {
               <AnimatedSection key={course.title} delay={i * 0.1}>
                 <motion.div
                   whileHover={{ y: -5, scale: 1.02 }}
-                  className="group relative rounded-2xl bg-card border border-border p-6 shadow-sm hover:shadow-xl transition-all h-full"
+                  className={`group relative rounded-2xl bg-card border-l-4 ${course.accent} border border-border p-6 shadow-md hover:shadow-xl transition-all h-full`}
                 >
-                  <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl ${course.color} text-primary-foreground mb-4`}>
-                    <course.icon className="h-6 w-6" />
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-ufo-yellow/20 mb-4">
+                    <course.icon className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="text-lg font-bold text-foreground">{course.title}</h3>
                   <span className="inline-block mt-1 text-xs font-semibold text-primary bg-primary/10 rounded-full px-3 py-0.5">
@@ -108,11 +108,11 @@ function HomePage() {
       </section>
 
       {/* Why Us */}
-      <section className="py-20 bg-ufo-yellow/40">
+      <section className="py-20 bg-ufo-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">Що робить нас особливими</h2>
-            <p className="mt-4 max-w-2xl mx-auto text-foreground/70">
+            <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">
               Ми створили місце, де діти навчаються цікаво, безпечно та з увагою до кожного:
             </p>
           </AnimatedSection>
@@ -121,7 +121,7 @@ function HomePage() {
             {features.map((f, i) => (
               <AnimatedSection key={f.title} delay={i * 0.1}>
                 <div className="rounded-2xl bg-card border border-border p-6 text-center shadow-sm hover:shadow-lg transition-shadow h-full">
-                  <div className="mx-auto w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-4">
+                  <div className="mx-auto w-14 h-14 rounded-2xl bg-ufo-yellow/20 flex items-center justify-center mb-4">
                     <f.icon className="h-7 w-7 text-primary" />
                   </div>
                   <h3 className="font-bold text-foreground">{f.title}</h3>
@@ -147,9 +147,9 @@ function HomePage() {
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 {["Science", "Technology", "Engineering", "Art", "Mathematics"].map((item, i) => {
-                  const colors = ["bg-ufo-blue", "bg-ufo-green", "bg-ufo-pink", "bg-ufo-yellow", "bg-primary"];
+                  const colors = ["bg-ufo-blue text-primary-foreground", "bg-ufo-green text-primary-foreground", "bg-ufo-pink text-primary-foreground", "bg-ufo-yellow text-primary", "bg-primary text-primary-foreground"];
                   return (
-                    <span key={item} className={`${colors[i]} text-primary-foreground text-sm font-bold rounded-full px-4 py-2`}>
+                    <span key={item} className={`${colors[i]} text-sm font-bold rounded-full px-4 py-2`}>
                       {item}
                     </span>
                   );
@@ -158,15 +158,15 @@ function HomePage() {
             </AnimatedSection>
             <AnimatedSection delay={0.2}>
               <div className="relative">
-                <div className="aspect-square rounded-3xl bg-gradient-to-br from-ufo-blue/20 via-ufo-green/20 to-ufo-pink/20 flex items-center justify-center">
+                <div className="aspect-square rounded-3xl bg-gradient-to-br from-ufo-blue/10 via-ufo-green/10 to-ufo-pink/10 flex items-center justify-center border border-border">
                   <div className="grid grid-cols-2 gap-4 p-8">
-                    <div className="w-24 h-24 rounded-2xl bg-ufo-blue/30 flex items-center justify-center"><Beaker className="h-10 w-10 text-primary" /></div>
-                    <div className="w-24 h-24 rounded-2xl bg-ufo-green/30 flex items-center justify-center"><Bot className="h-10 w-10 text-ufo-green" /></div>
-                    <div className="w-24 h-24 rounded-2xl bg-ufo-pink/30 flex items-center justify-center"><Film className="h-10 w-10 text-ufo-pink" /></div>
-                    <div className="w-24 h-24 rounded-2xl bg-ufo-yellow/30 flex items-center justify-center"><Calculator className="h-10 w-10 text-ufo-yellow" /></div>
+                    <div className="w-24 h-24 rounded-2xl bg-ufo-blue/20 flex items-center justify-center"><Beaker className="h-10 w-10 text-primary" /></div>
+                    <div className="w-24 h-24 rounded-2xl bg-ufo-green/20 flex items-center justify-center"><Bot className="h-10 w-10 text-ufo-green" /></div>
+                    <div className="w-24 h-24 rounded-2xl bg-ufo-pink/20 flex items-center justify-center"><Film className="h-10 w-10 text-ufo-pink" /></div>
+                    <div className="w-24 h-24 rounded-2xl bg-ufo-yellow/20 flex items-center justify-center"><Calculator className="h-10 w-10 text-ufo-yellow" /></div>
                   </div>
                 </div>
-                <div className="absolute -top-4 -right-4 w-12 h-12 rounded-full bg-ufo-yellow" />
+                <div className="absolute -top-4 -right-4 w-12 h-12 rounded-full bg-ufo-yellow shadow-lg" />
                 <div className="absolute -bottom-4 -left-4 w-8 h-8 rounded-full bg-ufo-pink" />
               </div>
             </AnimatedSection>
@@ -175,7 +175,7 @@ function HomePage() {
       </section>
 
       {/* Contact Form */}
-      <section className="py-20 bg-ufo-yellow/30">
+      <section className="py-20 bg-ufo-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <AnimatedSection>
@@ -202,7 +202,7 @@ function HomePage() {
                   <label className="text-sm font-medium text-foreground">Повідомлення</label>
                   <Textarea placeholder="Ваше повідомлення" className="mt-1 rounded-xl" rows={4} />
                 </div>
-                <Button className="rounded-full bg-ufo-pink hover:bg-ufo-pink/90 text-primary-foreground px-8 py-3 font-semibold">
+                <Button className="rounded-full bg-ufo-yellow hover:bg-ufo-yellow/90 text-primary px-8 py-3 font-bold shadow-md">
                   Відправити
                 </Button>
               </form>
