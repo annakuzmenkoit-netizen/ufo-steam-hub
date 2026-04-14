@@ -180,16 +180,10 @@ function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <AnimatedSection>
               <div className="rounded-2xl bg-muted/50 border border-border h-80 lg:h-full flex items-center justify-center text-muted-foreground">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1026.510623874494!2d33.41272308980725!3d49.06934719926235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d7531fc0f95fd9%3A0xdf92253cf19ea4ec!2sUFO%20STEAM%20HUB!5e1!3m2!1suk!2sua!4v1776195455228!5m2!1suk!2sua"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0, minHeight: "100%" }}
-                  allowFullScreen={true}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Карта проїзду до UFO STEAM HUB"
-                ></iframe>
+                <div className="text-center">
+                  <MapPinPlaceholder />
+                  <p className="mt-2 text-sm">Карта буде тут</p>
+                </div>
               </div>
             </AnimatedSection>
             <AnimatedSection delay={0.1}>
@@ -220,5 +214,11 @@ function HomePage() {
   );
 }
 
-
+function MapPinPlaceholder() {
+  return (
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
 }
