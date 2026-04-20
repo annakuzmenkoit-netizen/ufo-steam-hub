@@ -76,14 +76,14 @@ function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {team.map((t, i) => (
               <AnimatedSection key={t.name} delay={i * 0.1}>
-                <div className="rounded-2xl bg-card border border-border p-6 text-center shadow-sm hover:shadow-lg transition-shadow h-full flex flex-col items-center">
+                <div className="rounded-3xl bg-card border-2 border-border p-6 text-center shadow-md hover:shadow-xl hover:-translate-y-1 transition-all h-full flex flex-col items-center">
                   {/* Circular photo placeholder */}
-                  <div className={`w-24 h-24 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center mb-4 border-4 border-ufo-yellow/30 shadow-md`}>
-                    <span className="text-3xl font-bold text-primary">{t.name[0]}</span>
+                  <div className={`w-28 h-28 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center mb-4 ring-4 ring-ufo-yellow shadow-lg`}>
+                    <span className="text-4xl font-black text-primary">{t.name[0]}</span>
                   </div>
-                  <h3 className="font-bold text-foreground">{t.name}</h3>
-                  <p className="mt-1 text-xs font-semibold text-primary">{t.role}</p>
-                  <p className="mt-3 text-xs text-muted-foreground leading-relaxed">{t.bio}</p>
+                  <h3 className="font-bold text-foreground text-lg">{t.name}</h3>
+                  <p className="mt-1 text-xs font-bold text-ufo-pink uppercase tracking-wide">{t.role}</p>
+                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{t.bio}</p>
                 </div>
               </AnimatedSection>
             ))}
