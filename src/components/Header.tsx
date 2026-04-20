@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import ufoLogo from "@/assets/ufo-logo.png";
 
 const navLinks = [
   { to: "/" as const, label: "Головна" },
@@ -18,20 +17,21 @@ export function Header() {
 
   return (
     <>
-      {/* Decorative yellow stripe */}
       <div className="h-1 bg-ufo-yellow w-full" />
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-[72px] items-center justify-between">
-            {/* Logo area — clean rounded container */}
-            <Link to="/" className="shrink-0 group">
-              <div className="bg-white rounded-2xl p-2 shadow-md ring-2 ring-ufo-yellow/40 group-hover:ring-ufo-yellow group-hover:shadow-lg transition-all">
-                <img
-                  src={ufoLogo}
-                  alt="UFO STEAM HUB"
-                  className="h-[48px] w-auto object-contain"
-                />
-              </div>
+            {/* Text logo */}
+            <Link to="/" className="shrink-0 group flex items-center gap-1">
+              <span className="text-2xl md:text-3xl font-black tracking-tight text-primary leading-none">
+                UFO
+              </span>
+              <span className="text-2xl md:text-3xl font-black tracking-tight text-foreground leading-none">
+                STEAM
+              </span>
+              <span className="text-2xl md:text-3xl font-black tracking-tight text-ufo-pink leading-none">
+                HUB
+              </span>
             </Link>
 
             <nav className="hidden md:flex items-center gap-6">

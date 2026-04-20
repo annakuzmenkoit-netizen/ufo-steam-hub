@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { CalendarDays, Star, ImageIcon, Snowflake, Leaf, Sun, Flower2, Camera } from "lucide-react";
+import { CalendarDays, Star, Snowflake, Leaf, Sun, Flower2 } from "lucide-react";
 
 export const Route = createFileRoute("/camps")({
   head: () => ({
@@ -112,23 +112,30 @@ function CampsPage() {
           </AnimatedSection>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {seasons.map((s, i) => (
-              <AnimatedSection key={s.name} delay={i * 0.1}>
-                <div className={`${s.bg} ${s.text} rounded-3xl p-7 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all h-full flex flex-col`}>
-                  <div className="flex items-center gap-4">
-                    <div className={`${s.accent} rounded-2xl w-14 h-14 flex items-center justify-center shrink-0`}>
-                      <s.icon className="h-7 w-7" />
+            {seasons.map((s, i) => {
+              const seasonPhotos: Record<string, string> = {
+                "Зимовий": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=700&q=80",
+                "Осінній": "https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?auto=format&fit=crop&w=700&q=80",
+                "Літній":  "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=700&q=80",
+                "Весняний":"https://images.unsplash.com/photo-1490718720478-364a07a997cd?auto=format&fit=crop&w=700&q=80",
+              };
+              return (
+                <AnimatedSection key={s.name} delay={i * 0.1}>
+                  <div className={`${s.bg} ${s.text} rounded-3xl p-7 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all h-full flex flex-col`}>
+                    <div className="flex items-center gap-4">
+                      <div className={`${s.accent} rounded-2xl w-14 h-14 flex items-center justify-center shrink-0`}>
+                        <s.icon className="h-7 w-7" />
+                      </div>
+                      <h3 className="text-2xl font-black">{s.name}</h3>
                     </div>
-                    <h3 className="text-2xl font-black">{s.name}</h3>
+                    <p className="mt-4 text-base leading-relaxed opacity-95">{s.desc}</p>
+                    <div className="mt-5 rounded-2xl overflow-hidden aspect-[16/9]">
+                      <img src={seasonPhotos[s.name]} alt={`${s.name} табір`} className="w-full h-full object-cover" />
+                    </div>
                   </div>
-                  <p className="mt-4 text-base leading-relaxed opacity-95">{s.desc}</p>
-                  {/* Photo placeholder */}
-                  <div className={`mt-5 ${s.accent} rounded-2xl aspect-[16/9] flex items-center justify-center`}>
-                    <Camera className="h-10 w-10 opacity-70" />
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
+                </AnimatedSection>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -141,10 +148,19 @@ function CampsPage() {
             <p className="mt-4 text-muted-foreground">Моменти з наших таборів</p>
           </AnimatedSection>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+            {[
+              "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=500&q=80",
+              "https://images.unsplash.com/photo-1564429097439-e4ffafb0c40b?auto=format&fit=crop&w=500&q=80",
+              "https://images.unsplash.com/photo-1588075592446-265fd1e6e76f?auto=format&fit=crop&w=500&q=80",
+              "https://images.unsplash.com/photo-1567168544813-cc03465b4fa8?auto=format&fit=crop&w=500&q=80",
+              "https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=500&q=80",
+              "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=500&q=80",
+              "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=500&q=80",
+              "https://images.unsplash.com/photo-1596495577886-d920f1fb7238?auto=format&fit=crop&w=500&q=80",
+            ].map((src, n) => (
               <AnimatedSection key={n} delay={n * 0.05}>
-                <div className="aspect-square rounded-2xl bg-muted/50 border-2 border-border hover:border-ufo-yellow flex items-center justify-center transition-colors">
-                  <ImageIcon className="h-8 w-8 text-muted-foreground/40" />
+                <div className="aspect-square rounded-2xl overflow-hidden border-2 border-border hover:border-ufo-yellow transition-colors">
+                  <img src={src} alt={`Галерея ${n + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform" />
                 </div>
               </AnimatedSection>
             ))}
