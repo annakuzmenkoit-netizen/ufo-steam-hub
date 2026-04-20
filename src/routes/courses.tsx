@@ -144,9 +144,14 @@ function CoursesPage() {
                             <h3 className="font-bold text-foreground">Фотогалерея</h3>
                           </div>
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                            {[1, 2, 3, 4].map((n) => (
-                              <div key={n} className="aspect-video rounded-xl bg-muted/50 border border-border flex items-center justify-center text-xs text-muted-foreground">
-                                Фото {n}
+                            {[
+                              "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=400&q=80",
+                              "https://images.unsplash.com/photo-1567168544813-cc03465b4fa8?auto=format&fit=crop&w=400&q=80",
+                              "https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=400&q=80",
+                              "https://images.unsplash.com/photo-1596495577886-d920f1fb7238?auto=format&fit=crop&w=400&q=80",
+                            ].map((src, n) => (
+                              <div key={n} className="aspect-video rounded-xl overflow-hidden border border-border">
+                                <img src={src} alt={`${course.title} фото ${n + 1}`} className="w-full h-full object-cover" />
                               </div>
                             ))}
                           </div>
