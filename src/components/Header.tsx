@@ -23,13 +23,15 @@ export function Header() {
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-[72px] items-center justify-between">
-            {/* Logo area */}
-            <Link to="/" className="shrink-0">
-              <img
-                src={ufoLogo}
-                alt="UFO STEAM HUB"
-                className="h-[56px] w-auto object-contain"
-              />
+            {/* Logo area — clean rounded container */}
+            <Link to="/" className="shrink-0 group">
+              <div className="bg-white rounded-2xl p-2 shadow-md ring-2 ring-ufo-yellow/40 group-hover:ring-ufo-yellow group-hover:shadow-lg transition-all">
+                <img
+                  src={ufoLogo}
+                  alt="UFO STEAM HUB"
+                  className="h-[48px] w-auto object-contain"
+                />
+              </div>
             </Link>
 
             <nav className="hidden md:flex items-center gap-6">

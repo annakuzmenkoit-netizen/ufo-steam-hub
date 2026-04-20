@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { CalendarDays, Star, ImageIcon } from "lucide-react";
+import { CalendarDays, Star, ImageIcon, Snowflake, Leaf, Sun, Flower2, Camera } from "lucide-react";
 
 export const Route = createFileRoute("/camps")({
   head: () => ({
@@ -20,6 +20,41 @@ const upcomingCamps = [
   { title: "Анімаційний табір", date: "Серпень 2026", desc: "Від ідеї до готового мультфільму за один тиждень.", color: "border-l-ufo-pink" },
 ];
 
+const seasons = [
+  {
+    name: "Зимовий",
+    desc: "присвячуємо магії свят і пошуку світла в собі",
+    icon: Snowflake,
+    bg: "bg-ufo-blue",
+    text: "text-white",
+    accent: "bg-white/20",
+  },
+  {
+    name: "Осінній",
+    desc: "енергія міста, табір для підлітків щоб полюбити себе і знайти себе у цьому місті",
+    icon: Leaf,
+    bg: "bg-ufo-pink",
+    text: "text-white",
+    accent: "bg-white/20",
+  },
+  {
+    name: "Літній",
+    desc: "у ритмі з природою а також тематичні табори",
+    icon: Sun,
+    bg: "bg-ufo-yellow",
+    text: "text-primary",
+    accent: "bg-primary/15",
+  },
+  {
+    name: "Весняний",
+    desc: "детективні пригоди",
+    icon: Flower2,
+    bg: "bg-ufo-green",
+    text: "text-white",
+    accent: "bg-white/20",
+  },
+];
+
 const reviews = [
   { name: "Олена М.", text: "Дитина просто в захваті! Кожен день розповідала про нові відкриття. Дякуємо команді за турботу та креативність!" },
   { name: "Ігор К.", text: "Чудова організація, безпечна атмосфера. Син хоче повернутися знову!" },
@@ -30,25 +65,31 @@ function CampsPage() {
   return (
     <>
       <section className="py-20 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
-        <div className="absolute bottom-10 right-20 w-24 h-24 rounded-full bg-ufo-yellow/20 blur-xl" />
+        <div className="absolute bottom-10 right-20 w-32 h-32 rounded-full bg-ufo-yellow/30 blur-2xl" />
+        <div className="absolute top-10 left-10 w-24 h-24 rounded-full bg-ufo-green/20 blur-xl" />
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground">Табори</h1>
+          <h1 className="text-4xl md:text-5xl font-black text-foreground">
+            Наші <span className="text-ufo-pink">табори</span>
+          </h1>
           <p className="mt-6 text-lg text-muted-foreground">
             Канікули з користю — STEAM-табори, де діти відкривають нове, знаходять друзів та отримують незабутні враження.
           </p>
         </AnimatedSection>
       </section>
 
+      {/* Upcoming */}
       <section className="py-20 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14">
-            <h2 className="text-3xl font-bold text-foreground">Майбутні табори</h2>
+            <h2 className="text-3xl md:text-4xl font-black text-foreground">
+              Майбутні <span className="text-primary">табори</span>
+            </h2>
           </AnimatedSection>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {upcomingCamps.map((camp, i) => (
               <AnimatedSection key={camp.title} delay={i * 0.1}>
-                <div className={`rounded-2xl bg-card border-l-4 ${camp.color} border border-border p-6 shadow-sm shadow-ufo-yellow/10 hover:shadow-lg transition-shadow h-full`}>
-                  <div className="flex items-center gap-2 text-sm font-semibold text-primary mb-3">
+                <div className={`rounded-3xl bg-card border-l-4 ${camp.color} border border-border p-6 shadow-md hover:shadow-xl transition-shadow h-full`}>
+                  <div className="flex items-center gap-2 text-sm font-bold text-primary mb-3">
                     <CalendarDays className="h-4 w-4" /> {camp.date}
                   </div>
                   <h3 className="text-lg font-bold text-foreground">{camp.title}</h3>
@@ -60,16 +101,49 @@ function CampsPage() {
         </div>
       </section>
 
+      {/* Past camps — seasonal */}
       <section className="py-20 bg-ufo-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className="text-center mb-14 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-black text-foreground">
+              Минулі <span className="text-ufo-green">табори за сезонами</span>
+            </h2>
+            <p className="mt-4 text-muted-foreground">Кожен сезон — нова тема, нові пригоди, нові відкриття.</p>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {seasons.map((s, i) => (
+              <AnimatedSection key={s.name} delay={i * 0.1}>
+                <div className={`${s.bg} ${s.text} rounded-3xl p-7 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all h-full flex flex-col`}>
+                  <div className="flex items-center gap-4">
+                    <div className={`${s.accent} rounded-2xl w-14 h-14 flex items-center justify-center shrink-0`}>
+                      <s.icon className="h-7 w-7" />
+                    </div>
+                    <h3 className="text-2xl font-black">{s.name}</h3>
+                  </div>
+                  <p className="mt-4 text-base leading-relaxed opacity-95">{s.desc}</p>
+                  {/* Photo placeholder */}
+                  <div className={`mt-5 ${s.accent} rounded-2xl aspect-[16/9] flex items-center justify-center`}>
+                    <Camera className="h-10 w-10 opacity-70" />
+                  </div>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Photo gallery */}
+      <section className="py-20 bg-background">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14">
-            <h2 className="text-3xl font-bold text-foreground">Фотогалерея</h2>
-            <p className="mt-4 text-muted-foreground">Моменти з наших минулих таборів</p>
+            <h2 className="text-3xl md:text-4xl font-black text-foreground">Фотогалерея</h2>
+            <p className="mt-4 text-muted-foreground">Моменти з наших таборів</p>
           </AnimatedSection>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
               <AnimatedSection key={n} delay={n * 0.05}>
-                <div className="aspect-square rounded-2xl bg-muted/50 border border-border flex items-center justify-center">
+                <div className="aspect-square rounded-2xl bg-muted/50 border-2 border-border hover:border-ufo-yellow flex items-center justify-center transition-colors">
                   <ImageIcon className="h-8 w-8 text-muted-foreground/40" />
                 </div>
               </AnimatedSection>
@@ -78,22 +152,25 @@ function CampsPage() {
         </div>
       </section>
 
-      <section className="py-20 bg-background">
+      {/* Reviews */}
+      <section className="py-20 bg-ufo-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14">
-            <h2 className="text-3xl font-bold text-foreground">Відгуки батьків</h2>
+            <h2 className="text-3xl md:text-4xl font-black text-foreground">
+              Відгуки <span className="text-ufo-pink">батьків</span>
+            </h2>
           </AnimatedSection>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {reviews.map((r, i) => (
               <AnimatedSection key={r.name} delay={i * 0.1}>
-                <div className="rounded-2xl bg-card border border-border p-6 shadow-sm h-full">
+                <div className="rounded-3xl bg-card border-2 border-border p-6 shadow-md hover:shadow-lg transition-shadow h-full">
                   <div className="flex gap-1 mb-3">
                     {[1, 2, 3, 4, 5].map((s) => (
                       <Star key={s} className="h-4 w-4 fill-ufo-yellow text-ufo-yellow" />
                     ))}
                   </div>
                   <p className="text-sm text-muted-foreground italic">"{r.text}"</p>
-                  <p className="mt-4 text-sm font-semibold text-foreground">— {r.name}</p>
+                  <p className="mt-4 text-sm font-bold text-foreground">— {r.name}</p>
                 </div>
               </AnimatedSection>
             ))}
