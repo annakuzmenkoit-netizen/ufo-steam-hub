@@ -56,11 +56,17 @@ function ContactsPage() {
                 ))}
               </div>
 
-              <div className="mt-10 rounded-2xl bg-muted/50 border border-border h-64 flex items-center justify-center text-muted-foreground">
-                <div className="text-center">
-                  <MapPin className="h-8 w-8 mx-auto text-muted-foreground/40" />
-                  <p className="mt-2 text-sm">Карта буде тут</p>
-                </div>
+              <div className="mt-10 rounded-3xl overflow-hidden border-4 border-ufo-yellow shadow-xl">
+                <iframe
+                  title="UFO STEAM HUB на карті"
+                  src="https://www.google.com/maps?q=%D0%A2%D0%A6+%D0%9B%D1%96%D0%B4%D0%B5%D1%80+%D0%9A%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D1%87%D1%83%D0%BA&output=embed"
+                  width="100%"
+                  height="400"
+                  style={{ border: 0, borderRadius: "24px" }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
             </AnimatedSection>
 
