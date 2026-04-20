@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { CalendarDays, Star, ImageIcon, Snowflake, Leaf, Sun, Flower2, Camera } from "lucide-react";
+import { CalendarDays, Star, Snowflake, Leaf, Sun, Flower2 } from "lucide-react";
 
 export const Route = createFileRoute("/camps")({
   head: () => ({
