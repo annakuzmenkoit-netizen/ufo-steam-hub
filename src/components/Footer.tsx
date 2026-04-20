@@ -8,8 +8,13 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div>
-            <div className="mb-4">
-              <img src={ufoLogo} alt="UFO STEAM HUB" className="h-12 w-auto object-contain brightness-0 invert" />
+            {/* Logo placeholder — replace src/assets/ufo-logo.png with your actual logo */}
+            <div className="mb-4 inline-block bg-white rounded-2xl p-3 shadow-md">
+              <img
+                src={ufoLogo}
+                alt="UFO STEAM HUB Logo"
+                className="h-14 w-auto object-contain"
+              />
             </div>
             <p className="text-primary-foreground/80 text-sm leading-relaxed">
               Місце, де діти відкривають науку, технології та мистецтво через гру, дослід та творчість
