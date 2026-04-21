@@ -288,7 +288,7 @@ function HomePage() {
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14">
-            <h2 className="text-3xl md:text-5xl font-black text-foreground">
+            <h2 className="text-3xl md:text-5xl font-semibold text-foreground">
               Що робить нас <span className="text-ufo-pink">особливими</span>
             </h2>
             <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">
@@ -309,7 +309,7 @@ function HomePage() {
                       style={{ clipPath: blobA }}
                     />
                   </div>
-                  <h3 className="font-bold text-lg text-foreground">{f.title}</h3>
+                  <h3 className="font-semibold text-lg text-foreground">{f.title}</h3>
                   <p className="mt-2 text-sm text-muted-foreground">{f.desc}</p>
                 </div>
               </AnimatedSection>
@@ -325,7 +325,7 @@ function HomePage() {
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14 max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-5xl font-black text-foreground">
+            <h2 className="text-3xl md:text-5xl font-semibold text-foreground">
               Що таке <span className="text-primary">STEAM</span>?
             </h2>
             <p className="mt-6 text-muted-foreground leading-relaxed">
@@ -340,11 +340,11 @@ function HomePage() {
                   whileHover={{ y: -8, rotate: -1 }}
                   className={`${block.bg} ${block.text} rounded-3xl p-6 h-full shadow-lg hover:shadow-2xl transition-shadow flex flex-col items-center text-center`}
                 >
-                  <div className="text-6xl font-black opacity-90 leading-none">{block.letter}</div>
+                  <div className="text-6xl font-semibold opacity-90 leading-none">{block.letter}</div>
                   <div className="mt-3 inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-white/20">
                     <block.icon className="h-6 w-6" />
                   </div>
-                  <p className="mt-4 font-bold text-lg">{block.word}</p>
+                  <p className="mt-4 font-semibold text-lg">{block.word}</p>
                   <p className="mt-2 text-sm opacity-90">{block.desc}</p>
                 </motion.div>
               </AnimatedSection>
@@ -357,7 +357,7 @@ function HomePage() {
       <section className="py-20 bg-ufo-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-black text-foreground">
+            <h2 className="text-3xl md:text-5xl font-semibold text-foreground">
               Де нас <span className="text-ufo-green">знайти</span>
             </h2>
             <p className="mt-4 text-muted-foreground">м. Кременчук, ТЦ "Лідер", каб. 208</p>
@@ -379,22 +379,22 @@ function HomePage() {
             </AnimatedSection>
             <AnimatedSection delay={0.1}>
               <div className="rounded-3xl bg-card border-2 border-border p-7 shadow-md">
-                <h3 className="text-2xl font-bold text-foreground">Залишились питання?</h3>
+                <h3 className="text-2xl font-semibold text-foreground">Залишились питання?</h3>
                 <p className="mt-2 text-muted-foreground">Напишіть нам — ми з радістю відповімо!</p>
-                <form className="mt-6 space-y-4" onSubmit={(e) => e.preventDefault()}>
+                <form className="mt-6 space-y-4" onSubmit={(e) => { e.preventDefault(); openRegistration(); }}>
                   <div>
-                    <label className="text-sm font-semibold text-foreground">Ім'я</label>
+                    <label className="text-sm font-medium text-foreground">Ім'я</label>
                     <Input placeholder="Ваше ім'я" className="mt-1 rounded-xl" />
                   </div>
                   <div>
-                    <label className="text-sm font-semibold text-foreground">Телефон</label>
+                    <label className="text-sm font-medium text-foreground">Телефон</label>
                     <Input placeholder="+380..." className="mt-1 rounded-xl" />
                   </div>
                   <div>
-                    <label className="text-sm font-semibold text-foreground">Повідомлення</label>
+                    <label className="text-sm font-medium text-foreground">Повідомлення</label>
                     <Textarea placeholder="Ваше повідомлення" className="mt-1 rounded-xl" rows={4} />
                   </div>
-                  <Button className="rounded-full bg-ufo-yellow hover:bg-ufo-yellow/90 text-primary px-8 py-6 font-bold shadow-md hover:shadow-lg w-full sm:w-auto">
+                  <Button className="rounded-full bg-ufo-yellow hover:bg-ufo-yellow/90 text-primary px-8 py-6 font-semibold shadow-md hover:shadow-lg w-full sm:w-auto">
                     Відправити
                   </Button>
                 </form>
