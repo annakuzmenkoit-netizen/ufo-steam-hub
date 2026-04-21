@@ -46,7 +46,7 @@ function AboutPage() {
           <div className="inline-block bg-white rounded-3xl p-5 shadow-lg ring-4 ring-ufo-yellow/40 mb-8">
             <img src={ufoLogo} alt="UFO STEAM HUB Logo" className="h-20 md:h-24 w-auto object-contain" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-black text-foreground">
+          <h1 className="text-4xl md:text-5xl font-semibold text-foreground">
             Про <span className="text-primary">нас</span>
           </h1>
           <p className="mt-6 text-lg text-muted-foreground leading-relaxed">

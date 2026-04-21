@@ -1,7 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Clock, Users, ArrowRight, CalendarDays } from "lucide-react";
+import { openRegistration } from "@/components/RegistrationModal";
 
 export const Route = createFileRoute("/schedule")({
   head: () => ({
@@ -51,7 +52,7 @@ function SchedulePage() {
       <section className="py-20 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
         <div className="absolute top-10 right-10 w-32 h-32 rounded-full bg-ufo-yellow/30 blur-2xl" />
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
-          <h1 className="text-4xl md:text-5xl font-black text-foreground">
+          <h1 className="text-4xl md:text-5xl font-semibold text-foreground">
             Наш <span className="text-primary">розклад</span>
           </h1>
           <p className="mt-6 text-lg text-muted-foreground">
@@ -71,7 +72,7 @@ function SchedulePage() {
                   <div className="w-10 h-10 rounded-2xl bg-ufo-yellow flex items-center justify-center shadow-md">
                     <CalendarDays className="h-5 w-5 text-primary" />
                   </div>
-                  <h2 className="text-2xl font-black text-foreground">{day}</h2>
+                  <h2 className="text-2xl font-semibold text-foreground">{day}</h2>
                 </div>
                 <Accordion type="single" collapsible className="space-y-3">
                   {daySlots.map((slot) => (
@@ -98,12 +99,13 @@ function SchedulePage() {
                                 <Users className="h-4 w-4 text-primary" /> Викладач: <span className="font-semibold text-foreground">{slot.teacher}</span>
                               </span>
                             </div>
-                            <Link
-                              to="/contacts"
-                              className="inline-flex items-center gap-2 rounded-full bg-ufo-yellow px-6 py-3 text-sm font-bold text-primary shadow-md hover:shadow-lg hover:scale-105 transition-all"
+                            <button
+                              type="button"
+                              onClick={() => openRegistration(slot.course)}
+                              className="inline-flex items-center gap-2 rounded-full bg-ufo-yellow px-6 py-3 text-sm font-semibold text-primary shadow-md hover:shadow-lg hover:scale-105 transition-all"
                             >
                               Записатись <ArrowRight className="h-4 w-4" />
-                            </Link>
+                            </button>
                           </div>
                         </AccordionContent>
                       </div>

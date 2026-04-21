@@ -68,7 +68,7 @@ function CampsPage() {
         <div className="absolute bottom-10 right-20 w-32 h-32 rounded-full bg-ufo-yellow/30 blur-2xl" />
         <div className="absolute top-10 left-10 w-24 h-24 rounded-full bg-ufo-green/20 blur-xl" />
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
-          <h1 className="text-4xl md:text-5xl font-black text-foreground">
+          <h1 className="text-4xl md:text-5xl font-semibold text-foreground">
             Наші <span className="text-ufo-pink">табори</span>
           </h1>
           <p className="mt-6 text-lg text-muted-foreground">
@@ -81,7 +81,7 @@ function CampsPage() {
       <section className="py-20 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-black text-foreground">
+            <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
               Майбутні <span className="text-primary">табори</span>
             </h2>
           </AnimatedSection>
@@ -105,7 +105,7 @@ function CampsPage() {
       <section className="py-20 bg-ufo-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14 max-w-2xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-black text-foreground">
+            <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
               Минулі <span className="text-ufo-green">табори за сезонами</span>
             </h2>
             <p className="mt-4 text-muted-foreground">Кожен сезон — нова тема, нові пригоди, нові відкриття.</p>
@@ -126,7 +126,7 @@ function CampsPage() {
                       <div className={`${s.accent} rounded-2xl w-14 h-14 flex items-center justify-center shrink-0`}>
                         <s.icon className="h-7 w-7" />
                       </div>
-                      <h3 className="text-2xl font-black">{s.name}</h3>
+                      <h3 className="text-2xl font-semibold">{s.name}</h3>
                     </div>
                     <p className="mt-4 text-base leading-relaxed opacity-95">{s.desc}</p>
                     <div className="mt-5 rounded-2xl overflow-hidden aspect-[16/9]">
@@ -144,7 +144,7 @@ function CampsPage() {
       <section className="py-20 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-black text-foreground">Фотогалерея</h2>
+            <h2 className="text-3xl md:text-4xl font-semibold text-foreground">Фотогалерея</h2>
             <p className="mt-4 text-muted-foreground">Моменти з наших таборів</p>
           </AnimatedSection>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -172,7 +172,7 @@ function CampsPage() {
       <section className="py-20 bg-ufo-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-black text-foreground">
+            <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
               Відгуки <span className="text-ufo-pink">батьків</span>
             </h2>
           </AnimatedSection>
