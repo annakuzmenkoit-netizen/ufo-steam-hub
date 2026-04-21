@@ -99,11 +99,12 @@ const steamBlocks = [
 const blobA = "polygon(35% 5%, 65% 8%, 90% 25%, 95% 55%, 80% 85%, 50% 95%, 20% 88%, 5% 60%, 8% 30%)";
 
 function HomePage() {
+  const [activeCourse, setActiveCourse] = useState<typeof courses[number] | null>(null);
+
   return (
     <>
       {/* Hero */}
       <section className="relative overflow-hidden bg-ufo-cream py-16 md:py-24">
-        {/* Flat SVG decorations — no blur */}
         <Star4 className="absolute top-10 left-6 opacity-90" color="#f7df5d" size={56} />
         <Dot className="absolute top-32 left-1/3 opacity-80" color="#f04770" size={18} />
         <BlobShape className="absolute -bottom-10 -left-12 opacity-30" color="#17c590" size={220} />
@@ -113,10 +114,10 @@ function HomePage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-              <div className="inline-flex items-center gap-2 rounded-full bg-ufo-yellow px-4 py-1.5 text-sm font-bold text-primary mb-6 shadow-md">
+              <div className="inline-flex items-center gap-2 rounded-full bg-ufo-yellow px-4 py-1.5 text-sm font-semibold text-primary mb-6 shadow-md">
                 <Sparkles className="h-4 w-4 text-ufo-pink" /> Освітній центр у Кременчуці
               </div>
-              <h1 className="text-4xl md:text-6xl font-black text-foreground tracking-tight leading-[1.05]">
+              <h1 className="text-4xl md:text-6xl font-semibold text-foreground tracking-tight leading-[1.05]">
                 Освіта на <span className="text-primary">дотик</span>,<br />
                 де <span className="text-ufo-pink">наука</span> стає<br />
                 <span className="text-ufo-green">пригодою</span>
@@ -125,22 +126,22 @@ function HomePage() {
                 Місце, де діти 6–14 років відкривають науку, технології та мистецтво через гру, дослід та творчість.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                <Link
-                  to="/contacts"
-                  className="rounded-full bg-ufo-yellow px-8 py-3.5 text-base font-bold text-primary shadow-lg hover:shadow-xl hover:scale-105 transition-all inline-flex items-center justify-center gap-2"
+                <button
+                  type="button"
+                  onClick={() => openRegistration()}
+                  className="rounded-full bg-ufo-yellow px-8 py-3.5 text-base font-semibold text-primary shadow-lg hover:shadow-xl hover:scale-105 transition-all inline-flex items-center justify-center gap-2"
                 >
                   Записатись на пробний урок <ArrowRight className="h-4 w-4" />
-                </Link>
+                </button>
                 <Link
                   to="/courses"
-                  className="rounded-full border-2 border-primary px-8 py-3.5 text-base font-bold text-primary hover:bg-primary hover:text-primary-foreground transition-all text-center"
+                  className="rounded-full border-2 border-primary px-8 py-3.5 text-base font-semibold text-primary hover:bg-primary hover:text-primary-foreground transition-all text-center"
                 >
                   Наші курси
                 </Link>
               </div>
             </motion.div>
 
-            {/* Hero blob with real photo */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -154,7 +155,6 @@ function HomePage() {
                 className="absolute inset-3 w-[calc(100%-1.5rem)] h-[calc(100%-1.5rem)] object-cover"
                 style={{ clipPath: blobA }}
               />
-              {/* Floating flat accents */}
               <Star4 className="absolute -top-4 -right-4" color="#f7df5d" size={64} />
               <Dot className="absolute -bottom-2 -left-2" color="#17c590" size={48} />
             </motion.div>
@@ -162,14 +162,14 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Courses */}
+      {/* Courses — cards open Dialog */}
       <section className="relative py-20 bg-background overflow-hidden">
         <Squiggle className="absolute top-10 left-8 opacity-60" color="#17c590" size={120} />
         <Star4 className="absolute top-20 right-10 opacity-80" color="#f7df5d" size={48} />
 
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-black text-foreground">
+            <h2 className="text-3xl md:text-5xl font-semibold text-foreground">
               Наші <span className="text-primary">програми</span>
             </h2>
             <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">
@@ -177,72 +177,107 @@ function HomePage() {
             </p>
           </AnimatedSection>
 
-          <Accordion type="single" collapsible className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {courses.map((course, i) => (
               <AnimatedSection key={course.title} delay={i * 0.05}>
-                <AccordionItem value={course.title} className="border-none">
-                  <div className={`rounded-3xl bg-card border-2 ${course.accent} shadow-md hover:shadow-xl transition-all overflow-hidden`}>
-                    <AccordionTrigger className="px-5 py-5 hover:no-underline group">
-                      <div className="flex items-center gap-4 w-full text-left pr-2">
-                        <img
-                          src={course.photo}
-                          alt={course.title}
-                          className="w-16 h-16 rounded-2xl object-cover shrink-0 shadow-sm"
-                        />
-                        <div className="flex-1 min-w-0">
-                          <h3 className="text-base md:text-lg font-bold text-foreground leading-tight">{course.title}</h3>
-                          <span className="inline-block mt-1 text-[11px] font-bold text-primary bg-ufo-yellow/40 rounded-full px-2.5 py-0.5">
-                            {course.age}
-                          </span>
-                          <p className="mt-2 text-xs md:text-sm text-muted-foreground line-clamp-2">{course.desc}</p>
-                        </div>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-5 pb-5">
-                      <div className="border-t border-border pt-4 space-y-4">
-                        <p className="text-sm text-muted-foreground">{course.details}</p>
-                        <div className="rounded-2xl bg-ufo-yellow/15 p-4">
-                          <div className="flex items-center gap-2 mb-2">
-                            <BookOpen className="h-4 w-4 text-primary" />
-                            <h4 className="font-bold text-sm text-foreground">План навчання</h4>
-                          </div>
-                          <ol className="space-y-1.5">
-                            {course.plan.map((step, idx) => (
-                              <li key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
-                                <span className="shrink-0 w-4 h-4 rounded-full bg-ufo-yellow text-primary text-[10px] flex items-center justify-center font-bold mt-0.5">{idx + 1}</span>
-                                {step}
-                              </li>
-                            ))}
-                          </ol>
-                        </div>
-                        <div className="rounded-2xl bg-ufo-green/10 p-4">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Star className="h-4 w-4 text-ufo-green" />
-                            <h4 className="font-bold text-sm text-foreground">Особливості</h4>
-                          </div>
-                          <ul className="space-y-1.5">
-                            {course.features.map((feat, idx) => (
-                              <li key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
-                                <span className="shrink-0 text-ufo-green mt-0.5">✓</span>
-                                {feat}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <Link
-                          to="/contacts"
-                          className="inline-flex items-center gap-2 rounded-full bg-ufo-yellow px-5 py-2.5 text-sm font-bold text-primary shadow-md hover:shadow-lg hover:scale-105 transition-all"
-                        >
-                          Записатись <ArrowRight className="h-3.5 w-3.5" />
-                        </Link>
-                      </div>
-                    </AccordionContent>
+                <button
+                  type="button"
+                  onClick={() => setActiveCourse(course)}
+                  className={`group w-full text-left rounded-3xl bg-card border-2 ${course.accent} shadow-md hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden flex flex-col h-full`}
+                >
+                  <div className="aspect-[16/10] overflow-hidden">
+                    <img
+                      src={course.photo}
+                      alt={course.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                    />
                   </div>
-                </AccordionItem>
+                  <div className="p-5 flex flex-col flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className={`${course.iconBg} rounded-xl p-2`}>
+                        <course.icon className={`h-5 w-5 ${course.iconColor}`} />
+                      </div>
+                      <span className="text-[11px] font-semibold text-primary bg-ufo-yellow/40 rounded-full px-2.5 py-0.5">
+                        {course.age}
+                      </span>
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground leading-tight">{course.title}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground line-clamp-2 flex-1">{course.desc}</p>
+                    <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                      Детальніше <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </div>
+                </button>
               </AnimatedSection>
             ))}
-          </Accordion>
+          </div>
         </div>
+
+        <Dialog open={!!activeCourse} onOpenChange={(o) => !o && setActiveCourse(null)}>
+          <DialogContent className="rounded-3xl sm:max-w-2xl max-h-[90vh] overflow-y-auto">
+            {activeCourse && (
+              <>
+                <DialogHeader>
+                  <div className="rounded-2xl overflow-hidden aspect-[16/9] mb-4">
+                    <img src={activeCourse.photo} alt={activeCourse.title} className="w-full h-full object-cover" />
+                  </div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs font-semibold text-primary bg-ufo-yellow/40 rounded-full px-2.5 py-0.5">
+                      {activeCourse.age}
+                    </span>
+                  </div>
+                  <DialogTitle className="text-2xl font-semibold text-foreground">{activeCourse.title}</DialogTitle>
+                  <DialogDescription className="text-base text-muted-foreground">
+                    {activeCourse.details}
+                  </DialogDescription>
+                </DialogHeader>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+                  <div className="rounded-2xl bg-ufo-yellow/15 p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <BookOpen className="h-4 w-4 text-primary" />
+                      <h4 className="font-semibold text-sm text-foreground">План навчання</h4>
+                    </div>
+                    <ol className="space-y-1.5">
+                      {activeCourse.plan.map((step, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
+                          <span className="shrink-0 w-4 h-4 rounded-full bg-ufo-yellow text-primary text-[10px] flex items-center justify-center font-semibold mt-0.5">{idx + 1}</span>
+                          {step}
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                  <div className="rounded-2xl bg-ufo-green/10 p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Star className="h-4 w-4 text-ufo-green" />
+                      <h4 className="font-semibold text-sm text-foreground">Особливості</h4>
+                    </div>
+                    <ul className="space-y-1.5">
+                      {activeCourse.features.map((feat, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
+                          <span className="shrink-0 text-ufo-green mt-0.5">✓</span>
+                          {feat}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    const title = activeCourse.title;
+                    setActiveCourse(null);
+                    openRegistration(title);
+                  }}
+                  className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-ufo-yellow px-6 py-3 text-sm font-semibold text-primary shadow-md hover:shadow-lg hover:scale-[1.02] transition-all"
+                >
+                  Записатись на курс <ArrowRight className="h-4 w-4" />
+                </button>
+              </>
+            )}
+          </DialogContent>
+        </Dialog>
       </section>
 
       {/* Why Us — real photos in blob frames */}
