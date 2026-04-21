@@ -207,16 +207,16 @@ function HomePage() {
             {activeCourse && (
               <>
                 <DialogHeader>
-                  <div className="rounded-2xl overflow-hidden aspect-[16/9] mb-4">
-                    <img src={activeCourse.photo} alt={activeCourse.title} className="w-full h-full object-cover" />
+                  <div className={`mx-auto ${activeCourse.iconBg} rounded-2xl w-20 h-20 flex items-center justify-center mb-4`}>
+                    <activeCourse.icon className={`h-10 w-10 ${activeCourse.iconColor}`} strokeWidth={1.75} />
                   </div>
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex items-center justify-center gap-2 mb-1">
                     <span className="text-xs font-semibold text-primary bg-ufo-yellow/40 rounded-full px-2.5 py-0.5">
                       {activeCourse.age}
                     </span>
                   </div>
-                  <DialogTitle className="text-2xl font-semibold text-foreground">{activeCourse.title}</DialogTitle>
-                  <DialogDescription className="text-base text-muted-foreground">
+                  <DialogTitle className="text-2xl font-semibold text-foreground text-center">{activeCourse.title}</DialogTitle>
+                  <DialogDescription className="text-base text-muted-foreground text-center">
                     {activeCourse.details}
                   </DialogDescription>
                 </DialogHeader>
