@@ -177,36 +177,25 @@ function HomePage() {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Single horizontal row of compact cards (scrolls on small screens) */}
+          <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory lg:overflow-visible lg:grid lg:grid-cols-6 lg:gap-5">
             {courses.map((course, i) => (
-              <AnimatedSection key={course.title} delay={i * 0.05}>
+              <AnimatedSection key={course.title} delay={i * 0.05} className="snap-start shrink-0 w-[220px] lg:w-auto">
                 <button
                   type="button"
                   onClick={() => setActiveCourse(course)}
-                  className={`group w-full text-left rounded-3xl bg-card border-2 ${course.accent} shadow-md hover:shadow-xl hover:-translate-y-1 transition-all overflow-hidden flex flex-col h-full`}
+                  className={`group w-full h-full text-left rounded-3xl bg-card border-2 ${course.accent} shadow-md hover:shadow-xl hover:-translate-y-1 transition-all p-5 flex flex-col items-center text-center`}
                 >
-                  <div className="aspect-[16/10] overflow-hidden">
-                    <img
-                      src={course.photo}
-                      alt={course.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                    />
+                  <div className={`${course.iconBg} rounded-2xl w-16 h-16 flex items-center justify-center mb-4`}>
+                    <course.icon className={`h-8 w-8 ${course.iconColor}`} strokeWidth={1.75} />
                   </div>
-                  <div className="p-5 flex flex-col flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className={`${course.iconBg} rounded-xl p-2`}>
-                        <course.icon className={`h-5 w-5 ${course.iconColor}`} />
-                      </div>
-                      <span className="text-[11px] font-semibold text-primary bg-ufo-yellow/40 rounded-full px-2.5 py-0.5">
-                        {course.age}
-                      </span>
-                    </div>
-                    <h3 className="text-lg font-semibold text-foreground leading-tight">{course.title}</h3>
-                    <p className="mt-2 text-sm text-muted-foreground line-clamp-2 flex-1">{course.desc}</p>
-                    <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-                      Детальніше <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </span>
-                  </div>
+                  <span className="text-[11px] font-semibold text-primary bg-ufo-yellow/40 rounded-full px-2.5 py-0.5 mb-2">
+                    {course.age}
+                  </span>
+                  <h3 className="text-base font-semibold text-foreground leading-tight">{course.title}</h3>
+                  <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-primary">
+                    Детальніше <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                  </span>
                 </button>
               </AnimatedSection>
             ))}
