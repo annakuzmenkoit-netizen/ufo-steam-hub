@@ -1,8 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { Beaker, Bot, Film, Calculator, PenTool, Cuboid, ArrowRight, Camera, BookOpen, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { openRegistration } from "@/components/RegistrationModal";
 
 export const Route = createFileRoute("/courses")({
   head: () => ({
@@ -166,12 +167,13 @@ function CoursesPage() {
         </div>
 
         <AnimatedSection className="text-center mt-14">
-          <Link
-            to="/contacts"
-            className="inline-flex items-center gap-2 rounded-full bg-ufo-yellow px-8 py-3.5 font-bold text-primary shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+          <button
+            type="button"
+            onClick={() => openRegistration()}
+            className="inline-flex items-center gap-2 rounded-full bg-ufo-yellow px-8 py-3.5 font-semibold text-primary shadow-lg hover:shadow-xl hover:scale-105 transition-all"
           >
             Записатись на пробний урок <ArrowRight className="h-4 w-4" />
-          </Link>
+          </button>
         </AnimatedSection>
       </section>
     </>

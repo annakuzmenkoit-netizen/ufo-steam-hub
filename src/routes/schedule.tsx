@@ -1,7 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Clock, Users, ArrowRight, CalendarDays } from "lucide-react";
+import { openRegistration } from "@/components/RegistrationModal";
 
 export const Route = createFileRoute("/schedule")({
   head: () => ({
@@ -98,12 +99,13 @@ function SchedulePage() {
                                 <Users className="h-4 w-4 text-primary" /> Викладач: <span className="font-semibold text-foreground">{slot.teacher}</span>
                               </span>
                             </div>
-                            <Link
-                              to="/contacts"
-                              className="inline-flex items-center gap-2 rounded-full bg-ufo-yellow px-6 py-3 text-sm font-bold text-primary shadow-md hover:shadow-lg hover:scale-105 transition-all"
+                            <button
+                              type="button"
+                              onClick={() => openRegistration(slot.course)}
+                              className="inline-flex items-center gap-2 rounded-full bg-ufo-yellow px-6 py-3 text-sm font-semibold text-primary shadow-md hover:shadow-lg hover:scale-105 transition-all"
                             >
                               Записатись <ArrowRight className="h-4 w-4" />
-                            </Link>
+                            </button>
                           </div>
                         </AccordionContent>
                       </div>
