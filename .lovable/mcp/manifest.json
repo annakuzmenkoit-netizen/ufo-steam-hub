@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "sdk_version": "0.20.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "ufo-steam-hub-mcp",
+      "version": "0.1.0",
+      "title": "UFO STEAM HUB"
+    },
+    "tools": [
+      {
+        "name": "list_courses",
+        "title": "List courses",
+        "description": "List all courses offered at UFO STEAM HUB, including age range, monthly price, and description.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_camps",
+        "title": "List seasonal camps",
+        "description": "List UFO STEAM HUB seasonal camps (winter, spring, summer, autumn) with themes.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_contacts",
+        "title": "Get contact info",
+        "description": "Get contact information for UFO STEAM HUB: address, email, social, working hours.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "submit_registration",
+        "title": "Submit registration request",
+        "description": "Submit a registration/enrollment request for a UFO STEAM HUB course. The request is emailed to the hub team, which will contact the parent to confirm.",
+        "annotations": {
+          "readOnlyHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "parentName": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Parent's full name"
+            },
+            "phone": {
+              "type": "string",
+              "minLength": 3,
+              "description": "Parent's phone number (e.g. +380...)"
+            },
+            "childName": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Child's name"
+            },
+            "childAge": {
+              "type": "integer",
+              "minimum": 3,
+              "maximum": 18,
+              "description": "Child's age in years"
+            },
+            "course": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Course name — one of: STEAM-гурток, Робототехніка, Анімація і мультиплікація, Math&mind, Математика, 3D моделювання"
+            },
+            "note": {
+              "type": "string",
+              "description": "Optional additional note from the parent"
+            }
+          },
+          "required": [
+            "parentName",
+            "phone",
+            "childName",
+            "childAge",
+            "course"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
