@@ -74,7 +74,7 @@ function CoursesPage() {
       <section className="py-20 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
         <div className="absolute top-10 left-20 w-24 h-24 rounded-full bg-ufo-yellow/20 blur-xl" />
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground">Наші курси</h1>
+          <h1 className="text-4xl md:text-5xl font-semibold text-foreground">Наші <span className="text-primary">курси</span></h1>
           <p className="mt-6 text-lg text-muted-foreground">
             Ми створили програми, які розвивають дітей через дослідження, творчість і технології.
           </p>

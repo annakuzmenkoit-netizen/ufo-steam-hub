@@ -31,10 +31,10 @@ export function Header() {
                 className="h-10 w-10 md:h-11 md:w-11 object-contain rounded-xl"
               />
               <span
-                className="text-2xl md:text-3xl font-semibold tracking-tight leading-none"
+                className="text-xl md:text-2xl font-semibold tracking-tight leading-none whitespace-nowrap"
                 style={{ color: "#3056dd" }}
               >
-                UFO
+                UFO STEAM HUB
               </span>
             </Link>
 
