@@ -73,7 +73,10 @@ function CoursesPage() {
   return (
     <>
       <section className="py-20 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
-        <div className="absolute top-10 left-20 w-24 h-24 rounded-full bg-ufo-yellow/20 blur-xl" />
+        <Star4 className="absolute top-10 left-10" color="#f7df5d" size={50} />
+        <Dot className="absolute top-24 right-20" color="#f04770" size={20} />
+        <Squiggle className="absolute bottom-10 right-10 opacity-70" color="#17c590" size={130} />
+        <BlobShape className="absolute -bottom-12 -left-12 opacity-25" color="#3056dd" size={200} />
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
           <h1 className="text-4xl md:text-5xl font-semibold text-foreground">Наші <span className="text-primary">курси</span></h1>
           <p className="mt-6 text-lg text-muted-foreground">
