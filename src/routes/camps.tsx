@@ -22,14 +22,6 @@ export const Route = createFileRoute("/camps")({
   component: CampsPage,
 });
 
-const campRules = [
-  { title: "Повага", icon: Heart, bg: "bg-ufo-pink/10", color: "text-ufo-pink", accent: "border-ufo-pink" },
-  { title: "Самозарадність", icon: Sparkles, bg: "bg-ufo-blue/10", color: "text-primary", accent: "border-ufo-blue" },
-  { title: "Гуляємо щодня", icon: Trees, bg: "bg-ufo-green/10", color: "text-ufo-green", accent: "border-ufo-green" },
-  { title: "Без гаджетів", icon: Smartphone, bg: "bg-ufo-yellow/30", color: "text-primary", accent: "border-ufo-yellow" },
-  { title: "Бу-бу-бу", icon: Smile, bg: "bg-ufo-pink/10", color: "text-ufo-pink", accent: "border-ufo-pink" },
-];
-
 const upcomingCamps = [
   {
     emoji: "🎬",
@@ -39,7 +31,7 @@ const upcomingCamps = [
     color: "border-l-ufo-pink",
   },
   {
-    emoji: "🖨",
+    emoji: "🧩",
     date: "11–14 серпня",
     title: "Літня школа «3D-моделювання»",
     desc: "Знайомство зі світом 3D-друку та створення власних моделей.",
@@ -83,6 +75,15 @@ const seasons = [
       "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=700&q=80",
     ],
   },
+  
+const campRules = [
+  { title: "Повага", icon: Heart, bg: "bg-ufo-pink/10", color: "text-ufo-pink", accent: "border-ufo-pink" },
+  { title: "Самозарадність", icon: Sparkles, bg: "bg-ufo-blue/10", color: "text-primary", accent: "border-ufo-blue" },
+  { title: "Гуляємо щодня", icon: Trees, bg: "bg-ufo-green/10", color: "text-ufo-green", accent: "border-ufo-green" },
+  { title: "Без гаджетів", icon: Smartphone, bg: "bg-ufo-yellow/30", color: "text-primary", accent: "border-ufo-yellow" },
+  { title: "Бу-бу-бу", icon: Smile, bg: "bg-ufo-pink/10", color: "text-ufo-pink", accent: "border-ufo-pink" },
+];
+  
   {
     key: "autumn",
     name: "Осінній",
@@ -347,43 +348,6 @@ function CampsPage() {
               </AnimatedSection>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Підліткові табори */}
-      <section className="py-20 bg-background">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12 max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
-              Підліткові <span className="text-primary">табори</span>
-            </h2>
-            <p className="mt-4 text-muted-foreground">
-              Підліткові табори UFO STEAM HUB — це програми для старших дітей і підлітків, де більше самостійності, командної роботи, проєктного мислення, відповідальності та реальних викликів.
-            </p>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {teenCampFeatures.map((f, i) => (
-              <AnimatedSection key={f.title} delay={i * 0.05}>
-                <div className="rounded-3xl bg-card border-2 border-border p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all h-full">
-                  <div className={`${f.bg} rounded-2xl w-14 h-14 flex items-center justify-center mb-4`}>
-                    <f.icon className={`h-7 w-7 ${f.color}`} strokeWidth={1.75} />
-                  </div>
-                  <p className="text-base font-semibold text-foreground">{f.title}</p>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-
-          <AnimatedSection className="text-center mt-12">
-            <button
-              type="button"
-              onClick={() => openRegistration()}
-              className="inline-flex items-center gap-2 rounded-full bg-ufo-yellow px-8 py-3.5 text-base font-semibold text-primary shadow-lg hover:shadow-xl hover:scale-105 transition-all"
-            >
-              Записатись у табір <ArrowRight className="h-4 w-4" />
-            </button>
-          </AnimatedSection>
         </div>
       </section>
 
