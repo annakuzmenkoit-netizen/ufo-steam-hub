@@ -4,6 +4,7 @@ import { Beaker, Bot, Film, Calculator, PenTool, Cuboid, ArrowRight, Camera, Boo
 import { motion } from "framer-motion";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { openRegistration } from "@/components/RegistrationModal";
+import { Star4, Dot, Squiggle, BlobShape } from "@/components/Blobs";
 
 export const Route = createFileRoute("/courses")({
   head: () => ({
