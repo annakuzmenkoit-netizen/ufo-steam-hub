@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { openRegistration } from "@/components/RegistrationModal";
+import { Star4, Dot, Squiggle, BlobShape } from "@/components/Blobs";
 
 export const Route = createFileRoute("/camps")({
   head: () => ({
@@ -178,8 +179,10 @@ function CampsPage() {
     <>
       {/* Hero */}
       <section className="py-20 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
-        <div className="absolute bottom-10 right-20 w-32 h-32 rounded-full bg-ufo-yellow/30 blur-2xl" />
-        <div className="absolute top-10 left-10 w-24 h-24 rounded-full bg-ufo-green/20 blur-xl" />
+        <Star4 className="absolute top-10 left-10" color="#f7df5d" size={50} />
+        <Dot className="absolute top-20 right-20" color="#f04770" size={20} />
+        <Squiggle className="absolute bottom-10 right-10 opacity-70" color="#17c590" size={130} />
+        <BlobShape className="absolute -bottom-12 -left-12 opacity-25" color="#3056dd" size={200} />
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
           <h1 className="text-4xl md:text-5xl font-semibold text-foreground">
             Наші <span className="text-ufo-pink">табори</span>

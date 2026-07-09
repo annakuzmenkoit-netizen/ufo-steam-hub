@@ -4,6 +4,7 @@ import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Star4, Dot, Squiggle, BlobShape } from "@/components/Blobs";
 
 export const Route = createFileRoute("/contacts")({
   head: () => ({
@@ -28,7 +29,10 @@ function ContactsPage() {
   return (
     <>
       <section className="py-20 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
-        <div className="absolute top-20 left-10 w-20 h-20 rounded-full bg-ufo-yellow/20 blur-xl" />
+        <Star4 className="absolute top-10 left-10" color="#f7df5d" size={50} />
+        <Dot className="absolute top-20 right-20" color="#f04770" size={20} />
+        <Squiggle className="absolute bottom-10 right-10 opacity-70" color="#17c590" size={130} />
+        <BlobShape className="absolute -bottom-12 -left-12 opacity-25" color="#3056dd" size={200} />
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground">Контакти</h1>
           <p className="mt-6 text-lg text-muted-foreground">
