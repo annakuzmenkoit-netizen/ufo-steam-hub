@@ -122,6 +122,11 @@ const campRules = [
   },
 ];
 
+import winter1 from "@/assets/camps/winter1.jpg";
+import winter2 from "@/assets/camps/winter2.jpg";
+import winter3 from "@/assets/camps/winter3.jpg";
+import winter4 from "@/assets/camps/winter4.jpg";
+
 const seasons = [
   {
     key: "winter",
@@ -138,10 +143,10 @@ const seasons = [
       "Прогулянки та зимові пригоди",
     ],
     gallery: [
-      "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1482330093321-90d1349b3a11?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=700&q=80",
+      winter1,
+      winter2,
+      winter3,
+      winter4,
     ],
   },
   {
