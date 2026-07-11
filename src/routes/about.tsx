@@ -25,13 +25,16 @@ const values = [
 
 import katerynaPhoto from "@/assets/kateryna.jpg";
 import annaPhoto from "@/assets/anna.jpg";
+import stasPhoto from "@/assets/stas.png";
+import sashaPhoto from "@/assets/sasha.jpg";
+import valeriPhoto from "@/assets/valeri.png";
 
 const team = [
   { name: "Катерина", role: "Викладачка та керівниця освітніх програм", bio: "Вірить, що освіта — це про зростання особистості, свободу мислення й відкриття світу", photo: katerynaPhoto },
   { name: "Анна", role: "Викладачка", bio: "Працює з дітьми на перетині технологій, конструювання, математики й творчості", photo: annaPhoto },
-  { name: "Станіслав", role: "Викладач робототехніки", bio: "Інженер та ентузіаст технологій. Вчить дітей створювати роботів та програмувати.", photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80" },
-  { name: "Олександра", role: "Викладачка анімації", bio: "Художниця та аніматорка. Допомагає дітям оживлювати персонажів та створювати мультфільми.", photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80" },
-  { name: "Валерія", role: "Викладачка математики", bio: "Математик та педагог. Робить цифри зрозумілими та цікавими для кожної дитини.", photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80" },
+  { name: "Станіслав", role: "Спеціаліст з 3D-друку", bio: "Допомагає дітям перетворювати ідеї на реальні об’єкти: від 3D-моделі до готового друкованого виробу", photo: stasPhoto },
+  { name: "Олександра", role: "Викладачка англійської та української мов", bio: "Допомагає дітям впевненіше говорити, писати й висловлювати власні думки українською та англійською", photo: sashaPhoto },
+  { name: "Валері", role: "Викладачка читацьких програм і тренерка для мам", bio: "Допомагає дітям відкривати радість читання. Проводить тренування для мам і створює простір підтримки, руху та відновлення", photo: valeriPhoto },
 ];
 
 function AboutPage() {
