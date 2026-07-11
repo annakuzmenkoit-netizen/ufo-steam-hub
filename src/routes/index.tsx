@@ -119,7 +119,7 @@ function HomePage() {
               </div>
               <p className="text-sm font-semibold tracking-[0.2em] text-primary/80 uppercase mb-3">UFO STEAM HUB</p>
               <h1 className="text-4xl md:text-6xl font-semibold text-foreground tracking-tight leading-[1.05]">
-                Освіта на <span className="text-primary">дотик</span>,<br />
+                Освіта на <span className="text-primary">дотик</span><br />
               </h1>
               <p className="mt-6 max-w-lg text-base md:text-lg text-muted-foreground">
                 Місце, де діти 6–14 років відкривають науку, технології та мистецтво через гру, дослід та творчість.
