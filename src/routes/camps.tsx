@@ -126,6 +126,10 @@ import winter1 from "@/assets/camps/winter1.jpg";
 import winter2 from "@/assets/camps/winter2.jpg";
 import winter3 from "@/assets/camps/winter3.jpg";
 import winter4 from "@/assets/camps/winter4.jpg";
+import autumn1 from "@/assets/camps/autumn1.jpg";
+import autumn2 from "@/assets/camps/autumn2.jpg";
+import autumn3 from "@/assets/camps/autumn3.jpg";
+import autumnr4 from "@/assets/camps/autumn4.jpg";
 
 const seasons = [
   {
@@ -164,10 +168,10 @@ const seasons = [
       "Спілкування з однолітками",
     ],
     gallery: [
-      "https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1444492696363-332accbd8bd3?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1476611317561-60117649dd94?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=700&q=80",
+      autumn1,
+      autumn2,
+      autumn3,
+      autumn4,
     ],
   },
   {
