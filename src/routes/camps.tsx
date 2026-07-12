@@ -501,32 +501,6 @@ function CampsPage() {
         </AnimatedSection>
       </section>
 
-      {/* Правила нашого табору */}
-      <section className="py-20 bg-background">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12 max-w-2xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
-              Правила <span className="text-primary">нашого табору</span>
-            </h2>
-            <p className="mt-4 text-muted-foreground">Кілька простих орієнтирів, які роблять кожен день у таборі теплим і цікавим.</p>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {campRules.map((r, i) => (
-              <AnimatedSection key={r.title} delay={i * 0.05}>
-                <div className={`rounded-3xl bg-card border-2 ${r.accent} p-5 text-center shadow-sm hover:shadow-md hover:-translate-y-1 transition-all h-full`}>
-                  <div className={`${r.bg} rounded-2xl w-14 h-14 mx-auto flex items-center justify-center mb-3`}>
-                    <r.icon className={`h-7 w-7 ${r.color}`} strokeWidth={1.75} />
-                  </div>
-                  <p className="text-sm font-semibold text-foreground">{r.title}</p>
-                  <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{r.subtitle}</p>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Майбутні табори */}
       <section className="py-20 bg-ufo-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -561,6 +535,33 @@ function CampsPage() {
       </section>
 
       <CampDetailsDialog camp={selectedCamp} open={detailsOpen} onOpenChange={setDetailsOpen} />
+
+      {/* Правила нашого табору */}
+      <section className="py-20 bg-background">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className="text-center mb-12 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
+              Правила <span className="text-primary">нашого табору</span>
+            </h2>
+            <p className="mt-4 text-muted-foreground">Кілька простих орієнтирів, які роблять кожен день у таборі теплим і цікавим.</p>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {campRules.map((r, i) => (
+              <AnimatedSection key={r.title} delay={i * 0.05}>
+                <div className={`rounded-3xl bg-card border-2 ${r.accent} p-5 text-center shadow-sm hover:shadow-md hover:-translate-y-1 transition-all h-full`}>
+                  <div className={`${r.bg} rounded-2xl w-14 h-14 mx-auto flex items-center justify-center mb-3`}>
+                    <r.icon className={`h-7 w-7 ${r.color}`} strokeWidth={1.75} />
+                  </div>
+                  <p className="text-sm font-semibold text-foreground">{r.title}</p>
+                  <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{r.subtitle}</p>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
 
       {/* Табори за сезонами — interactive */}
       <section className="py-20 bg-background">
