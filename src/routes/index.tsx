@@ -80,7 +80,7 @@ const courses = [
   },
 ];
 
-import groups from "@/assets/camps/groups.jpg";
+import groups from "@/assets/groups.jpg";
 
 const features = [
   { title: "Міні-групи", desc: "Для дітей 6–14 років, по 4–6 — увага кожному.", photo: groups },
