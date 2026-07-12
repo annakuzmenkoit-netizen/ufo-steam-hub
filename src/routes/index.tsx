@@ -21,8 +21,7 @@ export const Route = createFileRoute("/")({
   }),
   component: HomePage,
 });
-import heroPhoto from "@/assets/main.jpg";
-const HERO_PHOTO = heroPhoto;
+const HERO_PHOTO = "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=900&q=80";
 
 const courses = [
   {
