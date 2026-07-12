@@ -18,6 +18,30 @@ export const Route = createFileRoute("/courses")({
   component: CoursesPage,
 });
 
+import steam1 from "@/assets/courses/steam1.jpg";
+import steam2 from "@/assets/courses/steam2.jpg";
+import steam3 from "@/assets/courses/steam3.jpg";
+
+import robotics1 from "@/assets/courses/robotics1.jpg";
+import robotics2 from "@/assets/courses/robotics2.jpg";
+import robotics3 from "@/assets/courses/robotics3.jpg";
+
+import animation1 from "@/assets/courses/animation1.jpg";
+import animation2 from "@/assets/courses/animation2.jpg";
+import animation3 from "@/assets/courses/animation3.jpg";
+
+import mathmind1 from "@/assets/courses/mathmind1.jpg";
+import mathmind2 from "@/assets/courses/mathmind2.jpg";
+import mathmind3 from "@/assets/courses/mathmind3.jpg";
+
+import math1 from "@/assets/courses/math1.jpg";
+import math2 from "@/assets/courses/math2.jpg";
+import math3 from "@/assets/courses/math3.jpg";
+
+import modeling1 from "@/assets/courses/modeling1.jpg";
+import modeling2 from "@/assets/courses/modeling2.jpg";
+import modeling3 from "@/assets/courses/modeling3.jpg";
+
 const courses = [
   {
     title: "STEAM-гурток", age: "7-12 років", price: "Вартість: 1500 грн/місяць",
@@ -25,6 +49,7 @@ const courses = [
     details: "Заняття проходять у форматі досліджень та експериментів. Діти працюють у міні-групах, створюють проєкти та презентують свої відкриття.",
     plan: ["Вступ до теми місяця", "Експерименти та досліди", "Створення власного проєкту", "Презентація результатів"],
     features: ["Міні-групи до 6 дітей", "Усі матеріали включено", "Сертифікат після завершення"],
+    gallery: [steam1, steam2, steam3],
     icon: Beaker, color: "border-l-ufo-blue", iconBg: "bg-ufo-blue/10", iconColor: "text-primary",
   },
   {
@@ -33,6 +58,7 @@ const courses = [
     details: "Від простих механізмів до програмованих роботів. Діти вивчають основи інженерії та алгоритмічного мислення.",
     plan: ["Основи конструювання", "Знайомство з датчиками", "Програмування рухів", "Змагання роботів"],
     features: ["Роботи LEGO та Arduino", "Індивідуальний підхід", "Участь у змаганнях"],
+    gallery: [robotics1, robotics2, robotics3],
     icon: Bot, color: "border-l-ufo-green", iconBg: "bg-ufo-green/10", iconColor: "text-ufo-green",
   },
   {
@@ -41,6 +67,7 @@ const courses = [
     details: "Діти придумують персонажів, малюють, анімують та озвучують — повний цикл створення мультфільму.",
     plan: ["Створення персонажів", "Розкадровка та сценарій", "Анімація кадрів", "Озвучка та монтаж"],
     features: ["Власний мультфільм", "Розвиток творчості", "Робота з планшетами"],
+    gallery: [animation1, animation2, animation3],
     icon: Film, color: "border-l-ufo-pink", iconBg: "bg-ufo-pink/10", iconColor: "text-ufo-pink",
   },
   {
@@ -49,6 +76,7 @@ const courses = [
     details: "Олімпіадна математика, логічні задачі, головоломки — розвиваємо математичне мислення через захоплення.",
     plan: ["Логічні задачі", "Олімпіадні завдання", "Математичні ігри", "Командні змагання"],
     features: ["Підготовка до олімпіад", "Розвиток логіки", "Ігровий формат"],
+    gallery: [mathmind1, mathmind2, mathmind3],
     icon: Calculator, color: "border-l-ufo-yellow", iconBg: "bg-ufo-yellow/10", iconColor: "text-ufo-yellow",
   },
   {
@@ -57,6 +85,7 @@ const courses = [
     details: "Допомагаємо розібратися зі шкільною програмою, заповнити пробіли та підготуватися до контрольних.",
     plan: ["Діагностика рівня", "Робота з пробілами", "Практика та закріплення", "Підготовка до контрольних"],
     features: ["Індивідуальна програма", "Зрозумілі пояснення", "Домашні завдання"],
+    gallery: [math1, math2, math3],
     icon: PenTool, color: "border-l-ufo-blue", iconBg: "bg-ufo-blue/10", iconColor: "text-primary",
   },
   {
@@ -65,6 +94,7 @@ const courses = [
     details: "Діти створюють 3D-моделі, вивчають основи дизайну та друкують свої вироби на 3D-принтері.",
     plan: ["Знайомство з 3D-середовищем", "Створення простих моделей", "Складні об'єкти та текстури", "3D-друк власного виробу"],
     features: ["Друк на 3D-принтері", "Основи ШІ у дизайні", "Власний виріб додому"],
+    gallery: [modeling1, modeling2, modeling3],
     icon: Cuboid, color: "border-l-ufo-green", iconBg: "bg-ufo-green/10", iconColor: "text-ufo-green",
   },
 ];
@@ -149,14 +179,15 @@ function CoursesPage() {
                             <h3 className="font-bold text-foreground">Фотогалерея</h3>
                           </div>
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                            {[
-                              "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=400&q=80",
-                              "https://images.unsplash.com/photo-1567168544813-cc03465b4fa8?auto=format&fit=crop&w=400&q=80",
-                              "https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=400&q=80",
-                              "https://images.unsplash.com/photo-1596495577886-d920f1fb7238?auto=format&fit=crop&w=400&q=80",
-                            ].map((src, n) => (
+                            {course.gallery.map((src, n) => (
                               <div key={n} className="aspect-video rounded-xl overflow-hidden border border-border">
-                                <img src={src} alt={`${course.title} фото ${n + 1}`} className="w-full h-full object-cover" />
+                                <img
+                                  src={src}
+                                  alt={`${course.title} фото ${n + 1}`}
+                                  className="w-full h-full object-cover"
+                                  loading="lazy"
+                                  decoding="async"
+                                />
                               </div>
                             ))}
                           </div>
