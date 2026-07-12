@@ -117,7 +117,7 @@ const campRules = [
   },
   {
     title: "Бу-бу-бу",
-    subtitle: "Наше веселе правило про настрій: менше бурчання — більше пригод, спроб і відкриттів.",
+    subtitle: "Бурчати можна — ми всі іноді втомлюємося чи не в настрої. Але робимо це без образ, з повагою до інших і з готовністю повернутися до пригод.",
     icon: Smile, bg: "bg-ufo-pink/10", color: "text-ufo-pink", accent: "border-ufo-pink",
   },
 ];
@@ -130,6 +130,14 @@ import autumn1 from "@/assets/camps/autumn1.jpg";
 import autumn2 from "@/assets/camps/autumn2.jpg";
 import autumn3 from "@/assets/camps/autumn3.jpg";
 import autumn4 from "@/assets/camps/autumn4.jpg";
+import summer1 from "@/assets/camps/summer1.jpg";
+import summer2 from "@/assets/camps/summer2.jpg";
+import summer3 from "@/assets/camps/summer3.jpg";
+import summer4 from "@/assets/camps/summer4.jpg";
+import spring1 from "@/assets/camps/spring1.jpg";
+import spring2 from "@/assets/camps/spring2.jpg";
+import spring3 from "@/assets/camps/spring3.jpg";
+import spring4 from "@/assets/camps/spring4.jpg";
 
 const seasons = [
   {
@@ -189,10 +197,10 @@ const seasons = [
       "Прогулянки, ігри та відкриття щодня",
     ],
     gallery: [
-      "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1596495577886-d920f1fb7238?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=700&q=80",
+      summer1,
+      summer2,
+      summer3,
+      summer4,
     ],
   },
   {
@@ -210,10 +218,10 @@ const seasons = [
       "Творчі та наукові виклики",
     ],
     gallery: [
-      "https://images.unsplash.com/photo-1490718720478-364a07a997cd?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=700&q=80",
-      "https://images.unsplash.com/photo-1471189060473-3e64c6c02b04?auto=format&fit=crop&w=700&q=80",
+      spring1,
+      spring2,
+      spring3,
+      spring4,
     ],
   },
 ];
