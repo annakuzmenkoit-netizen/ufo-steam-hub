@@ -129,7 +129,7 @@ import winter4 from "@/assets/camps/winter4.jpg";
 import autumn1 from "@/assets/camps/autumn1.jpg";
 import autumn2 from "@/assets/camps/autumn2.jpg";
 import autumn3 from "@/assets/camps/autumn3.jpg";
-import autumnr4 from "@/assets/camps/autumn4.jpg";
+import autumn4 from "@/assets/camps/autumn4.jpg";
 
 const seasons = [
   {
