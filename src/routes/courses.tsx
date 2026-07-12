@@ -1,10 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { Beaker, Bot, Film, Calculator, PenTool, Cuboid, ArrowRight, Camera, BookOpen, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { openRegistration } from "@/components/RegistrationModal";
 import { Star4, Dot, Squiggle, BlobShape } from "@/components/Blobs";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 export const Route = createFileRoute("/courses")({
   head: () => ({
@@ -107,8 +109,11 @@ function CoursesPage() {
         <Dot className="absolute top-24 right-20" color="#f04770" size={20} />
         <Squiggle className="absolute bottom-10 right-10 opacity-70" color="#17c590" size={130} />
         <BlobShape className="absolute -bottom-12 -left-12 opacity-25" color="#3056dd" size={200} />
+
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
-          <h1 className="text-4xl md:text-5xl font-semibold text-foreground">Наші <span className="text-primary">курси</span></h1>
+          <h1 className="text-4xl md:text-5xl font-semibold text-foreground">
+            Наші <span className="text-primary">курси</span>
+          </h1>
           <p className="mt-6 text-lg text-muted-foreground">
             Ми створили програми, які розвивають дітей через дослідження, творчість і технології.
           </p>
@@ -130,67 +135,112 @@ function CoursesPage() {
                         <div className={`${course.iconBg} rounded-xl p-3 shrink-0 self-start`}>
                           <course.icon className={`h-8 w-8 ${course.iconColor}`} />
                         </div>
+
                         <div className="flex-1">
                           <div className="flex flex-wrap items-center gap-3">
-                            <h2 className="text-xl font-bold text-foreground">{course.title}</h2>
-                            <span className="text-xs font-semibold text-primary bg-primary/10 rounded-full px-3 py-0.5">{course.age}</span>
+                            <h2 className="text-xl font-bold text-foreground">
+                              {course.title}
+                            </h2>
+                            <span className="text-xs font-semibold text-primary bg-primary/10 rounded-full px-3 py-0.5">
+                              {course.age}
+                            </span>
                           </div>
-                          <p className="mt-1 text-muted-foreground text-sm">{course.desc}</p>
-                          <p className="mt-2 text-base font-bold text-ufo-pink">{course.price}</p>
+
+                          <p className="mt-1 text-muted-foreground text-sm">
+                            {course.desc}
+                          </p>
+
+                          <p className="mt-2 text-base font-bold text-ufo-pink">
+                            {course.price}
+                          </p>
                         </div>
                       </div>
                     </AccordionTrigger>
+
                     <AccordionContent className="px-6 md:px-8 pb-8">
                       <div className="border-t border-border pt-6 space-y-8">
-                        <p className="text-muted-foreground">{course.details}</p>
+                        <p className="text-muted-foreground">
+                          {course.details}
+                        </p>
+
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div className="rounded-xl bg-ufo-yellow/10 p-5">
                             <div className="flex items-center gap-2 mb-3">
                               <BookOpen className="h-5 w-5 text-primary" />
-                              <h3 className="font-bold text-foreground">План навчання</h3>
+                              <h3 className="font-bold text-foreground">
+                                План навчання
+                              </h3>
                             </div>
+
                             <ol className="space-y-2">
                               {course.plan.map((step, idx) => (
-                                <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                                  <span className="shrink-0 w-5 h-5 rounded-full bg-ufo-yellow text-primary text-xs flex items-center justify-center font-bold mt-0.5">{idx + 1}</span>
+                                <li
+                                  key={idx}
+                                  className="flex items-start gap-2 text-sm text-muted-foreground"
+                                >
+                                  <span className="shrink-0 w-5 h-5 rounded-full bg-ufo-yellow text-primary text-xs flex items-center justify-center font-bold mt-0.5">
+                                    {idx + 1}
+                                  </span>
                                   {step}
                                 </li>
                               ))}
                             </ol>
                           </div>
+
                           <div className="rounded-xl bg-ufo-green/10 p-5">
                             <div className="flex items-center gap-2 mb-3">
                               <Star className="h-5 w-5 text-ufo-green" />
-                              <h3 className="font-bold text-foreground">Особливості курсу</h3>
+                              <h3 className="font-bold text-foreground">
+                                Особливості курсу
+                              </h3>
                             </div>
+
                             <ul className="space-y-2">
                               {course.features.map((feat, idx) => (
-                                <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                                  <span className="shrink-0 text-ufo-green mt-0.5">✓</span>
+                                <li
+                                  key={idx}
+                                  className="flex items-start gap-2 text-sm text-muted-foreground"
+                                >
+                                  <span className="shrink-0 text-ufo-green mt-0.5">
+                                    ✓
+                                  </span>
                                   {feat}
                                 </li>
                               ))}
                             </ul>
                           </div>
                         </div>
+
                         <div>
                           <div className="flex items-center gap-2 mb-3">
                             <Camera className="h-5 w-5 text-ufo-pink" />
-                            <h3 className="font-bold text-foreground">Фотогалерея</h3>
+                            <h3 className="font-bold text-foreground">
+                              Фотогалерея
+                            </h3>
                           </div>
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                            {course.gallery.map((src, n) => (
-                              <div key={n} className="aspect-video rounded-xl overflow-hidden border border-border">
-                                <img
-                                  src={src}
-                                  alt={`${course.title} фото ${n + 1}`}
-                                  className="w-full h-full object-cover"
-                                  loading="lazy"
-                                  decoding="async"
-                                />
-                              </div>
-                            ))}
-                          </div>
+
+                          {course.gallery?.length ? (
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                              {course.gallery.map((src, n) => (
+                                <div
+                                  key={`${course.title}-${n}`}
+                                  className="aspect-video rounded-xl overflow-hidden border border-border bg-muted"
+                                >
+                                  <img
+                                    src={src}
+                                    alt={`${course.title} фото ${n + 1}`}
+                                    className="w-full h-full object-cover"
+                                    loading="lazy"
+                                    decoding="async"
+                                  />
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="text-sm text-muted-foreground">
+                              Фото для цього курсу скоро з’являться.
+                            </p>
+                          )}
                         </div>
                       </div>
                     </AccordionContent>
