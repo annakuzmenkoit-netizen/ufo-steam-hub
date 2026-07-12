@@ -102,6 +102,38 @@ const courses = [
 ];
 
 function CoursesPage() {
+  const [lightbox, setLightbox] = useState<{
+    title: string;
+    images: string[];
+    index: number;
+  } | null>(null);
+
+  const openLightbox = (title: string, images: string[], index: number) => {
+    setLightbox({ title, images, index });
+  };
+
+  const showPrevPhoto = () => {
+    setLightbox((current) => {
+      if (!current) return current;
+
+      return {
+        ...current,
+        index: current.index === 0 ? current.images.length - 1 : current.index - 1,
+      };
+    });
+  };
+
+  const showNextPhoto = () => {
+    setLightbox((current) => {
+      if (!current) return current;
+
+      return {
+        ...current,
+        index: current.index === current.images.length - 1 ? 0 : current.index + 1,
+      };
+    });
+  };
+
   return (
     <>
       <section className="py-20 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
@@ -123,131 +155,138 @@ function CoursesPage() {
       <section className="py-20 bg-background">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-6">
           <Accordion type="single" collapsible className="space-y-4">
-            {courses.map((course, i) => (
-              <AnimatedSection key={course.title} delay={i * 0.06}>
-                <AccordionItem value={course.title} className="border-none">
-                  <motion.div
-                    whileHover={{ scale: 1.005 }}
-                    className={`rounded-2xl bg-card border-l-4 ${course.color} border border-border shadow-sm shadow-ufo-yellow/10 hover:shadow-xl transition-all overflow-hidden`}
-                  >
-                    <AccordionTrigger className="px-6 md:px-8 py-6 hover:no-underline">
-                      <div className="flex flex-col md:flex-row md:items-center gap-4 w-full text-left pr-4">
-                        <div className={`${course.iconBg} rounded-xl p-3 shrink-0 self-start`}>
-                          <course.icon className={`h-8 w-8 ${course.iconColor}`} />
-                        </div>
+            {courses.map((course, i) => {
+              const gallery = course.gallery ?? [];
 
-                        <div className="flex-1">
-                          <div className="flex flex-wrap items-center gap-3">
-                            <h2 className="text-xl font-bold text-foreground">
-                              {course.title}
-                            </h2>
-                            <span className="text-xs font-semibold text-primary bg-primary/10 rounded-full px-3 py-0.5">
-                              {course.age}
-                            </span>
+              return (
+                <AnimatedSection key={course.title} delay={i * 0.06}>
+                  <AccordionItem value={course.title} className="border-none">
+                    <motion.div
+                      whileHover={{ scale: 1.005 }}
+                      className={`rounded-2xl bg-card border-l-4 ${course.color} border border-border shadow-sm shadow-ufo-yellow/10 hover:shadow-xl transition-all overflow-hidden`}
+                    >
+                      <AccordionTrigger className="px-6 md:px-8 py-6 hover:no-underline">
+                        <div className="flex flex-col md:flex-row md:items-center gap-4 w-full text-left pr-4">
+                          <div className={`${course.iconBg} rounded-xl p-3 shrink-0 self-start`}>
+                            <course.icon className={`h-8 w-8 ${course.iconColor}`} />
                           </div>
 
-                          <p className="mt-1 text-muted-foreground text-sm">
-                            {course.desc}
-                          </p>
-
-                          <p className="mt-2 text-base font-bold text-ufo-pink">
-                            {course.price}
-                          </p>
-                        </div>
-                      </div>
-                    </AccordionTrigger>
-
-                    <AccordionContent className="px-6 md:px-8 pb-8">
-                      <div className="border-t border-border pt-6 space-y-8">
-                        <p className="text-muted-foreground">
-                          {course.details}
-                        </p>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <div className="rounded-xl bg-ufo-yellow/10 p-5">
-                            <div className="flex items-center gap-2 mb-3">
-                              <BookOpen className="h-5 w-5 text-primary" />
-                              <h3 className="font-bold text-foreground">
-                                План навчання
-                              </h3>
+                          <div className="flex-1">
+                            <div className="flex flex-wrap items-center gap-3">
+                              <h2 className="text-xl font-bold text-foreground">
+                                {course.title}
+                              </h2>
+                              <span className="text-xs font-semibold text-primary bg-primary/10 rounded-full px-3 py-0.5">
+                                {course.age}
+                              </span>
                             </div>
 
-                            <ol className="space-y-2">
-                              {course.plan.map((step, idx) => (
-                                <li
-                                  key={idx}
-                                  className="flex items-start gap-2 text-sm text-muted-foreground"
-                                >
-                                  <span className="shrink-0 w-5 h-5 rounded-full bg-ufo-yellow text-primary text-xs flex items-center justify-center font-bold mt-0.5">
-                                    {idx + 1}
-                                  </span>
-                                  {step}
-                                </li>
-                              ))}
-                            </ol>
-                          </div>
-
-                          <div className="rounded-xl bg-ufo-green/10 p-5">
-                            <div className="flex items-center gap-2 mb-3">
-                              <Star className="h-5 w-5 text-ufo-green" />
-                              <h3 className="font-bold text-foreground">
-                                Особливості курсу
-                              </h3>
-                            </div>
-
-                            <ul className="space-y-2">
-                              {course.features.map((feat, idx) => (
-                                <li
-                                  key={idx}
-                                  className="flex items-start gap-2 text-sm text-muted-foreground"
-                                >
-                                  <span className="shrink-0 text-ufo-green mt-0.5">
-                                    ✓
-                                  </span>
-                                  {feat}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-
-                        <div>
-                          <div className="flex items-center gap-2 mb-3">
-                            <Camera className="h-5 w-5 text-ufo-pink" />
-                            <h3 className="font-bold text-foreground">
-                              Фотогалерея
-                            </h3>
-                          </div>
-
-                          {course.gallery?.length ? (
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                              {course.gallery.map((src, n) => (
-                                <div
-                                  key={`${course.title}-${n}`}
-                                  className="aspect-video rounded-xl overflow-hidden border border-border bg-muted"
-                                >
-                                  <img
-                                    src={src}
-                                    alt={`${course.title} фото ${n + 1}`}
-                                    className="w-full h-full object-cover"
-                                    loading="lazy"
-                                    decoding="async"
-                                  />
-                                </div>
-                              ))}
-                            </div>
-                          ) : (
-                            <p className="text-sm text-muted-foreground">
-                              Фото для цього курсу скоро з’являться.
+                            <p className="mt-1 text-muted-foreground text-sm">
+                              {course.desc}
                             </p>
-                          )}
+
+                            <p className="mt-2 text-base font-bold text-ufo-pink">
+                              {course.price}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </AccordionContent>
-                  </motion.div>
-                </AccordionItem>
-              </AnimatedSection>
-            ))}
+                      </AccordionTrigger>
+
+                      <AccordionContent className="px-6 md:px-8 pb-8">
+                        <div className="border-t border-border pt-6 space-y-8">
+                          <p className="text-muted-foreground">
+                            {course.details}
+                          </p>
+
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="rounded-xl bg-ufo-yellow/10 p-5">
+                              <div className="flex items-center gap-2 mb-3">
+                                <BookOpen className="h-5 w-5 text-primary" />
+                                <h3 className="font-bold text-foreground">
+                                  План навчання
+                                </h3>
+                              </div>
+
+                              <ol className="space-y-2">
+                                {course.plan.map((step, idx) => (
+                                  <li
+                                    key={idx}
+                                    className="flex items-start gap-2 text-sm text-muted-foreground"
+                                  >
+                                    <span className="shrink-0 w-5 h-5 rounded-full bg-ufo-yellow text-primary text-xs flex items-center justify-center font-bold mt-0.5">
+                                      {idx + 1}
+                                    </span>
+                                    {step}
+                                  </li>
+                                ))}
+                              </ol>
+                            </div>
+
+                            <div className="rounded-xl bg-ufo-green/10 p-5">
+                              <div className="flex items-center gap-2 mb-3">
+                                <Star className="h-5 w-5 text-ufo-green" />
+                                <h3 className="font-bold text-foreground">
+                                  Особливості курсу
+                                </h3>
+                              </div>
+
+                              <ul className="space-y-2">
+                                {course.features.map((feat, idx) => (
+                                  <li
+                                    key={idx}
+                                    className="flex items-start gap-2 text-sm text-muted-foreground"
+                                  >
+                                    <span className="shrink-0 text-ufo-green mt-0.5">
+                                      ✓
+                                    </span>
+                                    {feat}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+
+                          <div>
+                            <div className="flex items-center gap-2 mb-3">
+                              <Camera className="h-5 w-5 text-ufo-pink" />
+                              <h3 className="font-bold text-foreground">
+                                Фотогалерея
+                              </h3>
+                            </div>
+
+                            {gallery.length ? (
+                              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                {gallery.map((src, n) => (
+                                  <button
+                                    key={`${course.title}-${n}`}
+                                    type="button"
+                                    onClick={() => openLightbox(course.title, gallery, n)}
+                                    className="group aspect-video rounded-xl overflow-hidden border border-border bg-muted focus:outline-none focus:ring-2 focus:ring-primary"
+                                    aria-label={`Відкрити фото ${n + 1} курсу ${course.title}`}
+                                  >
+                                    <img
+                                      src={src}
+                                      alt={`${course.title} фото ${n + 1}`}
+                                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                      loading="lazy"
+                                      decoding="async"
+                                    />
+                                  </button>
+                                ))}
+                              </div>
+                            ) : (
+                              <p className="text-sm text-muted-foreground">
+                                Фото для цього курсу скоро з’являться.
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </motion.div>
+                  </AccordionItem>
+                </AnimatedSection>
+              );
+            })}
           </Accordion>
         </div>
 
@@ -261,6 +300,77 @@ function CoursesPage() {
           </button>
         </AnimatedSection>
       </section>
+
+      <Dialog open={!!lightbox} onOpenChange={(open) => !open && setLightbox(null)}>
+        <DialogContent className="max-w-5xl rounded-3xl p-3 sm:p-5 max-h-[90vh] overflow-y-auto">
+          {lightbox && (
+            <div className="space-y-4">
+              <DialogTitle className="text-center text-lg font-semibold text-foreground">
+                {lightbox.title} — фото {lightbox.index + 1} з {lightbox.images.length}
+              </DialogTitle>
+
+              <div className="relative overflow-hidden rounded-2xl bg-black/5">
+                <img
+                  src={lightbox.images[lightbox.index]}
+                  alt={`${lightbox.title} фото ${lightbox.index + 1}`}
+                  className="max-h-[70vh] w-full object-contain"
+                  loading="eager"
+                />
+
+                {lightbox.images.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={showPrevPhoto}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
+                      aria-label="Попереднє фото"
+                    >
+                      ‹
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={showNextPhoto}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
+                      aria-label="Наступне фото"
+                    >
+                      ›
+                    </button>
+                  </>
+                )}
+              </div>
+
+              {lightbox.images.length > 1 && (
+                <div className="flex gap-2 overflow-x-auto pb-1">
+                  {lightbox.images.map((src, n) => (
+                    <button
+                      key={`${src}-${n}`}
+                      type="button"
+                      onClick={() =>
+                        setLightbox((current) =>
+                          current ? { ...current, index: n } : current
+                        )
+                      }
+                      className={`h-16 w-24 shrink-0 overflow-hidden rounded-xl border-2 ${
+                        lightbox.index === n ? "border-primary" : "border-transparent"
+                      }`}
+                      aria-label={`Показати фото ${n + 1}`}
+                    >
+                      <img
+                        src={src}
+                        alt={`${lightbox.title} мініатюра ${n + 1}`}
+                        className="h-full w-full object-cover"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
