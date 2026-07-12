@@ -536,6 +536,33 @@ function CampsPage() {
 
       <CampDetailsDialog camp={selectedCamp} open={detailsOpen} onOpenChange={setDetailsOpen} />
 
+      {/* Літні школи */}
+      <section className="py-20 bg-ufo-cream">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className="text-center mb-12 max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
+              Літні <span className="text-ufo-pink">школи</span>
+            </h2>
+            <p className="mt-4 text-muted-foreground">
+              Літні школи UFO STEAM HUB — це короткі тематичні програми, де діти створюють власні проєкти, пробують нові технології, працюють у команді та навчаються через практику.
+            </p>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {summerSchoolFeatures.map((f, i) => (
+              <AnimatedSection key={f.title} delay={i * 0.05}>
+                <div className="rounded-3xl bg-card border-2 border-border p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all h-full">
+                  <div className={`${f.bg} rounded-2xl w-14 h-14 flex items-center justify-center mb-4`}>
+                    <f.icon className={`h-7 w-7 ${f.color}`} strokeWidth={1.75} />
+                  </div>
+                  <p className="text-base font-semibold text-foreground">{f.title}</p>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Правила нашого табору */}
       <section className="py-20 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -568,7 +595,7 @@ function CampsPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12 max-w-2xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
-              Табори <span className="text-ufo-green">за сезонами</span>
+              Атмосфера наших <span className="text-ufo-green">таборів і літніх шкіл</span>
             </h2>
             <p className="mt-4 text-muted-foreground">Оберіть сезон, щоб побачити особливості та галерею.</p>
           </AnimatedSection>
@@ -635,59 +662,6 @@ function CampsPage() {
         </div>
       </section>
 
-      {/* Літні школи */}
-      <section className="py-20 bg-ufo-cream">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12 max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
-              Літні <span className="text-ufo-pink">школи</span>
-            </h2>
-            <p className="mt-4 text-muted-foreground">
-              Літні школи UFO STEAM HUB — це короткі тематичні програми, де діти створюють власні проєкти, пробують нові технології, працюють у команді та навчаються через практику.
-            </p>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {summerSchoolFeatures.map((f, i) => (
-              <AnimatedSection key={f.title} delay={i * 0.05}>
-                <div className="rounded-3xl bg-card border-2 border-border p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all h-full">
-                  <div className={`${f.bg} rounded-2xl w-14 h-14 flex items-center justify-center mb-4`}>
-                    <f.icon className={`h-7 w-7 ${f.color}`} strokeWidth={1.75} />
-                  </div>
-                  <p className="text-base font-semibold text-foreground">{f.title}</p>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Підліткові табори */}
-      <section className="py-20 bg-background">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12 max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
-              Підліткові <span className="text-ufo-green">табори</span>
-            </h2>
-            <p className="mt-4 text-muted-foreground">
-              Формат для підлітків, де вони працюють над проєктами, беруть участь у командних челенджах, поєднують технології з творчістю та розвивають самостійність.
-            </p>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {teenCampFeatures.map((f, i) => (
-              <AnimatedSection key={f.title} delay={i * 0.05}>
-                <div className="rounded-3xl bg-card border-2 border-border p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all h-full">
-                  <div className={`${f.bg} rounded-2xl w-14 h-14 flex items-center justify-center mb-4`}>
-                    <f.icon className={`h-7 w-7 ${f.color}`} strokeWidth={1.75} />
-                  </div>
-                  <p className="text-base font-semibold text-foreground">{f.title}</p>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Reviews */}
       <section className="py-20 bg-ufo-cream">
