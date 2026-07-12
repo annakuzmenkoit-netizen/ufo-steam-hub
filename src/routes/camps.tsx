@@ -486,9 +486,41 @@ function CampsPage() {
   const [selectedCamp, setSelectedCamp] = useState<UpcomingCamp | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
 
+  const [seasonLightbox, setSeasonLightbox] = useState<{
+    title: string;
+    images: string[];
+    index: number;
+  } | null>(null);
+
   function openCamp(camp: UpcomingCamp) {
     setSelectedCamp(camp);
     setDetailsOpen(true);
+  }
+
+  function openSeasonLightbox(title: string, images: string[], index: number) {
+    setSeasonLightbox({ title, images, index });
+  }
+
+  function showPrevSeasonPhoto() {
+    setSeasonLightbox((current) => {
+      if (!current) return current;
+
+      return {
+        ...current,
+        index: current.index === 0 ? current.images.length - 1 : current.index - 1,
+      };
+    });
+  }
+
+  function showNextSeasonPhoto() {
+    setSeasonLightbox((current) => {
+      if (!current) return current;
+
+      return {
+        ...current,
+        index: current.index === current.images.length - 1 ? 0 : current.index + 1,
+      };
+    });
   }
 
   return (
@@ -499,6 +531,7 @@ function CampsPage() {
         <Dot className="absolute top-20 right-20" color="#f04770" size={20} />
         <Squiggle className="absolute bottom-10 right-10 opacity-70" color="#17c590" size={130} />
         <BlobShape className="absolute -bottom-12 -left-12 opacity-25" color="#3056dd" size={200} />
+
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
           <h1 className="text-4xl md:text-5xl font-semibold text-foreground">
             Наші <span className="text-ufo-pink">табори</span>
@@ -516,8 +549,11 @@ function CampsPage() {
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
               Майбутні <span className="text-primary">табори</span>
             </h2>
-            <p className="mt-4 text-muted-foreground">Найближчі літні школи та інтенсиви UFO STEAM HUB.</p>
+            <p className="mt-4 text-muted-foreground">
+              Найближчі літні школи та інтенсиви UFO STEAM HUB.
+            </p>
           </AnimatedSection>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {upcomingCamps.map((camp, i) => (
               <AnimatedSection key={camp.title} delay={i * 0.08}>
@@ -526,12 +562,22 @@ function CampsPage() {
                   onClick={() => openCamp(camp)}
                   className={`w-full text-left rounded-3xl bg-card border-l-4 ${camp.color} border border-border p-6 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all h-full flex flex-col`}
                 >
-                  <div className="text-4xl mb-3" aria-hidden>{camp.emoji}</div>
+                  <div className="text-4xl mb-3" aria-hidden>
+                    {camp.emoji}
+                  </div>
+
                   <div className="flex items-center gap-2 text-sm font-semibold text-primary mb-2">
                     <CalendarDays className="h-4 w-4" /> {camp.date}
                   </div>
-                  <h3 className="text-lg font-semibold text-foreground">{camp.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground flex-1">{camp.desc}</p>
+
+                  <h3 className="text-lg font-semibold text-foreground">
+                    {camp.title}
+                  </h3>
+
+                  <p className="mt-2 text-sm text-muted-foreground flex-1">
+                    {camp.desc}
+                  </p>
+
                   <span className="mt-5 inline-flex items-center justify-center gap-2 rounded-full bg-ufo-yellow px-5 py-2.5 text-sm font-semibold text-primary shadow-md">
                     Детальніше <ArrowRight className="h-4 w-4" />
                   </span>
@@ -563,7 +609,9 @@ function CampsPage() {
                   <div className={`${f.bg} rounded-2xl w-14 h-14 flex items-center justify-center mb-4`}>
                     <f.icon className={`h-7 w-7 ${f.color}`} strokeWidth={1.75} />
                   </div>
-                  <p className="text-base font-semibold text-foreground">{f.title}</p>
+                  <p className="text-base font-semibold text-foreground">
+                    {f.title}
+                  </p>
                 </div>
               </AnimatedSection>
             ))}
@@ -578,7 +626,9 @@ function CampsPage() {
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
               Правила <span className="text-primary">нашого табору</span>
             </h2>
-            <p className="mt-4 text-muted-foreground">Кілька простих орієнтирів, які роблять кожен день у таборі теплим і цікавим.</p>
+            <p className="mt-4 text-muted-foreground">
+              Кілька простих орієнтирів, які роблять кожен день у таборі теплим і цікавим.
+            </p>
           </AnimatedSection>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -588,15 +638,18 @@ function CampsPage() {
                   <div className={`${r.bg} rounded-2xl w-14 h-14 mx-auto flex items-center justify-center mb-3`}>
                     <r.icon className={`h-7 w-7 ${r.color}`} strokeWidth={1.75} />
                   </div>
-                  <p className="text-sm font-semibold text-foreground">{r.title}</p>
-                  <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{r.subtitle}</p>
+                  <p className="text-sm font-semibold text-foreground">
+                    {r.title}
+                  </p>
+                  <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
+                    {r.subtitle}
+                  </p>
                 </div>
               </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
-
 
       {/* Табори за сезонами — interactive */}
       <section className="py-20 bg-background">
@@ -605,7 +658,9 @@ function CampsPage() {
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
               Атмосфера наших <span className="text-ufo-green">таборів і літніх шкіл</span>
             </h2>
-            <p className="mt-4 text-muted-foreground">Оберіть сезон, щоб побачити особливості та галерею.</p>
+            <p className="mt-4 text-muted-foreground">
+              Оберіть сезон, щоб побачити особливості та галерею.
+            </p>
           </AnimatedSection>
 
           <Tabs value={activeSeason} onValueChange={setActiveSeason} className="w-full">
@@ -628,9 +683,14 @@ function CampsPage() {
                     <div className={`${s.accent} rounded-2xl w-14 h-14 flex items-center justify-center shrink-0`}>
                       <s.icon className="h-7 w-7" />
                     </div>
+
                     <div>
-                      <h3 className="text-2xl font-semibold">{s.name} табір</h3>
-                      <p className="text-base opacity-95">{s.desc}</p>
+                      <h3 className="text-2xl font-semibold">
+                        {s.name} табір
+                      </h3>
+                      <p className="text-base opacity-95">
+                        {s.desc}
+                      </p>
                     </div>
                   </div>
 
@@ -640,6 +700,7 @@ function CampsPage() {
                       <h4 className="font-semibold text-lg mb-3 flex items-center gap-2">
                         <Star className="h-5 w-5" /> Особливості
                       </h4>
+
                       <ul className="space-y-2">
                         {s.features.map((f) => (
                           <li key={f} className="flex items-start gap-2 text-sm opacity-95">
@@ -654,11 +715,24 @@ function CampsPage() {
                       <h4 className="font-semibold text-lg mb-3 flex items-center gap-2">
                         <Sparkles className="h-5 w-5" /> Галерея
                       </h4>
+
                       <div className="grid grid-cols-2 gap-3">
                         {s.gallery.map((src, n) => (
-                          <div key={n} className="aspect-square rounded-2xl overflow-hidden bg-white/10">
-                            <img src={src} alt={`${s.name} — фото ${n + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform" />
-                          </div>
+                          <button
+                            key={`${s.key}-${n}`}
+                            type="button"
+                            onClick={() => openSeasonLightbox(`${s.name} табір`, s.gallery, n)}
+                            className="group aspect-square rounded-2xl overflow-hidden bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/80"
+                            aria-label={`Відкрити фото ${n + 1}: ${s.name} табір`}
+                          >
+                            <img
+                              src={src}
+                              alt={`${s.name} — фото ${n + 1}`}
+                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          </button>
                         ))}
                       </div>
                     </div>
@@ -670,7 +744,6 @@ function CampsPage() {
         </div>
       </section>
 
-
       {/* Reviews */}
       <section className="py-20 bg-ufo-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -679,6 +752,7 @@ function CampsPage() {
               Відгуки <span className="text-ufo-pink">батьків</span>
             </h2>
           </AnimatedSection>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {reviews.map((r, i) => (
               <AnimatedSection key={r.name} delay={i * 0.1}>
@@ -688,14 +762,89 @@ function CampsPage() {
                       <Star key={s} className="h-4 w-4 fill-ufo-yellow text-ufo-yellow" />
                     ))}
                   </div>
-                  <p className="text-sm text-muted-foreground italic">"{r.text}"</p>
-                  <p className="mt-4 text-sm font-semibold text-foreground">— {r.name}</p>
+                  <p className="text-sm text-muted-foreground italic">
+                    "{r.text}"
+                  </p>
+                  <p className="mt-4 text-sm font-semibold text-foreground">
+                    — {r.name}
+                  </p>
                 </div>
               </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
+
+      <Dialog open={!!seasonLightbox} onOpenChange={(open) => !open && setSeasonLightbox(null)}>
+        <DialogContent className="max-w-5xl rounded-3xl p-3 sm:p-5 max-h-[90vh] overflow-y-auto">
+          {seasonLightbox && (
+            <div className="space-y-4">
+              <DialogTitle className="text-center text-lg font-semibold text-foreground">
+                {seasonLightbox.title} — фото {seasonLightbox.index + 1} з {seasonLightbox.images.length}
+              </DialogTitle>
+
+              <div className="relative overflow-hidden rounded-2xl bg-black/5">
+                <img
+                  src={seasonLightbox.images[seasonLightbox.index]}
+                  alt={`${seasonLightbox.title} фото ${seasonLightbox.index + 1}`}
+                  className="max-h-[70vh] w-full object-contain"
+                  loading="eager"
+                />
+
+                {seasonLightbox.images.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={showPrevSeasonPhoto}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
+                      aria-label="Попереднє фото"
+                    >
+                      ‹
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={showNextSeasonPhoto}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
+                      aria-label="Наступне фото"
+                    >
+                      ›
+                    </button>
+                  </>
+                )}
+              </div>
+
+              {seasonLightbox.images.length > 1 && (
+                <div className="flex gap-2 overflow-x-auto pb-1">
+                  {seasonLightbox.images.map((src, n) => (
+                    <button
+                      key={`${src}-${n}`}
+                      type="button"
+                      onClick={() =>
+                        setSeasonLightbox((current) =>
+                          current ? { ...current, index: n } : current
+                        )
+                      }
+                      className={`h-16 w-24 shrink-0 overflow-hidden rounded-xl border-2 ${
+                        seasonLightbox.index === n ? "border-primary" : "border-transparent"
+                      }`}
+                      aria-label={`Показати фото ${n + 1}`}
+                    >
+                      <img
+                        src={src}
+                        alt={`${seasonLightbox.title} мініатюра ${n + 1}`}
+                        className="h-full w-full object-cover"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
