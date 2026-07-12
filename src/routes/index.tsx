@@ -158,6 +158,9 @@ function HomePage() {
                 alt="Щасливі діти на занятті"
                 className="absolute inset-3 w-[calc(100%-1.5rem)] h-[calc(100%-1.5rem)] object-cover"
                 style={{ clipPath: blobA }}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
               />
               <Star4 className="absolute -top-4 -right-4" color="#f7df5d" size={64} />
               <Dot className="absolute -bottom-2 -left-2" color="#17c590" size={48} />
