@@ -120,7 +120,6 @@ function HomePage() {
               <div className="inline-flex items-center gap-2 rounded-full bg-ufo-yellow px-4 py-1.5 text-sm font-semibold text-primary mb-6 shadow-md">
                 <Sparkles className="h-4 w-4 text-ufo-pink" /> UFO STEAM HUB — освітній центр у Кременчуці
               </div>
-              <p className="text-sm font-semibold tracking-[0.2em] text-primary/80 uppercase mb-3">UFO STEAM HUB</p>
               <h1 className="text-4xl md:text-6xl font-semibold text-foreground tracking-tight leading-[1.05]">
                 Освіта на <span className="text-primary">дотик</span><br />
               </h1>
