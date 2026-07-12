@@ -83,12 +83,15 @@ const courses = [
 ];
 
 import groups from "@/assets/groups.jpg";
+import steam from "@/assets/steam.jpg";
+import future from "@/assets/future.jpg";
+import space from "@/assets/space.jpg";
 
 const features = [
   { title: "Міні-групи", desc: "Для дітей 6–14 років, по 4–6 — увага кожному.", photo: groups },
-  { title: "Безпечне навчання", desc: "Комфортний простір та турботлива команда.", photo: "https://images.unsplash.com/photo-1544717297-fa95b6ee9643?auto=format&fit=crop&w=500&q=80" },
-  { title: "STEAM підхід", desc: "Наука, технології, мистецтво й проєкти — з сенсом.", photo: "https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?auto=format&fit=crop&w=500&q=80" },
-  { title: "Навички майбутнього", desc: "Критичне мислення, креативність та командна робота.", photo: "https://images.unsplash.com/photo-1497486751825-1233686d5d80?auto=format&fit=crop&w=500&q=80" },
+  { title: "Безпечне навчання", desc: "Комфортний простір та турботлива команда.", photo: space },
+  { title: "STEAM підхід", desc: "Наука, технології, мистецтво й проєкти — з сенсом.", photo: steam },
+  { title: "Навички майбутнього", desc: "Критичне мислення, креативність та командна робота.", photo: future },
 ];
 
 const steamBlocks = [
