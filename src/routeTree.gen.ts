@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ScheduleRouteImport } from './routes/schedule'
 import { Route as McpRouteImport } from './routes/mcp'
+import { Route as LinksRouteImport } from './routes/links'
 import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as CampsRouteImport } from './routes/camps'
@@ -28,6 +29,11 @@ const ScheduleRoute = ScheduleRouteImport.update({
 const McpRoute = McpRouteImport.update({
   id: '/mcp',
   path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LinksRoute = LinksRouteImport.update({
+  id: '/links',
+  path: '/links',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CoursesRoute = CoursesRouteImport.update({
@@ -80,6 +86,7 @@ export interface FileRoutesByFullPath {
   '/camps': typeof CampsRoute
   '/contacts': typeof ContactsRoute
   '/courses': typeof CoursesRoute
+  '/links': typeof LinksRoute
   '/mcp': typeof McpRoute
   '/schedule': typeof ScheduleRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -92,6 +99,7 @@ export interface FileRoutesByTo {
   '/camps': typeof CampsRoute
   '/contacts': typeof ContactsRoute
   '/courses': typeof CoursesRoute
+  '/links': typeof LinksRoute
   '/mcp': typeof McpRoute
   '/schedule': typeof ScheduleRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -105,6 +113,7 @@ export interface FileRoutesById {
   '/camps': typeof CampsRoute
   '/contacts': typeof ContactsRoute
   '/courses': typeof CoursesRoute
+  '/links': typeof LinksRoute
   '/mcp': typeof McpRoute
   '/schedule': typeof ScheduleRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -119,6 +128,7 @@ export interface FileRouteTypes {
     | '/camps'
     | '/contacts'
     | '/courses'
+    | '/links'
     | '/mcp'
     | '/schedule'
     | '/.mcp/list-tools'
@@ -131,6 +141,7 @@ export interface FileRouteTypes {
     | '/camps'
     | '/contacts'
     | '/courses'
+    | '/links'
     | '/mcp'
     | '/schedule'
     | '/.mcp/list-tools'
@@ -143,6 +154,7 @@ export interface FileRouteTypes {
     | '/camps'
     | '/contacts'
     | '/courses'
+    | '/links'
     | '/mcp'
     | '/schedule'
     | '/.mcp/list-tools'
@@ -156,6 +168,7 @@ export interface RootRouteChildren {
   CampsRoute: typeof CampsRoute
   ContactsRoute: typeof ContactsRoute
   CoursesRoute: typeof CoursesRoute
+  LinksRoute: typeof LinksRoute
   McpRoute: typeof McpRoute
   ScheduleRoute: typeof ScheduleRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
@@ -177,6 +190,13 @@ declare module '@tanstack/react-router' {
       path: '/mcp'
       fullPath: '/mcp'
       preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/links': {
+      id: '/links'
+      path: '/links'
+      fullPath: '/links'
+      preLoaderRoute: typeof LinksRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/courses': {
@@ -244,6 +264,7 @@ const rootRouteChildren: RootRouteChildren = {
   CampsRoute: CampsRoute,
   ContactsRoute: ContactsRoute,
   CoursesRoute: CoursesRoute,
+  LinksRoute: LinksRoute,
   McpRoute: McpRoute,
   ScheduleRoute: ScheduleRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
