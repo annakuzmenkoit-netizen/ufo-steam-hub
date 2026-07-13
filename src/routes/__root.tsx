@@ -80,6 +80,7 @@ function RootComponent() {
       </main>
       <Footer />
       <RegistrationModal />
+      <ScrollToTop />
       <Toaster />
     </div>
   );
