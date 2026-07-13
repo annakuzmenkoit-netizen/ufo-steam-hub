@@ -281,26 +281,26 @@ function HomePage() {
 
 
       {/* Why Us — real photos in blob frames */}
-      <section className="relative py-20 bg-ufo-cream overflow-hidden">
-        <Swirl className="absolute top-12 right-10 opacity-70" color="#f04770" size={90} />
-        <Star4 className="absolute bottom-10 left-8 opacity-80" color="#f7df5d" size={50} />
-        <Dot className="absolute top-1/3 left-12 opacity-70" color="#17c590" size={20} />
+      <section className="relative py-12 md:py-20 bg-ufo-cream overflow-hidden">
+        <Swirl className="absolute top-12 right-10 opacity-70 hidden md:block" color="#f04770" size={90} />
+        <Star4 className="absolute bottom-10 left-8 opacity-80 hidden md:block" color="#f7df5d" size={50} />
+        <Dot className="absolute top-1/3 left-12 opacity-70 hidden md:block" color="#17c590" size={20} />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-14">
-            <h2 className="text-3xl md:text-5xl font-semibold text-foreground">
+          <AnimatedSection className="text-center mb-8 md:mb-14">
+            <h2 className="text-2xl md:text-5xl font-semibold text-foreground">
               Що робить нас <span className="text-ufo-pink">особливими</span>
             </h2>
-            <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">
+            <p className="mt-2 md:mt-4 max-w-2xl mx-auto text-sm md:text-base text-muted-foreground">
               Місце, де діти навчаються цікаво, безпечно та з увагою до кожного.
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8">
             {features.map((f, i) => (
               <AnimatedSection key={f.title} delay={i * 0.1}>
                 <div className="text-center">
-                  <div className="relative mx-auto w-40 h-40 mb-5">
+                  <div className="relative mx-auto w-24 h-24 md:w-40 md:h-40 mb-3 md:mb-5">
                     <div className="absolute inset-0 bg-ufo-yellow shadow-md" style={{ clipPath: blobA }} />
                     <img
                       src={f.photo}
@@ -309,8 +309,8 @@ function HomePage() {
                       style={{ clipPath: blobA }}
                     />
                   </div>
-                  <h3 className="font-semibold text-lg text-foreground">{f.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{f.desc}</p>
+                  <h3 className="font-semibold text-sm md:text-lg text-foreground">{f.title}</h3>
+                  <p className="mt-1 md:mt-2 text-xs md:text-sm text-muted-foreground">{f.desc}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -319,21 +319,37 @@ function HomePage() {
       </section>
 
       {/* What is STEAM */}
-      <section className="relative py-20 bg-background overflow-hidden">
-        <Squiggle className="absolute top-10 left-1/4 opacity-60" color="#f7df5d" size={140} />
-        <Star4 className="absolute bottom-20 right-12 opacity-80" color="#f04770" size={44} />
+      <section className="relative py-12 md:py-20 bg-background overflow-hidden">
+        <Squiggle className="absolute top-10 left-1/4 opacity-60 hidden md:block" color="#f7df5d" size={140} />
+        <Star4 className="absolute bottom-20 right-12 opacity-80 hidden md:block" color="#f04770" size={44} />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-14 max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-5xl font-semibold text-foreground">
+          <AnimatedSection className="text-center mb-6 md:mb-14 max-w-3xl mx-auto">
+            <h2 className="text-2xl md:text-5xl font-semibold text-foreground">
               Що таке <span className="text-primary">STEAM</span>?
             </h2>
-            <p className="mt-6 text-muted-foreground leading-relaxed">
-              Це підхід до навчання, що поєднує науку, технології, інженерію, мистецтво та математику в єдиний захоплюючий процес.
+            <p className="mt-2 md:mt-6 text-sm md:text-base text-muted-foreground leading-relaxed">
+              Підхід, що поєднує науку, технології, інженерію, мистецтво та математику.
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+          {/* Mobile: compact list; Desktop: full cards */}
+          <div className="md:hidden grid grid-cols-1 gap-2">
+            {steamBlocks.map((block) => (
+              <div
+                key={block.letter}
+                className={`${block.bg} ${block.text} rounded-2xl px-4 py-3 flex items-center gap-3 shadow-sm`}
+              >
+                <span className="text-2xl font-semibold leading-none w-7 text-center shrink-0">{block.letter}</span>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold leading-tight">{block.word}</p>
+                  <p className="text-xs opacity-90 leading-tight mt-0.5">{block.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
             {steamBlocks.map((block, i) => (
               <AnimatedSection key={block.letter} delay={i * 0.08}>
                 <motion.div
@@ -352,6 +368,7 @@ function HomePage() {
           </div>
         </div>
       </section>
+
 
       {/* Map + Contact */}
       <section className="py-20 bg-ufo-cream">
