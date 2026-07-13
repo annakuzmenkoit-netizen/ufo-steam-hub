@@ -371,18 +371,18 @@ function HomePage() {
 
 
       {/* Map + Contact */}
-      <section className="py-20 bg-ufo-cream">
+      <section className="py-12 md:py-20 bg-ufo-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-semibold text-foreground">
+          <AnimatedSection className="text-center mb-6 md:mb-12">
+            <h2 className="text-2xl md:text-5xl font-semibold text-foreground">
               Де нас <span className="text-ufo-green">знайти</span>
             </h2>
-            <p className="mt-4 text-muted-foreground">м. Кременчук, ТЦ "Лідер", каб. 208</p>
+            <p className="mt-2 md:mt-4 text-sm md:text-base text-muted-foreground">м. Кременчук, ТЦ "Лідер", каб. 208</p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
             <AnimatedSection>
-              <div className="rounded-3xl overflow-hidden border-4 border-ufo-yellow shadow-xl h-80 lg:h-full min-h-[400px]">
+              <div className="rounded-3xl overflow-hidden border-4 border-ufo-yellow shadow-xl h-64 md:h-80 lg:h-full lg:min-h-[400px]">
                 <iframe
                   title="UFO STEAM HUB на карті"
                   src="https://www.google.com/maps?q=%D0%A2%D0%A6+%D0%9B%D1%96%D0%B4%D0%B5%D1%80+%D0%9A%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D1%87%D1%83%D0%BA&output=embed"
