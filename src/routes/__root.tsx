@@ -2,6 +2,7 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { RegistrationModal } from "@/components/RegistrationModal";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { Toaster } from "@/components/ui/sonner";
 
 import appCss from "../styles.css?url";
