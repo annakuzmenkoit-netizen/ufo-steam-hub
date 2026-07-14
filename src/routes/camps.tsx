@@ -746,15 +746,52 @@ function CampsPage() {
       </section>
 
       {/* Reviews */}
-      <section className="py-20 bg-ufo-cream">
+      <section className="py-14 md:py-20 bg-ufo-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-14">
+          <AnimatedSection className="text-center mb-10 md:mb-14">
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
               Відгуки <span className="text-ufo-pink">батьків</span>
             </h2>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Mobile: horizontal swipe carousel with CTA at end */}
+          <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory gap-4 -mx-4 px-4 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {reviews.map((r) => (
+              <div key={r.name} className="snap-center shrink-0 w-[85%]">
+                <div className="rounded-3xl bg-card border-2 border-border p-5 shadow-md h-full">
+                  <div className="flex gap-1 mb-3">
+                    {[1, 2, 3, 4, 5].map((s) => (
+                      <Star key={s} className="h-4 w-4 fill-ufo-yellow text-ufo-yellow" />
+                    ))}
+                  </div>
+                  <p className="text-sm text-muted-foreground italic">"{r.text}"</p>
+                  <p className="mt-4 text-sm font-semibold text-foreground">— {r.name}</p>
+                </div>
+              </div>
+            ))}
+            {/* Final CTA card */}
+            <div className="snap-center shrink-0 w-[85%]">
+              {/* TODO: swap Link `to` to a dedicated review-submission page if one is added */}
+              <div className="rounded-3xl bg-ufo-yellow border-2 border-ufo-yellow p-5 shadow-md h-full flex flex-col">
+                <div className="text-3xl mb-2" aria-hidden>❤️</div>
+                <h3 className="text-lg font-semibold text-primary">Додайте свій відгук ❤️</h3>
+                <p className="mt-2 text-sm text-primary/80 flex-1">
+                  Ми будемо дуже вдячні, якщо ви поділитеся своїми враженнями про UFO STEAM HUB.
+                </p>
+                <Link
+                  to="/contacts"
+                  className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-md"
+                  aria-label="Залишити відгук — перейти до контактів"
+                >
+                  Залишити відгук <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+          <p className="md:hidden -mt-2 text-center text-xs text-muted-foreground">Гортайте вбік →</p>
+
+          {/* Desktop grid unchanged */}
+          <div className="hidden md:grid grid-cols-3 gap-6">
             {reviews.map((r, i) => (
               <AnimatedSection key={r.name} delay={i * 0.1}>
                 <div className="rounded-3xl bg-card border-2 border-border p-6 shadow-md hover:shadow-lg transition-shadow h-full">
@@ -763,12 +800,8 @@ function CampsPage() {
                       <Star key={s} className="h-4 w-4 fill-ufo-yellow text-ufo-yellow" />
                     ))}
                   </div>
-                  <p className="text-sm text-muted-foreground italic">
-                    "{r.text}"
-                  </p>
-                  <p className="mt-4 text-sm font-semibold text-foreground">
-                    — {r.name}
-                  </p>
+                  <p className="text-sm text-muted-foreground italic">"{r.text}"</p>
+                  <p className="mt-4 text-sm font-semibold text-foreground">— {r.name}</p>
                 </div>
               </AnimatedSection>
             ))}
