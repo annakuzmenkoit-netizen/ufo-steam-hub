@@ -491,6 +491,7 @@ function CampsPage() {
     images: string[];
     index: number;
   } | null>(null);
+  const touchStartX = useRef<number | null>(null);
 
   function openCamp(camp: UpcomingCamp) {
     setSelectedCamp(camp);
