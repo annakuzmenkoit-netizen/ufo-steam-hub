@@ -1,5 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useRef, useState } from "react";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import {
   CalendarDays, Star, Snowflake, Leaf, Sun, Flower2,
