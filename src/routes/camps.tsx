@@ -813,17 +813,53 @@ function CampsPage() {
       <Dialog open={!!seasonLightbox} onOpenChange={(open) => !open && setSeasonLightbox(null)}>
         <DialogContent className="max-w-5xl rounded-3xl p-3 sm:p-5 max-h-[90vh] overflow-y-auto">
           {seasonLightbox && (
-            <div className="space-y-4">
-              <DialogTitle className="text-center text-lg font-semibold text-foreground">
-                {seasonLightbox.title} — фото {seasonLightbox.index + 1} з {seasonLightbox.images.length}
+            <div className="space-y-3 md:space-y-4">
+              {/* Story-style progress indicators */}
+              {seasonLightbox.images.length > 1 && (
+                <div className="flex gap-1" aria-hidden>
+                  {seasonLightbox.images.map((_, n) => (
+                    <span
+                      key={n}
+                      className={`h-1 flex-1 rounded-full transition-colors ${
+                        n === seasonLightbox.index
+                          ? "bg-primary"
+                          : n < seasonLightbox.index
+                            ? "bg-primary/60"
+                            : "bg-primary/15"
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
+
+              <DialogTitle className="text-center text-base md:text-lg font-semibold text-foreground">
+                {seasonLightbox.title}
+                <span className="ml-2 text-muted-foreground font-normal">
+                  {seasonLightbox.index + 1} / {seasonLightbox.images.length}
+                </span>
               </DialogTitle>
 
-              <div className="relative overflow-hidden rounded-2xl bg-black/5">
+              <div
+                className="relative overflow-hidden rounded-2xl bg-black/5 touch-pan-y select-none"
+                onTouchStart={(e) => {
+                  touchStartX.current = e.touches[0].clientX;
+                }}
+                onTouchEnd={(e) => {
+                  if (touchStartX.current == null) return;
+                  const dx = e.changedTouches[0].clientX - touchStartX.current;
+                  if (Math.abs(dx) > 40) {
+                    if (dx < 0) showNextSeasonPhoto();
+                    else showPrevSeasonPhoto();
+                  }
+                  touchStartX.current = null;
+                }}
+              >
                 <img
                   src={seasonLightbox.images[seasonLightbox.index]}
                   alt={`${seasonLightbox.title} фото ${seasonLightbox.index + 1}`}
-                  className="max-h-[70vh] w-full object-contain"
+                  className="max-h-[65vh] md:max-h-[70vh] w-full object-contain"
                   loading="eager"
+                  draggable={false}
                 />
 
                 {seasonLightbox.images.length > 1 && (
@@ -831,7 +867,7 @@ function CampsPage() {
                     <button
                       type="button"
                       onClick={showPrevSeasonPhoto}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
+                      className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
                       aria-label="Попереднє фото"
                     >
                       ‹
@@ -840,7 +876,7 @@ function CampsPage() {
                     <button
                       type="button"
                       onClick={showNextSeasonPhoto}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
+                      className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
                       aria-label="Наступне фото"
                     >
                       ›
@@ -850,7 +886,13 @@ function CampsPage() {
               </div>
 
               {seasonLightbox.images.length > 1 && (
-                <div className="flex gap-2 overflow-x-auto pb-1">
+                <p className="md:hidden text-center text-xs text-muted-foreground">
+                  Гортайте вбік для перегляду →
+                </p>
+              )}
+
+              {seasonLightbox.images.length > 1 && (
+                <div className="hidden md:flex gap-2 overflow-x-auto pb-1">
                   {seasonLightbox.images.map((src, n) => (
                     <button
                       key={`${src}-${n}`}
