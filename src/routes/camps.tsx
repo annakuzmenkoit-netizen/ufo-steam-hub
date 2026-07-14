@@ -554,13 +554,13 @@ function CampsPage() {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory scroll-px-4 -mx-4 md:mx-0 px-4 md:px-0 pb-4 md:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {upcomingCamps.map((camp, i) => (
-              <AnimatedSection key={camp.title} delay={i * 0.08}>
+              <AnimatedSection key={camp.title} delay={i * 0.08} className="snap-center shrink-0 w-[82%] xs:w-[70%] sm:w-[60%] md:w-auto">
                 <button
                   type="button"
                   onClick={() => openCamp(camp)}
-                  className={`w-full text-left rounded-3xl bg-card border-l-4 ${camp.color} border border-border p-6 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all h-full flex flex-col`}
+                  className={`w-full text-left rounded-3xl bg-card border-l-4 ${camp.color} border border-border p-5 md:p-6 shadow-md hover:shadow-xl md:hover:-translate-y-1 transition-all h-full flex flex-col`}
                 >
                   <div className="text-4xl mb-3" aria-hidden>
                     {camp.emoji}
@@ -585,6 +585,7 @@ function CampsPage() {
               </AnimatedSection>
             ))}
           </div>
+          <p className="md:hidden mt-3 text-center text-xs text-muted-foreground">Гортайте вбік →</p>
         </div>
       </section>
 
