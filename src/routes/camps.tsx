@@ -632,17 +632,17 @@ function CampsPage() {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4">
             {campRules.map((r, i) => (
               <AnimatedSection key={r.title} delay={i * 0.05}>
-                <div className={`rounded-3xl bg-card border-2 ${r.accent} p-5 text-center shadow-sm hover:shadow-md hover:-translate-y-1 transition-all h-full`}>
-                  <div className={`${r.bg} rounded-2xl w-14 h-14 mx-auto flex items-center justify-center mb-3`}>
-                    <r.icon className={`h-7 w-7 ${r.color}`} strokeWidth={1.75} />
+                <div className={`rounded-2xl md:rounded-3xl bg-card border-2 ${r.accent} p-3 md:p-5 text-center shadow-sm hover:shadow-md md:hover:-translate-y-1 transition-all h-full`}>
+                  <div className={`${r.bg} rounded-xl md:rounded-2xl w-10 h-10 md:w-14 md:h-14 mx-auto flex items-center justify-center mb-2 md:mb-3`}>
+                    <r.icon className={`h-5 w-5 md:h-7 md:w-7 ${r.color}`} strokeWidth={1.75} />
                   </div>
-                  <p className="text-sm font-semibold text-foreground">
+                  <p className="text-xs md:text-sm font-semibold text-foreground">
                     {r.title}
                   </p>
-                  <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
+                  <p className="mt-1.5 md:mt-2 text-[11px] md:text-xs text-muted-foreground leading-relaxed">
                     {r.subtitle}
                   </p>
                 </div>
