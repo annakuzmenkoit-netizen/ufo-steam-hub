@@ -1,5 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useRef, useState } from "react";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import {
   CalendarDays, Star, Snowflake, Leaf, Sun, Flower2,
@@ -491,6 +491,7 @@ function CampsPage() {
     images: string[];
     index: number;
   } | null>(null);
+  const touchStartX = useRef<number | null>(null);
 
   function openCamp(camp: UpcomingCamp) {
     setSelectedCamp(camp);
@@ -554,13 +555,13 @@ function CampsPage() {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory scroll-px-4 -mx-4 md:mx-0 px-4 md:px-0 pb-4 md:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {upcomingCamps.map((camp, i) => (
-              <AnimatedSection key={camp.title} delay={i * 0.08}>
+              <AnimatedSection key={camp.title} delay={i * 0.08} className="snap-center shrink-0 w-[82%] xs:w-[70%] sm:w-[60%] md:w-auto">
                 <button
                   type="button"
                   onClick={() => openCamp(camp)}
-                  className={`w-full text-left rounded-3xl bg-card border-l-4 ${camp.color} border border-border p-6 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all h-full flex flex-col`}
+                  className={`w-full text-left rounded-3xl bg-card border-l-4 ${camp.color} border border-border p-5 md:p-6 shadow-md hover:shadow-xl md:hover:-translate-y-1 transition-all h-full flex flex-col`}
                 >
                   <div className="text-4xl mb-3" aria-hidden>
                     {camp.emoji}
@@ -585,6 +586,7 @@ function CampsPage() {
               </AnimatedSection>
             ))}
           </div>
+          <p className="md:hidden mt-3 text-center text-xs text-muted-foreground">Гортайте вбік →</p>
         </div>
       </section>
 
@@ -602,14 +604,14 @@ function CampsPage() {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
             {summerSchoolFeatures.map((f, i) => (
               <AnimatedSection key={f.title} delay={i * 0.05}>
-                <div className="rounded-3xl bg-card border-2 border-border p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all h-full">
-                  <div className={`${f.bg} rounded-2xl w-14 h-14 flex items-center justify-center mb-4`}>
-                    <f.icon className={`h-7 w-7 ${f.color}`} strokeWidth={1.75} />
+                <div className="rounded-2xl md:rounded-3xl bg-card border-2 border-border p-3 md:p-6 shadow-sm hover:shadow-md md:hover:-translate-y-1 transition-all h-full">
+                  <div className={`${f.bg} rounded-xl md:rounded-2xl w-10 h-10 md:w-14 md:h-14 flex items-center justify-center mb-2 md:mb-4`}>
+                    <f.icon className={`h-5 w-5 md:h-7 md:w-7 ${f.color}`} strokeWidth={1.75} />
                   </div>
-                  <p className="text-base font-semibold text-foreground">
+                  <p className="text-sm md:text-base font-semibold text-foreground leading-snug">
                     {f.title}
                   </p>
                 </div>
@@ -631,17 +633,17 @@ function CampsPage() {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4">
             {campRules.map((r, i) => (
               <AnimatedSection key={r.title} delay={i * 0.05}>
-                <div className={`rounded-3xl bg-card border-2 ${r.accent} p-5 text-center shadow-sm hover:shadow-md hover:-translate-y-1 transition-all h-full`}>
-                  <div className={`${r.bg} rounded-2xl w-14 h-14 mx-auto flex items-center justify-center mb-3`}>
-                    <r.icon className={`h-7 w-7 ${r.color}`} strokeWidth={1.75} />
+                <div className={`rounded-2xl md:rounded-3xl bg-card border-2 ${r.accent} p-3 md:p-5 text-center shadow-sm hover:shadow-md md:hover:-translate-y-1 transition-all h-full`}>
+                  <div className={`${r.bg} rounded-xl md:rounded-2xl w-10 h-10 md:w-14 md:h-14 mx-auto flex items-center justify-center mb-2 md:mb-3`}>
+                    <r.icon className={`h-5 w-5 md:h-7 md:w-7 ${r.color}`} strokeWidth={1.75} />
                   </div>
-                  <p className="text-sm font-semibold text-foreground">
+                  <p className="text-xs md:text-sm font-semibold text-foreground">
                     {r.title}
                   </p>
-                  <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
+                  <p className="mt-1.5 md:mt-2 text-[11px] md:text-xs text-muted-foreground leading-relaxed">
                     {r.subtitle}
                   </p>
                 </div>
@@ -745,15 +747,52 @@ function CampsPage() {
       </section>
 
       {/* Reviews */}
-      <section className="py-20 bg-ufo-cream">
+      <section className="py-14 md:py-20 bg-ufo-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-14">
+          <AnimatedSection className="text-center mb-10 md:mb-14">
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
               Відгуки <span className="text-ufo-pink">батьків</span>
             </h2>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Mobile: horizontal swipe carousel with CTA at end */}
+          <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory gap-4 -mx-4 px-4 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {reviews.map((r) => (
+              <div key={r.name} className="snap-center shrink-0 w-[85%]">
+                <div className="rounded-3xl bg-card border-2 border-border p-5 shadow-md h-full">
+                  <div className="flex gap-1 mb-3">
+                    {[1, 2, 3, 4, 5].map((s) => (
+                      <Star key={s} className="h-4 w-4 fill-ufo-yellow text-ufo-yellow" />
+                    ))}
+                  </div>
+                  <p className="text-sm text-muted-foreground italic">"{r.text}"</p>
+                  <p className="mt-4 text-sm font-semibold text-foreground">— {r.name}</p>
+                </div>
+              </div>
+            ))}
+            {/* Final CTA card */}
+            <div className="snap-center shrink-0 w-[85%]">
+              {/* TODO: swap Link `to` to a dedicated review-submission page if one is added */}
+              <div className="rounded-3xl bg-ufo-yellow border-2 border-ufo-yellow p-5 shadow-md h-full flex flex-col">
+                <div className="text-3xl mb-2" aria-hidden>❤️</div>
+                <h3 className="text-lg font-semibold text-primary">Додайте свій відгук ❤️</h3>
+                <p className="mt-2 text-sm text-primary/80 flex-1">
+                  Ми будемо дуже вдячні, якщо ви поділитеся своїми враженнями про UFO STEAM HUB.
+                </p>
+                <Link
+                  to="/contacts"
+                  className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-md"
+                  aria-label="Залишити відгук — перейти до контактів"
+                >
+                  Залишити відгук <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+          <p className="md:hidden -mt-2 text-center text-xs text-muted-foreground">Гортайте вбік →</p>
+
+          {/* Desktop grid unchanged */}
+          <div className="hidden md:grid grid-cols-3 gap-6">
             {reviews.map((r, i) => (
               <AnimatedSection key={r.name} delay={i * 0.1}>
                 <div className="rounded-3xl bg-card border-2 border-border p-6 shadow-md hover:shadow-lg transition-shadow h-full">
@@ -762,12 +801,8 @@ function CampsPage() {
                       <Star key={s} className="h-4 w-4 fill-ufo-yellow text-ufo-yellow" />
                     ))}
                   </div>
-                  <p className="text-sm text-muted-foreground italic">
-                    "{r.text}"
-                  </p>
-                  <p className="mt-4 text-sm font-semibold text-foreground">
-                    — {r.name}
-                  </p>
+                  <p className="text-sm text-muted-foreground italic">"{r.text}"</p>
+                  <p className="mt-4 text-sm font-semibold text-foreground">— {r.name}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -778,17 +813,53 @@ function CampsPage() {
       <Dialog open={!!seasonLightbox} onOpenChange={(open) => !open && setSeasonLightbox(null)}>
         <DialogContent className="max-w-5xl rounded-3xl p-3 sm:p-5 max-h-[90vh] overflow-y-auto">
           {seasonLightbox && (
-            <div className="space-y-4">
-              <DialogTitle className="text-center text-lg font-semibold text-foreground">
-                {seasonLightbox.title} — фото {seasonLightbox.index + 1} з {seasonLightbox.images.length}
+            <div className="space-y-3 md:space-y-4">
+              {/* Story-style progress indicators */}
+              {seasonLightbox.images.length > 1 && (
+                <div className="flex gap-1" aria-hidden>
+                  {seasonLightbox.images.map((_, n) => (
+                    <span
+                      key={n}
+                      className={`h-1 flex-1 rounded-full transition-colors ${
+                        n === seasonLightbox.index
+                          ? "bg-primary"
+                          : n < seasonLightbox.index
+                            ? "bg-primary/60"
+                            : "bg-primary/15"
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
+
+              <DialogTitle className="text-center text-base md:text-lg font-semibold text-foreground">
+                {seasonLightbox.title}
+                <span className="ml-2 text-muted-foreground font-normal">
+                  {seasonLightbox.index + 1} / {seasonLightbox.images.length}
+                </span>
               </DialogTitle>
 
-              <div className="relative overflow-hidden rounded-2xl bg-black/5">
+              <div
+                className="relative overflow-hidden rounded-2xl bg-black/5 touch-pan-y select-none"
+                onTouchStart={(e) => {
+                  touchStartX.current = e.touches[0].clientX;
+                }}
+                onTouchEnd={(e) => {
+                  if (touchStartX.current == null) return;
+                  const dx = e.changedTouches[0].clientX - touchStartX.current;
+                  if (Math.abs(dx) > 40) {
+                    if (dx < 0) showNextSeasonPhoto();
+                    else showPrevSeasonPhoto();
+                  }
+                  touchStartX.current = null;
+                }}
+              >
                 <img
                   src={seasonLightbox.images[seasonLightbox.index]}
                   alt={`${seasonLightbox.title} фото ${seasonLightbox.index + 1}`}
-                  className="max-h-[70vh] w-full object-contain"
+                  className="max-h-[65vh] md:max-h-[70vh] w-full object-contain"
                   loading="eager"
+                  draggable={false}
                 />
 
                 {seasonLightbox.images.length > 1 && (
@@ -796,7 +867,7 @@ function CampsPage() {
                     <button
                       type="button"
                       onClick={showPrevSeasonPhoto}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
+                      className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
                       aria-label="Попереднє фото"
                     >
                       ‹
@@ -805,7 +876,7 @@ function CampsPage() {
                     <button
                       type="button"
                       onClick={showNextSeasonPhoto}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
+                      className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
                       aria-label="Наступне фото"
                     >
                       ›
@@ -815,7 +886,13 @@ function CampsPage() {
               </div>
 
               {seasonLightbox.images.length > 1 && (
-                <div className="flex gap-2 overflow-x-auto pb-1">
+                <p className="md:hidden text-center text-xs text-muted-foreground">
+                  Гортайте вбік для перегляду →
+                </p>
+              )}
+
+              {seasonLightbox.images.length > 1 && (
+                <div className="hidden md:flex gap-2 overflow-x-auto pb-1">
                   {seasonLightbox.images.map((src, n) => (
                     <button
                       key={`${src}-${n}`}
