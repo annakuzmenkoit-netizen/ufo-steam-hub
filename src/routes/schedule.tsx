@@ -47,9 +47,9 @@ type Slot = {
   day: string;
   time: string;
   course: string;
-  age?: string;
+  age: string;
   teacher?: string;
-  description?: string;
+  description: string;
   color: string;
   accent: string;
 };
@@ -63,6 +63,8 @@ const slots: Slot[] = [
     course: "Математика",
     age: "5–6 клас",
     teacher: "Анна",
+    description:
+      "Розбираємо шкільні теми зрозуміло, заповнюємо прогалини та закріплюємо знання через практичні вправи.",
     color: "bg-ufo-blue/15 text-primary",
     accent: "border-l-ufo-blue",
   },
@@ -71,6 +73,9 @@ const slots: Slot[] = [
     day: "Вівторок",
     time: "16:00",
     course: "STEAM-гурток",
+    age: "7–12 років",
+    description:
+      "Досліджуємо фізику, хімію, технології та інженерію через експерименти, конструювання і власні проєкти.",
     color: "bg-ufo-green/15 text-ufo-green",
     accent: "border-l-ufo-green",
   },
@@ -80,6 +85,8 @@ const slots: Slot[] = [
     time: "17:30",
     course: "Математика",
     age: "7–8 клас",
+    description:
+      "Систематизуємо шкільні знання, тренуємо розв’язування задач і готуємося до контрольних робіт.",
     color: "bg-ufo-blue/15 text-primary",
     accent: "border-l-ufo-blue",
   },
@@ -90,7 +97,10 @@ const slots: Slot[] = [
     day: "Середа",
     time: "16:00",
     course: "STEAM-гурток",
+    age: "7–12 років",
     teacher: "Катерина",
+    description:
+      "Проводимо наукові досліди, перевіряємо гіпотези та створюємо практичні STEAM-проєкти власними руками.",
     color: "bg-ufo-green/15 text-ufo-green",
     accent: "border-l-ufo-green",
   },
@@ -103,6 +113,8 @@ const slots: Slot[] = [
     course: "Математика",
     age: "5–6 клас",
     teacher: "Анна",
+    description:
+      "Пояснюємо складні теми просто, працюємо з прогалинами та розвиваємо впевненість у розв’язуванні задач.",
     color: "bg-ufo-blue/15 text-primary",
     accent: "border-l-ufo-blue",
   },
@@ -111,7 +123,10 @@ const slots: Slot[] = [
     day: "Четвер",
     time: "16:00",
     course: "Анімація",
+    age: "7–12 років",
     teacher: "Анна",
+    description:
+      "Створюємо персонажів і сюжети, вивчаємо stop-motion, знімаємо кадри та монтуємо власні мультфільми.",
     color: "bg-ufo-pink/15 text-ufo-pink",
     accent: "border-l-ufo-pink",
   },
@@ -122,6 +137,8 @@ const slots: Slot[] = [
     course: "Математика",
     age: "7–8 клас",
     teacher: "Анна",
+    description:
+      "Поглиблюємо знання зі шкільної математики, розвиваємо логіку та відпрацьовуємо алгоритми розв’язування задач.",
     color: "bg-ufo-blue/15 text-primary",
     accent: "border-l-ufo-blue",
   },
@@ -134,6 +151,8 @@ const slots: Slot[] = [
     course: "Робототехніка",
     age: "7–10 років",
     teacher: "Анна",
+    description:
+      "Конструюємо роботів і механізми, знайомимося з датчиками та вчимося керувати моделями за допомогою програм.",
     color: "bg-ufo-green/15 text-ufo-green",
     accent: "border-l-ufo-green",
   },
@@ -144,6 +163,8 @@ const slots: Slot[] = [
     course: "3D-моделювання",
     age: "10–15 років",
     teacher: "Анна",
+    description:
+      "Створюємо власні 3D-моделі, готуємо їх до друку та перетворюємо цифрові ідеї на реальні вироби.",
     color: "bg-ufo-green/15 text-ufo-green",
     accent: "border-l-ufo-green",
   },
@@ -157,7 +178,7 @@ const slots: Slot[] = [
     age: "7–9 клас",
     teacher: "Анна",
     description:
-      "Олімпіадна математика, алгоритми і програмування.",
+      "Олімпіадна математика, алгоритми та основи програмування. Вчимося знаходити нестандартні способи розв’язання задач.",
     color: "bg-ufo-yellow/30 text-primary",
     accent: "border-l-ufo-yellow",
   },
@@ -168,6 +189,8 @@ const slots: Slot[] = [
     course: "Math&mind",
     age: "5–6 клас",
     teacher: "Анна",
+    description:
+      "Розвиваємо логіку, математичне мислення та навички роботи з нестандартними й олімпіадними задачами.",
     color: "bg-ufo-yellow/30 text-primary",
     accent: "border-l-ufo-yellow",
   },
@@ -178,6 +201,8 @@ const slots: Slot[] = [
     course: "Math&mind",
     age: "3–4 клас",
     teacher: "Катерина",
+    description:
+      "Розв’язуємо головоломки, логічні задачі та математичні ігри, вчимося міркувати й пояснювати свої рішення.",
     color: "bg-ufo-yellow/30 text-primary",
     accent: "border-l-ufo-yellow",
   },
@@ -186,7 +211,10 @@ const slots: Slot[] = [
     day: "Субота",
     time: "13:00",
     course: "Анімація",
+    age: "7–12 років",
     teacher: "Катерина",
+    description:
+      "Вигадуємо історії, створюємо персонажів і декорації та знімаємо власну анімацію кадр за кадром.",
     color: "bg-ufo-pink/15 text-ufo-pink",
     accent: "border-l-ufo-pink",
   },
@@ -195,7 +223,10 @@ const slots: Slot[] = [
     day: "Субота",
     time: "14:30",
     course: "Maker Lab",
+    age: "8–12 років",
     teacher: "Анна",
+    description:
+      "Створюємо корисні винаходи, конструюємо прототипи, тестуємо механізми та вчимося вдосконалювати власні ідеї.",
     color: "bg-ufo-blue/15 text-primary",
     accent: "border-l-ufo-blue",
   },
@@ -204,7 +235,10 @@ const slots: Slot[] = [
     day: "Субота",
     time: "16:00",
     course: "Підлітковий клуб",
+    age: "12–16 років",
     teacher: "Катерина",
+    description:
+      "Безпечний простір для спілкування, командних ігор, творчих активностей, обговорення важливих тем і нових знайомств.",
     color: "bg-ufo-pink/15 text-ufo-pink",
     accent: "border-l-ufo-pink",
   },
@@ -215,7 +249,10 @@ const slots: Slot[] = [
     day: "Неділя",
     time: "10:00",
     course: "3D-моделювання",
+    age: "10–15 років",
     teacher: "Анна",
+    description:
+      "Вивчаємо основи просторового дизайну, створюємо 3D-об’єкти та готуємо власні моделі до друку.",
     color: "bg-ufo-green/15 text-ufo-green",
     accent: "border-l-ufo-green",
   },
@@ -224,7 +261,10 @@ const slots: Slot[] = [
     day: "Неділя",
     time: "11:30",
     course: "Maker Lab",
+    age: "8–12 років",
     teacher: "Анна",
+    description:
+      "Поєднуємо науку, інженерію та творчість: створюємо моделі, механізми й практичні проєкти власними руками.",
     color: "bg-ufo-blue/15 text-primary",
     accent: "border-l-ufo-blue",
   },
@@ -233,7 +273,10 @@ const slots: Slot[] = [
     day: "Неділя",
     time: "14:00",
     course: "Робототехніка",
+    age: "7–10 років",
     teacher: "Анна",
+    description:
+      "Будуємо роботів, досліджуємо принципи роботи механізмів і створюємо прості програми для керування моделями.",
     color: "bg-ufo-green/15 text-ufo-green",
     accent: "border-l-ufo-green",
   },
@@ -343,21 +386,17 @@ function SchedulePage() {
                                 {slot.course}
                               </span>
 
-                              {slot.age && (
-                                <span className="rounded-full bg-muted/60 px-2.5 py-1 text-xs font-semibold text-muted-foreground">
-                                  {slot.age}
-                                </span>
-                              )}
+                              <span className="rounded-full bg-muted/60 px-2.5 py-1 text-xs font-semibold text-muted-foreground">
+                                {slot.age}
+                              </span>
                             </div>
                           </AccordionTrigger>
 
                           <AccordionContent className="px-4 pb-5 md:px-5">
                             <div className="space-y-4 border-t border-border pt-4">
-                              {slot.description && (
-                                <p className="text-sm leading-relaxed text-muted-foreground">
-                                  {slot.description}
-                                </p>
-                              )}
+                              <p className="text-sm leading-relaxed text-muted-foreground">
+                                {slot.description}
+                              </p>
 
                               {slot.teacher && (
                                 <div className="flex flex-wrap items-center gap-3 text-sm">
