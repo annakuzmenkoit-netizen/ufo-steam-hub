@@ -1,11 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { Beaker, Bot, Film, Calculator, Cuboid, PenTool, Sparkles, ArrowRight, FlaskConical, Cpu, Wrench, Palette, Sigma, BookOpen, Star, ChevronDown, RotateCw } from "lucide-react";
+import { Beaker, Bot, Film, Calculator, Cuboid, PenTool, Sparkles, ArrowRight, FlaskConical, Cpu, Wrench, Palette, Sigma, BookOpen, Star, ChevronDown, RotateCw, PartyPopper, Clock3, CheckCircle2, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { toast } from "sonner";
 import { BlobShape, Squiggle, Star4, Dot, Swirl } from "@/components/Blobs";
 import { openRegistration } from "@/components/RegistrationModal";
 
@@ -103,12 +105,380 @@ const steamBlocks = [
 
 const blobA = "polygon(35% 5%, 65% 8%, 90% 25%, 95% 55%, 80% 85%, 50% 95%, 20% 88%, 5% 60%, 8% 30%)";
 
+
+type DemoWorkshop = {
+  id: string;
+  date: "8 серпня" | "9 серпня";
+  dayLabel: string;
+  time: string;
+  title: string;
+  audience: string;
+  description: string;
+  ageMode: "required" | "optional" | "hidden";
+};
+
+const demoWorkshops: DemoWorkshop[] = [
+  {
+    id: "3d-modeling",
+    date: "8 серпня",
+    dayLabel: "субота",
+    time: "10:00",
+    title: "3D-моделювання",
+    audience: "10–15 років",
+    description: "Створимо власну 3D-модель та одразу надрукуємо її на принтері у вигляді ексклюзивного брелока.",
+    ageMode: "required",
+  },
+  {
+    id: "animation",
+    date: "8 серпня",
+    dayLabel: "субота",
+    time: "11:00",
+    title: "Анімація",
+    audience: "7–12 років",
+    description: "Опануємо техніку stop-motion і знімемо свій перший короткий мультфільм.",
+    ageMode: "required",
+  },
+  {
+    id: "steam-lava-lamp",
+    date: "8 серпня",
+    dayLabel: "субота",
+    time: "13:30",
+    title: "STEAM-гурток",
+    audience: "7–10 років",
+    description: "Справжня хімія та фізика в дії: кожен зробить власну магічну лава-лампу.",
+    ageMode: "required",
+  },
+  {
+    id: "robotics",
+    date: "8 серпня",
+    dayLabel: "субота",
+    time: "14:30",
+    title: "Робототехніка",
+    audience: "7–12 років",
+    description: "Конструюємо та програмуємо «розумний» баскетбольний кошик, який реагує на влучання звуком.",
+    ageMode: "required",
+  },
+  {
+    id: "parent-support",
+    date: "9 серпня",
+    dayLabel: "неділя",
+    time: "10:00",
+    title: "Бути опорою",
+    audience: "для батьків підлітків",
+    description: "Теплі розмови за кавою: про дорослішання, сепарацію та стосунки з дітьми. Презентація програми для підлітків.",
+    ageMode: "hidden",
+  },
+  {
+    id: "steam-stop-motion",
+    date: "9 серпня",
+    dayLabel: "неділя",
+    time: "11:30",
+    title: "STEAM-гурток",
+    audience: "8–12 років",
+    description: "Опануємо техніку stop-motion і знімемо свій перший короткий мультфільм.",
+    ageMode: "required",
+  },
+  {
+    id: "open-space",
+    date: "9 серпня",
+    dayLabel: "неділя",
+    time: "14:00",
+    title: "Вільний простір",
+    audience: "для дітей і батьків",
+    description: "Відкриті локації, ігрові зони та неформальне спілкування для дітей і батьків.",
+    ageMode: "optional",
+  },
+];
+
+const DEMO_FORM_ENDPOINT = "https://formsubmit.co/ajax/ufosteamhub@gmail.com";
+
+function DemoDayRegistrationDialog({
+  workshop,
+  open,
+  onOpenChange,
+}: {
+  workshop: DemoWorkshop | null;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  const [selectedWorkshopId, setSelectedWorkshopId] = useState(workshop?.id ?? "");
+  const [participantName, setParticipantName] = useState("");
+  const [childAge, setChildAge] = useState("");
+  const [phone, setPhone] = useState("");
+  const [consentData, setConsentData] = useState(false);
+  const [consentPhoto, setConsentPhoto] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const selectedWorkshop = demoWorkshops.find((item) => item.id === selectedWorkshopId) ?? null;
+
+  useEffect(() => {
+    if (!open) return;
+    setSelectedWorkshopId(workshop?.id ?? demoWorkshops[0].id);
+    setSuccess(false);
+  }, [open, workshop]);
+
+  function resetForm() {
+    setParticipantName("");
+    setChildAge("");
+    setPhone("");
+    setConsentData(false);
+    setConsentPhoto(false);
+    setSubmitting(false);
+    setSuccess(false);
+  }
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (!selectedWorkshop) {
+      toast.error("Оберіть майстерку.");
+      return;
+    }
+
+    if (!participantName.trim() || !phone.trim()) {
+      toast.error("Заповніть ім’я та номер телефону.");
+      return;
+    }
+
+    if (selectedWorkshop.ageMode === "required" && !childAge.trim()) {
+      toast.error("Вкажіть вік дитини.");
+      return;
+    }
+
+    if (!consentData) {
+      toast.error("Потрібна згода на обробку персональних даних.");
+      return;
+    }
+
+    setSubmitting(true);
+
+    try {
+      const response = await fetch(DEMO_FORM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          _subject: `UFO DEMO DAY — ${selectedWorkshop.title} — ${selectedWorkshop.date}, ${selectedWorkshop.time}`,
+          _template: "table",
+          "Подія": "UFO DEMO DAY",
+          "Дата": selectedWorkshop.date,
+          "День": selectedWorkshop.dayLabel,
+          "Час": selectedWorkshop.time,
+          "Майстерка": selectedWorkshop.title,
+          "Вікова категорія або аудиторія": selectedWorkshop.audience,
+          "Ім’я учасника/учасниці": participantName.trim(),
+          "Вік": childAge.trim() || "Не вказано",
+          "Контактний номер телефону": phone.trim(),
+          "Згода на обробку персональних даних": "Так",
+          "Згода на фото-/відеозйомку": consentPhoto ? "Так" : "Ні",
+          "Джерело": "Головна сторінка UFO STEAM HUB",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      setSuccess(true);
+      toast.success("Реєстрацію надіслано!");
+    } catch (error) {
+      console.error("UFO DEMO DAY registration failed", error);
+      toast.error("Не вдалося надіслати заявку. Спробуйте ще раз або зв’яжіться з нами телефоном.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <Dialog
+      open={open}
+      onOpenChange={(nextOpen) => {
+        onOpenChange(nextOpen);
+        if (!nextOpen) {
+          window.setTimeout(resetForm, 200);
+        }
+      }}
+    >
+      <DialogContent className="max-h-[92dvh] overflow-y-auto rounded-3xl sm:max-w-xl p-5 sm:p-6">
+        {success ? (
+          <div className="py-6 text-center">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-ufo-green/15">
+              <CheckCircle2 className="h-9 w-9 text-ufo-green" />
+            </div>
+            <DialogTitle className="text-2xl font-semibold text-primary">Дякуємо!</DialogTitle>
+            <p className="mt-3 text-sm text-muted-foreground">
+              Реєстрацію отримано. Ми зв’яжемося з вами для підтвердження участі.
+            </p>
+            <Button
+              type="button"
+              onClick={() => onOpenChange(false)}
+              className="mt-6 w-full rounded-full bg-ufo-yellow text-primary hover:bg-ufo-yellow/90"
+            >
+              Закрити
+            </Button>
+          </div>
+        ) : (
+          <>
+            <DialogHeader>
+              <div className="mb-1 flex items-center gap-2 text-ufo-pink">
+                <PartyPopper className="h-5 w-5" />
+                <span className="text-xs font-bold uppercase tracking-[0.18em]">UFO DEMO DAY</span>
+              </div>
+              <DialogTitle className="text-2xl font-semibold text-primary">
+                Реєстрація на майстерку
+              </DialogTitle>
+              <DialogDescription>
+                Оберіть одну активність і залиште контактний номер для підтвердження участі.
+              </DialogDescription>
+            </DialogHeader>
+
+            <form onSubmit={handleSubmit} className="mt-4 space-y-4">
+              <div>
+                <label htmlFor="demo-workshop" className="text-sm font-semibold text-foreground">
+                  Майстерка <span className="text-ufo-pink">*</span>
+                </label>
+                <select
+                  id="demo-workshop"
+                  value={selectedWorkshopId}
+                  onChange={(event) => {
+                    setSelectedWorkshopId(event.target.value);
+                    setChildAge("");
+                  }}
+                  className="mt-1 min-h-12 w-full rounded-xl border border-input bg-background px-3 text-sm text-foreground shadow-sm outline-none focus:ring-2 focus:ring-primary"
+                  required
+                >
+                  {demoWorkshops.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.date}, {item.time} — {item.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {selectedWorkshop && (
+                <div className="rounded-2xl border border-ufo-blue/20 bg-ufo-blue/5 p-4">
+                  <p className="text-sm font-semibold text-primary">
+                    {selectedWorkshop.date}, {selectedWorkshop.dayLabel} · {selectedWorkshop.time}
+                  </p>
+                  <p className="mt-1 font-semibold text-foreground">{selectedWorkshop.title}</p>
+                  <p className="mt-1 text-xs text-muted-foreground">{selectedWorkshop.audience}</p>
+                </div>
+              )}
+
+              <div>
+                <label htmlFor="demo-name" className="text-sm font-semibold text-foreground">
+                  Ім’я учасника/учасниці <span className="text-ufo-pink">*</span>
+                </label>
+                <Input
+                  id="demo-name"
+                  value={participantName}
+                  onChange={(event) => setParticipantName(event.target.value)}
+                  autoComplete="name"
+                  className="mt-1 min-h-12 rounded-xl"
+                  required
+                />
+              </div>
+
+              {selectedWorkshop?.ageMode !== "hidden" && (
+                <div>
+                  <label htmlFor="demo-age" className="text-sm font-semibold text-foreground">
+                    Вік дитини
+                    {selectedWorkshop?.ageMode === "required" && <span className="text-ufo-pink"> *</span>}
+                  </label>
+                  <Input
+                    id="demo-age"
+                    type="number"
+                    min={3}
+                    max={18}
+                    inputMode="numeric"
+                    value={childAge}
+                    onChange={(event) => setChildAge(event.target.value)}
+                    className="mt-1 min-h-12 rounded-xl"
+                    required={selectedWorkshop?.ageMode === "required"}
+                  />
+                </div>
+              )}
+
+              <div>
+                <label htmlFor="demo-phone" className="text-sm font-semibold text-foreground">
+                  Контактний номер телефону <span className="text-ufo-pink">*</span>
+                </label>
+                <Input
+                  id="demo-phone"
+                  type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
+                  placeholder="+380..."
+                  value={phone}
+                  onChange={(event) => setPhone(event.target.value)}
+                  className="mt-1 min-h-12 rounded-xl"
+                  required
+                />
+              </div>
+
+              <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-border p-3">
+                <input
+                  type="checkbox"
+                  checked={consentData}
+                  onChange={(event) => setConsentData(event.target.checked)}
+                  className="mt-1 h-4 w-4 accent-primary"
+                  required
+                />
+                <span className="text-sm leading-relaxed text-foreground">
+                  Я даю згоду на обробку персональних даних відповідно до чинного законодавства України.
+                </span>
+              </label>
+
+              <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-border p-3">
+                <input
+                  type="checkbox"
+                  checked={consentPhoto}
+                  onChange={(event) => setConsentPhoto(event.target.checked)}
+                  className="mt-1 h-4 w-4 accent-primary"
+                />
+                <span className="text-sm leading-relaxed text-foreground">
+                  Я даю згоду на фото- та відеозйомку під час події.
+                </span>
+              </label>
+
+              <Button
+                type="submit"
+                disabled={submitting}
+                className="min-h-12 w-full rounded-full bg-ufo-yellow text-base font-semibold text-primary shadow-md hover:bg-ufo-yellow/90"
+              >
+                {submitting ? (
+                  <span className="inline-flex items-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin" /> Надсилаємо...
+                  </span>
+                ) : (
+                  "Надіслати заявку"
+                )}
+              </Button>
+            </form>
+          </>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 function HomePage() {
   const [flipped, setFlipped] = useState<Record<string, boolean>>({});
+  const [activeDemoDate, setActiveDemoDate] = useState<"8 серпня" | "9 серпня">("8 серпня");
+  const [selectedDemoWorkshop, setSelectedDemoWorkshop] = useState<DemoWorkshop | null>(null);
+  const [demoDialogOpen, setDemoDialogOpen] = useState(false);
 
-  const scrollToPrograms = () => {
-    const el = document.getElementById("programs");
+  const scrollToBirthday = () => {
+    const el = document.getElementById("demo-day");
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const openDemoRegistration = (workshop: DemoWorkshop) => {
+    setSelectedDemoWorkshop(workshop);
+    setDemoDialogOpen(true);
   };
 
   return (
@@ -177,12 +547,104 @@ function HomePage() {
           <div className="md:hidden flex justify-center mt-6">
             <button
               type="button"
-              onClick={scrollToPrograms}
-              aria-label="Прокрутити вниз"
+              onClick={scrollToBirthday}
+              aria-label="Прокрутити до програми UFO DEMO DAY"
               className="h-10 w-10 rounded-full bg-white/70 backdrop-blur border border-primary/20 text-primary shadow-md flex items-center justify-center animate-bounce"
             >
               <ChevronDown className="h-5 w-5" />
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* UFO DEMO DAY */}
+      <section id="demo-day" className="relative overflow-hidden bg-gradient-to-b from-primary via-[#244fd2] to-[#173aa8] py-12 text-white md:py-20">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+          {[0, 1, 2, 3, 4, 5, 6, 7].map((item) => (
+            <motion.span
+              key={item}
+              className={`absolute h-2.5 w-2.5 rounded-sm motion-reduce:hidden ${
+                item % 3 === 0 ? "bg-ufo-yellow" : item % 3 === 1 ? "bg-ufo-pink" : "bg-ufo-green"
+              }`}
+              style={{
+                left: `${8 + item * 12}%`,
+                top: `${10 + (item % 4) * 17}%`,
+              }}
+              animate={{ y: [0, 18, 0], rotate: [0, 120, 240] }}
+              transition={{ duration: 3.5 + item * 0.2, repeat: Infinity, ease: "easeInOut", delay: item * 0.15 }}
+            />
+          ))}
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className="mx-auto max-w-3xl text-center">
+            <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] backdrop-blur">
+              <PartyPopper className="h-4 w-4 text-ufo-yellow" /> UFO DEMO DAY · нам 1 рік
+            </div>
+            <h2 className="text-3xl font-semibold leading-tight md:text-5xl">
+              Святкуємо день народження разом!
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-white/85 md:text-lg">
+              8–9 серпня запрошуємо дітей і батьків на безоплатні практичні демо-заняття. Обирайте напрям і тестуйте гуртки перед новим навчальним роком.
+            </p>
+            <p className="mt-4 text-sm font-semibold text-ufo-yellow md:text-base">
+              Кількість місць обмежена. Попередня реєстрація обов’язкова.
+            </p>
+          </AnimatedSection>
+
+          <div className="mx-auto mt-8 flex max-w-md rounded-full bg-white/10 p-1 backdrop-blur md:mt-10">
+            {(["8 серпня", "9 серпня"] as const).map((date) => (
+              <button
+                key={date}
+                type="button"
+                onClick={() => setActiveDemoDate(date)}
+                className={`min-h-11 flex-1 rounded-full px-4 py-2 text-sm font-semibold transition-all ${
+                  activeDemoDate === date ? "bg-ufo-yellow text-primary shadow-lg" : "text-white hover:bg-white/10"
+                }`}
+              >
+                {date}
+              </button>
+            ))}
+          </div>
+
+          <div className="mx-auto mt-6 max-w-5xl space-y-3 md:mt-8 md:space-y-4">
+            {demoWorkshops
+              .filter((workshop) => workshop.date === activeDemoDate)
+              .map((workshop, index) => (
+                <AnimatedSection key={workshop.id} delay={index * 0.05}>
+                  <article className="overflow-hidden rounded-2xl bg-white text-foreground shadow-xl md:grid md:grid-cols-[150px_1fr_auto] md:items-stretch">
+                    <div className="flex items-center justify-between gap-3 bg-[#3558df] px-5 py-3 text-white md:flex-col md:justify-center md:px-6 md:py-5">
+                      <div className="flex items-center gap-2 md:flex-col md:gap-1">
+                        <Clock3 className="h-4 w-4 opacity-80 md:hidden" />
+                        <span className="text-2xl font-bold md:text-4xl">{workshop.time}</span>
+                      </div>
+                      <span className="text-xs font-semibold text-white/80 md:text-center">
+                        {workshop.date}, {workshop.dayLabel}
+                      </span>
+                    </div>
+
+                    <div className="px-5 py-4 md:px-7 md:py-5">
+                      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                        <h3 className="text-lg font-bold leading-tight md:text-2xl">{workshop.title}</h3>
+                        <span className="text-sm font-semibold text-primary/75">({workshop.audience})</span>
+                      </div>
+                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
+                        {workshop.description}
+                      </p>
+                    </div>
+
+                    <div className="px-5 pb-5 md:flex md:items-center md:px-5 md:pb-0">
+                      <button
+                        type="button"
+                        onClick={() => openDemoRegistration(workshop)}
+                        className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-ufo-yellow px-5 py-3 text-sm font-semibold text-primary shadow-md transition-all hover:scale-[1.02] hover:shadow-lg md:w-auto"
+                      >
+                        Записатися <ArrowRight className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </article>
+                </AnimatedSection>
+              ))}
           </div>
         </div>
       </section>
@@ -420,6 +882,12 @@ function HomePage() {
           </div>
         </div>
       </section>
+
+      <DemoDayRegistrationDialog
+        workshop={selectedDemoWorkshop}
+        open={demoDialogOpen}
+        onOpenChange={setDemoDialogOpen}
+      />
     </>
   );
 }
