@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import {
   Accordion,
@@ -6,19 +6,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  Clock,
-  Users,
-  ArrowRight,
-  CalendarDays,
-} from "lucide-react";
+import { Clock, Users, ArrowRight, CalendarDays } from "lucide-react";
 import { openRegistration } from "@/components/RegistrationModal";
-import {
-  Star4,
-  Dot,
-  Squiggle,
-  BlobShape,
-} from "@/components/Blobs";
+import { Star4, Dot, Squiggle, BlobShape } from "@/components/Blobs";
 
 export const Route = createFileRoute("/schedule")({
   head: () => ({
@@ -27,7 +17,7 @@ export const Route = createFileRoute("/schedule")({
       {
         name: "description",
         content:
-          "Розклад занять UFO STEAM HUB — знайдіть зручний час для вашої дитини.",
+          "Орієнтовний розклад занять UFO STEAM HUB на 2026–2027 навчальний рік.",
       },
       {
         property: "og:title",
@@ -35,7 +25,8 @@ export const Route = createFileRoute("/schedule")({
       },
       {
         property: "og:description",
-        content: "Розклад занять освітнього центру.",
+        content:
+          "Орієнтовний розклад занять освітнього центру UFO STEAM HUB на 2026–2027 навчальний рік.",
       },
     ],
   }),
@@ -55,7 +46,6 @@ type Slot = {
 };
 
 const slots: Slot[] = [
-  // Вівторок
   {
     id: "tue-1",
     day: "Вівторок",
@@ -90,8 +80,6 @@ const slots: Slot[] = [
     color: "bg-ufo-blue/15 text-primary",
     accent: "border-l-ufo-blue",
   },
-
-  // Середа
   {
     id: "wed-1",
     day: "Середа",
@@ -104,8 +92,6 @@ const slots: Slot[] = [
     color: "bg-ufo-green/15 text-ufo-green",
     accent: "border-l-ufo-green",
   },
-
-  // Четвер
   {
     id: "thu-1",
     day: "Четвер",
@@ -142,8 +128,6 @@ const slots: Slot[] = [
     color: "bg-ufo-blue/15 text-primary",
     accent: "border-l-ufo-blue",
   },
-
-  // П’ятниця
   {
     id: "fri-1",
     day: "П'ятниця",
@@ -168,8 +152,6 @@ const slots: Slot[] = [
     color: "bg-ufo-green/15 text-ufo-green",
     accent: "border-l-ufo-green",
   },
-
-  // Субота
   {
     id: "sat-1",
     day: "Субота",
@@ -242,8 +224,6 @@ const slots: Slot[] = [
     color: "bg-ufo-pink/15 text-ufo-pink",
     accent: "border-l-ufo-pink",
   },
-
-  // Неділя
   {
     id: "sun-1",
     day: "Неділя",
@@ -325,9 +305,9 @@ function SchedulePage() {
             Наш <span className="text-primary">розклад</span>
           </h1>
 
-          <p className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground md:mt-6 md:text-lg">
-            Натисніть на заняття, щоб побачити деталі та одразу
-            записатись. Час занять може змінюватися залежно від формування груп. Не знайшли зручного часу? Напишіть нам — ми врахуємо ваші побажання та спробуємо запропонувати інший варіант
+          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground md:mt-6 md:text-lg">
+            Орієнтовний розклад занять на 2026–2027 навчальний рік.
+            Час може змінюватися залежно від формування груп.
           </p>
         </AnimatedSection>
       </section>
@@ -335,15 +315,10 @@ function SchedulePage() {
       <section className="bg-background py-12 md:py-20">
         <div className="mx-auto max-w-5xl space-y-8 px-4 sm:px-6 md:space-y-10 lg:px-8">
           {days.map((day, dayIdx) => {
-            const daySlots = slots.filter(
-              (slot) => slot.day === day,
-            );
+            const daySlots = slots.filter((slot) => slot.day === day);
 
             return (
-              <AnimatedSection
-                key={day}
-                delay={dayIdx * 0.04}
-              >
+              <AnimatedSection key={day} delay={dayIdx * 0.04}>
                 <div className="mb-4 flex items-center gap-3">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-ufo-yellow shadow-md">
                     <CalendarDays className="h-5 w-5 text-primary" />
@@ -359,11 +334,7 @@ function SchedulePage() {
                     Занять поки немає.
                   </div>
                 ) : (
-                  <Accordion
-                    type="single"
-                    collapsible
-                    className="space-y-3"
-                  >
+                  <Accordion type="single" collapsible className="space-y-3">
                     {daySlots.map((slot) => (
                       <AccordionItem
                         key={slot.id}
@@ -412,9 +383,7 @@ function SchedulePage() {
 
                               <button
                                 type="button"
-                                onClick={() =>
-                                  openRegistration(slot.course)
-                                }
+                                onClick={() => openRegistration(slot.course)}
                                 className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-ufo-yellow px-6 py-3 text-sm font-semibold text-primary shadow-md transition-all hover:scale-[1.02] hover:shadow-lg sm:w-auto"
                               >
                                 Записатись
@@ -430,6 +399,42 @@ function SchedulePage() {
               </AnimatedSection>
             );
           })}
+
+          <AnimatedSection>
+            <div className="relative overflow-hidden rounded-3xl border-2 border-ufo-yellow bg-ufo-cream px-5 py-7 text-center shadow-md md:px-10 md:py-10">
+              <Star4
+                className="absolute -right-2 -top-2 opacity-70"
+                color="#f7df5d"
+                size={46}
+              />
+
+              <Dot
+                className="absolute bottom-4 left-5 opacity-60"
+                color="#17c590"
+                size={20}
+              />
+
+              <div className="relative">
+                <h2 className="text-xl font-semibold text-foreground md:text-3xl">
+                  Не знайшли зручного часу?
+                </h2>
+
+                <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+                  Напишіть нам — ми врахуємо ваші побажання та спробуємо
+                  запропонувати інший час або повідомимо про відкриття
+                  нової групи.
+                </p>
+
+                <Link
+                  to="/contacts"
+                  className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-ufo-yellow px-7 py-3 text-sm font-semibold text-primary shadow-md transition-all hover:scale-[1.02] hover:shadow-lg"
+                >
+                  Написати нам
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
     </>
