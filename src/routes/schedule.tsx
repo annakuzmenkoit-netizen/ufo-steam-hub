@@ -1,17 +1,42 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Clock, Users, ArrowRight, CalendarDays } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
+  Clock,
+  Users,
+  ArrowRight,
+  CalendarDays,
+} from "lucide-react";
 import { openRegistration } from "@/components/RegistrationModal";
-import { Star4, Dot, Squiggle, BlobShape } from "@/components/Blobs";
+import {
+  Star4,
+  Dot,
+  Squiggle,
+  BlobShape,
+} from "@/components/Blobs";
 
 export const Route = createFileRoute("/schedule")({
   head: () => ({
     meta: [
       { title: "Розклад — UFO STEAM HUB" },
-      { name: "description", content: "Розклад занять UFO STEAM HUB — знайдіть зручний час для вашої дитини." },
-      { property: "og:title", content: "Розклад — UFO STEAM HUB" },
-      { property: "og:description", content: "Розклад занять освітнього центру." },
+      {
+        name: "description",
+        content:
+          "Розклад занять UFO STEAM HUB — знайдіть зручний час для вашої дитини.",
+      },
+      {
+        property: "og:title",
+        content: "Розклад — UFO STEAM HUB",
+      },
+      {
+        property: "og:description",
+        content: "Розклад занять освітнього центру.",
+      },
     ],
   }),
   component: SchedulePage,
@@ -22,100 +47,347 @@ type Slot = {
   day: string;
   time: string;
   course: string;
-  age: string;
-  teacher: string;
-  description: string;
-  color: string; // pill color
-  accent: string; // border color
+  age?: string;
+  teacher?: string;
+  description?: string;
+  color: string;
+  accent: string;
 };
 
 const slots: Slot[] = [
-  { id: "mon-1", day: "Понеділок", time: "15:00–16:30", course: "STEAM-гурток", age: "7-9 років", teacher: "Анна", description: "Досліджуємо нову тему місяця через експерименти, гру та проєктну роботу.", color: "bg-ufo-blue/15 text-primary", accent: "border-l-ufo-blue" },
-  { id: "mon-2", day: "Понеділок", time: "17:00–18:30", course: "Робототехніка", age: "6-9 років", teacher: "Станіслав", description: "Конструюємо та програмуємо перших роботів. Базовий рівень.", color: "bg-ufo-green/15 text-ufo-green", accent: "border-l-ufo-green" },
-  { id: "tue-1", day: "Вівторок", time: "15:00–16:30", course: "Анімація", age: "7-10 років", teacher: "Олександра", description: "Вчимося оживляти персонажів, малюємо кадри, створюємо власний мультфільм.", color: "bg-ufo-pink/15 text-ufo-pink", accent: "border-l-ufo-pink" },
-  { id: "tue-2", day: "Вівторок", time: "17:00–18:30", course: "Math&mind", age: "3-4 клас", teacher: "Валерія", description: "Логіка, олімпіадні задачі, головоломки в ігровому форматі.", color: "bg-ufo-yellow/30 text-primary", accent: "border-l-ufo-yellow" },
-  { id: "wed-1", day: "Середа", time: "15:00–16:30", course: "Математика", age: "5-6 клас", teacher: "Валерія", description: "Шкільна програма, заповнення пробілів, підготовка до контрольних.", color: "bg-ufo-blue/15 text-primary", accent: "border-l-ufo-blue" },
-  { id: "wed-2", day: "Середа", time: "17:00–18:30", course: "3D моделювання", age: "10-14 років", teacher: "Станіслав", description: "Створюємо 3D-моделі та друкуємо власні вироби на 3D-принтері.", color: "bg-ufo-green/15 text-ufo-green", accent: "border-l-ufo-green" },
-  { id: "thu-1", day: "Четвер", time: "15:00–16:30", course: "STEAM-гурток", age: "10-12 років", teacher: "Анна", description: "Старша група: складніші експерименти та більш самостійні проєкти.", color: "bg-ufo-blue/15 text-primary", accent: "border-l-ufo-blue" },
-  { id: "thu-2", day: "Четвер", time: "17:00–18:30", course: "Робототехніка", age: "10-12 років", teacher: "Станіслав", description: "Просунутий рівень: складні механізми, автономні роботи, змагання.", color: "bg-ufo-green/15 text-ufo-green", accent: "border-l-ufo-green" },
-  { id: "fri-1", day: "П'ятниця", time: "15:00–16:30", course: "Анімація", age: "10-12 років", teacher: "Олександра", description: "Старша група: цифрова анімація, монтаж та озвучка.", color: "bg-ufo-pink/15 text-ufo-pink", accent: "border-l-ufo-pink" },
-  { id: "fri-2", day: "П'ятниця", time: "17:00–18:30", course: "Math&mind", age: "5-6 клас", teacher: "Валерія", description: "Олімпіадна математика для середньої школи.", color: "bg-ufo-yellow/30 text-primary", accent: "border-l-ufo-yellow" },
-  { id: "sat-1", day: "Субота", time: "10:00–11:30", course: "STEAM-гурток", age: "7-9 років", teacher: "Анна", description: "Ранкова субота для активних дослідників.", color: "bg-ufo-blue/15 text-primary", accent: "border-l-ufo-blue" },
-  { id: "sat-2", day: "Субота", time: "12:00–13:30", course: "3D моделювання", age: "7-10 років", teacher: "Станіслав", description: "Молодша група: знайомство з 3D-середовищем.", color: "bg-ufo-green/15 text-ufo-green", accent: "border-l-ufo-green" },
-  { id: "sat-3", day: "Субота", time: "14:00–15:30", course: "Математика", age: "7-9 клас", teacher: "Валерія", description: "Підготовка до ДПА та поглиблене вивчення.", color: "bg-ufo-blue/15 text-primary", accent: "border-l-ufo-blue" },
+  // Вівторок
+  {
+    id: "tue-1",
+    day: "Вівторок",
+    time: "15:00",
+    course: "Математика",
+    age: "5–6 клас",
+    teacher: "Анна",
+    color: "bg-ufo-blue/15 text-primary",
+    accent: "border-l-ufo-blue",
+  },
+  {
+    id: "tue-2",
+    day: "Вівторок",
+    time: "16:00",
+    course: "STEAM-гурток",
+    color: "bg-ufo-green/15 text-ufo-green",
+    accent: "border-l-ufo-green",
+  },
+  {
+    id: "tue-3",
+    day: "Вівторок",
+    time: "17:30",
+    course: "Математика",
+    age: "7–8 клас",
+    color: "bg-ufo-blue/15 text-primary",
+    accent: "border-l-ufo-blue",
+  },
+
+  // Середа
+  {
+    id: "wed-1",
+    day: "Середа",
+    time: "16:00",
+    course: "STEAM-гурток",
+    teacher: "Катерина",
+    color: "bg-ufo-green/15 text-ufo-green",
+    accent: "border-l-ufo-green",
+  },
+
+  // Четвер
+  {
+    id: "thu-1",
+    day: "Четвер",
+    time: "15:00",
+    course: "Математика",
+    age: "5–6 клас",
+    teacher: "Анна",
+    color: "bg-ufo-blue/15 text-primary",
+    accent: "border-l-ufo-blue",
+  },
+  {
+    id: "thu-2",
+    day: "Четвер",
+    time: "16:00",
+    course: "Анімація",
+    teacher: "Анна",
+    color: "bg-ufo-pink/15 text-ufo-pink",
+    accent: "border-l-ufo-pink",
+  },
+  {
+    id: "thu-3",
+    day: "Четвер",
+    time: "17:30",
+    course: "Математика",
+    age: "7–8 клас",
+    teacher: "Анна",
+    color: "bg-ufo-blue/15 text-primary",
+    accent: "border-l-ufo-blue",
+  },
+
+  // П’ятниця
+  {
+    id: "fri-1",
+    day: "П'ятниця",
+    time: "15:30",
+    course: "Робототехніка",
+    age: "7–10 років",
+    teacher: "Анна",
+    color: "bg-ufo-green/15 text-ufo-green",
+    accent: "border-l-ufo-green",
+  },
+  {
+    id: "fri-2",
+    day: "П'ятниця",
+    time: "17:00",
+    course: "3D-моделювання",
+    age: "10–15 років",
+    teacher: "Анна",
+    color: "bg-ufo-green/15 text-ufo-green",
+    accent: "border-l-ufo-green",
+  },
+
+  // Субота
+  {
+    id: "sat-1",
+    day: "Субота",
+    time: "10:00",
+    course: "Math&mind",
+    age: "7–9 клас",
+    teacher: "Анна",
+    description:
+      "Олімпіадна математика, алгоритми і програмування.",
+    color: "bg-ufo-yellow/30 text-primary",
+    accent: "border-l-ufo-yellow",
+  },
+  {
+    id: "sat-2",
+    day: "Субота",
+    time: "11:00",
+    course: "Math&mind",
+    age: "5–6 клас",
+    teacher: "Анна",
+    color: "bg-ufo-yellow/30 text-primary",
+    accent: "border-l-ufo-yellow",
+  },
+  {
+    id: "sat-3",
+    day: "Субота",
+    time: "12:00",
+    course: "Math&mind",
+    age: "3–4 клас",
+    teacher: "Катерина",
+    color: "bg-ufo-yellow/30 text-primary",
+    accent: "border-l-ufo-yellow",
+  },
+  {
+    id: "sat-4",
+    day: "Субота",
+    time: "13:00",
+    course: "Анімація",
+    teacher: "Катерина",
+    color: "bg-ufo-pink/15 text-ufo-pink",
+    accent: "border-l-ufo-pink",
+  },
+  {
+    id: "sat-5",
+    day: "Субота",
+    time: "14:30",
+    course: "Maker Lab",
+    teacher: "Анна",
+    color: "bg-ufo-blue/15 text-primary",
+    accent: "border-l-ufo-blue",
+  },
+  {
+    id: "sat-6",
+    day: "Субота",
+    time: "16:00",
+    course: "Підлітковий клуб",
+    teacher: "Катерина",
+    color: "bg-ufo-pink/15 text-ufo-pink",
+    accent: "border-l-ufo-pink",
+  },
+
+  // Неділя
+  {
+    id: "sun-1",
+    day: "Неділя",
+    time: "10:00",
+    course: "3D-моделювання",
+    teacher: "Анна",
+    color: "bg-ufo-green/15 text-ufo-green",
+    accent: "border-l-ufo-green",
+  },
+  {
+    id: "sun-2",
+    day: "Неділя",
+    time: "11:30",
+    course: "Maker Lab",
+    teacher: "Анна",
+    color: "bg-ufo-blue/15 text-primary",
+    accent: "border-l-ufo-blue",
+  },
+  {
+    id: "sun-3",
+    day: "Неділя",
+    time: "14:00",
+    course: "Робототехніка",
+    teacher: "Анна",
+    color: "bg-ufo-green/15 text-ufo-green",
+    accent: "border-l-ufo-green",
+  },
 ];
 
-const days = ["Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота"];
+const days = [
+  "Понеділок",
+  "Вівторок",
+  "Середа",
+  "Четвер",
+  "П'ятниця",
+  "Субота",
+  "Неділя",
+];
 
 function SchedulePage() {
   return (
     <>
-      <section className="py-20 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
-        <Star4 className="absolute top-10 left-10" color="#f7df5d" size={50} />
-        <Dot className="absolute top-20 right-20" color="#f04770" size={20} />
-        <Squiggle className="absolute bottom-10 right-10 opacity-70" color="#17c590" size={130} />
-        <BlobShape className="absolute -bottom-12 -left-12 opacity-25" color="#3056dd" size={200} />
+      <section className="relative overflow-hidden bg-ufo-cream py-16 text-center md:py-28">
+        <Star4
+          className="absolute left-5 top-8 md:left-10 md:top-10"
+          color="#f7df5d"
+          size={50}
+        />
+
+        <Dot
+          className="absolute right-8 top-20 hidden md:block"
+          color="#f04770"
+          size={20}
+        />
+
+        <Squiggle
+          className="absolute bottom-10 right-10 hidden opacity-70 md:block"
+          color="#17c590"
+          size={130}
+        />
+
+        <BlobShape
+          className="absolute -bottom-12 -left-12 opacity-25"
+          color="#3056dd"
+          size={200}
+        />
+
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
-          <h1 className="text-4xl md:text-5xl font-semibold text-foreground">
+          <h1 className="text-3xl font-semibold text-foreground md:text-5xl">
             Наш <span className="text-primary">розклад</span>
           </h1>
-          <p className="mt-6 text-lg text-muted-foreground">
-            Натисніть на заняття, щоб побачити деталі та одразу записатись.
+
+          <p className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground md:mt-6 md:text-lg">
+            Натисніть на заняття, щоб побачити деталі та одразу
+            записатись.
           </p>
         </AnimatedSection>
       </section>
 
-      <section className="py-20 bg-background">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-10">
+      <section className="bg-background py-12 md:py-20">
+        <div className="mx-auto max-w-5xl space-y-8 px-4 sm:px-6 md:space-y-10 lg:px-8">
           {days.map((day, dayIdx) => {
-            const daySlots = slots.filter((s) => s.day === day);
-            if (daySlots.length === 0) return null;
+            const daySlots = slots.filter(
+              (slot) => slot.day === day,
+            );
+
             return (
-              <AnimatedSection key={day} delay={dayIdx * 0.04}>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-2xl bg-ufo-yellow flex items-center justify-center shadow-md">
+              <AnimatedSection
+                key={day}
+                delay={dayIdx * 0.04}
+              >
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-ufo-yellow shadow-md">
                     <CalendarDays className="h-5 w-5 text-primary" />
                   </div>
-                  <h2 className="text-2xl font-semibold text-foreground">{day}</h2>
+
+                  <h2 className="text-xl font-semibold text-foreground md:text-2xl">
+                    {day}
+                  </h2>
                 </div>
-                <Accordion type="single" collapsible className="space-y-3">
-                  {daySlots.map((slot) => (
-                    <AccordionItem key={slot.id} value={slot.id} className="border-none">
-                      <div className={`rounded-2xl bg-card border-l-4 ${slot.accent} border border-border shadow-sm hover:shadow-md transition-all overflow-hidden`}>
-                        <AccordionTrigger className="px-5 py-4 hover:no-underline">
-                          <div className="flex flex-wrap md:flex-nowrap items-center gap-3 md:gap-5 w-full text-left pr-2">
-                            <div className="flex items-center gap-2 text-sm font-bold text-foreground shrink-0 min-w-[110px]">
-                              <Clock className="h-4 w-4 text-primary" /> {slot.time}
-                            </div>
-                            <span className={`text-sm font-semibold rounded-full px-3 py-1 ${slot.color}`}>
-                              {slot.course}
-                            </span>
-                            <span className="text-xs font-semibold text-muted-foreground bg-muted/60 rounded-full px-2.5 py-0.5">
-                              {slot.age}
-                            </span>
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="px-5 pb-5">
-                          <div className="border-t border-border pt-4 space-y-4">
-                            <p className="text-sm text-muted-foreground">{slot.description}</p>
-                            <div className="flex flex-wrap items-center gap-3 text-sm">
-                              <span className="inline-flex items-center gap-1.5 text-muted-foreground">
-                                <Users className="h-4 w-4 text-primary" /> Викладач: <span className="font-semibold text-foreground">{slot.teacher}</span>
+
+                {daySlots.length === 0 ? (
+                  <div className="rounded-2xl border border-dashed border-border bg-card/60 px-5 py-5 text-sm text-muted-foreground">
+                    Занять поки немає.
+                  </div>
+                ) : (
+                  <Accordion
+                    type="single"
+                    collapsible
+                    className="space-y-3"
+                  >
+                    {daySlots.map((slot) => (
+                      <AccordionItem
+                        key={slot.id}
+                        value={slot.id}
+                        className="border-none"
+                      >
+                        <div
+                          className={`overflow-hidden rounded-2xl border border-l-4 border-border bg-card shadow-sm transition-all hover:shadow-md ${slot.accent}`}
+                        >
+                          <AccordionTrigger className="px-4 py-4 hover:no-underline md:px-5">
+                            <div className="flex w-full flex-wrap items-center gap-2.5 pr-2 text-left md:flex-nowrap md:gap-5">
+                              <div className="flex min-w-[76px] shrink-0 items-center gap-2 text-sm font-bold text-foreground md:min-w-[100px]">
+                                <Clock className="h-4 w-4 text-primary" />
+                                {slot.time}
+                              </div>
+
+                              <span
+                                className={`rounded-full px-3 py-1 text-xs font-semibold md:text-sm ${slot.color}`}
+                              >
+                                {slot.course}
                               </span>
+
+                              {slot.age && (
+                                <span className="rounded-full bg-muted/60 px-2.5 py-1 text-xs font-semibold text-muted-foreground">
+                                  {slot.age}
+                                </span>
+                              )}
                             </div>
-                            <button
-                              type="button"
-                              onClick={() => openRegistration(slot.course)}
-                              className="inline-flex items-center gap-2 rounded-full bg-ufo-yellow px-6 py-3 text-sm font-semibold text-primary shadow-md hover:shadow-lg hover:scale-105 transition-all"
-                            >
-                              Записатись <ArrowRight className="h-4 w-4" />
-                            </button>
-                          </div>
-                        </AccordionContent>
-                      </div>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
+                          </AccordionTrigger>
+
+                          <AccordionContent className="px-4 pb-5 md:px-5">
+                            <div className="space-y-4 border-t border-border pt-4">
+                              {slot.description && (
+                                <p className="text-sm leading-relaxed text-muted-foreground">
+                                  {slot.description}
+                                </p>
+                              )}
+
+                              {slot.teacher && (
+                                <div className="flex flex-wrap items-center gap-3 text-sm">
+                                  <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+                                    <Users className="h-4 w-4 text-primary" />
+                                    Викладач:
+                                    <span className="font-semibold text-foreground">
+                                      {slot.teacher}
+                                    </span>
+                                  </span>
+                                </div>
+                              )}
+
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  openRegistration(slot.course)
+                                }
+                                className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-ufo-yellow px-6 py-3 text-sm font-semibold text-primary shadow-md transition-all hover:scale-[1.02] hover:shadow-lg sm:w-auto"
+                              >
+                                Записатись
+                                <ArrowRight className="h-4 w-4" />
+                              </button>
+                            </div>
+                          </AccordionContent>
+                        </div>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                )}
               </AnimatedSection>
             );
           })}
