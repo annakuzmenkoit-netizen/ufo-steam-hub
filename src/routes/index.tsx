@@ -10,6 +10,9 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { toast } from "sonner";
 import { BlobShape, Squiggle, Star4, Dot, Swirl } from "@/components/Blobs";
 import { openRegistration } from "@/components/RegistrationModal";
+import { useServerFn } from "@tanstack/react-start";
+import { submitDemoDayRegistration } from "@/lib/demo-day.functions";
+import { demoWorkshops, type DemoWorkshop } from "@/lib/demo-day-workshops";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -106,91 +109,6 @@ const steamBlocks = [
 const blobA = "polygon(35% 5%, 65% 8%, 90% 25%, 95% 55%, 80% 85%, 50% 95%, 20% 88%, 5% 60%, 8% 30%)";
 
 
-type DemoWorkshop = {
-  id: string;
-  date: "8 серпня" | "9 серпня";
-  dayLabel: string;
-  time: string;
-  title: string;
-  audience: string;
-  description: string;
-  ageMode: "required" | "optional" | "hidden";
-};
-
-const demoWorkshops: DemoWorkshop[] = [
-  {
-    id: "3d-modeling",
-    date: "8 серпня",
-    dayLabel: "субота",
-    time: "10:00",
-    title: "3D-моделювання",
-    audience: "10–15 років",
-    description: "Створимо власну 3D-модель та одразу надрукуємо її на принтері у вигляді ексклюзивного брелока.",
-    ageMode: "required",
-  },
-  {
-    id: "animation",
-    date: "8 серпня",
-    dayLabel: "субота",
-    time: "11:00",
-    title: "Анімація",
-    audience: "7–12 років",
-    description: "Опануємо техніку stop-motion і знімемо свій перший короткий мультфільм.",
-    ageMode: "required",
-  },
-  {
-    id: "steam-lava-lamp",
-    date: "8 серпня",
-    dayLabel: "субота",
-    time: "13:30",
-    title: "STEAM-гурток",
-    audience: "7–10 років",
-    description: "Справжня хімія та фізика в дії: кожен зробить власну магічну лава-лампу.",
-    ageMode: "required",
-  },
-  {
-    id: "robotics",
-    date: "8 серпня",
-    dayLabel: "субота",
-    time: "14:30",
-    title: "Робототехніка",
-    audience: "7–12 років",
-    description: "Конструюємо та програмуємо «розумний» баскетбольний кошик, який реагує на влучання звуком.",
-    ageMode: "required",
-  },
-  {
-    id: "parent-support",
-    date: "9 серпня",
-    dayLabel: "неділя",
-    time: "10:00",
-    title: "Бути опорою",
-    audience: "для батьків підлітків",
-    description: "Теплі розмови за кавою: про дорослішання, сепарацію та стосунки з дітьми. Презентація програми для підлітків.",
-    ageMode: "hidden",
-  },
-  {
-    id: "steam-stop-motion",
-    date: "9 серпня",
-    dayLabel: "неділя",
-    time: "11:30",
-    title: "STEAM-гурток",
-    audience: "8–12 років",
-    description: "Основи електроніки на практиці: складаємо справжнє електричне коло",
-    ageMode: "required",
-  },
-  {
-    id: "open-space",
-    date: "9 серпня",
-    dayLabel: "неділя",
-    time: "14:00",
-    title: "Вільний простір",
-    audience: "для дітей і батьків",
-    description: "Відкриті локації, ігрові зони та неформальне спілкування для дітей і батьків.",
-    ageMode: "optional",
-  },
-];
-
-const DEMO_FORM_ENDPOINT = "https://formsubmit.co/ajax/ufosteamhub@gmail.com";
 
 function DemoDayRegistrationDialog({
   workshop,
@@ -201,6 +119,7 @@ function DemoDayRegistrationDialog({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
+  const submitRegistration = useServerFn(submitDemoDayRegistration);
   const [selectedWorkshopId, setSelectedWorkshopId] = useState(workshop?.id ?? "");
   const [participantName, setParticipantName] = useState("");
   const [childAge, setChildAge] = useState("");
@@ -254,36 +173,25 @@ function DemoDayRegistrationDialog({
     setSubmitting(true);
 
     try {
-      const response = await fetch(DEMO_FORM_ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+      const result = await submitRegistration({
+        data: {
+          workshopId: selectedWorkshop.id,
+          participantName: participantName.trim(),
+          childAge: childAge.trim(),
+          phone: phone.trim(),
+          personalDataConsent: consentData,
+          photoVideoConsent: consentPhoto,
+          source: "Головна сторінка UFO STEAM HUB",
         },
-        body: JSON.stringify({
-          _subject: `UFO DEMO DAY — ${selectedWorkshop.title} — ${selectedWorkshop.date}, ${selectedWorkshop.time}`,
-          _template: "table",
-          "Подія": "UFO DEMO DAY",
-          "Дата": selectedWorkshop.date,
-          "День": selectedWorkshop.dayLabel,
-          "Час": selectedWorkshop.time,
-          "Майстерка": selectedWorkshop.title,
-          "Вікова категорія або аудиторія": selectedWorkshop.audience,
-          "Ім’я учасника/учасниці": participantName.trim(),
-          "Вік": childAge.trim() || "Не вказано",
-          "Контактний номер телефону": phone.trim(),
-          "Згода на обробку персональних даних": "Так",
-          "Згода на фото-/відеозйомку": consentPhoto ? "Так" : "Ні",
-          "Джерело": "Головна сторінка UFO STEAM HUB",
-        }),
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
+      if (!result.ok) {
+        toast.error(result.message);
+        return;
       }
 
       setSuccess(true);
-      toast.success("Реєстрацію надіслано!");
+      toast.success("Реєстрацію збережено!");
     } catch (error) {
       console.error("UFO DEMO DAY registration failed", error);
       toast.error("Не вдалося надіслати заявку. Спробуйте ще раз або зв’яжіться з нами телефоном.");
