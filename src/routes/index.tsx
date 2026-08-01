@@ -175,7 +175,7 @@ const demoWorkshops: DemoWorkshop[] = [
     time: "11:30",
     title: "STEAM-гурток",
     audience: "8–12 років",
-    description: "Опануємо техніку stop-motion і знімемо свій перший короткий мультфільм.",
+    description: "Основи електроніки на практиці: складаємо справжнє електричне коло",
     ageMode: "required",
   },
   {
