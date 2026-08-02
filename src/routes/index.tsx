@@ -647,7 +647,15 @@ function HomePage() {
                 </AnimatedSection>
               ))}
           </div>
-
+          <p className="mx-auto mt-6 max-w-5xl text-sm leading-relaxed text-muted-foreground md:mt-8 md:text-base">
+            💡 <span className="font-semibold text-foreground">Зверніть увагу!</span>{" "}
+            Наші демо-заняття створені спеціально для новеньких — це чудова
+            нагода вперше познайомитися з напрямками та обрати гурток. А якщо
+            ви вже відвідували ці курси чи майстерки раніше і знаєте всі наші
+            секрети — з радістю чекаємо вас у неділю о 14:00 на «Вільному
+            просторі»! Приходьте в гості грати, спілкуватися та святкувати
+            наш перший рік разом.
+          </p>
           <div className="mx-auto mt-6 flex max-w-5xl justify-center md:mt-8">
             <button
               type="button"
