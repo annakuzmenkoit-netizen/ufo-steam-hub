@@ -508,7 +508,13 @@ function HomePage() {
               <div className="mt-5 md:mt-8 flex flex-col sm:flex-row gap-3 md:gap-4 sm:justify-center lg:justify-start">
                 <button
                   type="button"
-                  onClick={() => openRegistration()}
+                  onClick={() =>
+                    openRegistration({
+                      registrationType: "general",
+                      sourcePage: "Головна сторінка",
+                      title: "Загальна заявка на пробний урок",
+                    })
+                  }
                   className="rounded-full bg-ufo-yellow px-6 py-3 md:px-8 md:py-3.5 text-sm md:text-base font-semibold text-primary shadow-lg hover:shadow-xl hover:scale-105 transition-all inline-flex items-center justify-center gap-2"
                 >
                   Пробний урок <ArrowRight className="h-4 w-4" />
@@ -736,7 +742,15 @@ function HomePage() {
                       </div>
                       <button
                         type="button"
-                        onClick={() => openRegistration(course.title)}
+                        onClick={() =>
+                          openRegistration({
+                            registrationType: "course",
+                            sourcePage: "Головна сторінка — блок курсів",
+                            program: course.title,
+                            age: course.age,
+                            title: `Запис на курс: ${course.title}`,
+                          })
+                        }
                         className="mt-auto inline-flex items-center justify-center gap-2 rounded-full bg-ufo-yellow px-5 py-2.5 text-sm font-semibold text-primary shadow-md hover:shadow-lg transition-all"
                       >
                         Записатись <ArrowRight className="h-4 w-4" />
@@ -869,7 +883,7 @@ function HomePage() {
               <div className="rounded-3xl bg-card border-2 border-border p-7 shadow-md">
                 <h3 className="text-2xl font-semibold text-foreground">Залишились питання?</h3>
                 <p className="mt-2 text-muted-foreground">Напишіть нам — ми з радістю відповімо!</p>
-                <form className="mt-6 space-y-4" onSubmit={(e) => { e.preventDefault(); openRegistration(); }}>
+                <form className="mt-6 space-y-4" onSubmit={(e) => { e.preventDefault(); openRegistration({ registrationType: "contact", sourcePage: "Головна сторінка — форма запитань", title: "Звернення з форми на головній сторінці" }); }}>
                   <div>
                     <label className="text-sm font-medium text-foreground">Ім'я</label>
                     <Input placeholder="Ваше ім'я" className="mt-1 rounded-xl" />

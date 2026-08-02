@@ -293,7 +293,13 @@ function CoursesPage() {
         <AnimatedSection className="text-center mt-14">
           <button
             type="button"
-            onClick={() => openRegistration()}
+            onClick={() =>
+              openRegistration({
+                registrationType: "general",
+                sourcePage: "Сторінка курсів",
+                title: "Загальна заявка на пробний урок",
+              })
+            }
             className="inline-flex items-center gap-2 rounded-full bg-ufo-yellow px-8 py-3.5 font-semibold text-primary shadow-lg hover:shadow-xl hover:scale-105 transition-all"
           >
             Записатись на пробний урок <ArrowRight className="h-4 w-4" />

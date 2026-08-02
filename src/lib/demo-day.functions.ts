@@ -118,8 +118,9 @@ export const submitDemoDayRegistration = createServerFn({ method: "POST" })
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
-          _subject: `UFO DEMO DAY — ${workshop.title} — ${workshop.date}, ${workshop.time}`,
+          _subject: `[UFO] UFO DEMO DAY — ${workshop.title} — ${workshop.date} ${workshop.time}`,
           _template: "table",
+          "Тип заявки": "UFO DEMO DAY",
           "Подія": "UFO DEMO DAY",
           "Дата": workshop.date,
           "День": workshop.dayLabel,
