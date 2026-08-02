@@ -10,9 +10,6 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { toast } from "sonner";
 import { BlobShape, Squiggle, Star4, Dot, Swirl } from "@/components/Blobs";
 import { openRegistration } from "@/components/RegistrationModal";
-import { useServerFn } from "@tanstack/react-start";
-import { submitDemoDayRegistration } from "@/lib/demo-day.functions";
-import { demoWorkshops, type DemoWorkshop } from "@/lib/demo-day-workshops";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -109,6 +106,91 @@ const steamBlocks = [
 const blobA = "polygon(35% 5%, 65% 8%, 90% 25%, 95% 55%, 80% 85%, 50% 95%, 20% 88%, 5% 60%, 8% 30%)";
 
 
+type DemoWorkshop = {
+  id: string;
+  date: "8 серпня" | "9 серпня";
+  dayLabel: string;
+  time: string;
+  title: string;
+  audience: string;
+  description: string;
+  ageMode: "required" | "optional" | "hidden";
+};
+
+const demoWorkshops: DemoWorkshop[] = [
+  {
+    id: "3d-modeling",
+    date: "8 серпня",
+    dayLabel: "субота",
+    time: "10:00",
+    title: "3D-моделювання",
+    audience: "10–15 років",
+    description: "Створимо власну 3D-модель та одразу надрукуємо її на принтері у вигляді ексклюзивного брелока.",
+    ageMode: "required",
+  },
+  {
+    id: "animation",
+    date: "8 серпня",
+    dayLabel: "субота",
+    time: "11:00",
+    title: "Анімація",
+    audience: "7–12 років",
+    description: "Опануємо техніку stop-motion і знімемо свій перший короткий мультфільм.",
+    ageMode: "required",
+  },
+  {
+    id: "steam-lava-lamp",
+    date: "8 серпня",
+    dayLabel: "субота",
+    time: "13:30",
+    title: "STEAM-гурток",
+    audience: "7–10 років",
+    description: "Справжня хімія та фізика в дії: кожен зробить власну магічну лава-лампу.",
+    ageMode: "required",
+  },
+  {
+    id: "robotics",
+    date: "8 серпня",
+    dayLabel: "субота",
+    time: "14:30",
+    title: "Робототехніка",
+    audience: "7–12 років",
+    description: "Конструюємо та програмуємо «розумний» баскетбольний кошик, який реагує на влучання звуком.",
+    ageMode: "required",
+  },
+  {
+    id: "parent-support",
+    date: "9 серпня",
+    dayLabel: "неділя",
+    time: "10:00",
+    title: "Бути опорою",
+    audience: "для батьків підлітків",
+    description: "Теплі розмови за кавою: про дорослішання, сепарацію та стосунки з дітьми. Презентація програми для підлітків.",
+    ageMode: "hidden",
+  },
+  {
+    id: "steam-stop-motion",
+    date: "9 серпня",
+    dayLabel: "неділя",
+    time: "11:30",
+    title: "STEAM-гурток",
+    audience: "8–12 років",
+    description: "Опануємо техніку stop-motion і знімемо свій перший короткий мультфільм.",
+    ageMode: "required",
+  },
+  {
+    id: "open-space",
+    date: "9 серпня",
+    dayLabel: "неділя",
+    time: "14:00",
+    title: "Вільний простір",
+    audience: "для дітей і батьків",
+    description: "Відкриті локації, ігрові зони та неформальне спілкування для дітей і батьків.",
+    ageMode: "optional",
+  },
+];
+
+const DEMO_FORM_ENDPOINT = "https://formsubmit.co/ajax/ufosteamhub@gmail.com";
 
 function DemoDayRegistrationDialog({
   workshop,
@@ -119,7 +201,6 @@ function DemoDayRegistrationDialog({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
-  const submitRegistration = useServerFn(submitDemoDayRegistration);
   const [selectedWorkshopId, setSelectedWorkshopId] = useState(workshop?.id ?? "");
   const [participantName, setParticipantName] = useState("");
   const [childAge, setChildAge] = useState("");
@@ -173,25 +254,36 @@ function DemoDayRegistrationDialog({
     setSubmitting(true);
 
     try {
-      const result = await submitRegistration({
-        data: {
-          workshopId: selectedWorkshop.id,
-          participantName: participantName.trim(),
-          childAge: childAge.trim(),
-          phone: phone.trim(),
-          personalDataConsent: consentData,
-          photoVideoConsent: consentPhoto,
-          source: "Головна сторінка UFO STEAM HUB",
+      const response = await fetch(DEMO_FORM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
+        body: JSON.stringify({
+          _subject: `UFO DEMO DAY — ${selectedWorkshop.title} — ${selectedWorkshop.date}, ${selectedWorkshop.time}`,
+          _template: "table",
+          "Подія": "UFO DEMO DAY",
+          "Дата": selectedWorkshop.date,
+          "День": selectedWorkshop.dayLabel,
+          "Час": selectedWorkshop.time,
+          "Майстерка": selectedWorkshop.title,
+          "Вікова категорія або аудиторія": selectedWorkshop.audience,
+          "Ім’я учасника/учасниці": participantName.trim(),
+          "Вік": childAge.trim() || "Не вказано",
+          "Контактний номер телефону": phone.trim(),
+          "Згода на обробку персональних даних": "Так",
+          "Згода на фото-/відеозйомку": consentPhoto ? "Так" : "Ні",
+          "Джерело": "Головна сторінка UFO STEAM HUB",
+        }),
       });
 
-      if (!result.ok) {
-        toast.error(result.message);
-        return;
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
       }
 
       setSuccess(true);
-      toast.success("Реєстрацію збережено!");
+      toast.success("Реєстрацію надіслано!");
     } catch (error) {
       console.error("UFO DEMO DAY registration failed", error);
       toast.error("Не вдалося надіслати заявку. Спробуйте ще раз або зв’яжіться з нами телефоном.");
@@ -466,17 +558,12 @@ function HomePage() {
       </section>
 
       {/* UFO DEMO DAY */}
-      <section id="demo-day" className="relative overflow-hidden bg-ufo-cream py-12 md:py-20">
-        <BlobShape className="absolute -top-16 -right-16 opacity-25 pointer-events-none" color="#f7df5d" size={240} />
-        <BlobShape className="absolute -bottom-20 -left-16 opacity-20 pointer-events-none" color="#3056dd" size={220} />
-        <Star4 className="absolute top-10 left-6 opacity-70 hidden md:block pointer-events-none" color="#f04770" size={38} />
-        <Dot className="absolute bottom-16 right-10 opacity-70 hidden md:block pointer-events-none" color="#17c590" size={22} />
-
+      <section id="demo-day" className="relative overflow-hidden bg-gradient-to-b from-primary via-[#244fd2] to-[#173aa8] py-12 text-white md:py-20">
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
           {[0, 1, 2, 3, 4, 5, 6, 7].map((item) => (
             <motion.span
               key={item}
-              className={`absolute h-2.5 w-2.5 rounded-sm opacity-60 motion-reduce:hidden ${
+              className={`absolute h-2.5 w-2.5 rounded-sm motion-reduce:hidden ${
                 item % 3 === 0 ? "bg-ufo-yellow" : item % 3 === 1 ? "bg-ufo-pink" : "bg-ufo-green"
               }`}
               style={{
@@ -491,28 +578,28 @@ function HomePage() {
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="mx-auto max-w-3xl text-center">
-            <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full bg-ufo-yellow px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-primary shadow-md">
-              <PartyPopper className="h-4 w-4 text-ufo-pink" /> UFO DEMO DAY · нам 1 рік
+            <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] backdrop-blur">
+              <PartyPopper className="h-4 w-4 text-ufo-yellow" /> UFO DEMO DAY · нам 1 рік
             </div>
-            <h2 className="text-2xl font-semibold leading-tight text-foreground md:text-5xl">
+            <h2 className="text-3xl font-semibold leading-tight md:text-5xl">
               Святкуємо день народження разом!
             </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground md:mt-4 md:text-lg">
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-white/85 md:text-lg">
               8–9 серпня запрошуємо дітей і батьків на безоплатні практичні демо-заняття. Обирайте напрям і тестуйте гуртки перед новим навчальним роком.
             </p>
-            <p className="mt-3 text-sm font-semibold text-primary md:text-base">
+            <p className="mt-4 text-sm font-semibold text-ufo-yellow md:text-base">
               Кількість місць обмежена. Попередня реєстрація обов’язкова.
             </p>
           </AnimatedSection>
 
-          <div className="mx-auto mt-6 flex max-w-md rounded-full border border-border bg-card p-1 shadow-sm md:mt-10">
+          <div className="mx-auto mt-8 flex max-w-md rounded-full bg-white/10 p-1 backdrop-blur md:mt-10">
             {(["8 серпня", "9 серпня"] as const).map((date) => (
               <button
                 key={date}
                 type="button"
                 onClick={() => setActiveDemoDate(date)}
                 className={`min-h-11 flex-1 rounded-full px-4 py-2 text-sm font-semibold transition-all ${
-                  activeDemoDate === date ? "bg-ufo-yellow text-primary shadow-md" : "text-muted-foreground hover:text-primary"
+                  activeDemoDate === date ? "bg-ufo-yellow text-primary shadow-lg" : "text-white hover:bg-white/10"
                 }`}
               >
                 {date}
@@ -520,51 +607,47 @@ function HomePage() {
             ))}
           </div>
 
-          <div className="mx-auto mt-5 max-w-5xl space-y-2.5 md:mt-8 md:space-y-4">
+          <div className="mx-auto mt-6 max-w-5xl space-y-3 md:mt-8 md:space-y-4">
             {demoWorkshops
               .filter((workshop) => workshop.date === activeDemoDate)
               .map((workshop, index) => (
                 <AnimatedSection key={workshop.id} delay={index * 0.05}>
-                  <article className="overflow-hidden rounded-2xl border border-border bg-card text-foreground shadow-md md:grid md:grid-cols-[140px_1fr] md:items-stretch">
-                    <div className="flex items-center justify-between gap-3 bg-ufo-yellow/40 px-4 py-2 md:flex-col md:justify-center md:gap-1 md:px-5 md:py-5">
-                      <span className="flex items-center gap-2 text-xl font-bold text-primary md:text-3xl">
-                        <Clock3 className="h-4 w-4 opacity-70 md:hidden" />
-                        {workshop.time}
-                      </span>
-                      <span className="text-[11px] font-semibold text-muted-foreground md:text-center md:text-xs">
+                  <article className="overflow-hidden rounded-2xl bg-white text-foreground shadow-xl md:grid md:grid-cols-[150px_1fr_auto] md:items-stretch">
+                    <div className="flex items-center justify-between gap-3 bg-[#3558df] px-5 py-3 text-white md:flex-col md:justify-center md:px-6 md:py-5">
+                      <div className="flex items-center gap-2 md:flex-col md:gap-1">
+                        <Clock3 className="h-4 w-4 opacity-80 md:hidden" />
+                        <span className="text-2xl font-bold md:text-4xl">{workshop.time}</span>
+                      </div>
+                      <span className="text-xs font-semibold text-white/80 md:text-center">
                         {workshop.date}, {workshop.dayLabel}
                       </span>
                     </div>
 
-                    <div className="px-4 py-3 md:px-6 md:py-4">
-                      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                        <h3 className="text-base font-semibold leading-tight text-foreground md:text-xl">{workshop.title}</h3>
-                        <span className="text-xs font-semibold text-primary md:text-sm">({workshop.audience})</span>
+                    <div className="px-5 py-4 md:px-7 md:py-5">
+                      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                        <h3 className="text-lg font-bold leading-tight md:text-2xl">{workshop.title}</h3>
+                        <span className="text-sm font-semibold text-primary/75">({workshop.audience})</span>
                       </div>
-                      <p className="mt-1.5 text-[13px] leading-snug text-muted-foreground md:text-base md:leading-relaxed">
+                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
                         {workshop.description}
                       </p>
+                    </div>
+
+                    <div className="px-5 pb-5 md:flex md:items-center md:px-5 md:pb-0">
+                      <button
+                        type="button"
+                        onClick={() => openDemoRegistration(workshop)}
+                        className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-ufo-yellow px-5 py-3 text-sm font-semibold text-primary shadow-md transition-all hover:scale-[1.02] hover:shadow-lg md:w-auto"
+                      >
+                        Записатися <ArrowRight className="h-4 w-4" />
+                      </button>
                     </div>
                   </article>
                 </AnimatedSection>
               ))}
           </div>
-
-          <div className="mx-auto mt-6 flex max-w-5xl justify-center md:mt-8">
-            <button
-              type="button"
-              onClick={() => {
-                const first = demoWorkshops.find((workshop) => workshop.date === activeDemoDate) ?? null;
-                openDemoRegistration(first ?? demoWorkshops[0]);
-              }}
-              className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-ufo-yellow px-8 py-3 text-sm font-semibold text-primary shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl md:w-auto md:text-base"
-            >
-              Записатися на майстерку <ArrowRight className="h-4 w-4" />
-            </button>
-          </div>
         </div>
       </section>
-
 
       {/* Courses — flip cards, no modal */}
       <section id="programs" className="relative py-12 md:py-20 bg-background overflow-hidden">
