@@ -175,7 +175,7 @@ const demoWorkshops: DemoWorkshop[] = [
     time: "11:30",
     title: "STEAM-гурток",
     audience: "8–12 років",
-    description: "Основи електроніки на практиці: складаємо справжнє електричне коло",
+    description: "Опануємо техніку stop-motion і знімемо свій перший короткий мультфільм.",
     ageMode: "required",
   },
   {
@@ -508,13 +508,7 @@ function HomePage() {
               <div className="mt-5 md:mt-8 flex flex-col sm:flex-row gap-3 md:gap-4 sm:justify-center lg:justify-start">
                 <button
                   type="button"
-                  onClick={() =>
-                    openRegistration({
-                      registrationType: "general",
-                      sourcePage: "Головна сторінка",
-                      title: "Загальна заявка на пробний урок",
-                    })
-                  }
+                  onClick={() => openRegistration()}
                   className="rounded-full bg-ufo-yellow px-6 py-3 md:px-8 md:py-3.5 text-sm md:text-base font-semibold text-primary shadow-lg hover:shadow-xl hover:scale-105 transition-all inline-flex items-center justify-center gap-2"
                 >
                   Пробний урок <ArrowRight className="h-4 w-4" />
@@ -564,17 +558,12 @@ function HomePage() {
       </section>
 
       {/* UFO DEMO DAY */}
-      <section id="demo-day" className="relative overflow-hidden bg-ufo-cream py-12 md:py-20">
-        <BlobShape className="absolute -top-16 -right-16 opacity-25 pointer-events-none" color="#f7df5d" size={240} />
-        <BlobShape className="absolute -bottom-20 -left-16 opacity-20 pointer-events-none" color="#3056dd" size={220} />
-        <Star4 className="absolute top-10 left-6 opacity-70 hidden md:block pointer-events-none" color="#f04770" size={38} />
-        <Dot className="absolute bottom-16 right-10 opacity-70 hidden md:block pointer-events-none" color="#17c590" size={22} />
-
+      <section id="demo-day" className="relative overflow-hidden bg-gradient-to-b from-primary via-[#244fd2] to-[#173aa8] py-12 text-white md:py-20">
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
           {[0, 1, 2, 3, 4, 5, 6, 7].map((item) => (
             <motion.span
               key={item}
-              className={`absolute h-2.5 w-2.5 rounded-sm opacity-60 motion-reduce:hidden ${
+              className={`absolute h-2.5 w-2.5 rounded-sm motion-reduce:hidden ${
                 item % 3 === 0 ? "bg-ufo-yellow" : item % 3 === 1 ? "bg-ufo-pink" : "bg-ufo-green"
               }`}
               style={{
@@ -589,28 +578,28 @@ function HomePage() {
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="mx-auto max-w-3xl text-center">
-            <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full bg-ufo-yellow px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-primary shadow-md">
-              <PartyPopper className="h-4 w-4 text-ufo-pink" /> UFO DEMO DAY · нам 1 рік
+            <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] backdrop-blur">
+              <PartyPopper className="h-4 w-4 text-ufo-yellow" /> UFO DEMO DAY · нам 1 рік
             </div>
-            <h2 className="text-2xl font-semibold leading-tight text-foreground md:text-5xl">
+            <h2 className="text-3xl font-semibold leading-tight md:text-5xl">
               Святкуємо день народження разом!
             </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground md:mt-4 md:text-lg">
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-white/85 md:text-lg">
               8–9 серпня запрошуємо дітей і батьків на безоплатні практичні демо-заняття. Обирайте напрям і тестуйте гуртки перед новим навчальним роком.
             </p>
-            <p className="mt-3 text-sm font-semibold text-primary md:text-base">
+            <p className="mt-4 text-sm font-semibold text-ufo-yellow md:text-base">
               Кількість місць обмежена. Попередня реєстрація обов’язкова.
             </p>
           </AnimatedSection>
 
-          <div className="mx-auto mt-6 flex max-w-md rounded-full border border-border bg-card p-1 shadow-sm md:mt-10">
+          <div className="mx-auto mt-8 flex max-w-md rounded-full bg-white/10 p-1 backdrop-blur md:mt-10">
             {(["8 серпня", "9 серпня"] as const).map((date) => (
               <button
                 key={date}
                 type="button"
                 onClick={() => setActiveDemoDate(date)}
                 className={`min-h-11 flex-1 rounded-full px-4 py-2 text-sm font-semibold transition-all ${
-                  activeDemoDate === date ? "bg-ufo-yellow text-primary shadow-md" : "text-muted-foreground hover:text-primary"
+                  activeDemoDate === date ? "bg-ufo-yellow text-primary shadow-lg" : "text-white hover:bg-white/10"
                 }`}
               >
                 {date}
@@ -618,51 +607,47 @@ function HomePage() {
             ))}
           </div>
 
-          <div className="mx-auto mt-5 max-w-5xl space-y-2.5 md:mt-8 md:space-y-4">
+          <div className="mx-auto mt-6 max-w-5xl space-y-3 md:mt-8 md:space-y-4">
             {demoWorkshops
               .filter((workshop) => workshop.date === activeDemoDate)
               .map((workshop, index) => (
                 <AnimatedSection key={workshop.id} delay={index * 0.05}>
-                  <article className="overflow-hidden rounded-2xl border border-border bg-card text-foreground shadow-md md:grid md:grid-cols-[140px_1fr] md:items-stretch">
-                    <div className="flex items-center justify-between gap-3 bg-ufo-yellow/40 px-4 py-2 md:flex-col md:justify-center md:gap-1 md:px-5 md:py-5">
-                      <span className="flex items-center gap-2 text-xl font-bold text-primary md:text-3xl">
-                        <Clock3 className="h-4 w-4 opacity-70 md:hidden" />
-                        {workshop.time}
-                      </span>
-                      <span className="text-[11px] font-semibold text-muted-foreground md:text-center md:text-xs">
+                  <article className="overflow-hidden rounded-2xl bg-white text-foreground shadow-xl md:grid md:grid-cols-[150px_1fr_auto] md:items-stretch">
+                    <div className="flex items-center justify-between gap-3 bg-[#3558df] px-5 py-3 text-white md:flex-col md:justify-center md:px-6 md:py-5">
+                      <div className="flex items-center gap-2 md:flex-col md:gap-1">
+                        <Clock3 className="h-4 w-4 opacity-80 md:hidden" />
+                        <span className="text-2xl font-bold md:text-4xl">{workshop.time}</span>
+                      </div>
+                      <span className="text-xs font-semibold text-white/80 md:text-center">
                         {workshop.date}, {workshop.dayLabel}
                       </span>
                     </div>
 
-                    <div className="px-4 py-3 md:px-6 md:py-4">
-                      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                        <h3 className="text-base font-semibold leading-tight text-foreground md:text-xl">{workshop.title}</h3>
-                        <span className="text-xs font-semibold text-primary md:text-sm">({workshop.audience})</span>
+                    <div className="px-5 py-4 md:px-7 md:py-5">
+                      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                        <h3 className="text-lg font-bold leading-tight md:text-2xl">{workshop.title}</h3>
+                        <span className="text-sm font-semibold text-primary/75">({workshop.audience})</span>
                       </div>
-                      <p className="mt-1.5 text-[13px] leading-snug text-muted-foreground md:text-base md:leading-relaxed">
+                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
                         {workshop.description}
                       </p>
+                    </div>
+
+                    <div className="px-5 pb-5 md:flex md:items-center md:px-5 md:pb-0">
+                      <button
+                        type="button"
+                        onClick={() => openDemoRegistration(workshop)}
+                        className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-ufo-yellow px-5 py-3 text-sm font-semibold text-primary shadow-md transition-all hover:scale-[1.02] hover:shadow-lg md:w-auto"
+                      >
+                        Записатися <ArrowRight className="h-4 w-4" />
+                      </button>
                     </div>
                   </article>
                 </AnimatedSection>
               ))}
           </div>
-
-          <div className="mx-auto mt-6 flex max-w-5xl justify-center md:mt-8">
-            <button
-              type="button"
-              onClick={() => {
-                const first = demoWorkshops.find((workshop) => workshop.date === activeDemoDate) ?? null;
-                openDemoRegistration(first ?? demoWorkshops[0]);
-              }}
-              className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-ufo-yellow px-8 py-3 text-sm font-semibold text-primary shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl md:w-auto md:text-base"
-            >
-              Записатися на майстерку <ArrowRight className="h-4 w-4" />
-            </button>
-          </div>
         </div>
       </section>
-
 
       {/* Courses — flip cards, no modal */}
       <section id="programs" className="relative py-12 md:py-20 bg-background overflow-hidden">
@@ -742,15 +727,7 @@ function HomePage() {
                       </div>
                       <button
                         type="button"
-                        onClick={() =>
-                          openRegistration({
-                            registrationType: "course",
-                            sourcePage: "Головна сторінка — блок курсів",
-                            program: course.title,
-                            age: course.age,
-                            title: `Запис на курс: ${course.title}`,
-                          })
-                        }
+                        onClick={() => openRegistration(course.title)}
                         className="mt-auto inline-flex items-center justify-center gap-2 rounded-full bg-ufo-yellow px-5 py-2.5 text-sm font-semibold text-primary shadow-md hover:shadow-lg transition-all"
                       >
                         Записатись <ArrowRight className="h-4 w-4" />
@@ -883,7 +860,7 @@ function HomePage() {
               <div className="rounded-3xl bg-card border-2 border-border p-7 shadow-md">
                 <h3 className="text-2xl font-semibold text-foreground">Залишились питання?</h3>
                 <p className="mt-2 text-muted-foreground">Напишіть нам — ми з радістю відповімо!</p>
-                <form className="mt-6 space-y-4" onSubmit={(e) => { e.preventDefault(); openRegistration({ registrationType: "contact", sourcePage: "Головна сторінка — форма запитань", title: "Звернення з форми на головній сторінці" }); }}>
+                <form className="mt-6 space-y-4" onSubmit={(e) => { e.preventDefault(); openRegistration(); }}>
                   <div>
                     <label className="text-sm font-medium text-foreground">Ім'я</label>
                     <Input placeholder="Ваше ім'я" className="mt-1 rounded-xl" />
