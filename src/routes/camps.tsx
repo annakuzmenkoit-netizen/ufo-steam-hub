@@ -15,6 +15,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast } from "sonner";
+import { buildRegistrationSubject, currentPageMeta } from "@/lib/registration-context";
 import { Star4, Dot, Squiggle, BlobShape } from "@/components/Blobs";
 
 export const Route = createFileRoute("/camps")({
@@ -283,8 +284,15 @@ function CampDetailsDialog({ camp, open, onOpenChange }: {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
-          _subject: `Заявка на табір — ${camp.title} (${camp.date})`,
+          _subject: buildRegistrationSubject({
+            registrationType: "camp",
+            sourcePage: "Сторінка Табори",
+            program: camp.title,
+            date: camp.date,
+          }),
           _template: "table",
+          "Тип заявки": "Табір",
+          "Сторінка сайту": "Сторінка Табори",
           "Табір": camp.title,
           "Дати": camp.date,
           "Ім'я учасника/учасниці": childName,
@@ -297,6 +305,14 @@ function CampDetailsDialog({ camp, open, onOpenChange }: {
           "Згода на обробку персональних даних": "Так",
           "Згода на фото-/відеозйомку": "Так",
           "Джерело": "UFO STEAM HUB — сторінка Табори",
+          ...(() => {
+            const m = currentPageMeta();
+            return {
+              ...(m.url ? { "URL сторінки": m.url } : {}),
+              ...(m.pathname ? { "Шлях сторінки": m.pathname } : {}),
+              ...(m.submittedAt ? { "Дата та час відправлення": m.submittedAt } : {}),
+            };
+          })(),
         }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
