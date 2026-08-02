@@ -383,7 +383,18 @@ function SchedulePage() {
 
                               <button
                                 type="button"
-                                onClick={() => openRegistration(slot.course)}
+                                onClick={() =>
+                                  openRegistration({
+                                    registrationType: "schedule",
+                                    sourcePage: "Розклад",
+                                    title: `Запис на заняття: ${slot.course}`,
+                                    program: slot.course,
+                                    day: slot.day,
+                                    time: slot.time,
+                                    age: slot.age,
+                                    teacher: slot.teacher,
+                                  })
+                                }
                                 className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-ufo-yellow px-6 py-3 text-sm font-semibold text-primary shadow-md transition-all hover:scale-[1.02] hover:shadow-lg sm:w-auto"
                               >
                                 Записатись
