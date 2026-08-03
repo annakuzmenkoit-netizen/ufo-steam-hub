@@ -471,10 +471,31 @@ function HomePage() {
   const [selectedDemoWorkshop, setSelectedDemoWorkshop] = useState<DemoWorkshop | null>(null);
   const [demoDialogOpen, setDemoDialogOpen] = useState(false);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.location.hash !== "#demo-day") return;
+    let cancelled = false;
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    const tryScroll = (attempt: number) => {
+      if (cancelled) return;
+      const el = document.getElementById("demo-day");
+      if (el) {
+        el.scrollIntoView({ behavior, block: "start" });
+        return;
+      }
+      if (attempt < 20) requestAnimationFrame(() => tryScroll(attempt + 1));
+    };
+    requestAnimationFrame(() => tryScroll(0));
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const scrollToBirthday = () => {
     const el = document.getElementById("demo-day");
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
 
   const openDemoRegistration = (workshop: DemoWorkshop) => {
     setSelectedDemoWorkshop(workshop);
@@ -564,7 +585,7 @@ function HomePage() {
       </section>
 
       {/* UFO DEMO DAY */}
-      <section id="demo-day" className="relative overflow-hidden bg-ufo-cream py-12 md:py-20">
+      <section id="demo-day" className="scroll-mt-20 relative overflow-hidden bg-ufo-cream py-12 md:py-20">
         <BlobShape className="absolute -top-16 -right-16 opacity-25 pointer-events-none" color="#f7df5d" size={240} />
         <BlobShape className="absolute -bottom-20 -left-16 opacity-20 pointer-events-none" color="#3056dd" size={220} />
         <Star4 className="absolute top-10 left-6 opacity-70 hidden md:block pointer-events-none" color="#f04770" size={38} />
