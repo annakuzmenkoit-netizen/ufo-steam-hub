@@ -585,7 +585,7 @@ function HomePage() {
       </section>
 
       {/* UFO DEMO DAY */}
-      <section id="demo-day" className="relative overflow-hidden bg-ufo-cream py-12 md:py-20">
+      <section id="demo-day" className="scroll-mt-20 relative overflow-hidden bg-ufo-cream py-12 md:py-20">
         <BlobShape className="absolute -top-16 -right-16 opacity-25 pointer-events-none" color="#f7df5d" size={240} />
         <BlobShape className="absolute -bottom-20 -left-16 opacity-20 pointer-events-none" color="#3056dd" size={220} />
         <Star4 className="absolute top-10 left-6 opacity-70 hidden md:block pointer-events-none" color="#f04770" size={38} />
