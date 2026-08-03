@@ -471,10 +471,31 @@ function HomePage() {
   const [selectedDemoWorkshop, setSelectedDemoWorkshop] = useState<DemoWorkshop | null>(null);
   const [demoDialogOpen, setDemoDialogOpen] = useState(false);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.location.hash !== "#demo-day") return;
+    let cancelled = false;
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    const tryScroll = (attempt: number) => {
+      if (cancelled) return;
+      const el = document.getElementById("demo-day");
+      if (el) {
+        el.scrollIntoView({ behavior, block: "start" });
+        return;
+      }
+      if (attempt < 20) requestAnimationFrame(() => tryScroll(attempt + 1));
+    };
+    requestAnimationFrame(() => tryScroll(0));
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const scrollToBirthday = () => {
     const el = document.getElementById("demo-day");
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
 
   const openDemoRegistration = (workshop: DemoWorkshop) => {
     setSelectedDemoWorkshop(workshop);
