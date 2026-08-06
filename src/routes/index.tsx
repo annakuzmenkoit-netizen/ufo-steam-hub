@@ -115,6 +115,7 @@ type DemoWorkshop = {
   audience: string;
   description: string;
   ageMode: "required" | "optional" | "hidden";
+  registrationClosed?: boolean;
 };
 
 const demoWorkshops: DemoWorkshop[] = [
@@ -127,6 +128,7 @@ const demoWorkshops: DemoWorkshop[] = [
     audience: "10–15 років",
     description: "Створимо власну 3D-модель та одразу надрукуємо її на принтері у вигляді ексклюзивного брелока.",
     ageMode: "required",
+    registrationClosed: true,
   },
   {
     id: "animation",
@@ -190,6 +192,8 @@ const demoWorkshops: DemoWorkshop[] = [
   },
 ];
 
+const availableDemoWorkshops = demoWorkshops.filter((workshop) => !workshop.registrationClosed);
+
 const DEMO_FORM_ENDPOINT = "https://formsubmit.co/ajax/ufosteamhub@gmail.com";
 
 function DemoDayRegistrationDialog({
@@ -210,11 +214,13 @@ function DemoDayRegistrationDialog({
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const selectedWorkshop = demoWorkshops.find((item) => item.id === selectedWorkshopId) ?? null;
+  const selectedWorkshop = availableDemoWorkshops.find((item) => item.id === selectedWorkshopId) ?? null;
 
   useEffect(() => {
     if (!open) return;
-    setSelectedWorkshopId(workshop?.id ?? demoWorkshops[0].id);
+    const initial =
+      workshop && !workshop.registrationClosed ? workshop : availableDemoWorkshops[0] ?? null;
+    setSelectedWorkshopId(initial?.id ?? "");
     setSuccess(false);
   }, [open, workshop]);
 
@@ -233,6 +239,11 @@ function DemoDayRegistrationDialog({
 
     if (!selectedWorkshop) {
       toast.error("Оберіть майстерку.");
+      return;
+    }
+
+    if (selectedWorkshop.registrationClosed) {
+      toast.error("На цю майстерку місць уже немає. Оберіть іншу активність.");
       return;
     }
 
@@ -350,7 +361,7 @@ function DemoDayRegistrationDialog({
                   className="mt-1 min-h-12 w-full rounded-xl border border-input bg-background px-3 text-sm text-foreground shadow-sm outline-none focus:ring-2 focus:ring-primary"
                   required
                 >
-                  {demoWorkshops.map((item) => (
+                  {availableDemoWorkshops.map((item) => (
                     <option key={item.id} value={item.id}>
                       {item.date}, {item.time} — {item.title}
                     </option>
@@ -642,11 +653,25 @@ function HomePage() {
           <div className="mx-auto mt-5 max-w-5xl space-y-2.5 md:mt-8 md:space-y-4">
             {demoWorkshops
               .filter((workshop) => workshop.date === activeDemoDate)
-              .map((workshop, index) => (
+              .map((workshop, index) => {
+                const isClosed = workshop.registrationClosed === true;
+                return (
                 <AnimatedSection key={workshop.id} delay={index * 0.05}>
-                  <article className="overflow-hidden rounded-2xl border border-border bg-card text-foreground shadow-md md:grid md:grid-cols-[140px_1fr] md:items-stretch">
-                    <div className="flex items-center justify-between gap-3 bg-ufo-yellow/40 px-4 py-2 md:flex-col md:justify-center md:gap-1 md:px-5 md:py-5">
-                      <span className="flex items-center gap-2 text-xl font-bold text-primary md:text-3xl">
+                  <article
+                    className={`overflow-hidden rounded-2xl border shadow-md md:grid md:grid-cols-[140px_1fr] md:items-stretch ${
+                      isClosed ? "border-muted bg-muted/40 text-muted-foreground" : "border-border bg-card text-foreground"
+                    }`}
+                  >
+                    <div
+                      className={`flex items-center justify-between gap-3 px-4 py-2 md:flex-col md:justify-center md:gap-1 md:px-5 md:py-5 ${
+                        isClosed ? "bg-muted/60" : "bg-ufo-yellow/40"
+                      }`}
+                    >
+                      <span
+                        className={`flex items-center gap-2 text-xl font-bold md:text-3xl ${
+                          isClosed ? "text-muted-foreground" : "text-primary"
+                        }`}
+                      >
                         <Clock3 className="h-4 w-4 opacity-70 md:hidden" />
                         {workshop.time}
                       </span>
@@ -657,8 +682,25 @@ function HomePage() {
 
                     <div className="px-4 py-3 md:px-6 md:py-4">
                       <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                        <h3 className="text-base font-semibold leading-tight text-foreground md:text-xl">{workshop.title}</h3>
-                        <span className="text-xs font-semibold text-primary md:text-sm">({workshop.audience})</span>
+                        <h3
+                          className={`text-base font-semibold leading-tight md:text-xl ${
+                            isClosed ? "text-muted-foreground" : "text-foreground"
+                          }`}
+                        >
+                          {workshop.title}
+                        </h3>
+                        <span
+                          className={`text-xs font-semibold md:text-sm ${
+                            isClosed ? "text-muted-foreground" : "text-primary"
+                          }`}
+                        >
+                          ({workshop.audience})
+                        </span>
+                        {isClosed && (
+                          <span className="inline-flex rounded-full bg-muted px-3 py-1 text-xs font-semibold text-muted-foreground">
+                            Місць немає
+                          </span>
+                        )}
                       </div>
                       <p className="mt-1.5 text-[13px] leading-snug text-muted-foreground md:text-base md:leading-relaxed">
                         {workshop.description}
@@ -666,7 +708,8 @@ function HomePage() {
                     </div>
                   </article>
                 </AnimatedSection>
-              ))}
+                );
+              })}
           </div>
           <p className="mx-auto mt-6 max-w-5xl text-sm leading-relaxed text-muted-foreground md:mt-8 md:text-base">
             💡 <span className="font-semibold text-foreground">Зверніть увагу!</span>{" "}
@@ -678,16 +721,35 @@ function HomePage() {
             наш перший рік разом.
           </p>
           <div className="mx-auto mt-6 flex max-w-5xl justify-center md:mt-8">
-            <button
-              type="button"
-              onClick={() => {
-                const first = demoWorkshops.find((workshop) => workshop.date === activeDemoDate) ?? null;
-                openDemoRegistration(first ?? demoWorkshops[0]);
-              }}
-              className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-ufo-yellow px-8 py-3 text-sm font-semibold text-primary shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl md:w-auto md:text-base"
-            >
-              Записатися на майстерку <ArrowRight className="h-4 w-4" />
-            </button>
+            {(() => {
+              const firstAvailable =
+                demoWorkshops.find(
+                  (workshop) => workshop.date === activeDemoDate && !workshop.registrationClosed,
+                ) ?? null;
+              return (
+                <button
+                  type="button"
+                  disabled={!firstAvailable}
+                  onClick={() => {
+                    if (!firstAvailable) return;
+                    openDemoRegistration(firstAvailable);
+                  }}
+                  className={`inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full px-8 py-3 text-sm font-semibold shadow-lg transition-all md:w-auto md:text-base ${
+                    firstAvailable
+                      ? "bg-ufo-yellow text-primary hover:scale-[1.02] hover:shadow-xl"
+                      : "cursor-not-allowed bg-muted text-muted-foreground shadow-none"
+                  }`}
+                >
+                  {firstAvailable ? (
+                    <>
+                      Записатися на майстерку <ArrowRight className="h-4 w-4" />
+                    </>
+                  ) : (
+                    "На цю дату місць немає"
+                  )}
+                </button>
+              );
+            })()}
           </div>
         </div>
       </section>
