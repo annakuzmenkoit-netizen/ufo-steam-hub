@@ -206,13 +206,12 @@ const slots: Slot[] = [
     id: "sat-5",
     day: "Субота",
     time: "14:30",
-    course: "Maker Lab",
-    age: "8–12 років",
-    teacher: "Анна",
+    course: "STEAM-гурток",
+    age: "7–12 років",
     description:
-      "Створюємо корисні винаходи, конструюємо прототипи, тестуємо механізми та вчимося вдосконалювати власні ідеї.",
-    color: "bg-ufo-blue/15 text-primary",
-    accent: "border-l-ufo-blue",
+      "Досліджуємо фізику, хімію, технології та інженерію через експерименти, конструювання і власні проєкти.",
+    color: "bg-ufo-green/15 text-ufo-green",
+    accent: "border-l-ufo-green",
   },
   {
     id: "sat-6",
