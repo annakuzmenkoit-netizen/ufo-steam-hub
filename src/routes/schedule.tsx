@@ -241,7 +241,7 @@ const slots: Slot[] = [
     id: "sun-2",
     day: "Неділя",
     time: "11:30",
-    course: "Maker Lab",
+    course: "Maker Lab (3D-моделювання + робототехніка)",
     age: "11-15 років",
     teacher: "Анна",
     description:
