@@ -176,10 +176,23 @@ const slots: Slot[] = [
     color: "bg-ufo-yellow/30 text-primary",
     accent: "border-l-ufo-yellow",
   },
-  {
+{
     id: "sat-3",
     day: "Субота",
     time: "12:00",
+    course: "Анімація",
+    age: "7–12 років",
+    teacher: "Анна",
+    description:
+      "Вигадуємо історії, створюємо персонажів і декорації та знімаємо власну анімацію кадр за кадром.",
+    color: "bg-ufo-pink/15 text-ufo-pink",
+    accent: "border-l-ufo-pink",
+  },
+  
+  {
+    id: "sat-4",
+    day: "Субота",
+    time: "13:30",
     course: "Math&mind",
     age: "3–4 клас",
     teacher: "Катерина",
@@ -188,18 +201,7 @@ const slots: Slot[] = [
     color: "bg-ufo-yellow/30 text-primary",
     accent: "border-l-ufo-yellow",
   },
-  {
-    id: "sat-4",
-    day: "Субота",
-    time: "13:00",
-    course: "Анімація",
-    age: "7–12 років",
-    teacher: "Катерина",
-    description:
-      "Вигадуємо історії, створюємо персонажів і декорації та знімаємо власну анімацію кадр за кадром.",
-    color: "bg-ufo-pink/15 text-ufo-pink",
-    accent: "border-l-ufo-pink",
-  },
+  
   {
     id: "sat-5",
     day: "Субота",
