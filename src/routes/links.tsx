@@ -28,32 +28,8 @@ const navLinks = [
 
 const upcomingCamps = [
   {
-    emoji: "🎬",
-    title: "Літня школа «Анімація»",
-    dates: "3–7 серпня",
-    desc: "Створення власних мультфільмів, персонажів і творчих історій.",
-    slug: "animation",
-    accent: "border-t-ufo-pink",
-  },
-  {
-    emoji: "🧊",
-    title: "Літня школа «3D-моделювання»",
-    dates: "11–14 серпня",
-    desc: "Знайомство зі світом 3D-друку та створення власних моделей.",
-    slug: "3d",
-    accent: "border-t-ufo-mint",
-  },
-  {
-    emoji: "🤖",
-    title: "Літня школа «Робототехніка»",
-    dates: "17–21 серпня",
-    desc: "Конструювання, програмування та STEAM-виклики для юних винахідників.",
-    slug: "robotics",
-    accent: "border-t-primary",
-  },
-  {
     emoji: "🧮",
-    title: "Математичний інтенсив",
+    title: "Інтенсив з математики",
     dates: "25–27 серпня",
     desc: "Цікава математика, логіка та практичні завдання.",
     slug: "math",
@@ -113,9 +89,9 @@ function LinksPage() {
       {/* Camps carousel */}
       <section className="px-4 py-8">
         <div className="mx-auto max-w-xl">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground">Найближчі табори</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground">Найближчі події</h2>
           <p className="mt-2 text-sm md:text-base text-muted-foreground">
-            Обирайте тематичну зміну та залишайте заявку — ми зв'яжемося з вами для уточнення деталей.
+           Залишайте заявку — ми зв'яжемося з вами для уточнення деталей.
           </p>
         </div>
 
