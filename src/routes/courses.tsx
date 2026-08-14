@@ -185,7 +185,7 @@ function CoursesPage() {
                               {course.desc}
                             </p>
 
-                            <p className="mt-2 text-base font-bold text-ufo-blue">
+                            <p className="mt-2 text-base font-bold text-ufo-green">
                               {course.price}
                             </p>
                           </div>
