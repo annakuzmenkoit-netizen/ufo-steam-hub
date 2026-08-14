@@ -83,6 +83,18 @@ const slots: Slot[] = [
   {
     id: "wed-1",
     day: "Середа",
+    time: "15:00",
+    course: "Математика",
+    age: "3-4 клас",
+    teacher: "Катерина",
+    description:
+      "Систематизуємо шкільні знання, тренуємо розв’язування задач і готуємося до контрольних робіт.",
+    color: "bg-ufo-blue/15 text-primary",
+    accent: "border-l-ufo-green",
+  },
+  {
+    id: "wed-2",
+    day: "Середа",
     time: "16:00",
     course: "STEAM-гурток",
     age: "7–12 років",
@@ -90,6 +102,18 @@ const slots: Slot[] = [
     description:
       "Проводимо наукові досліди, перевіряємо гіпотези та створюємо практичні STEAM-проєкти власними руками.",
     color: "bg-ufo-green/15 text-ufo-green",
+    accent: "border-l-ufo-green",
+  },
+  {
+    id: "wed-3",
+    day: "Середа",
+    time: "17:30",
+    course: "Математика",
+    age: "3-4 клас",
+    teacher: "Катерина",
+    description:
+      "Систематизуємо шкільні знання, тренуємо розв’язування задач і готуємося до контрольних робіт.",
+    color: "bg-ufo-blue/15 text-primary",
     accent: "border-l-ufo-green",
   },
   {
