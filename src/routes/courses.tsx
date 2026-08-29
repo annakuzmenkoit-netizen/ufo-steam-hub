@@ -1,9 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { Beaker, Bot, Film, Calculator, PenTool, Cuboid, ArrowRight, Camera, BookOpen, Star } from "lucide-react";
+import { Beaker, Bot, Film, Calculator, PenTool, Cuboid, ArrowRight, BookOpen, Star } from "lucide-react";
 import { motion } from "framer-motion";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { openRegistration } from "@/components/RegistrationModal";
 import { Star4, Dot, Squiggle, BlobShape } from "@/components/Blobs";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
@@ -15,6 +14,8 @@ export const Route = createFileRoute("/courses")({
       { name: "description", content: "STEAM-гуртки, робототехніка, анімація, 3D моделювання та математика для дітей 6-14 років." },
       { property: "og:title", content: "Курси — UFO STEAM HUB" },
       { property: "og:description", content: "Наші освітні програми для дітей." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: CoursesPage,
@@ -46,6 +47,7 @@ import modeling3 from "@/assets/courses/modeling3.jpg";
 
 const courses = [
   {
+    id: "steam",
     title: "STEAM-гурток", age: "7-12 років", price: "Вартість: 1500 грн/місяць",
     desc: "Щомісяця — нова тема: світло, магніти, вода, повітря, ґрунт. Діти досліджують явища через дослід, гру та власні проєкти.",
     details: "Заняття проходять у форматі досліджень та експериментів. Діти працюють у міні-групах, створюють проєкти та презентують свої відкриття.",
@@ -55,6 +57,7 @@ const courses = [
     icon: Beaker, color: "border-l-ufo-blue", iconBg: "bg-ufo-blue/10", iconColor: "text-primary",
   },
   {
+    id: "robotics",
     title: "Робототехніка", age: "6-12 років", price: "Вартість: 1800 грн/місяць",
     desc: "Конструювання, програмування та створення власних роботів.",
     details: "Від простих механізмів до програмованих роботів. Діти вивчають основи інженерії та алгоритмічного мислення.",
@@ -64,6 +67,7 @@ const courses = [
     icon: Bot, color: "border-l-ufo-green", iconBg: "bg-ufo-green/10", iconColor: "text-ufo-green",
   },
   {
+    id: "animation",
     title: "Анімація і мультиплікація", age: "7-12 років", price: "Вартість: 1500 грн/місяць",
     desc: "Оживляємо своїх героїв — створюємо мультики від ідеї до анімації та озвучки.",
     details: "Діти придумують персонажів, малюють, анімують та озвучують — повний цикл створення мультфільму.",
@@ -73,6 +77,7 @@ const courses = [
     icon: Film, color: "border-l-ufo-pink", iconBg: "bg-ufo-pink/10", iconColor: "text-ufo-pink",
   },
   {
+    id: "math-mind",
     title: "Math&mind", age: "2-6 клас", price: "Вартість: 1000 грн/місяць",
     desc: "Цікава математика, нестандартні задачі.",
     details: "Олімпіадна математика, логічні задачі, головоломки — розвиваємо математичне мислення через захоплення.",
@@ -82,6 +87,7 @@ const courses = [
     icon: Calculator, color: "border-l-ufo-yellow", iconBg: "bg-ufo-yellow/10", iconColor: "text-ufo-yellow",
   },
   {
+    id: "math",
     title: "Математика", age: "1-11 клас", price: "Вартість: 1600 грн/місяць",
     desc: "Шкільна математика зрозуміло та ефективно.",
     details: "Допомагаємо розібратися зі шкільною програмою, заповнити пробіли та підготуватися до контрольних.",
@@ -91,6 +97,7 @@ const courses = [
     icon: PenTool, color: "border-l-ufo-blue", iconBg: "bg-ufo-blue/10", iconColor: "text-primary",
   },
   {
+    id: "3d-modeling",
     title: "3D моделювання", age: "9-14 років", price: "Вартість: 1800 грн/місяць",
     desc: "Основи 3D друку, моделювання і ШІ.",
     details: "Діти створюють 3D-моделі, вивчають основи дизайну та друкують свої вироби на 3D-принтері.",
@@ -108,30 +115,40 @@ function CoursesPage() {
     index: number;
   } | null>(null);
 
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (!hash) return;
+    const scroll = () => {
+      const el = document.getElementById(hash);
+      if (!el) return false;
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      return true;
+    };
+    if (!scroll()) {
+      const t = setTimeout(scroll, 300);
+      return () => clearTimeout(t);
+    }
+  }, []);
+
   const openLightbox = (title: string, images: string[], index: number) => {
     setLightbox({ title, images, index });
   };
 
   const showPrevPhoto = () => {
-    setLightbox((current) => {
-      if (!current) return current;
-
-      return {
-        ...current,
-        index: current.index === 0 ? current.images.length - 1 : current.index - 1,
-      };
-    });
+    setLightbox((current) =>
+      current
+        ? { ...current, index: current.index === 0 ? current.images.length - 1 : current.index - 1 }
+        : current
+    );
   };
 
   const showNextPhoto = () => {
-    setLightbox((current) => {
-      if (!current) return current;
-
-      return {
-        ...current,
-        index: current.index === current.images.length - 1 ? 0 : current.index + 1,
-      };
-    });
+    setLightbox((current) =>
+      current
+        ? { ...current, index: current.index === current.images.length - 1 ? 0 : current.index + 1 }
+        : current
+    );
   };
 
   return (
@@ -150,147 +167,197 @@ function CoursesPage() {
             Ми створили програми, які розвивають дітей через дослідження, творчість і технології.
           </p>
         </AnimatedSection>
+
+        <AnimatedSection delay={0.1} className="relative mx-auto max-w-3xl px-4 mt-8">
+          <div className="flex flex-wrap justify-center gap-2">
+            {courses.map((c) => (
+              <a
+                key={c.id}
+                href={`#${c.id}`}
+                className="rounded-full bg-card border border-border px-4 py-1.5 text-sm font-semibold text-foreground hover:bg-ufo-yellow hover:text-primary transition-colors"
+              >
+                {c.title}
+              </a>
+            ))}
+          </div>
+        </AnimatedSection>
       </section>
 
-      <section className="py-20 bg-background">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-6">
-          <Accordion type="single" collapsible className="space-y-4">
-            {courses.map((course, i) => {
-              const gallery = course.gallery ?? [];
+      <div className="bg-background overflow-x-hidden">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-14 md:py-20 space-y-10 md:space-y-16">
+          {courses.map((course, i) => {
+            const gallery = course.gallery ?? [];
+            const [main, ...rest] = gallery;
 
-              return (
-                <AnimatedSection key={course.title} delay={i * 0.06}>
-                  <AccordionItem value={course.title} className="border-none">
-                    <motion.div
-                      whileHover={{ scale: 1.005 }}
-                      className={`rounded-2xl bg-card border-l-4 ${course.color} border border-border shadow-sm shadow-ufo-yellow/10 hover:shadow-xl transition-all overflow-hidden`}
-                    >
-                      <AccordionTrigger className="px-6 md:px-8 py-6 hover:no-underline">
-                        <div className="flex flex-col md:flex-row md:items-center gap-4 w-full text-left pr-4">
-                          <div className={`${course.iconBg} rounded-xl p-3 shrink-0 self-start`}>
-                            <course.icon className={`h-8 w-8 ${course.iconColor}`} />
+            return (
+              <AnimatedSection key={course.id} delay={0.04}>
+                <section
+                  id={course.id}
+                  className={`scroll-mt-24 rounded-3xl bg-card border border-border border-l-4 ${course.color} shadow-sm shadow-ufo-yellow/10 hover:shadow-xl transition-shadow overflow-hidden`}
+                >
+                  <div
+                    className={`grid gap-6 p-5 sm:p-7 md:p-8 md:grid-cols-2 md:gap-10 items-start ${
+                      i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
+                    }`}
+                  >
+                    {/* Gallery */}
+                    <div className="order-2 md:order-none">
+                      {gallery.length ? (
+                        <>
+                          {/* mobile: swipe row */}
+                          <div className="md:hidden -mx-1 flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-2">
+                            {gallery.map((src, n) => (
+                              <button
+                                key={`m-${course.id}-${n}`}
+                                type="button"
+                                onClick={() => openLightbox(course.title, gallery, n)}
+                                className="h-44 w-[78%] shrink-0 snap-center overflow-hidden rounded-2xl border border-border bg-muted"
+                                aria-label={`Відкрити фото ${n + 1} курсу ${course.title}`}
+                              >
+                                <img
+                                  src={src}
+                                  alt={`${course.title} фото ${n + 1}`}
+                                  className="h-full w-full object-cover"
+                                  loading="lazy"
+                                  decoding="async"
+                                />
+                              </button>
+                            ))}
                           </div>
 
-                          <div className="flex-1">
-                            <div className="flex flex-wrap items-center gap-3">
-                              <h2 className="text-xl font-bold text-foreground">
-                                {course.title}
-                              </h2>
-                              <span className="text-xs font-semibold text-primary bg-primary/10 rounded-full px-3 py-0.5">
-                                {course.age}
-                              </span>
+                          {/* desktop: one big + small column */}
+                          <div className="hidden md:grid grid-cols-3 gap-3">
+                            <button
+                              type="button"
+                              onClick={() => openLightbox(course.title, gallery, 0)}
+                              className="group col-span-2 h-64 overflow-hidden rounded-2xl border border-border bg-muted focus:outline-none focus:ring-2 focus:ring-primary"
+                              aria-label={`Відкрити фото 1 курсу ${course.title}`}
+                            >
+                              <img
+                                src={main}
+                                alt={`${course.title} фото 1`}
+                                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            </button>
+
+                            <div className="flex h-64 flex-col gap-3">
+                              {rest.slice(0, 2).map((src, n) => (
+                                <button
+                                  key={`d-${course.id}-${n}`}
+                                  type="button"
+                                  onClick={() => openLightbox(course.title, gallery, n + 1)}
+                                  className="group min-h-0 flex-1 overflow-hidden rounded-2xl border border-border bg-muted focus:outline-none focus:ring-2 focus:ring-primary"
+                                  aria-label={`Відкрити фото ${n + 2} курсу ${course.title}`}
+                                >
+                                  <img
+                                    src={src}
+                                    alt={`${course.title} фото ${n + 2}`}
+                                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                    loading="lazy"
+                                    decoding="async"
+                                  />
+                                </button>
+                              ))}
                             </div>
+                          </div>
+                        </>
+                      ) : (
+                        <p className="text-sm text-muted-foreground">
+                          Фото для цього курсу скоро з’являться.
+                        </p>
+                      )}
+                    </div>
 
-                            <p className="mt-1 text-muted-foreground text-sm">
-                              {course.desc}
-                            </p>
-
-                            <p className="mt-2 text-base font-bold text-ufo-blue">
+                    {/* Content */}
+                    <div className="order-1 md:order-none min-w-0">
+                      <div className="flex items-start gap-3">
+                        <div className={`${course.iconBg} rounded-xl p-2.5 shrink-0`}>
+                          <course.icon className={`h-6 w-6 md:h-7 md:w-7 ${course.iconColor}`} />
+                        </div>
+                        <div className="min-w-0">
+                          <h2 className="text-xl md:text-2xl font-semibold text-foreground">
+                            {course.title}
+                          </h2>
+                          <div className="mt-2 flex flex-wrap items-center gap-2">
+                            <span className="text-xs font-semibold text-primary bg-primary/10 rounded-full px-3 py-0.5">
+                              {course.age}
+                            </span>
+                            <span className="text-xs font-semibold text-ufo-green bg-ufo-green/10 rounded-full px-3 py-0.5">
                               {course.price}
-                            </p>
+                            </span>
                           </div>
                         </div>
-                      </AccordionTrigger>
+                      </div>
 
-                      <AccordionContent className="px-6 md:px-8 pb-8">
-                        <div className="border-t border-border pt-6 space-y-8">
-                          <p className="text-muted-foreground">
-                            {course.details}
-                          </p>
+                      <p className="mt-4 text-sm md:text-base text-muted-foreground">
+                        {course.desc}
+                      </p>
+                      <p className="mt-2 text-sm text-muted-foreground">
+                        {course.details}
+                      </p>
 
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="rounded-xl bg-ufo-yellow/10 p-5">
-                              <div className="flex items-center gap-2 mb-3">
-                                <BookOpen className="h-5 w-5 text-primary" />
-                                <h3 className="font-bold text-foreground">
-                                  План навчання
-                                </h3>
-                              </div>
-
-                              <ol className="space-y-2">
-                                {course.plan.map((step, idx) => (
-                                  <li
-                                    key={idx}
-                                    className="flex items-start gap-2 text-sm text-muted-foreground"
-                                  >
-                                    <span className="shrink-0 w-5 h-5 rounded-full bg-ufo-yellow text-primary text-xs flex items-center justify-center font-bold mt-0.5">
-                                      {idx + 1}
-                                    </span>
-                                    {step}
-                                  </li>
-                                ))}
-                              </ol>
-                            </div>
-
-                            <div className="rounded-xl bg-ufo-green/10 p-5">
-                              <div className="flex items-center gap-2 mb-3">
-                                <Star className="h-5 w-5 text-ufo-green" />
-                                <h3 className="font-bold text-foreground">
-                                  Особливості курсу
-                                </h3>
-                              </div>
-
-                              <ul className="space-y-2">
-                                {course.features.map((feat, idx) => (
-                                  <li
-                                    key={idx}
-                                    className="flex items-start gap-2 text-sm text-muted-foreground"
-                                  >
-                                    <span className="shrink-0 text-ufo-green mt-0.5">
-                                      ✓
-                                    </span>
-                                    {feat}
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
+                      <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                        <div className="rounded-2xl bg-ufo-yellow/10 p-4">
+                          <div className="flex items-center gap-2 mb-2">
+                            <BookOpen className="h-4 w-4 text-primary shrink-0" />
+                            <h3 className="text-sm font-bold text-foreground">Що робимо</h3>
                           </div>
-
-                          <div>
-                            <div className="flex items-center gap-2 mb-3">
-                              <Camera className="h-5 w-5 text-ufo-pink" />
-                              <h3 className="font-bold text-foreground">
-                                Фотогалерея
-                              </h3>
-                            </div>
-
-                            {gallery.length ? (
-                              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                                {gallery.map((src, n) => (
-                                  <button
-                                    key={`${course.title}-${n}`}
-                                    type="button"
-                                    onClick={() => openLightbox(course.title, gallery, n)}
-                                    className="group aspect-video rounded-xl overflow-hidden border border-border bg-muted focus:outline-none focus:ring-2 focus:ring-primary"
-                                    aria-label={`Відкрити фото ${n + 1} курсу ${course.title}`}
-                                  >
-                                    <img
-                                      src={src}
-                                      alt={`${course.title} фото ${n + 1}`}
-                                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                      loading="lazy"
-                                      decoding="async"
-                                    />
-                                  </button>
-                                ))}
-                              </div>
-                            ) : (
-                              <p className="text-sm text-muted-foreground">
-                                Фото для цього курсу скоро з’являться.
-                              </p>
-                            )}
-                          </div>
+                          <ul className="space-y-1.5">
+                            {course.plan.map((step, idx) => (
+                              <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
+                                <span className="shrink-0 mt-0.5 w-4 h-4 rounded-full bg-ufo-yellow text-primary text-[10px] flex items-center justify-center font-bold">
+                                  {idx + 1}
+                                </span>
+                                {step}
+                              </li>
+                            ))}
+                          </ul>
                         </div>
-                      </AccordionContent>
-                    </motion.div>
-                  </AccordionItem>
-                </AnimatedSection>
-              );
-            })}
-          </Accordion>
+
+                        <div className="rounded-2xl bg-ufo-green/10 p-4">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Star className="h-4 w-4 text-ufo-green shrink-0" />
+                            <h3 className="text-sm font-bold text-foreground">Особливості</h3>
+                          </div>
+                          <ul className="space-y-1.5">
+                            {course.features.map((feat, idx) => (
+                              <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
+                                <span className="shrink-0 text-ufo-green mt-0.5">✓</span>
+                                {feat}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+
+                      <motion.button
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.98 }}
+                        type="button"
+                        onClick={() =>
+                          openRegistration({
+                            registrationType: "course",
+                            sourcePage: "Сторінка курсів",
+                            title: `Запис на пробний урок — ${course.title}`,
+                            programName: course.title,
+                            ageGroup: course.age,
+                          })
+                        }
+                        className="mt-6 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-ufo-yellow px-6 py-3 font-semibold text-primary shadow-lg hover:shadow-xl transition-all"
+                      >
+                        Записатись на пробний урок <ArrowRight className="h-4 w-4" />
+                      </motion.button>
+                    </div>
+                  </div>
+                </section>
+              </AnimatedSection>
+            );
+          })}
         </div>
 
-        <AnimatedSection className="text-center mt-14">
+        <AnimatedSection className="text-center pb-20 px-4">
           <button
             type="button"
             onClick={() =>
@@ -300,18 +367,18 @@ function CoursesPage() {
                 title: "Загальна заявка на пробний урок",
               })
             }
-            className="inline-flex items-center gap-2 rounded-full bg-ufo-yellow px-8 py-3.5 font-semibold text-primary shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-ufo-yellow px-8 py-3.5 font-semibold text-primary shadow-lg hover:shadow-xl hover:scale-105 transition-all"
           >
             Записатись на пробний урок <ArrowRight className="h-4 w-4" />
           </button>
         </AnimatedSection>
-      </section>
+      </div>
 
       <Dialog open={!!lightbox} onOpenChange={(open) => !open && setLightbox(null)}>
         <DialogContent className="max-w-5xl rounded-3xl p-3 sm:p-5 max-h-[90vh] overflow-y-auto">
           {lightbox && (
             <div className="space-y-4">
-              <DialogTitle className="text-center text-lg font-semibold text-foreground">
+              <DialogTitle className="text-center text-base sm:text-lg font-semibold text-foreground">
                 {lightbox.title} — фото {lightbox.index + 1} з {lightbox.images.length}
               </DialogTitle>
 
@@ -353,9 +420,7 @@ function CoursesPage() {
                       key={`${src}-${n}`}
                       type="button"
                       onClick={() =>
-                        setLightbox((current) =>
-                          current ? { ...current, index: n } : current
-                        )
+                        setLightbox((current) => (current ? { ...current, index: n } : current))
                       }
                       className={`h-16 w-24 shrink-0 overflow-hidden rounded-xl border-2 ${
                         lightbox.index === n ? "border-primary" : "border-transparent"
