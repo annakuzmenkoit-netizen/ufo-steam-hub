@@ -341,8 +341,8 @@ function CoursesPage() {
                             registrationType: "course",
                             sourcePage: "Сторінка курсів",
                             title: `Запис на пробний урок — ${course.title}`,
-                            programName: course.title,
-                            ageGroup: course.age,
+                            program: course.title,
+                            age: course.age,
                           })
                         }
                         className="mt-6 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-ufo-yellow px-6 py-3 font-semibold text-primary shadow-lg hover:shadow-xl transition-all"
