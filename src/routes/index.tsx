@@ -141,7 +141,7 @@ function HomePage() {
                   onClick={() => openRegistration()}
                   className="rounded-full bg-ufo-yellow px-6 py-3 md:px-8 md:py-3.5 text-sm md:text-base font-semibold text-primary shadow-lg hover:shadow-xl hover:scale-105 transition-all inline-flex items-center justify-center gap-2"
                 >
-                  Пробний урок <ArrowRight className="h-4 w-4" />
+                  Хочу спробувати <ArrowRight className="h-4 w-4" />
                 </button>
                 <Link
                   to="/courses"
@@ -268,7 +268,7 @@ function HomePage() {
                         onClick={() => openRegistration(course.title)}
                         className="mt-auto inline-flex items-center justify-center gap-2 rounded-full bg-ufo-yellow px-5 py-2.5 text-sm font-semibold text-primary shadow-md hover:shadow-lg transition-all"
                       >
-                        Записатись <ArrowRight className="h-4 w-4" />
+                        Хочу спробувати <ArrowRight className="h-4 w-4" />
                       </button>
                     </div>
                   </div>

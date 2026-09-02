@@ -347,7 +347,7 @@ function CoursesPage() {
                         }
                         className="mt-6 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-ufo-yellow px-6 py-3 font-semibold text-primary shadow-lg hover:shadow-xl transition-all"
                       >
-                        Записатись на пробний урок <ArrowRight className="h-4 w-4" />
+                        Хочу спробувати <ArrowRight className="h-4 w-4" />
                       </motion.button>
                     </div>
                   </div>
@@ -369,7 +369,7 @@ function CoursesPage() {
             }
             className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-ufo-yellow px-8 py-3.5 font-semibold text-primary shadow-lg hover:shadow-xl hover:scale-105 transition-all"
           >
-            Записатись на пробний урок <ArrowRight className="h-4 w-4" />
+            Хочу спробувати <ArrowRight className="h-4 w-4" />
           </button>
         </AnimatedSection>
       </div>

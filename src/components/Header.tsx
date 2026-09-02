@@ -69,7 +69,7 @@ export function Header() {
                 }
                 className="rounded-full bg-ufo-yellow px-5 py-2 text-sm font-semibold text-primary shadow-md hover:shadow-lg hover:scale-105 transition-all"
               >
-                Записатись
+                Хочу спробувати
               </button>
             </nav>
 
@@ -135,7 +135,7 @@ export function Header() {
                 }}
                 className="w-full rounded-full bg-ufo-yellow px-5 py-3 text-sm font-semibold text-primary shadow-md active:scale-[0.98] transition-transform"
               >
-                Записатись на заняття
+                Хочу спробувати
               </button>
             </div>
           </SheetContent>
