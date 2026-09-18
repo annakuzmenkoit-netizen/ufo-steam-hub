@@ -144,159 +144,127 @@ function LinksPage() {
             Курси, табори, робототехніка, 3D-друк, математика та творчі технології.
           </p>
         </AnimatedSection>
-{/* Upcoming classes */}
+{/* Upcoming trial classes */}
 <section aria-labelledby="upcoming-classes-title" className="relative">
-  <div className="flex items-end justify-between gap-3">
-    <div>
-      <p className="text-xs font-bold uppercase tracking-wider text-primary">
-        Можна приєднатися
-      </p>
-      <h2
-        id="upcoming-classes-title"
-        className="mt-1 text-2xl font-semibold tracking-tight text-foreground"
+  <div className="px-1">
+    <h2
+      id="upcoming-classes-title"
+      className="text-xl font-semibold text-foreground"
+    >
+      Наступні заняття
+    </h2>
+    <p className="mt-1 max-w-xl text-sm leading-relaxed text-muted-foreground">
+      Можна спробувати окреме заняття та обрати напрямок для дитини.
+    </p>
+  </div>
+
+  <div className="relative mt-4 -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:px-1">
+    {upcomingClasses.map((classItem) => (
+      <article
+        key={classItem.id}
+        id={classItem.id}
+        className="scroll-mt-24 flex w-[78%] min-w-0 shrink-0 snap-start flex-col overflow-hidden rounded-2xl border-2 border-border/70 bg-white shadow-md sm:w-[68%] md:w-auto"
       >
-        Найближчі заняття
-      </h2>
-    </div>
+        {/* Image */}
+        <div className="relative aspect-[16/9] overflow-hidden">
+          <img
+            src={classItem.image}
+            alt={classItem.imageAlt}
+            className="h-full w-full object-cover"
+          />
 
-    <div className="hidden shrink-0 rounded-full bg-white px-3 py-1.5 text-xs font-medium text-muted-foreground shadow-sm md:block">
-      Обирайте своє
-    </div>
-  </div>
+          {/* Яскравий акцент */}
+          <div
+            className={`absolute bottom-0 left-0 right-0 h-2 ${classItem.accent}`}
+          />
 
-  <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
-    Можна спробувати окреме заняття перед тим, як приєднатися до групи.
-  </p>
+          <Button
+            type="button"
+            variant="secondary"
+            size="icon"
+            onClick={() => copyClassLink(classItem.id)}
+            aria-label={`Скопіювати посилання на заняття «${classItem.title}»`}
+            title="Скопіювати посилання"
+            className="absolute right-2.5 top-2.5 h-9 w-9 rounded-full bg-white shadow-md hover:bg-white"
+          >
+            <Share2 className="h-4 w-4" />
+          </Button>
+        </div>
 
-  <div className="mt-4 -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0">
-    {upcomingClasses.map((classItem) => {
-      const selectedIndex = selectedSessions[classItem.id] ?? 0;
-      const selectedSession =
-        classItem.sessions[selectedIndex] ?? classItem.sessions[0];
+        <div className="flex flex-1 flex-col p-3.5">
+          <p className="text-[10px] font-bold uppercase tracking-wide text-primary">
+            {classItem.program}
+          </p>
 
-      return (
-        <article
-          key={classItem.id}
-          id={classItem.id}
-          className="scroll-mt-24 flex w-[88%] min-w-0 shrink-0 snap-start flex-col overflow-hidden rounded-3xl border border-border/60 bg-white shadow-sm transition-shadow hover:shadow-md sm:w-[72%] md:w-auto"
-        >
-          {/* Image */}
-          <div className="relative aspect-[16/9] overflow-hidden">
-            <img
-              src={classItem.image}
-              alt={classItem.imageAlt}
-              className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]"
-            />
+          <h3 className="mt-1 text-[15px] font-semibold leading-snug text-foreground">
+            {classItem.title}
+          </h3>
 
-            <div
-              className={`absolute bottom-0 left-0 right-0 h-1.5 ${classItem.accent}`}
-            />
-
-            <Button
-              type="button"
-              variant="secondary"
-              size="icon"
-              onClick={() => copyClassLink(classItem.id)}
-              aria-label={`Скопіювати посилання на заняття «${classItem.title}»`}
-              title="Скопіювати посилання"
-              className="absolute right-3 top-3 h-9 w-9 rounded-full bg-white/95 shadow-sm backdrop-blur hover:bg-white"
-            >
-              <Share2 className="h-4 w-4" />
-            </Button>
-          </div>
-
-          {/* Content */}
-          <div className="flex flex-1 flex-col p-4">
-            <p className="text-[11px] font-bold uppercase tracking-wide text-primary">
-              {classItem.program}
-            </p>
-
-            <h3 className="mt-1.5 text-[17px] font-semibold leading-snug text-foreground">
-              {classItem.title}
-            </h3>
-
-            {/* Date / time */}
-            {classItem.sessions.length === 1 ? (
-              <div className="mt-4 flex items-center gap-2">
-                <div className="flex min-h-10 items-center gap-2 rounded-xl bg-muted/60 px-3 text-sm font-semibold text-foreground">
-                  <Calendar
-                    className="h-4 w-4 text-primary"
-                    aria-hidden="true"
-                  />
-                  {classItem.sessions[0]?.date}
-                </div>
-
-                <div className="flex min-h-10 items-center gap-2 rounded-xl bg-muted/60 px-3 text-sm font-semibold text-foreground">
-                  <Clock3
-                    className="h-4 w-4 text-primary"
-                    aria-hidden="true"
-                  />
-                  {classItem.sessions[0]?.time}
-                </div>
+          {classItem.sessions.length === 1 ? (
+            <div className="mt-3 flex gap-2">
+              <div className="flex items-center gap-1.5 rounded-lg bg-muted px-2.5 py-2 text-xs font-semibold">
+                <Calendar className="h-3.5 w-3.5 text-primary" />
+                {classItem.sessions[0]?.date}
               </div>
-            ) : (
-              <fieldset className="mt-4">
-                <legend className="text-xs font-semibold text-muted-foreground">
-                  Оберіть дату та час
-                </legend>
 
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {classItem.sessions.map((session, index) => {
-                    const selected = selectedIndex === index;
+              <div className="flex items-center gap-1.5 rounded-lg bg-muted px-2.5 py-2 text-xs font-semibold">
+                <Clock3 className="h-3.5 w-3.5 text-primary" />
+                {classItem.sessions[0]?.time}
+              </div>
+            </div>
+          ) : (
+            <fieldset className="mt-3">
+              <legend className="text-[11px] font-semibold text-muted-foreground">
+                Оберіть дату:
+              </legend>
 
-                    return (
-                      <Button
-                        key={`${session.date}-${session.time}`}
-                        type="button"
-                        variant={selected ? "default" : "outline"}
-                        size="sm"
-                        aria-pressed={selected}
-                        onClick={() =>
-                          setSelectedSessions((current) => ({
-                            ...current,
-                            [classItem.id]: index,
-                          }))
-                        }
-                        className={
-                          selected
-                            ? "h-9 rounded-xl bg-primary px-3 text-xs"
-                            : "h-9 rounded-xl border-border px-3 text-xs"
-                        }
-                      >
-                        {session.date} · {session.time}
-                      </Button>
-                    );
-                  })}
-                </div>
-              </fieldset>
-            )}
+              <div className="mt-1.5 flex flex-wrap gap-1.5">
+                {classItem.sessions.map((session, index) => {
+                  const selected =
+                    (selectedSessions[classItem.id] ?? 0) === index;
 
-            {/* Selected session summary */}
-            {classItem.sessions.length > 1 && selectedSession && (
-              <p className="mt-2 text-xs text-muted-foreground">
-                Обрано:{" "}
-                <span className="font-semibold text-foreground">
-                  {selectedSession.date}, {selectedSession.time}
-                </span>
-              </p>
-            )}
+                  return (
+                    <Button
+                      key={`${session.date}-${session.time}`}
+                      type="button"
+                      variant={selected ? "default" : "outline"}
+                      size="sm"
+                      aria-pressed={selected}
+                      onClick={() =>
+                        setSelectedSessions((current) => ({
+                          ...current,
+                          [classItem.id]: index,
+                        }))
+                      }
+                      className={
+                        selected
+                          ? "h-8 rounded-lg bg-primary px-2.5 text-[11px]"
+                          : "h-8 rounded-lg px-2.5 text-[11px]"
+                      }
+                    >
+                      {session.date} · {session.time}
+                    </Button>
+                  );
+                })}
+              </div>
+            </fieldset>
+          )}
 
-            <Button
-              type="button"
-              onClick={() => registerForClass(classItem)}
-              className="mt-5 min-h-11 w-full rounded-xl bg-ufo-yellow text-sm font-semibold text-foreground shadow-sm hover:bg-ufo-yellow/90"
-            >
-              Хочу спробувати
-              <ArrowRight className="ml-1 h-4 w-4" />
-            </Button>
-          </div>
-        </article>
-      );
-    })}
+          <Button
+            type="button"
+            onClick={() => registerForClass(classItem)}
+            className="mt-4 min-h-10 w-full rounded-xl bg-ufo-yellow px-3 text-sm font-semibold text-foreground shadow-sm hover:bg-ufo-yellow/90"
+          >
+            Хочу спробувати
+            <ArrowRight className="ml-1 h-4 w-4" />
+          </Button>
+        </div>
+      </article>
+    ))}
   </div>
 
-  <p className="mt-3 text-center text-xs font-medium text-muted-foreground md:hidden">
-    Гортайте → щоб переглянути всі заняття
+  <p className="mt-2 text-center text-xs font-medium text-muted-foreground md:hidden">
+    ← Гортайте, щоб побачити всі заняття →
   </p>
 </section>
 
