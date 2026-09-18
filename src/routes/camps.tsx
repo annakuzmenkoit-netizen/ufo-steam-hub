@@ -39,34 +39,6 @@ type UpcomingCamp = {
   program: { day: string; text: string }[];
 };
 
-const upcomingCamps: UpcomingCamp[] = [
-  {
-    emoji: "🤖",
-    date: "17–21 серпня",
-    title: "Літня школа «Робототехніка»",
-    desc: "Конструювання, програмування та STEAM-виклики для юних винахідників.",
-    color: "border-l-ufo-blue",
-    program: [
-      { day: "День 1", text: "Конструювання — знайомимося з наборами, механізмами й базовими принципами роботи роботів." },
-      { day: "День 2", text: "Алгоритми та програмування — вчимо робота виконувати команди й реагувати на умови." },
-      { day: "День 3", text: "Сенсори та виклики — додаємо датчики, тестуємо моделі й розв’язуємо перші STEAM-завдання." },
-      { day: "День 4", text: "Командний проєкт — створюємо робота для конкретної місії, покращуємо конструкцію та програму." },
-      { day: "День 5", text: "Фінальний челендж — презентуємо роботів, проходимо командні випробування й підбиваємо підсумки." },
-    ],
-  },
-  {
-    emoji: "🧠",
-    date: "25–27 серпня",
-    title: "«Математичний інтенсив»",
-    desc: "Цікава математика, логіка та практичні завдання.",
-    color: "border-l-ufo-yellow",
-    program: [
-      { day: "День 1", text: "Логіка та стратегії — розв’язуємо нестандартні задачі, головоломки й тренуємо математичне мислення." },
-      { day: "День 2", text: "Практична математика — працюємо з життєвими ситуаціями, обчисленнями, закономірностями й командними задачами." },
-      { day: "День 3", text: "Математичний квест — закріплюємо навички через гру, челенджі, командну роботу й фінальну рефлексію." },
-    ],
-  },
-];
 
 const campRules = [
   {
@@ -532,55 +504,7 @@ function CampsPage() {
         </AnimatedSection>
       </section>
 
-      {/* Майбутні табори */}
-      <section className="py-20 bg-ufo-cream">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
-              Майбутні <span className="text-primary">табори</span>
-            </h2>
-            <p className="mt-4 text-muted-foreground">
-              Найближчі літні школи та інтенсиви UFO STEAM HUB.
-            </p>
-          </AnimatedSection>
-
-          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory scroll-px-4 -mx-4 md:mx-0 px-4 md:px-0 pb-4 md:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {upcomingCamps.map((camp, i) => (
-              <AnimatedSection key={camp.title} delay={i * 0.08} className="snap-center shrink-0 w-[82%] xs:w-[70%] sm:w-[60%] md:w-auto">
-                <button
-                  type="button"
-                  onClick={() => openCamp(camp)}
-                  className={`w-full text-left rounded-3xl bg-card border-l-4 ${camp.color} border border-border p-5 md:p-6 shadow-md hover:shadow-xl md:hover:-translate-y-1 transition-all h-full flex flex-col`}
-                >
-                  <div className="text-4xl mb-3" aria-hidden>
-                    {camp.emoji}
-                  </div>
-
-                  <div className="flex items-center gap-2 text-sm font-semibold text-primary mb-2">
-                    <CalendarDays className="h-4 w-4" /> {camp.date}
-                  </div>
-
-                  <h3 className="text-lg font-semibold text-foreground">
-                    {camp.title}
-                  </h3>
-
-                  <p className="mt-2 text-sm text-muted-foreground flex-1">
-                    {camp.desc}
-                  </p>
-
-                  <span className="mt-5 inline-flex items-center justify-center gap-2 rounded-full bg-ufo-yellow px-5 py-2.5 text-sm font-semibold text-primary shadow-md">
-                    Детальніше <ArrowRight className="h-4 w-4" />
-                  </span>
-                </button>
-              </AnimatedSection>
-            ))}
-          </div>
-          <p className="md:hidden mt-3 text-center text-xs text-muted-foreground">Гортайте вбік →</p>
-        </div>
-      </section>
-
-      <CampDetailsDialog camp={selectedCamp} open={detailsOpen} onOpenChange={setDetailsOpen} />
-
+      
       {/* Літні школи */}
       <section className="py-20 bg-ufo-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
