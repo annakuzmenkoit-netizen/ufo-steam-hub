@@ -28,14 +28,6 @@ const navLinks = [
   { to: "/contacts", label: "Контакти", icon: Phone },
 ] as const;
 
-const mathIntensive = {
-  emoji: "🧮",
-  title: "Інтенсив з математики",
-  dates: "25–27 серпня",
-  age: "7–12 років",
-  description: "Цікава математика, логіка та практичні завдання — три насичені дні.",
-};
-
 const courses = [
   { emoji: "🤖", title: "Робототехніка", desc: "Конструювання, програмування, MakerZoid і перші інженерні виклики." },
   { emoji: "🧊", title: "3D-друк та моделювання", desc: "Від ідеї до власної 3D-моделі та готового об'єкта." },
@@ -62,44 +54,6 @@ function LinksPage() {
             Курси, табори, робототехніка, 3D-друк, математика та творчі технології.
           </p>
         </AnimatedSection>
-
-        {/* Highlighted offer */}
-        <section>
-          <div className="relative overflow-hidden rounded-2xl border-2 border-ufo-yellow bg-white p-4 shadow-md">
-            <Squiggle className="pointer-events-none absolute -bottom-2 -right-2 opacity-20" color="#17c590" size={72} />
-            <div className="relative flex items-start gap-3">
-              <div className="text-3xl shrink-0">{mathIntensive.emoji}</div>
-              <div className="min-w-0">
-                <span className="inline-block rounded-full bg-ufo-pink px-2.5 py-0.5 text-xs font-semibold text-white">
-                  Актуально
-                </span>
-                <h2 className="mt-1.5 text-lg font-semibold text-foreground">{mathIntensive.title}</h2>
-                <p className="text-xs font-semibold text-primary">
-                  {mathIntensive.dates} · {mathIntensive.age}
-                </p>
-                <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">{mathIntensive.description}</p>
-              </div>
-            </div>
-            <button
-              type="button"
-              onClick={() =>
-                openRegistration({
-                  registrationType: "course",
-                  sourcePage: "Links — математичний інтенсив",
-                  title: "Запис на математичний інтенсив",
-                  program: "Математичний інтенсив",
-                  date: mathIntensive.dates,
-                  age: mathIntensive.age,
-                  additionalInfo: mathIntensive.description,
-                })
-              }
-              className="relative mt-4 flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-ufo-yellow px-4 py-3.5 text-base font-semibold text-primary shadow-sm transition-colors hover:bg-ufo-yellow/90 active:bg-ufo-yellow/80"
-            >
-              Записатись на математичний інтенсив
-              <ArrowRight className="h-4 w-4 shrink-0" />
-            </button>
-          </div>
-        </section>
 
         {/* Nav links */}
         <section className="space-y-3">
