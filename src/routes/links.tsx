@@ -270,148 +270,131 @@ function LinksPage() {
           </p>
 
           {/* CARDS */}
-          <div className="relative mt-5 -mx-4">
-            <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-7 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:px-1">
-              {upcomingClasses.map((classItem) => {
-                const colors = colorStyles[classItem.color];
-                const selectedIndex =
-                  selectedSessions[classItem.id] ?? 0;
+<div className="relative mt-5 -mx-4">
+  <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-9 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:px-1">
+    {upcomingClasses.map((classItem) => {
+      const colors = colorStyles[classItem.color];
+      const selectedIndex = selectedSessions[classItem.id] ?? 0;
 
-                return (
-                  <article
-                    key={classItem.id}
-                    id={classItem.id}
-                    className="w-[79%] min-w-0 shrink-0 snap-start overflow-hidden rounded-[22px] border border-black/10 bg-white shadow-[0_5px_20px_rgba(0,0,0,0.07)] sm:w-[68%] md:w-auto"
-                  >
-                    {/* IMAGE */}
-                    <div className="relative aspect-[1.35/1] overflow-hidden">
-                      <img
-                        src={classItem.image}
-                        alt={classItem.imageAlt}
-                        className="h-full w-full object-cover"
-                      />
+      const cardColor =
+        classItem.color === "pink"
+          ? "bg-ufo-pink"
+          : classItem.color === "green"
+            ? "bg-ufo-green"
+            : "bg-ufo-yellow";
 
-                      <div
-                        className={`absolute bottom-0 left-0 right-0 h-2 ${colors.bg}`}
-                      />
+      const cardTextColor =
+        classItem.color === "green"
+          ? "text-white"
+          : "text-foreground";
 
-                      <Button
-                        type="button"
-                        variant="secondary"
-                        size="icon"
-                        onClick={() =>
-                          copyClassLink(classItem.id)
-                        }
-                        aria-label={`Скопіювати посилання на заняття «${classItem.title}»`}
-                        className="absolute right-2.5 top-2.5 h-9 w-9 rounded-full bg-white/95 shadow-md hover:bg-white"
-                      >
-                        <Share2 className="h-4 w-4" />
-                      </Button>
-                    </div>
+      return (
+        <article
+          key={classItem.id}
+          id={classItem.id}
+          className={`w-[76%] min-w-0 shrink-0 snap-start overflow-hidden rounded-[22px] shadow-[0_6px_22px_rgba(0,0,0,0.10)] sm:w-[64%] md:w-auto ${cardColor}`}
+        >
+          {/* IMAGE */}
+          <div className="relative aspect-[1.35/1] overflow-hidden">
+            <img
+              src={classItem.image}
+              alt={classItem.imageAlt}
+              className="h-full w-full object-cover"
+            />
 
-                    {/* CONTENT */}
-                    <div className="flex min-h-[245px] flex-col p-4">
-                      <div className="flex items-start justify-between gap-2">
-                        <span
-                          className={`rounded-full ${colors.soft} px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${colors.text}`}
-                        >
-                          {classItem.program}
-                        </span>
-                      </div>
-
-                      <h3 className="mt-2.5 text-[17px] font-semibold leading-[1.2] text-foreground">
-                        {classItem.title}
-                      </h3>
-
-                      {/* SINGLE DATE */}
-                      {classItem.sessions.length === 1 && (
-                        <div className="mt-4 flex gap-2">
-                          <div className="flex items-center gap-1.5 rounded-xl bg-muted/70 px-2.5 py-2 text-xs font-semibold text-foreground">
-                            <Calendar className="h-3.5 w-3.5 text-primary" />
-                            {classItem.sessions[0]?.date}
-                          </div>
-
-                          <div className="flex items-center gap-1.5 rounded-xl bg-muted/70 px-2.5 py-2 text-xs font-semibold text-foreground">
-                            <Clock3 className="h-3.5 w-3.5 text-primary" />
-                            {classItem.sessions[0]?.time}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* MULTIPLE DATES */}
-                      {classItem.sessions.length > 1 && (
-                        <fieldset className="mt-4">
-                          <legend className="text-[11px] font-semibold text-muted-foreground">
-                            Оберіть дату:
-                          </legend>
-
-                          <div className="mt-2 flex flex-wrap gap-1.5">
-                            {classItem.sessions.map(
-                              (session, index) => {
-                                const selected =
-                                  selectedIndex === index;
-
-                                return (
-                                  <Button
-                                    key={`${session.date}-${session.time}`}
-                                    type="button"
-                                    variant={
-                                      selected
-                                        ? "default"
-                                        : "outline"
-                                    }
-                                    size="sm"
-                                    aria-pressed={selected}
-                                    onClick={() =>
-                                      setSelectedSessions(
-                                        (current) => ({
-                                          ...current,
-                                          [classItem.id]: index,
-                                        }),
-                                      )
-                                    }
-                                    className={
-                                      selected
-                                        ? "h-8 rounded-lg bg-primary px-2.5 text-[11px]"
-                                        : "h-8 rounded-lg border-border px-2.5 text-[11px]"
-                                    }
-                                  >
-                                    {session.date} · {session.time}
-                                  </Button>
-                                );
-                              },
-                            )}
-                          </div>
-                        </fieldset>
-                      )}
-
-                      <Button
-                        type="button"
-                        onClick={() =>
-                          registerForClass(classItem)
-                        }
-                        className="mt-auto min-h-11 w-full rounded-xl bg-ufo-yellow text-sm font-semibold text-foreground shadow-sm hover:bg-ufo-yellow/90"
-                      >
-                        Хочу спробувати
-                        <ArrowRight className="ml-1 h-4 w-4" />
-                      </Button>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-
-            <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-5 bg-gradient-to-r from-ufo-cream to-transparent md:hidden" />
-            <div className="pointer-events-none absolute bottom-0 right-0 top-0 w-5 bg-gradient-to-l from-ufo-cream to-transparent md:hidden" />
+            <Button
+              type="button"
+              variant="secondary"
+              size="icon"
+              onClick={() => copyClassLink(classItem.id)}
+              aria-label={`Скопіювати посилання на заняття «${classItem.title}»`}
+              className="absolute right-2.5 top-2.5 h-9 w-9 rounded-full bg-white/95 shadow-md hover:bg-white"
+            >
+              <Share2 className="h-4 w-4" />
+            </Button>
           </div>
 
-          <div className="mt-1 flex items-center justify-center gap-1.5 md:hidden">
-            <span className="h-1.5 w-5 rounded-full bg-primary" />
-            <span className="h-1.5 w-1.5 rounded-full bg-border" />
-            <span className="h-1.5 w-1.5 rounded-full bg-border" />
-          </div>
-        </AnimatedSection>
+          {/* CONTENT */}
+          <div className={`flex min-h-[245px] flex-col p-4 ${cardTextColor}`}>
+            <span
+              className={`w-fit rounded-full bg-white/80 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${colors.text}`}
+            >
+              {classItem.program}
+            </span>
 
+            <h3 className="mt-2.5 text-[17px] font-semibold leading-[1.2]">
+              {classItem.title}
+            </h3>
+
+            {classItem.sessions.length === 1 && (
+              <div className="mt-4 flex gap-2">
+                <div className="flex items-center gap-1.5 rounded-xl bg-white/75 px-2.5 py-2 text-xs font-semibold text-foreground">
+                  <Calendar className="h-3.5 w-3.5 text-primary" />
+                  {classItem.sessions[0]?.date}
+                </div>
+
+                <div className="flex items-center gap-1.5 rounded-xl bg-white/75 px-2.5 py-2 text-xs font-semibold text-foreground">
+                  <Clock3 className="h-3.5 w-3.5 text-primary" />
+                  {classItem.sessions[0]?.time}
+                </div>
+              </div>
+            )}
+
+            {classItem.sessions.length > 1 && (
+              <fieldset className="mt-4">
+                <legend className="text-[11px] font-semibold">
+                  Оберіть дату:
+                </legend>
+
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {classItem.sessions.map((session, index) => {
+                    const selected = selectedIndex === index;
+
+                    return (
+                      <Button
+                        key={`${session.date}-${session.time}`}
+                        type="button"
+                        variant={selected ? "default" : "outline"}
+                        size="sm"
+                        aria-pressed={selected}
+                        onClick={() =>
+                          setSelectedSessions((current) => ({
+                            ...current,
+                            [classItem.id]: index,
+                          }))
+                        }
+                        className={
+                          selected
+                            ? "h-8 rounded-lg bg-white px-2.5 text-[11px] text-foreground hover:bg-white/90"
+                            : "h-8 rounded-lg border-white/70 bg-white/20 px-2.5 text-[11px] text-foreground hover:bg-white/40"
+                        }
+                      >
+                        {session.date} · {session.time}
+                      </Button>
+                    );
+                  })}
+                </div>
+              </fieldset>
+            )}
+
+            <Button
+              type="button"
+              onClick={() => registerForClass(classItem)}
+              className="mt-auto min-h-11 w-full rounded-xl bg-white text-sm font-semibold text-foreground shadow-sm hover:bg-white/90"
+            >
+              Хочу спробувати
+              <ArrowRight className="ml-1 h-4 w-4" />
+            </Button>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+
+  {/* FADE */}
+  <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-3 bg-gradient-to-r from-ufo-cream to-transparent md:hidden" />
+  <div className="pointer-events-none absolute bottom-0 right-0 top-0 w-3 bg-gradient-to-l from-ufo-cream to-transparent md:hidden" />
+</div>
         {/* NAVIGATION */}
         <AnimatedSection className="mt-9">
           <div className="space-y-2.5">
