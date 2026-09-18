@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { Star4, Dot, Squiggle } from "@/components/Blobs";
@@ -46,60 +46,46 @@ const upcomingClasses = [
   {
     id: "lego-animation",
     title: "Лего-анімація",
-    date: "19.09",
-    time: "12:00",
+    program: "Лего-анімація",
+    sessions: [{ date: "19.09", time: "12:00" }],
     image: animationImage,
     imageAlt: "Дитяче заняття з анімації",
-    registration: {
-      registrationType: "course" as const,
-      sourcePage: "Links — наступні заняття",
-      title: "Запис на пробне заняття: Лего-анімація",
-      program: "Лего-анімація",
-      date: "19.09",
-      time: "12:00",
-      additionalInfo: "Наступне заняття з Лего-анімації",
-    },
+    registrationTitle: "Запис на пробне заняття: Лего-анімація",
+    additionalInfo: "Наступне заняття з Лего-анімації",
+    accent: "bg-ufo-pink",
   },
   {
     id: "steam-materials",
-    title: "STEAM-гурток: «З чого зроблений цей світ?»",
-    date: "20.09",
-    time: "10:00",
+    title: "«З чого зроблений цей світ?»",
+    program: "STEAM-гурток: «З чого зроблений цей світ?»",
+    sessions: [{ date: "20.09", time: "10:00" }],
     image: steamImage,
     imageAlt: "Дитяче заняття у STEAM-гуртку",
-    registration: {
-      registrationType: "course" as const,
-      sourcePage: "Links — наступні заняття",
-      title: "Запис на пробне заняття: STEAM-гурток",
-      program: "STEAM-гурток: «З чого зроблений цей світ?»",
-      date: "20.09",
-      time: "10:00",
-    },
+    registrationTitle: "Запис на пробне заняття: STEAM-гурток",
+    accent: "bg-ufo-green",
   },
-  ...[
-    { id: "3d-pumpkin-20-09-1130", date: "20.09", time: "11:30" },
-    { id: "3d-pumpkin-23-09-1730", date: "23.09", time: "17:30" },
-    { id: "3d-pumpkin-25-09-1700", date: "25.09", time: "17:00" },
-  ].map(({ id, date, time }) => ({
-    id,
+  {
+    id: "3d-pumpkin",
     title: "Створюємо осінній декор: гарбуз із підсвіткою",
-    date,
-    time,
+    program: "3D-моделювання",
+    sessions: [
+      { date: "20.09", time: "11:30" },
+      { date: "23.09", time: "17:30" },
+      { date: "25.09", time: "17:00" },
+    ],
     image: modelingImage,
     imageAlt: "Дитяче заняття з 3D-моделювання",
-    registration: {
-      registrationType: "course" as const,
-      sourcePage: "Links — наступні заняття",
-      title: "Запис на пробне заняття: Створюємо осінній декор",
-      program: "3D-моделювання",
-      date,
-      time,
-      additionalInfo: "Тема заняття: гарбуз із підсвіткою",
-    },
-  })),
+    registrationTitle: "Запис на пробне заняття: Створюємо осінній декор",
+    additionalInfo: "Тема заняття: гарбуз із підсвіткою",
+    accent: "bg-ufo-yellow",
+  },
 ];
 
 function LinksPage() {
+  const [selectedSessions, setSelectedSessions] = useState<Record<string, number>>({
+    "3d-pumpkin": 0,
+  });
+
   useEffect(() => {
     const scrollToClass = () => {
       const id = decodeURIComponent(window.location.hash.slice(1));
@@ -125,6 +111,22 @@ function LinksPage() {
     }
   }
 
+  function registerForClass(classItem: (typeof upcomingClasses)[number]) {
+    const selectedIndex = selectedSessions[classItem.id] ?? 0;
+    const session = classItem.sessions[selectedIndex] ?? classItem.sessions[0];
+    if (!session) return;
+
+    openRegistration({
+      registrationType: "course",
+      sourcePage: "Links — наступні заняття",
+      title: classItem.registrationTitle,
+      program: classItem.program,
+      date: session.date,
+      time: session.time,
+      additionalInfo: classItem.additionalInfo,
+    });
+  }
+
   return (
     <div className="bg-ufo-cream overflow-x-hidden">
       <div className="mx-auto w-full max-w-md px-4 py-6 md:max-w-2xl md:py-12 space-y-6">
@@ -143,6 +145,99 @@ function LinksPage() {
           </p>
         </AnimatedSection>
 
+        {/* Upcoming trial classes */}
+        <section aria-labelledby="upcoming-classes-title" className="relative -mx-1 overflow-hidden rounded-2xl bg-primary px-4 py-5 shadow-md md:-mx-20 md:px-6">
+          <div className="pointer-events-none absolute right-4 top-4 h-2.5 w-2.5 rounded-full bg-ufo-pink" />
+          <div className="pointer-events-none absolute right-9 top-8 h-3 w-3 rotate-45 bg-ufo-yellow" />
+          <h2 id="upcoming-classes-title" className="relative text-xl font-semibold text-primary-foreground">
+            Наступні заняття
+          </h2>
+          <p className="relative mt-1 max-w-xl text-sm leading-relaxed text-primary-foreground/80">
+            Спробуйте новий напрямок на окремому занятті та подивіться, що найбільше зацікавить дитину.
+          </p>
+
+          <div className="relative mt-4 -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-1 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0">
+            {upcomingClasses.map((classItem) => (
+              <article
+                key={classItem.id}
+                id={classItem.id}
+                className="scroll-mt-24 flex w-[84%] min-w-0 shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-primary-foreground/30 bg-background/95 shadow-md sm:w-[72%] md:w-auto"
+              >
+                <div className="relative aspect-[16/9] overflow-hidden">
+                  <img
+                    src={classItem.image}
+                    alt={classItem.imageAlt}
+                    className="h-full w-full object-cover"
+                  />
+                  <span className={`absolute inset-x-0 bottom-0 h-1.5 ${classItem.accent}`} />
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    size="icon"
+                    onClick={() => copyClassLink(classItem.id)}
+                    aria-label={`Скопіювати посилання на заняття «${classItem.title}»`}
+                    title="Скопіювати посилання"
+                    className="absolute right-2 top-2 h-9 w-9 rounded-full bg-background/95 shadow-sm hover:bg-background"
+                  >
+                    <Share2 className="h-4 w-4" />
+                  </Button>
+                </div>
+
+                <div className="flex flex-1 flex-col p-4">
+                  <p className="mb-1 text-xs font-semibold uppercase text-primary">
+                    {classItem.program}
+                  </p>
+                  <h3 className="text-base font-semibold leading-snug text-foreground">
+                    {classItem.title}
+                  </h3>
+                  {classItem.sessions.length === 1 ? (
+                    <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm font-semibold text-primary">
+                      <span className="inline-flex items-center gap-1.5">
+                        <Calendar className="h-4 w-4" aria-hidden="true" /> {classItem.sessions[0]?.date}
+                      </span>
+                      <span className="inline-flex items-center gap-1.5">
+                        <Clock3 className="h-4 w-4" aria-hidden="true" /> {classItem.sessions[0]?.time}
+                      </span>
+                    </div>
+                  ) : (
+                    <fieldset className="mt-3">
+                      <legend className="text-xs font-semibold text-muted-foreground">Оберіть дату:</legend>
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {classItem.sessions.map((session, index) => {
+                          const selected = (selectedSessions[classItem.id] ?? 0) === index;
+                          return (
+                            <Button
+                              key={`${session.date}-${session.time}`}
+                              type="button"
+                              variant={selected ? "default" : "outline"}
+                              size="sm"
+                              aria-pressed={selected}
+                              onClick={() => setSelectedSessions((current) => ({ ...current, [classItem.id]: index }))}
+                              className={selected ? "h-9 rounded-full bg-primary px-3 text-xs" : "h-9 rounded-full px-3 text-xs"}
+                            >
+                              {session.date} · {session.time}
+                            </Button>
+                          );
+                        })}
+                      </div>
+                    </fieldset>
+                  )}
+                  <Button
+                    type="button"
+                    onClick={() => registerForClass(classItem)}
+                    className="mt-auto min-h-11 w-full rounded-xl bg-ufo-yellow pt-3 text-foreground shadow-sm hover:bg-ufo-yellow/90"
+                  >
+                    Хочу спробувати
+                  </Button>
+                </div>
+              </article>
+            ))}
+          </div>
+          <p className="relative mt-3 text-center text-xs font-medium text-primary-foreground/70 md:hidden">
+            Гортайте, щоб побачити більше →
+          </p>
+        </section>
+
         {/* Nav links */}
         <section className="space-y-3">
           {navLinks.map(({ to, label, icon: Icon }) => (
@@ -158,66 +253,6 @@ function LinksPage() {
               <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground" />
             </Link>
           ))}
-        </section>
-
-        {/* Upcoming trial classes */}
-        <section aria-labelledby="upcoming-classes-title">
-          <h2 id="upcoming-classes-title" className="text-lg font-semibold text-foreground">
-            Наступні заняття
-          </h2>
-          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-            Спробуйте новий напрямок на окремому занятті та подивіться, що найбільше зацікавить дитину.
-          </p>
-
-          <div className="mt-3 -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0">
-            {upcomingClasses.map((classItem) => (
-              <article
-                key={classItem.id}
-                id={classItem.id}
-                className="scroll-mt-24 flex w-[82%] min-w-0 shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-border/50 bg-white shadow-sm sm:w-[68%] md:w-auto"
-              >
-                <div className="relative aspect-[16/9] overflow-hidden">
-                  <img
-                    src={classItem.image}
-                    alt={classItem.imageAlt}
-                    className="h-full w-full object-cover"
-                  />
-                  <Button
-                    type="button"
-                    variant="secondary"
-                    size="icon"
-                    onClick={() => copyClassLink(classItem.id)}
-                    aria-label={`Скопіювати посилання на заняття «${classItem.title}»`}
-                    title="Скопіювати посилання"
-                    className="absolute right-2 top-2 h-9 w-9 rounded-full bg-background/95 shadow-sm hover:bg-background"
-                  >
-                    <Share2 className="h-4 w-4" />
-                  </Button>
-                </div>
-
-                <div className="flex flex-1 flex-col p-4">
-                  <h3 className="text-base font-semibold leading-snug text-foreground">
-                    {classItem.title}
-                  </h3>
-                  <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm font-semibold text-primary">
-                    <span className="inline-flex items-center gap-1.5">
-                      <Calendar className="h-4 w-4" aria-hidden="true" /> {classItem.date}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5">
-                      <Clock3 className="h-4 w-4" aria-hidden="true" /> {classItem.time}
-                    </span>
-                  </div>
-                  <Button
-                    type="button"
-                    onClick={() => openRegistration(classItem.registration)}
-                    className="mt-4 min-h-11 w-full rounded-xl bg-ufo-yellow text-foreground hover:bg-ufo-yellow/90"
-                  >
-                    Хочу спробувати
-                  </Button>
-                </div>
-              </article>
-            ))}
-          </div>
         </section>
 
         {/* Courses */}
