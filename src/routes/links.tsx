@@ -144,116 +144,161 @@ function LinksPage() {
             Курси, табори, робототехніка, 3D-друк, математика та творчі технології.
           </p>
         </AnimatedSection>
+{/* Upcoming classes */}
+<section aria-labelledby="upcoming-classes-title" className="relative">
+  <div className="flex items-end justify-between gap-3">
+    <div>
+      <p className="text-xs font-bold uppercase tracking-wider text-primary">
+        Можна приєднатися
+      </p>
+      <h2
+        id="upcoming-classes-title"
+        className="mt-1 text-2xl font-semibold tracking-tight text-foreground"
+      >
+        Найближчі заняття
+      </h2>
+    </div>
 
-        {/* Upcoming trial classes */}
-        <section aria-labelledby="upcoming-classes-title" className="relative -mx-1 overflow-hidden rounded-2xl bg-primary px-4 py-5 shadow-md md:-mx-20 md:px-6">
-          <div className="pointer-events-none absolute right-4 top-4 h-2.5 w-2.5 rounded-full bg-ufo-pink" />
-          <div className="pointer-events-none absolute right-9 top-8 h-3 w-3 rotate-45 bg-ufo-yellow" />
-          <h2 id="upcoming-classes-title" className="relative text-xl font-semibold text-primary-foreground">
-            Наступні заняття
-          </h2>
-          <p className="relative mt-1 max-w-xl text-sm leading-relaxed text-primary-foreground/80">
-            Спробуйте новий напрямок на окремому занятті та подивіться, що найбільше зацікавить дитину.
-          </p>
+    <div className="hidden shrink-0 rounded-full bg-white px-3 py-1.5 text-xs font-medium text-muted-foreground shadow-sm md:block">
+      Обирайте своє
+    </div>
+  </div>
 
-          <div className="relative mt-4 -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-1 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0">
-            {upcomingClasses.map((classItem) => (
-              <article
-                key={classItem.id}
-                id={classItem.id}
-                className="scroll-mt-24 flex w-[84%] min-w-0 shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-primary-foreground/30 bg-background/95 shadow-md sm:w-[72%] md:w-auto"
-              >
-                <div className="relative aspect-[16/9] overflow-hidden">
-                  <img
-                    src={classItem.image}
-                    alt={classItem.imageAlt}
-                    className="h-full w-full object-cover"
-                  />
-                  <span className={`absolute inset-x-0 bottom-0 h-1.5 ${classItem.accent}`} />
-                  <Button
-                    type="button"
-                    variant="secondary"
-                    size="icon"
-                    onClick={() => copyClassLink(classItem.id)}
-                    aria-label={`Скопіювати посилання на заняття «${classItem.title}»`}
-                    title="Скопіювати посилання"
-                    className="absolute right-2 top-2 h-9 w-9 rounded-full bg-background/95 shadow-sm hover:bg-background"
-                  >
-                    <Share2 className="h-4 w-4" />
-                  </Button>
-                </div>
+  <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
+    Можна спробувати окреме заняття перед тим, як приєднатися до групи.
+  </p>
 
-                <div className="flex flex-1 flex-col p-4">
-                  <p className="mb-1 text-xs font-semibold uppercase text-primary">
-                    {classItem.program}
-                  </p>
-                  <h3 className="text-base font-semibold leading-snug text-foreground">
-                    {classItem.title}
-                  </h3>
-                  {classItem.sessions.length === 1 ? (
-                    <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm font-semibold text-primary">
-                      <span className="inline-flex items-center gap-1.5">
-                        <Calendar className="h-4 w-4" aria-hidden="true" /> {classItem.sessions[0]?.date}
-                      </span>
-                      <span className="inline-flex items-center gap-1.5">
-                        <Clock3 className="h-4 w-4" aria-hidden="true" /> {classItem.sessions[0]?.time}
-                      </span>
-                    </div>
-                  ) : (
-                    <fieldset className="mt-3">
-                      <legend className="text-xs font-semibold text-muted-foreground">Оберіть дату:</legend>
-                      <div className="mt-2 flex flex-wrap gap-2">
-                        {classItem.sessions.map((session, index) => {
-                          const selected = (selectedSessions[classItem.id] ?? 0) === index;
-                          return (
-                            <Button
-                              key={`${session.date}-${session.time}`}
-                              type="button"
-                              variant={selected ? "default" : "outline"}
-                              size="sm"
-                              aria-pressed={selected}
-                              onClick={() => setSelectedSessions((current) => ({ ...current, [classItem.id]: index }))}
-                              className={selected ? "h-9 rounded-full bg-primary px-3 text-xs" : "h-9 rounded-full px-3 text-xs"}
-                            >
-                              {session.date} · {session.time}
-                            </Button>
-                          );
-                        })}
-                      </div>
-                    </fieldset>
-                  )}
-                  <Button
-                    type="button"
-                    onClick={() => registerForClass(classItem)}
-                    className="mt-auto min-h-11 w-full rounded-xl bg-ufo-yellow pt-3 text-foreground shadow-sm hover:bg-ufo-yellow/90"
-                  >
-                    Хочу спробувати
-                  </Button>
-                </div>
-              </article>
-            ))}
-          </div>
-          <p className="relative mt-3 text-center text-xs font-medium text-primary-foreground/70 md:hidden">
-            Гортайте, щоб побачити більше →
-          </p>
-        </section>
+  <div className="mt-4 -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0">
+    {upcomingClasses.map((classItem) => {
+      const selectedIndex = selectedSessions[classItem.id] ?? 0;
+      const selectedSession =
+        classItem.sessions[selectedIndex] ?? classItem.sessions[0];
 
-        {/* Nav links */}
-        <section className="space-y-3">
-          {navLinks.map(({ to, label, icon: Icon }) => (
-            <Link
-              key={to}
-              to={to}
-              className="flex min-h-14 w-full items-center justify-between gap-3 rounded-2xl border border-border/50 bg-white px-4 py-3.5 text-base font-semibold text-foreground shadow-sm transition-colors hover:bg-ufo-yellow/20 hover:border-ufo-yellow active:bg-ufo-yellow/30"
+      return (
+        <article
+          key={classItem.id}
+          id={classItem.id}
+          className="scroll-mt-24 flex w-[88%] min-w-0 shrink-0 snap-start flex-col overflow-hidden rounded-3xl border border-border/60 bg-white shadow-sm transition-shadow hover:shadow-md sm:w-[72%] md:w-auto"
+        >
+          {/* Image */}
+          <div className="relative aspect-[16/9] overflow-hidden">
+            <img
+              src={classItem.image}
+              alt={classItem.imageAlt}
+              className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]"
+            />
+
+            <div
+              className={`absolute bottom-0 left-0 right-0 h-1.5 ${classItem.accent}`}
+            />
+
+            <Button
+              type="button"
+              variant="secondary"
+              size="icon"
+              onClick={() => copyClassLink(classItem.id)}
+              aria-label={`Скопіювати посилання на заняття «${classItem.title}»`}
+              title="Скопіювати посилання"
+              className="absolute right-3 top-3 h-9 w-9 rounded-full bg-white/95 shadow-sm backdrop-blur hover:bg-white"
             >
-              <span className="flex min-w-0 items-center gap-3">
-                <Icon className="h-5 w-5 shrink-0 text-primary" />
-                <span className="truncate">{label}</span>
-              </span>
-              <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground" />
-            </Link>
-          ))}
-        </section>
+              <Share2 className="h-4 w-4" />
+            </Button>
+          </div>
+
+          {/* Content */}
+          <div className="flex flex-1 flex-col p-4">
+            <p className="text-[11px] font-bold uppercase tracking-wide text-primary">
+              {classItem.program}
+            </p>
+
+            <h3 className="mt-1.5 text-[17px] font-semibold leading-snug text-foreground">
+              {classItem.title}
+            </h3>
+
+            {/* Date / time */}
+            {classItem.sessions.length === 1 ? (
+              <div className="mt-4 flex items-center gap-2">
+                <div className="flex min-h-10 items-center gap-2 rounded-xl bg-muted/60 px-3 text-sm font-semibold text-foreground">
+                  <Calendar
+                    className="h-4 w-4 text-primary"
+                    aria-hidden="true"
+                  />
+                  {classItem.sessions[0]?.date}
+                </div>
+
+                <div className="flex min-h-10 items-center gap-2 rounded-xl bg-muted/60 px-3 text-sm font-semibold text-foreground">
+                  <Clock3
+                    className="h-4 w-4 text-primary"
+                    aria-hidden="true"
+                  />
+                  {classItem.sessions[0]?.time}
+                </div>
+              </div>
+            ) : (
+              <fieldset className="mt-4">
+                <legend className="text-xs font-semibold text-muted-foreground">
+                  Оберіть дату та час
+                </legend>
+
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {classItem.sessions.map((session, index) => {
+                    const selected = selectedIndex === index;
+
+                    return (
+                      <Button
+                        key={`${session.date}-${session.time}`}
+                        type="button"
+                        variant={selected ? "default" : "outline"}
+                        size="sm"
+                        aria-pressed={selected}
+                        onClick={() =>
+                          setSelectedSessions((current) => ({
+                            ...current,
+                            [classItem.id]: index,
+                          }))
+                        }
+                        className={
+                          selected
+                            ? "h-9 rounded-xl bg-primary px-3 text-xs"
+                            : "h-9 rounded-xl border-border px-3 text-xs"
+                        }
+                      >
+                        {session.date} · {session.time}
+                      </Button>
+                    );
+                  })}
+                </div>
+              </fieldset>
+            )}
+
+            {/* Selected session summary */}
+            {classItem.sessions.length > 1 && selectedSession && (
+              <p className="mt-2 text-xs text-muted-foreground">
+                Обрано:{" "}
+                <span className="font-semibold text-foreground">
+                  {selectedSession.date}, {selectedSession.time}
+                </span>
+              </p>
+            )}
+
+            <Button
+              type="button"
+              onClick={() => registerForClass(classItem)}
+              className="mt-5 min-h-11 w-full rounded-xl bg-ufo-yellow text-sm font-semibold text-foreground shadow-sm hover:bg-ufo-yellow/90"
+            >
+              Хочу спробувати
+              <ArrowRight className="ml-1 h-4 w-4" />
+            </Button>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+
+  <p className="mt-3 text-center text-xs font-medium text-muted-foreground md:hidden">
+    Гортайте → щоб переглянути всі заняття
+  </p>
+</section>
 
         {/* Courses */}
         <section>
