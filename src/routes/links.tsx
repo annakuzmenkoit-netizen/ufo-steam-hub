@@ -4,6 +4,7 @@ import { AnimatedSection } from "@/components/AnimatedSection";
 import { Star4, Dot, Squiggle } from "@/components/Blobs";
 import { openRegistration } from "@/components/RegistrationModal";
 import { Button } from "@/components/ui/button";
+import { EnrollmentAnnouncement } from "@/components/EnrollmentAnnouncement";
 import { toast } from "sonner";
 import { Home, BookOpen, Tent, Calendar, Phone, Instagram, Facebook, ArrowRight, ChevronRight, Clock3, Share2 } from "lucide-react";
 import animationImage from "@/assets/courses/animation1.jpg";
@@ -237,6 +238,9 @@ function LinksPage() {
             Гортайте, щоб побачити більше →
           </p>
         </section>
+
+        {/* New groups enrollment */}
+        <EnrollmentAnnouncement sourcePage="Links — набір у нові групи" compact />
 
         {/* Nav links */}
         <section className="space-y-3">
