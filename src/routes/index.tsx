@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { BlobShape, Squiggle, Star4, Dot, Swirl } from "@/components/Blobs";
 import { openRegistration } from "@/components/RegistrationModal";
+import { EnrollmentAnnouncement } from "@/components/EnrollmentAnnouncement";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -186,6 +187,11 @@ function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* New groups enrollment */}
+      <div className="bg-ufo-cream py-12 md:py-20">
+        <EnrollmentAnnouncement sourcePage="Головна — набір у нові групи" />
+      </div>
 
       {/* Courses — flip cards, no modal */}
       <section id="programs" className="relative py-12 md:py-20 bg-background overflow-hidden">
