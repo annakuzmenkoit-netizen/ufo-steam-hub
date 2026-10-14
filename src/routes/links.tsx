@@ -1,28 +1,60 @@
-import { useEffect, useState } from "react";
+
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { Star4, Dot, Squiggle } from "@/components/Blobs";
-import { openRegistration } from "@/components/RegistrationModal";
-import { Button } from "@/components/ui/button";
+import { Star4, Dot } from "@/components/Blobs";
 import { EnrollmentAnnouncement } from "@/components/EnrollmentAnnouncement";
-import { toast } from "sonner";
-import { Home, BookOpen, Tent, Calendar, Phone, Instagram, Facebook, ArrowRight, ChevronRight, Clock3, Share2 } from "lucide-react";
-import animationImage from "@/assets/courses/animation1.jpg";
-import steamImage from "@/assets/courses/steam1.jpg";
-import modelingImage from "@/assets/courses/modeling1.jpg";
+import {
+  Home,
+  BookOpen,
+  Tent,
+  Calendar,
+  Phone,
+  Instagram,
+  Facebook,
+  ArrowRight,
+  ChevronRight,
+} from "lucide-react";
 
 export const Route = createFileRoute("/links")({
   head: () => ({
     meta: [
-      { title: "UFO STEAM HUB — швидкі посилання" },
-      { name: "description", content: "Швидка сторінка UFO STEAM HUB для Instagram: табори, курси, розклад, контакти та запис на заняття для дітей у Кременчуці." },
-      { property: "og:title", content: "UFO STEAM HUB — курси, табори та STEAM-заняття для дітей" },
-      { property: "og:description", content: "Обирайте табір, курс або пробне заняття в UFO STEAM HUB." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:url", content: "https://ufo.in.ua/links" },
+      {
+        title: "UFO STEAM HUB — швидкі посилання",
+      },
+      {
+        name: "description",
+        content:
+          "Швидка сторінка UFO STEAM HUB для Instagram: табори, курси, розклад, контакти та запис на заняття для дітей у Кременчуці.",
+      },
+      {
+        property: "og:title",
+        content:
+          "UFO STEAM HUB — курси, табори та STEAM-заняття для дітей",
+      },
+      {
+        property: "og:description",
+        content:
+          "Обирайте табір, курс або пробне заняття в UFO STEAM HUB.",
+      },
+      {
+        property: "og:type",
+        content: "website",
+      },
+      {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
+      {
+        property: "og:url",
+        content: "https://ufo.in.ua/links",
+      },
     ],
-    links: [{ rel: "canonical", href: "https://ufo.in.ua/links" }],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://ufo.in.ua/links",
+      },
+    ],
   }),
   component: LinksPage,
 });
@@ -36,133 +68,87 @@ const navLinks = [
 ] as const;
 
 const courses = [
-  { emoji: "🤖", title: "Робототехніка", desc: "Конструювання, програмування, MakerZoid і перші інженерні виклики." },
-  { emoji: "🧊", title: "3D-друк та моделювання", desc: "Від ідеї до власної 3D-моделі та готового об'єкта." },
-  { emoji: "🧠", title: "MATH&mind", desc: "Логіка, нестандартні задачі, головоломки й математичне мислення." },
-  { emoji: "📐", title: "Математика", desc: "Підтягування шкільної програми, пояснення складного простими словами." },
-  { emoji: "🎬", title: "Анімація і мультиплікація", desc: "Персонажі, історії, розкадрування та власні мультфільми." },
-];
-
-const upcomingClasses = [
   {
-    id: "lego-animation",
-    title: "Лего-анімація",
-    program: "Лего-анімація",
-    sessions: [{ date: "19.09", time: "12:00" }],
-    image: animationImage,
-    imageAlt: "Дитяче заняття з анімації",
-    registrationTitle: "Запис на пробне заняття: Лего-анімація",
-    additionalInfo: "Наступне заняття з Лего-анімації",
-    accent: "bg-ufo-pink",
+    emoji: "🤖",
+    title: "Робототехніка",
+    desc: "Конструювання, програмування, MakerZoid і перші інженерні виклики.",
   },
   {
-    id: "steam-materials",
-    title: "«З чого зроблений цей світ?»",
-    program: "STEAM-гурток: «З чого зроблений цей світ?»",
-    sessions: [{ date: "20.09", time: "10:00" }],
-    image: steamImage,
-    imageAlt: "Дитяче заняття у STEAM-гуртку",
-    registrationTitle: "Запис на пробне заняття: STEAM-гурток",
-    accent: "bg-ufo-green",
+    emoji: "🧊",
+    title: "3D-друк та моделювання",
+    desc: "Від ідеї до власної 3D-моделі та готового об'єкта.",
   },
   {
-    id: "3d-pumpkin",
-    title: "Створюємо осінній декор: гарбуз із підсвіткою",
-    program: "3D-моделювання",
-    sessions: [
-      { date: "20.09", time: "11:30" },
-      { date: "23.09", time: "17:30" },
-      { date: "25.09", time: "17:00" },
-    ],
-    image: modelingImage,
-    imageAlt: "Дитяче заняття з 3D-моделювання",
-    registrationTitle: "Запис на пробне заняття: Створюємо осінній декор",
-    additionalInfo: "Тема заняття: гарбуз із підсвіткою",
-    accent: "bg-ufo-yellow",
+    emoji: "🧠",
+    title: "MATH&mind",
+    desc: "Логіка, нестандартні задачі, головоломки й математичне мислення.",
+  },
+  {
+    emoji: "📐",
+    title: "Математика",
+    desc: "Підтягування шкільної програми, пояснення складного простими словами.",
+  },
+  {
+    emoji: "🎬",
+    title: "Анімація і мультиплікація",
+    desc: "Персонажі, історії, розкадрування та власні мультфільми.",
   },
 ];
 
 function LinksPage() {
-  const [selectedSessions, setSelectedSessions] = useState<Record<string, number>>({
-    "3d-pumpkin": 0,
-  });
-
-  useEffect(() => {
-    const scrollToClass = () => {
-      const id = decodeURIComponent(window.location.hash.slice(1));
-      if (!id) return;
-      document.getElementById(id)?.scrollIntoView({ block: "start" });
-    };
-
-    const frame = window.requestAnimationFrame(scrollToClass);
-    window.addEventListener("hashchange", scrollToClass);
-    return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener("hashchange", scrollToClass);
-    };
-  }, []);
-
-  async function copyClassLink(id: string) {
-    const directUrl = `${window.location.origin}${window.location.pathname}#${id}`;
-    try {
-      await navigator.clipboard.writeText(directUrl);
-      toast.success("Посилання скопійовано");
-    } catch {
-      toast.error("Не вдалося скопіювати посилання");
-    }
-  }
-
-  function registerForClass(classItem: (typeof upcomingClasses)[number]) {
-    const selectedIndex = selectedSessions[classItem.id] ?? 0;
-    const session = classItem.sessions[selectedIndex] ?? classItem.sessions[0];
-    if (!session) return;
-
-    openRegistration({
-      registrationType: "course",
-      sourcePage: "Links — наступні заняття",
-      title: classItem.registrationTitle,
-      program: classItem.program,
-      date: session.date,
-      time: session.time,
-      additionalInfo: classItem.additionalInfo,
-    });
-  }
-
   return (
-    <div className="bg-ufo-cream overflow-x-hidden">
-      <div className="mx-auto w-full max-w-md px-4 py-6 md:max-w-2xl md:py-12 space-y-6">
+    <div className="min-h-screen overflow-x-hidden bg-ufo-cream">
+      <div className="mx-auto w-full max-w-md space-y-6 px-4 py-6 md:max-w-2xl md:py-12">
+
         {/* Hero */}
         <AnimatedSection className="relative text-center">
-          <Star4 className="pointer-events-none absolute -top-2 -left-1 opacity-70" color="#f7df5d" size={28} />
-          <Dot className="pointer-events-none absolute top-0 -right-1 opacity-70" color="#f04770" size={12} />
+          <Star4
+            className="pointer-events-none absolute -left-1 -top-2 opacity-70"
+            color="#f7df5d"
+            size={28}
+          />
+
+          <Dot
+            className="pointer-events-none absolute right-0 top-0 opacity-70"
+            color="#f04770"
+            size={12}
+          />
+
           <div className="inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-2 shadow-md">
-            <span className="text-xl md:text-2xl font-bold text-primary tracking-tight">UFO STEAM HUB</span>
+            <span className="text-xl font-bold tracking-tight text-primary md:text-2xl">
+              UFO STEAM HUB
+            </span>
           </div>
-          <h1 className="mt-3 text-2xl md:text-3xl font-semibold text-foreground">
+
+          <h1 className="mt-3 text-2xl font-semibold text-foreground md:text-3xl">
             STEAM-простір для дітей у Кременчуці
           </h1>
-          <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-            Курси, табори, робототехніка, 3D-друк, математика та творчі технології.
+
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            Курси, табори, робототехніка, 3D-друк,
+            математика та творчі технології.
           </p>
         </AnimatedSection>
 
-        
+        {/* Mini-course enrollment */}
+        <EnrollmentAnnouncement
+          sourcePage="Links — набір у нові групи"
+          compact
+        />
 
-        {/* New groups enrollment */}
-        <EnrollmentAnnouncement sourcePage="Links — набір у нові групи" compact />
-
-        {/* Nav links */}
+        {/* Navigation */}
         <section className="space-y-3">
           {navLinks.map(({ to, label, icon: Icon }) => (
             <Link
               key={to}
               to={to}
-              className="flex min-h-14 w-full items-center justify-between gap-3 rounded-2xl border border-border/50 bg-white px-4 py-3.5 text-base font-semibold text-foreground shadow-sm transition-colors hover:bg-ufo-yellow/20 hover:border-ufo-yellow active:bg-ufo-yellow/30"
+              className="flex min-h-14 w-full items-center justify-between gap-3 rounded-2xl border border-border/50 bg-white px-4 py-3.5 text-base font-semibold text-foreground shadow-sm transition-colors hover:border-ufo-yellow hover:bg-ufo-yellow/20 active:bg-ufo-yellow/30"
             >
               <span className="flex min-w-0 items-center gap-3">
                 <Icon className="h-5 w-5 shrink-0 text-primary" />
                 <span className="truncate">{label}</span>
               </span>
+
               <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground" />
             </Link>
           ))}
@@ -170,18 +156,33 @@ function LinksPage() {
 
         {/* Courses */}
         <section>
-          <h2 className="text-lg font-semibold text-foreground">Гуртки та курси</h2>
-          <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
-            Регулярні заняття для дітей, які хочуть створювати, досліджувати й пробувати нові технології.
+          <h2 className="text-lg font-semibold text-foreground">
+            Гуртки та курси
+          </h2>
+
+          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+            Регулярні заняття для дітей, які хочуть створювати,
+            досліджувати й пробувати нові технології.
           </p>
 
           <div className="mt-3 space-y-3">
-            {courses.map((c) => (
-              <div key={c.title} className="flex gap-3 rounded-2xl border border-border/50 bg-white p-4 shadow-sm">
-                <div className="text-2xl shrink-0">{c.emoji}</div>
+            {courses.map((course) => (
+              <div
+                key={course.title}
+                className="flex gap-3 rounded-2xl border border-border/50 bg-white p-4 shadow-sm"
+              >
+                <div className="shrink-0 text-2xl">
+                  {course.emoji}
+                </div>
+
                 <div className="min-w-0">
-                  <h3 className="text-base font-semibold text-foreground">{c.title}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{c.desc}</p>
+                  <h3 className="text-base font-semibold text-foreground">
+                    {course.title}
+                  </h3>
+
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                    {course.desc}
+                  </p>
                 </div>
               </div>
             ))}
@@ -191,17 +192,28 @@ function LinksPage() {
             to="/courses"
             className="mt-3 flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-3.5 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90 active:bg-primary/80"
           >
-            Переглянути всі курси <ArrowRight className="h-4 w-4 shrink-0" />
+            Переглянути всі курси
+            <ArrowRight className="h-4 w-4 shrink-0" />
           </Link>
         </section>
 
         {/* Contact CTA */}
         <section className="relative overflow-hidden rounded-2xl bg-primary p-5 text-primary-foreground shadow-md">
-          <Star4 className="pointer-events-none absolute top-2 right-2 opacity-30" color="#f7df5d" size={32} />
-          <h2 className="relative text-lg font-semibold">Хочете підібрати заняття для дитини?</h2>
-          <p className="relative mt-1.5 text-sm text-primary-foreground/85 leading-relaxed">
-            Напишіть нам — допоможемо обрати курс, табір або пробне заняття.
+          <Star4
+            className="pointer-events-none absolute right-2 top-2 opacity-30"
+            color="#f7df5d"
+            size={32}
+          />
+
+          <h2 className="relative text-lg font-semibold">
+            Хочете підібрати заняття для дитини?
+          </h2>
+
+          <p className="relative mt-1.5 text-sm leading-relaxed text-primary-foreground/85">
+            Напишіть нам — допоможемо обрати курс,
+            табір або пробне заняття.
           </p>
+
           <div className="relative mt-4 space-y-3">
             <Link
               to="/contacts"
@@ -209,6 +221,7 @@ function LinksPage() {
             >
               Зв'язатися з нами
             </Link>
+
             <Link
               to="/schedule"
               className="flex min-h-14 w-full items-center justify-center rounded-2xl border border-white/80 px-4 py-3.5 text-base font-semibold text-white transition-colors hover:bg-white hover:text-primary"
@@ -218,10 +231,16 @@ function LinksPage() {
           </div>
         </section>
 
-        {/* Footer block */}
+        {/* Footer */}
         <section className="pb-[env(safe-area-inset-bottom)] text-center">
-          <div className="text-base font-semibold text-primary">UFO STEAM HUB</div>
-          <div className="mt-1 text-xs text-muted-foreground">Кременчук · STEAM-освіта для дітей</div>
+          <div className="text-base font-semibold text-primary">
+            UFO STEAM HUB
+          </div>
+
+          <div className="mt-1 text-xs text-muted-foreground">
+            Кременчук · STEAM-освіта для дітей
+          </div>
+
           <div className="mt-3 flex items-center justify-center gap-3">
             <a
               href="https://www.instagram.com/ufo.steam.hub/"
@@ -232,6 +251,7 @@ function LinksPage() {
             >
               <Instagram className="h-5 w-5 text-primary" />
             </a>
+
             <a
               href="https://www.facebook.com/profile.php?id=61560801226427"
               target="_blank"
@@ -243,6 +263,7 @@ function LinksPage() {
             </a>
           </div>
         </section>
+
       </div>
     </div>
   );
