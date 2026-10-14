@@ -8,7 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { BlobShape, Squiggle, Star4, Dot, Swirl } from "@/components/Blobs";
 import { openRegistration } from "@/components/RegistrationModal";
-import { EnrollmentAnnouncement } from "@/components/EnrollmentAnnouncement";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -188,10 +187,91 @@ function HomePage() {
         </div>
       </section>
 
-      {/* New groups enrollment */}
-      <div className="bg-ufo-cream py-12 md:py-20">
-        <EnrollmentAnnouncement sourcePage="Головна — набір у нові групи" />
-      </div>
+      {/* Mini-courses announcement — self-contained, no Lovable component dependency */}
+      <section aria-labelledby="mini-courses-heading" className="relative overflow-hidden bg-ufo-cream py-12 md:py-20">
+        <Star4 className="pointer-events-none absolute right-5 top-6 opacity-70" color="#f7df5d" size={42} />
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto mb-8 max-w-3xl text-center md:mb-12">
+            <span className="inline-flex rounded-full bg-ufo-yellow px-4 py-2 text-xs font-bold text-primary shadow-sm md:text-sm">
+              Новий набір · Листопад 2026
+            </span>
+            <h2 id="mini-courses-heading" className="mt-4 text-3xl font-semibold text-foreground md:text-5xl">
+              Старт нових <span className="text-primary">мінікурсів!</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-lg">
+              Чотири заняття, щоб спробувати новий напрям, створити власний проєкт і отримати яскраві враження.
+            </p>
+            <div className="mt-5 inline-flex flex-wrap items-center justify-center gap-2 rounded-2xl border-2 border-ufo-pink/30 bg-white px-4 py-3 shadow-sm">
+              <span className="text-xl font-extrabold text-ufo-pink md:text-2xl">−20%</span>
+              <span className="text-sm font-semibold text-foreground md:text-base">за запис до 31 жовтня 2026 року</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-7">
+            <article className="flex h-full flex-col overflow-hidden rounded-3xl border-2 border-ufo-pink/40 bg-white p-6 shadow-md md:p-8">
+              <div className="mb-4 flex items-center justify-between gap-3">
+                <span className="rounded-full bg-ufo-pink/15 px-3 py-1 text-xs font-semibold text-foreground">Анімація</span>
+                <span className="text-4xl" aria-hidden="true">🎭</span>
+              </div>
+              <h3 className="text-2xl font-bold text-foreground md:text-3xl">Театр тіней</h3>
+              <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground md:text-base">
+                Діти вигадають власну історію, створять персонажів і декорації та оживлять їх за допомогою світла й тіней.
+              </p>
+              <div className="mt-5 space-y-2 rounded-2xl bg-ufo-pink/10 p-4 text-sm font-semibold text-foreground">
+                <p>📅 Старт: 12 листопада 2026, четвер</p>
+                <p>🕞 Час: 15:30</p>
+                <p>✨ Тривалість: 4 заняття</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => openRegistration({
+                  registrationType: "course",
+                  sourcePage: "Головна — мінікурси",
+                  title: "Запис на мінікурс «Театр тіней»",
+                  program: "Театр тіней — анімація",
+                  date: "12.11.2026",
+                  time: "15:30",
+                  additionalInfo: "4 заняття. Знижка 20% за запис до 31.10.2026",
+                })}
+                className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-ufo-pink px-5 py-3 text-sm font-bold text-white shadow-sm transition-transform hover:scale-[1.02]"
+              >
+                Записатися на мінікурс <ArrowRight className="h-4 w-4" />
+              </button>
+            </article>
+
+            <article className="flex h-full flex-col overflow-hidden rounded-3xl border-2 border-ufo-green/40 bg-white p-6 shadow-md md:p-8">
+              <div className="mb-4 flex items-center justify-between gap-3">
+                <span className="rounded-full bg-ufo-green/15 px-3 py-1 text-xs font-semibold text-foreground">Робототехніка</span>
+                <span className="text-4xl" aria-hidden="true">🚀</span>
+              </div>
+              <h3 className="text-2xl font-bold text-foreground md:text-3xl">Космічна експедиція</h3>
+              <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground md:text-base">
+                Діти створюватимуть космічні конструкції, досліджуватимуть роботу механізмів і виконуватимуть цікаві інженерні завдання.
+              </p>
+              <div className="mt-5 space-y-2 rounded-2xl bg-ufo-green/10 p-4 text-sm font-semibold text-foreground">
+                <p>📅 Старт: 13 листопада 2026, п’ятниця</p>
+                <p>🕞 Час: 15:30</p>
+                <p>✨ Тривалість: 4 заняття</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => openRegistration({
+                  registrationType: "course",
+                  sourcePage: "Головна — мінікурси",
+                  title: "Запис на мінікурс «Космічна експедиція»",
+                  program: "Космічна експедиція — робототехніка",
+                  date: "13.11.2026",
+                  time: "15:30",
+                  additionalInfo: "4 заняття. Знижка 20% за запис до 31.10.2026",
+                })}
+                className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-ufo-green px-5 py-3 text-sm font-bold text-white shadow-sm transition-transform hover:scale-[1.02]"
+              >
+                Записатися на мінікурс <ArrowRight className="h-4 w-4" />
+              </button>
+            </article>
+          </div>
+        </div>
+      </section>
 
       {/* Courses — flip cards, no modal */}
       <section id="programs" className="relative py-12 md:py-20 bg-background overflow-hidden">
