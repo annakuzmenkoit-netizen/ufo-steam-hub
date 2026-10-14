@@ -108,7 +108,7 @@ export function EnrollmentAnnouncement({ compact = false }: { sourcePage?: strin
                       additionalInfo: `Категорія: ${g.category}. Розклад: ${g.schedule}. ${PROMO_INFO}`,
                     })
                   }
-                  className="mt-auto min-h-11 w-full rounded-full bg-ufo-yellow pt-0 font-semibold text-primary hover:bg-ufo-yellow/90 [margin-top:1rem]"
+                  className="mt-4 min-h-11 w-full rounded-full bg-ufo-yellow font-semibold text-primary hover:bg-ufo-yellow/90"
                 >
                   Хочу на мінікурс
                 </Button>
