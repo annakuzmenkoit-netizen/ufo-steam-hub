@@ -1,3 +1,4 @@
+import { SectionDecor } from "@/components/SectionDecor";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
@@ -7,7 +8,7 @@ import { Beaker, Bot, Film, Calculator, Cuboid, PenTool, Sparkles, ArrowRight, F
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { BlobShape, Squiggle, Star4, Dot, Swirl } from "@/components/Blobs";
+import { BlobShape, Squiggle, Star4, Dot } from "@/components/Blobs";
 import { openRegistration } from "@/components/RegistrationModal";
 
 export const Route = createFileRoute("/")({
@@ -185,8 +186,8 @@ function HomePage() {
       </section>
 
       {/* Mini-courses announcement — self-contained, no Lovable component dependency */}
-      <section aria-labelledby="mini-courses-heading" className="relative overflow-hidden bg-ufo-cream py-12 md:py-20">
-        <Star4 className="pointer-events-none absolute right-5 top-6 opacity-70" color="#f7df5d" size={42} />
+      <section aria-labelledby="mini-courses-heading" className="section-art relative overflow-hidden bg-ufo-cream py-12 md:py-20">
+        <SectionDecor tone="mint" side="right" />
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-8 max-w-3xl text-center md:mb-12">
             <span className="inline-flex rounded-full bg-ufo-yellow px-4 py-2 text-xs font-bold text-primary shadow-sm md:text-sm">
@@ -271,9 +272,8 @@ function HomePage() {
       </section>
 
       {/* Courses — flip cards, no modal */}
-      <section id="programs" className="relative py-12 md:py-20 bg-background overflow-hidden">
-        <Squiggle className="absolute top-10 left-8 opacity-60 hidden md:block" color="#17c590" size={120} />
-        <Star4 className="absolute top-20 right-10 opacity-80 hidden md:block" color="#f7df5d" size={48} />
+      <section id="programs" className="section-art relative py-12 md:py-20 bg-background overflow-hidden">
+        <SectionDecor tone="sun" side="left" />
 
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-6 md:mb-12">
@@ -328,10 +328,8 @@ function HomePage() {
 
 
       {/* Why Us — real photos in blob frames */}
-      <section className="relative py-12 md:py-20 bg-ufo-cream overflow-hidden">
-        <Swirl className="absolute top-12 right-10 opacity-70 hidden md:block" color="#f04770" size={90} />
-        <Star4 className="absolute bottom-10 left-8 opacity-80 hidden md:block" color="#f7df5d" size={50} />
-        <Dot className="absolute top-1/3 left-12 opacity-70 hidden md:block" color="#17c590" size={20} />
+      <section className="section-art relative py-12 md:py-20 bg-ufo-cream overflow-hidden">
+        <SectionDecor tone="rose" side="right" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-8 md:mb-14">
@@ -367,9 +365,8 @@ function HomePage() {
       </section>
 
       {/* What is STEAM */}
-      <section className="relative py-12 md:py-20 bg-background overflow-hidden">
-        <Squiggle className="absolute top-10 left-1/4 opacity-60 hidden md:block" color="#f7df5d" size={140} />
-        <Star4 className="absolute bottom-20 right-12 opacity-80 hidden md:block" color="#f04770" size={44} />
+      <section className="section-art relative py-12 md:py-20 bg-background overflow-hidden">
+        <SectionDecor tone="blue" side="left" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-6 md:mb-14 max-w-3xl mx-auto">
@@ -418,7 +415,8 @@ function HomePage() {
 
 
       {/* Map + Contact */}
-      <section className="py-12 md:py-20 bg-ufo-cream">
+      <section className="section-art py-12 md:py-20 bg-ufo-cream">
+        <SectionDecor tone="mint" side="right" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-6 md:mb-12">
             <h2 className="text-2xl md:text-5xl font-semibold text-foreground">

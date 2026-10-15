@@ -1,3 +1,4 @@
+import { SectionDecor } from "@/components/SectionDecor";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
@@ -507,7 +508,8 @@ function CampsPage() {
 
       
       {/* Літні школи */}
-      <section className="py-12 md:py-20 bg-ufo-cream">
+      <section className="section-art py-12 md:py-20 bg-ufo-cream">
+        <SectionDecor tone="mint" side="right" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12 max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
@@ -536,7 +538,8 @@ function CampsPage() {
       </section>
 
       {/* Правила нашого табору */}
-      <section className="py-12 md:py-20 bg-background">
+      <section className="section-art py-12 md:py-20 bg-background">
+        <SectionDecor tone="sun" side="left" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12 max-w-2xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
@@ -568,7 +571,8 @@ function CampsPage() {
       </section>
 
       {/* Табори за сезонами — interactive */}
-      <section className="py-12 md:py-20 bg-background">
+      <section className="section-art py-12 md:py-20 bg-background">
+        <SectionDecor tone="rose" side="right" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12 max-w-2xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
@@ -661,7 +665,8 @@ function CampsPage() {
       </section>
 
       {/* Reviews */}
-      <section className="py-14 md:py-12 md:py-20 bg-ufo-cream">
+      <section className="section-art py-14 md:py-12 md:py-20 bg-ufo-cream">
+        <SectionDecor tone="blue" side="left" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-10 md:mb-14">
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground">

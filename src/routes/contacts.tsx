@@ -1,3 +1,4 @@
+import { SectionDecor } from "@/components/SectionDecor";
 import { createFileRoute } from "@tanstack/react-router";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
@@ -41,7 +42,8 @@ function ContactsPage() {
         </AnimatedSection>
       </section>
 
-      <section className="py-12 md:py-20 bg-background">
+      <section className="section-art py-12 md:py-20 bg-background">
+        <SectionDecor tone="mint" side="right" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
             <AnimatedSection>

@@ -1,3 +1,4 @@
+import { SectionDecor } from "@/components/SectionDecor";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { createFileRoute } from "@tanstack/react-router";
 import { AnimatedSection } from "@/components/AnimatedSection";
@@ -63,7 +64,8 @@ function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="py-12 md:py-20 bg-background">
+      <section className="section-art py-12 md:py-20 bg-background">
+        <SectionDecor tone="mint" side="right" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14">
             <h2 className="text-3xl font-bold text-foreground">Наші <span className="text-ufo-pink">цінності</span></h2>
@@ -85,9 +87,8 @@ function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="relative py-12 md:py-20 bg-ufo-cream overflow-hidden">
-        <Star4 className="absolute top-10 right-10" color="#f04770" size={40} />
-        <Dot className="absolute bottom-20 left-12" color="#17c590" size={24} />
+      <section className="section-art relative py-12 md:py-20 bg-ufo-cream overflow-hidden">
+        <SectionDecor tone="sun" side="left" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-14">

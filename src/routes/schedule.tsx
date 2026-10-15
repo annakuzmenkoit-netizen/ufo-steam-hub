@@ -1,3 +1,4 @@
+import { SectionDecor } from "@/components/SectionDecor";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import {
@@ -337,7 +338,8 @@ function SchedulePage() {
         </AnimatedSection>
       </section>
 
-      <section className="bg-background py-12 md:py-20">
+      <section className="section-art bg-background py-12 md:py-20">
+        <SectionDecor tone="mint" side="right" />
         <div className="mx-auto max-w-5xl space-y-8 px-4 sm:px-6 md:space-y-10 lg:px-8">
           {days.map((day, dayIdx) => {
             const daySlots = slots.filter((slot) => slot.day === day);

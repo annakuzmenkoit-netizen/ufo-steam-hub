@@ -239,3 +239,43 @@
   }
   .registration-header { padding-top: max(1rem, env(safe-area-inset-top)); }
 }
+
+/* Repeat the brand's flat shapes along the page, with clear space for content. */
+.section-art {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+.section-decor {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  user-select: none;
+}
+.section-decor > svg { position: absolute; }
+.section-decor__blob {
+  right: -7rem;
+  bottom: 12%;
+  width: clamp(150px, 20vw, 280px);
+  height: auto;
+  opacity: 0.1;
+  rotate: -18deg;
+}
+.section-decor__ring {
+  left: -3rem;
+  top: 38%;
+  width: clamp(80px, 10vw, 140px);
+  opacity: 0.25;
+}
+.section-decor__star { right: 5%; bottom: 1.5rem; opacity: 0.85; }
+.section-decor__line { left: 4%; bottom: 1.5rem; opacity: 0.4; }
+.section-decor__dot { right: 3%; top: 2rem; opacity: 0.65; }
+.section-decor--left { scale: -1 1; }
+@media (max-width: 767px) {
+  .section-decor__blob { right: -4rem; bottom: 18%; width: 170px; }
+  .section-decor__ring { left: -2.5rem; top: 45%; width: 90px; opacity: 0.18; }
+  .section-decor__star { width: 22px; height: 22px; right: 1rem; bottom: 0.75rem; }
+  .section-decor__line { width: 56px; height: 14px; left: 1rem; bottom: 0.75rem; opacity: 0.3; }
+  .section-decor__dot { display: none; }
+}

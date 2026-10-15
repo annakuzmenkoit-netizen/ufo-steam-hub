@@ -1,3 +1,4 @@
+import { SectionDecor } from "@/components/SectionDecor";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
@@ -184,7 +185,8 @@ function CoursesPage() {
         </AnimatedSection>
       </section>
 
-      <div className="bg-background overflow-x-hidden">
+      <div className="section-art bg-background">
+        <SectionDecor tone="mint" />
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-14 md:py-20 space-y-10 md:space-y-16">
           {courses.map((course, i) => {
             const gallery = course.gallery ?? [];

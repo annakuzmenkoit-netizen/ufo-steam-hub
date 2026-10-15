@@ -1,3 +1,4 @@
+import { Star4, Squiggle } from "@/components/Blobs";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { Link } from "@tanstack/react-router";
 import { Phone, Mail, MapPin, Instagram, Facebook } from "lucide-react";
@@ -5,7 +6,15 @@ import ufoLogo from "@/assets/ufo-logo.webp";
 
 export function Footer() {
   return (
-    <footer className="bg-primary text-primary-foreground">
+    <footer className="section-art bg-primary text-primary-foreground">
+      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <svg className="absolute -bottom-20 -right-20 h-64 w-64 text-white/10" viewBox="0 0 200 200" fill="none">
+          <circle cx="100" cy="100" r="88" stroke="currentColor" strokeWidth="2" />
+          <circle cx="100" cy="100" r="62" stroke="currentColor" strokeWidth="2" strokeDasharray="4 10" />
+        </svg>
+        <Star4 className="absolute right-6 top-6 opacity-60" size={28} />
+        <Squiggle className="absolute bottom-5 left-5 opacity-40" color="#17c590" size={70} />
+      </div>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div>

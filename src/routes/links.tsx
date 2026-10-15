@@ -1,3 +1,4 @@
+import { SectionDecor } from "@/components/SectionDecor";
 
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AnimatedSection } from "@/components/AnimatedSection";
@@ -97,7 +98,8 @@ const courses = [
 
 function LinksPage() {
   return (
-    <div className="min-h-screen overflow-x-hidden bg-ufo-cream">
+    <div className="section-art min-h-screen bg-ufo-cream">
+      <SectionDecor tone="blue" side="left" />
       <div className="mx-auto w-full max-w-lg space-y-8 px-4 pt-8 pb-10 sm:px-6 md:py-12">
 
         {/* Hero */}
@@ -155,7 +157,8 @@ function LinksPage() {
         />
 
         {/* Courses */}
-        <section>
+        <section className="section-art rounded-3xl">
+          <SectionDecor tone="mint" />
           <h2 className="text-lg font-semibold text-foreground">
             Гуртки та курси
           </h2>
