@@ -1,8 +1,9 @@
+import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { Beaker, Bot, Film, Calculator, PenTool, Cuboid, ArrowRight, BookOpen, Star } from "lucide-react";
-import { motion } from "framer-motion";
+
 import { openRegistration } from "@/components/RegistrationModal";
 import { Star4, Dot, Squiggle, BlobShape } from "@/components/Blobs";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
@@ -21,29 +22,29 @@ export const Route = createFileRoute("/courses")({
   component: CoursesPage,
 });
 
-import steam1 from "@/assets/courses/steam1.jpg";
-import steam2 from "@/assets/courses/steam2.jpg";
-import steam3 from "@/assets/courses/steam3.jpg";
+import steam1 from "@/assets/courses/steam1.webp";
+import steam2 from "@/assets/courses/steam2.webp";
+import steam3 from "@/assets/courses/steam3.webp";
 
-import robotics1 from "@/assets/courses/robotics1.jpg";
-import robotics2 from "@/assets/courses/robotics2.jpg";
-import robotics3 from "@/assets/courses/robotics3.jpg";
+import robotics1 from "@/assets/courses/robotics1.webp";
+import robotics2 from "@/assets/courses/robotics2.webp";
+import robotics3 from "@/assets/courses/robotics3.webp";
 
-import animation1 from "@/assets/courses/animation1.jpg";
-import animation2 from "@/assets/courses/animation2.jpg";
-import animation3 from "@/assets/courses/animation3.jpg";
+import animation1 from "@/assets/courses/animation1.webp";
+import animation2 from "@/assets/courses/animation2.webp";
+import animation3 from "@/assets/courses/animation3.webp";
 
-import mathmind1 from "@/assets/courses/mathmind1.jpg";
-import mathmind2 from "@/assets/courses/mathmind2.jpg";
-import mathmind3 from "@/assets/courses/mathmind3.jpg";
+import mathmind1 from "@/assets/courses/mathmind1.webp";
+import mathmind2 from "@/assets/courses/mathmind2.webp";
+import mathmind3 from "@/assets/courses/mathmind3.webp";
 
-import math1 from "@/assets/courses/math1.jpg";
-import math2 from "@/assets/courses/math2.jpg";
-import math3 from "@/assets/courses/math3.jpg";
+import math1 from "@/assets/courses/math1.webp";
+import math2 from "@/assets/courses/math2.webp";
+import math3 from "@/assets/courses/math3.webp";
 
-import modeling1 from "@/assets/courses/modeling1.jpg";
-import modeling2 from "@/assets/courses/modeling2.jpg";
-import modeling3 from "@/assets/courses/modeling3.jpg";
+import modeling1 from "@/assets/courses/modeling1.webp";
+import modeling2 from "@/assets/courses/modeling2.webp";
+import modeling3 from "@/assets/courses/modeling3.webp";
 
 const courses = [
   {
@@ -153,14 +154,14 @@ function CoursesPage() {
 
   return (
     <>
-      <section className="py-20 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
+      <section className="py-12 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
         <Star4 className="absolute top-10 left-10" color="#f7df5d" size={50} />
         <Dot className="absolute top-24 right-20" color="#f04770" size={20} />
         <Squiggle className="absolute bottom-10 right-10 opacity-70" color="#17c590" size={130} />
         <BlobShape className="absolute -bottom-12 -left-12 opacity-25" color="#3056dd" size={200} />
 
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
-          <h1 className="text-4xl md:text-5xl font-semibold text-foreground">
+          <h1 className="text-3xl md:text-5xl font-semibold text-foreground">
             Наші <span className="text-primary">курси</span>
           </h1>
           <p className="mt-6 text-lg text-muted-foreground">
@@ -214,7 +215,7 @@ function CoursesPage() {
                                 className="h-44 w-[78%] shrink-0 snap-center overflow-hidden rounded-2xl border border-border bg-muted"
                                 aria-label={`Відкрити фото ${n + 1} курсу ${course.title}`}
                               >
-                                <img
+                                <ResponsiveImage
                                   src={src}
                                   alt={`${course.title} фото ${n + 1}`}
                                   className="h-full w-full object-cover"
@@ -233,8 +234,8 @@ function CoursesPage() {
                               className="group col-span-2 h-64 overflow-hidden rounded-2xl border border-border bg-muted focus:outline-none focus:ring-2 focus:ring-primary"
                               aria-label={`Відкрити фото 1 курсу ${course.title}`}
                             >
-                              <img
-                                src={main}
+                              <ResponsiveImage
+                                src={main} sizes="(min-width: 1024px) 360px, 40vw"
                                 alt={`${course.title} фото 1`}
                                 className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                                 loading="lazy"
@@ -251,7 +252,7 @@ function CoursesPage() {
                                   className="group min-h-0 flex-1 overflow-hidden rounded-2xl border border-border bg-muted focus:outline-none focus:ring-2 focus:ring-primary"
                                   aria-label={`Відкрити фото ${n + 2} курсу ${course.title}`}
                                 >
-                                  <img
+                                  <ResponsiveImage
                                     src={src}
                                     alt={`${course.title} фото ${n + 2}`}
                                     className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
@@ -332,9 +333,7 @@ function CoursesPage() {
                         </div>
                       </div>
 
-                      <motion.button
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.98 }}
+                      <button
                         type="button"
                         onClick={() =>
                           openRegistration({
@@ -348,7 +347,7 @@ function CoursesPage() {
                         className="mt-6 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-ufo-yellow px-6 py-3 font-semibold text-primary shadow-lg hover:shadow-xl transition-all"
                       >
                         Хочу спробувати <ArrowRight className="h-4 w-4" />
-                      </motion.button>
+                      </button>
                     </div>
                   </div>
                 </section>
@@ -383,7 +382,7 @@ function CoursesPage() {
               </DialogTitle>
 
               <div className="relative overflow-hidden rounded-2xl bg-black/5">
-                <img
+                <ResponsiveImage
                   src={lightbox.images[lightbox.index]}
                   alt={`${lightbox.title} фото ${lightbox.index + 1}`}
                   className="max-h-[70vh] w-full object-contain"
@@ -427,7 +426,7 @@ function CoursesPage() {
                       }`}
                       aria-label={`Показати фото ${n + 1}`}
                     >
-                      <img
+                      <ResponsiveImage
                         src={src}
                         alt={`${lightbox.title} мініатюра ${n + 1}`}
                         className="h-full w-full object-cover"

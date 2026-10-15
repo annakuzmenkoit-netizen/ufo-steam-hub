@@ -1,6 +1,7 @@
+import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { Link } from "@tanstack/react-router";
 import { Phone, Mail, MapPin, Instagram, Facebook } from "lucide-react";
-import ufoLogo from "@/assets/ufo-logo.png";
+import ufoLogo from "@/assets/ufo-logo.webp";
 
 export function Footer() {
   return (
@@ -8,14 +9,14 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div>
-            {/* Logo placeholder — replace src/assets/ufo-logo.png with your actual logo */}
-            <div className="mb-4 inline-flex items-center gap-3 bg-white rounded-2xl px-4 py-3 shadow-md">
-              <img
+            <div className="mb-4 inline-flex items-center gap-2 sm:gap-3 bg-white rounded-2xl px-3 sm:px-4 py-3 shadow-md">
+              <ResponsiveImage
                 src={ufoLogo}
+                sizes="48px"
                 alt="UFO STEAM HUB Logo"
-                className="h-12 w-auto object-contain"
+                className="h-10 sm:h-12 w-auto object-contain"
               />
-              <span className="text-lg font-semibold tracking-tight text-primary whitespace-nowrap">
+              <span className="text-base sm:text-lg font-semibold tracking-tight text-primary">
                 UFO STEAM HUB
               </span>
             </div>
@@ -27,12 +28,12 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-lg mb-4">Навігація</h3>
             <ul className="space-y-2 text-sm text-primary-foreground/80">
-              <li><Link to="/" className="hover:text-ufo-yellow transition-colors">Головна</Link></li>
-              <li><Link to="/about" className="hover:text-ufo-yellow transition-colors">Про нас</Link></li>
-              <li><Link to="/courses" className="hover:text-ufo-yellow transition-colors">Курси</Link></li>
-              <li><Link to="/camps" className="hover:text-ufo-yellow transition-colors">Табори</Link></li>
-              <li><Link to="/schedule" className="hover:text-ufo-yellow transition-colors">Розклад</Link></li>
-              <li><Link to="/contacts" className="hover:text-ufo-yellow transition-colors">Контакти</Link></li>
+              <li><Link to="/" className="inline-flex min-h-11 items-center hover:text-ufo-yellow transition-colors">Головна</Link></li>
+              <li><Link to="/about" className="inline-flex min-h-11 items-center hover:text-ufo-yellow transition-colors">Про нас</Link></li>
+              <li><Link to="/courses" className="inline-flex min-h-11 items-center hover:text-ufo-yellow transition-colors">Курси</Link></li>
+              <li><Link to="/camps" className="inline-flex min-h-11 items-center hover:text-ufo-yellow transition-colors">Табори</Link></li>
+              <li><Link to="/schedule" className="inline-flex min-h-11 items-center hover:text-ufo-yellow transition-colors">Розклад</Link></li>
+              <li><Link to="/contacts" className="inline-flex min-h-11 items-center hover:text-ufo-yellow transition-colors">Контакти</Link></li>
             </ul>
           </div>
 

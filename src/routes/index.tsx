@@ -1,8 +1,9 @@
+import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { Beaker, Bot, Film, Calculator, Cuboid, PenTool, Sparkles, ArrowRight, FlaskConical, Cpu, Wrench, Palette, Sigma, BookOpen, Star, ChevronDown, RotateCw } from "lucide-react";
-import { motion } from "framer-motion";
+import { Beaker, Bot, Film, Calculator, Cuboid, PenTool, Sparkles, ArrowRight, FlaskConical, Cpu, Wrench, Palette, Sigma, BookOpen, Star, ChevronDown } from "lucide-react";
+
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -21,7 +22,7 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-import heroPhoto from "@/assets/main.jpg";
+import heroPhoto from "@/assets/main.webp";
 const HERO_PHOTO = heroPhoto;
 
 const courses = [
@@ -81,10 +82,10 @@ const courses = [
   },
 ];
 
-import groups from "@/assets/groups.jpg";
-import steam from "@/assets/steam.jpg";
-import future from "@/assets/future.jpg";
-import space from "@/assets/space.jpg";
+import groups from "@/assets/groups.webp";
+import steam from "@/assets/steam.webp";
+import future from "@/assets/future.webp";
+import space from "@/assets/space.webp";
 
 const features = [
   { title: "Міні-групи", desc: "Для дітей 6–14 років, по 4–6 — увага кожному.", photo: groups },
@@ -104,7 +105,7 @@ const steamBlocks = [
 const blobA = "polygon(35% 5%, 65% 8%, 90% 25%, 95% 55%, 80% 85%, 50% 95%, 20% 88%, 5% 60%, 8% 30%)";
 
 function HomePage() {
-  const [flipped, setFlipped] = useState<Record<string, boolean>>({});
+  const [expandedCourses, setExpandedCourses] = useState<Record<string, boolean>>({});
 
   const scrollToPrograms = () => {
     const el = document.getElementById("programs");
@@ -114,7 +115,7 @@ function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-ufo-cream pt-6 pb-12 md:py-24">
+      <section className="relative overflow-hidden bg-ufo-cream pt-8 pb-10 md:py-24">
         <Star4 className="absolute top-6 left-4 md:top-10 md:left-6 opacity-90" color="#f7df5d" size={40} />
         <Dot className="absolute top-24 left-1/3 opacity-80 hidden md:block" color="#f04770" size={18} />
         <BlobShape className="absolute -bottom-10 -left-12 opacity-30" color="#17c590" size={220} />
@@ -123,23 +124,23 @@ function HomePage() {
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 items-center">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="text-center lg:text-left">
+            <div className="text-center lg:text-left">
               <div className="inline-flex items-center gap-1.5 rounded-full bg-ufo-yellow px-3 py-1 text-[11px] md:text-sm font-semibold text-primary mb-4 md:mb-6 shadow-md">
                 <Sparkles className="h-3 w-3 md:h-4 md:w-4 text-ufo-pink" />
                 <span className="md:hidden">UFO STEAM HUB · Кременчук</span>
                 <span className="hidden md:inline">UFO STEAM HUB — освітній центр у Кременчуці</span>
               </div>
-              <h1 className="text-[2rem] leading-tight md:text-6xl md:leading-[1.05] font-semibold text-foreground tracking-tight">
+              <h1 className="text-[clamp(2.5rem,10vw,3.5rem)] leading-[1.08] md:text-6xl md:leading-[1.05] font-semibold text-foreground tracking-tight">
                 Освіта на <span className="text-primary">дотик</span>
               </h1>
-              <p className="mt-3 md:mt-6 max-w-lg mx-auto lg:mx-0 text-sm md:text-lg text-muted-foreground">
+              <p className="mt-3 md:mt-6 max-w-lg mx-auto lg:mx-0 text-base leading-relaxed md:text-lg text-muted-foreground">
                 Діти 6–14 років відкривають науку, технології та мистецтво через гру та творчість.
               </p>
               <div className="mt-5 md:mt-8 flex flex-col sm:flex-row gap-3 md:gap-4 sm:justify-center lg:justify-start">
                 <button
                   type="button"
                   onClick={() => openRegistration()}
-                  className="rounded-full bg-ufo-yellow px-6 py-3 md:px-8 md:py-3.5 text-sm md:text-base font-semibold text-primary shadow-lg hover:shadow-xl hover:scale-105 transition-all inline-flex items-center justify-center gap-2"
+                  className="rounded-full bg-ufo-yellow px-6 py-3 md:px-8 md:py-3.5 text-sm md:text-base font-semibold text-primary shadow-md hover:shadow-lg transition-shadow inline-flex items-center justify-center gap-2"
                 >
                   Хочу спробувати <ArrowRight className="h-4 w-4" />
                 </button>
@@ -150,27 +151,23 @@ function HomePage() {
                   Наші курси
                 </Link>
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative mx-auto w-full max-w-[220px] md:max-w-md aspect-square order-first lg:order-none"
-            >
+            <div className="relative mx-auto w-full max-w-[280px] sm:max-w-sm md:max-w-md aspect-[4/3] lg:aspect-square">
               <div className="absolute inset-0 bg-ufo-yellow" style={{ clipPath: blobA }} />
-              <img
+              <ResponsiveImage
                 src={HERO_PHOTO}
                 alt="Щасливі діти на занятті"
                 className="absolute inset-3 w-[calc(100%-1.5rem)] h-[calc(100%-1.5rem)] object-cover"
                 style={{ clipPath: blobA }}
                 loading="eager"
                 fetchPriority="high"
+                sizes="(min-width: 1024px) 448px, (min-width: 640px) 384px, 280px"
                 decoding="async"
               />
               <Star4 className="absolute -top-3 -right-3 md:-top-4 md:-right-4" color="#f7df5d" size={40} />
               <Dot className="absolute -bottom-2 -left-2" color="#17c590" size={32} />
-            </motion.div>
+            </div>
           </div>
 
           {/* Mobile scroll-down cue */}
@@ -179,7 +176,7 @@ function HomePage() {
               type="button"
               onClick={scrollToPrograms}
               aria-label="Прокрутити вниз"
-              className="h-10 w-10 rounded-full bg-white/70 backdrop-blur border border-primary/20 text-primary shadow-md flex items-center justify-center animate-bounce"
+              className="h-10 w-10 rounded-full bg-white/70 backdrop-blur border border-primary/20 text-primary shadow-md flex items-center justify-center"
             >
               <ChevronDown className="h-5 w-5" />
             </button>
@@ -284,81 +281,45 @@ function HomePage() {
               Наші <span className="text-primary">програми</span>
             </h2>
             <p className="mt-2 md:mt-4 max-w-2xl mx-auto text-sm md:text-base text-muted-foreground">
-              Натисніть, щоб дізнатися більше
+              Оберіть напрям, який зацікавить вашу дитину
             </p>
           </AnimatedSection>
 
-          {/* Mobile: peek carousel; Desktop: 3-col grid */}
-          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 px-1 -mx-1 scroll-px-4 md:overflow-visible md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 md:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {courses.map((course, i) => {
-              const isFlipped = !!flipped[course.title];
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            {courses.map((course, index) => {
+              const expanded = !!expandedCourses[course.title];
               return (
-                <div
-                  key={course.title}
-                  className="snap-center shrink-0 w-[78%] xs:w-[72%] sm:w-[55%] md:w-auto perspective-1000"
-                >
-                  <div
-                    className={`relative w-full h-[260px] md:h-[280px] preserve-3d transition-transform duration-500 ${isFlipped ? "rotate-y-180" : ""}`}
-                  >
-                    {/* FRONT */}
-                    <button
-                      type="button"
-                      onClick={() => setFlipped((s) => ({ ...s, [course.title]: true }))}
-                      className={`absolute inset-0 backface-hidden rounded-3xl bg-card border-2 ${course.accent} shadow-md p-5 flex flex-col items-center text-center hover:shadow-xl md:hover:-translate-y-1 transition-all`}
-                      style={{ animationDelay: `${i * 50}ms` }}
-                    >
-                      <div className={`${course.iconBg} rounded-2xl w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-3 md:mb-4`}>
-                        <course.icon className={`h-7 w-7 md:h-8 md:w-8 ${course.iconColor}`} strokeWidth={1.75} />
-                      </div>
-                      <span className="text-[11px] font-semibold text-primary bg-ufo-yellow/40 rounded-full px-2.5 py-0.5 mb-2">
-                        {course.age}
-                      </span>
-                      <h3 className="text-base md:text-lg font-semibold text-foreground leading-tight">{course.title}</h3>
-                      <p className="mt-2 text-xs text-muted-foreground line-clamp-2">{course.desc}</p>
-                      <span className="mt-auto pt-3 inline-flex items-center gap-1 text-xs font-semibold text-primary">
-                        <RotateCw className="h-3.5 w-3.5" /> Натисніть, щоб дізнатися більше
-                      </span>
-                    </button>
-
-                    {/* BACK */}
-                    <div
-                      className={`absolute inset-0 backface-hidden rotate-y-180 rounded-3xl bg-card border-2 ${course.accent} shadow-md p-5 flex flex-col text-left`}
-                    >
-                      <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <span className="text-[11px] font-semibold text-primary bg-ufo-yellow/40 rounded-full px-2.5 py-0.5">
-                            {course.age}
-                          </span>
-                          <h3 className="mt-2 text-base md:text-lg font-semibold text-foreground leading-tight">
-                            {course.title}
-                          </h3>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => setFlipped((s) => ({ ...s, [course.title]: false }))}
-                          aria-label="Назад"
-                          className="shrink-0 h-7 w-7 rounded-full border border-border text-muted-foreground flex items-center justify-center hover:text-primary"
-                        >
-                          <RotateCw className="h-3.5 w-3.5" />
-                        </button>
-                      </div>
-                      <p className="mt-2 text-xs md:text-sm text-muted-foreground line-clamp-3">
-                        {course.details}
-                      </p>
-                      <div className="mt-2 rounded-xl bg-ufo-green/10 px-3 py-2 text-[11px] md:text-xs text-foreground/80">
-                        <Star className="inline h-3 w-3 text-ufo-green mr-1" />
-                        {course.features[0]}
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => openRegistration(course.title)}
-                        className="mt-auto inline-flex items-center justify-center gap-2 rounded-full bg-ufo-yellow px-5 py-2.5 text-sm font-semibold text-primary shadow-md hover:shadow-lg transition-all"
-                      >
-                        Хочу спробувати <ArrowRight className="h-4 w-4" />
-                      </button>
+                <article key={course.title} className={`self-start rounded-3xl bg-card border-2 ${course.accent} p-5 md:p-6 shadow-sm`}>
+                  <div className="flex items-start gap-3">
+                    <div className={`${course.iconBg} rounded-2xl w-12 h-12 shrink-0 flex items-center justify-center`}>
+                      <course.icon className={`h-6 w-6 ${course.iconColor}`} strokeWidth={1.75} />
+                    </div>
+                    <div className="min-w-0">
+                      <span className="text-xs font-semibold text-primary">{course.age}</span>
+                      <h3 className="mt-1 text-lg font-semibold leading-tight">{course.title}</h3>
                     </div>
                   </div>
-                </div>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{course.desc}</p>
+                  <button
+                    type="button"
+                    aria-expanded={expanded}
+                    aria-controls={`program-details-${index}`}
+                    onClick={() => setExpandedCourses((state) => ({ ...state, [course.title]: !expanded }))}
+                    className="mt-2 flex min-h-11 w-full items-center justify-between gap-2 text-sm font-semibold text-primary"
+                  >
+                    {expanded ? "Згорнути опис" : "Детальніше про курс"}
+                    <ChevronDown className={`h-4 w-4 transition-transform ${expanded ? "rotate-180" : ""}`} />
+                  </button>
+                  <div id={`program-details-${index}`} hidden={!expanded}>
+                    <p className="border-t border-border pt-3 text-sm leading-relaxed text-muted-foreground">{course.details}</p>
+                    <p className="mt-3 rounded-xl bg-ufo-green/10 px-3 py-2 text-sm">
+                      <Star className="mr-1 inline h-4 w-4 text-ufo-green" />{course.features[0]}
+                    </p>
+                    <button type="button" onClick={() => openRegistration(course.title)} className="mt-4 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-ufo-yellow px-4 py-3 text-sm font-semibold text-primary">
+                      Хочу спробувати <ArrowRight className="h-4 w-4" />
+                    </button>
+                  </div>
+                </article>
               );
             })}
           </div>
@@ -388,8 +349,9 @@ function HomePage() {
                 <div className="text-center">
                   <div className="relative mx-auto w-24 h-24 md:w-40 md:h-40 mb-3 md:mb-5">
                     <div className="absolute inset-0 bg-ufo-yellow shadow-md" style={{ clipPath: blobA }} />
-                    <img
+                    <ResponsiveImage
                       src={f.photo}
+                      sizes="(min-width: 768px) 160px, 96px"
                       alt={f.title}
                       className="absolute inset-2 w-[calc(100%-1rem)] h-[calc(100%-1rem)] object-cover"
                       style={{ clipPath: blobA }}
@@ -438,8 +400,7 @@ function HomePage() {
           <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
             {steamBlocks.map((block, i) => (
               <AnimatedSection key={block.letter} delay={i * 0.08}>
-                <motion.div
-                  whileHover={{ y: -8, rotate: -1 }}
+                <div
                   className={`${block.bg} ${block.text} rounded-3xl p-6 h-full shadow-lg hover:shadow-2xl transition-shadow flex flex-col items-center text-center`}
                 >
                   <div className="text-6xl font-semibold opacity-90 leading-none">{block.letter}</div>
@@ -448,7 +409,7 @@ function HomePage() {
                   </div>
                   <p className="mt-4 font-semibold text-lg">{block.word}</p>
                   <p className="mt-2 text-sm opacity-90">{block.desc}</p>
-                </motion.div>
+                </div>
               </AnimatedSection>
             ))}
           </div>

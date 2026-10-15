@@ -28,22 +28,22 @@ const contactInfo = [
 function ContactsPage() {
   return (
     <>
-      <section className="py-20 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
+      <section className="py-12 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
         <Star4 className="absolute top-10 left-10" color="#f7df5d" size={50} />
         <Dot className="absolute top-20 right-20" color="#f04770" size={20} />
         <Squiggle className="absolute bottom-10 right-10 opacity-70" color="#17c590" size={130} />
         <BlobShape className="absolute -bottom-12 -left-12 opacity-25" color="#3056dd" size={200} />
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground">Контакти</h1>
+          <h1 className="text-3xl md:text-5xl font-bold text-foreground">Контакти</h1>
           <p className="mt-6 text-lg text-muted-foreground">
             Зв'яжіться з нами — ми з радістю відповімо на всі ваші питання!
           </p>
         </AnimatedSection>
       </section>
 
-      <section className="py-20 bg-background">
+      <section className="py-12 md:py-20 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
             <AnimatedSection>
               <h2 className="text-2xl font-bold text-foreground mb-6">Наші контакти</h2>
               <div className="space-y-5">
@@ -54,7 +54,11 @@ function ContactsPage() {
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-foreground">{c.label}</p>
-                      <p className="text-sm text-muted-foreground">{c.value}</p>
+                      {c.label === "Телефон" ? (
+                        <a href="tel:+380960662604" className="inline-flex min-h-11 items-center text-sm text-primary underline underline-offset-4">{c.value}</a>
+                      ) : c.label === "Email" ? (
+                        <a href="mailto:ufosteamhub@gmail.com" className="inline-flex min-h-11 items-center break-all text-sm text-primary underline underline-offset-4">{c.value}</a>
+                      ) : <p className="text-sm leading-relaxed text-muted-foreground">{c.value}</p>}
                     </div>
                   </div>
                 ))}
@@ -66,6 +70,7 @@ function ContactsPage() {
                   src="https://maps.google.com/maps?q=%D0%A2%D0%A6%20%D0%9B%D1%96%D0%B4%D0%B5%D1%80%20%D0%9A%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D1%87%D1%83%D0%BA&t=&z=15&ie=UTF8&iwloc=&output=embed"
                   width="100%"
                   height="400"
+                  className="h-72 sm:h-[400px]"
                   style={{ border: 0, borderRadius: "24px" }}
                   allowFullScreen
                   loading="lazy"
@@ -89,7 +94,7 @@ function ContactsPage() {
                   <label className="text-sm font-medium text-foreground">Повідомлення</label>
                   <Textarea placeholder="Ваше повідомлення" className="mt-1 rounded-xl" rows={5} />
                 </div>
-                <Button className="w-full rounded-full bg-ufo-yellow hover:bg-ufo-yellow/90 text-primary py-3 font-bold text-base shadow-md">
+                <Button className="min-h-12 w-full rounded-full bg-ufo-yellow hover:bg-ufo-yellow/90 text-primary py-3 font-bold text-base shadow-md">
                   Відправити
                 </Button>
               </form>

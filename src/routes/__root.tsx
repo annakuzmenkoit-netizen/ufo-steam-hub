@@ -1,4 +1,4 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, HeadContent, Scripts, useRouterState } from "@tanstack/react-router";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { RegistrationModal } from "@/components/RegistrationModal";
@@ -35,7 +35,7 @@ export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { title: "UFO STEAM HUB — Дитячий освітній центр" },
       { name: "description", content: "UFO STEAM HUB — дитячий освітній центр STEAM-освіти. Курси робототехніки, анімації, 3D моделювання та математики для дітей 6-14 років." },
       { property: "og:title", content: "UFO STEAM HUB — Дитячий освітній центр" },
@@ -72,13 +72,14 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
+  const isLinksPage = useRouterState({ select: (state) => state.location.pathname === "/links" });
   return (
     <div className="flex min-h-screen flex-col">
-      <Header />
+      {!isLinksPage && <Header />}
       <main className="flex-1">
         <Outlet />
       </main>
-      <Footer />
+      {!isLinksPage && <Footer />}
       <RegistrationModal />
       <ScrollToTop />
       <Toaster />

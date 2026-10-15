@@ -1,3 +1,4 @@
+import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { AnimatedSection } from "@/components/AnimatedSection";
@@ -68,22 +69,22 @@ const campRules = [
   },
 ];
 
-import winter1 from "@/assets/camps/winter1.jpg";
-import winter2 from "@/assets/camps/winter2.jpg";
-import winter3 from "@/assets/camps/winter3.jpg";
-import winter4 from "@/assets/camps/winter4.jpg";
-import autumn1 from "@/assets/camps/autumn1.jpg";
-import autumn2 from "@/assets/camps/autumn2.jpg";
-import autumn3 from "@/assets/camps/autumn3.jpg";
-import autumn4 from "@/assets/camps/autumn4.jpg";
-import summer1 from "@/assets/camps/summer1.jpg";
-import summer2 from "@/assets/camps/summer2.jpg";
-import summer3 from "@/assets/camps/summer3.jpg";
-import summer4 from "@/assets/camps/summer4.jpg";
-import spring1 from "@/assets/camps/spring1.jpg";
-import spring2 from "@/assets/camps/spring2.jpg";
-import spring3 from "@/assets/camps/spring3.jpg";
-import spring4 from "@/assets/camps/spring4.jpg";
+import winter1 from "@/assets/camps/winter1.webp";
+import winter2 from "@/assets/camps/winter2.webp";
+import winter3 from "@/assets/camps/winter3.webp";
+import winter4 from "@/assets/camps/winter4.webp";
+import autumn1 from "@/assets/camps/autumn1.webp";
+import autumn2 from "@/assets/camps/autumn2.webp";
+import autumn3 from "@/assets/camps/autumn3.webp";
+import autumn4 from "@/assets/camps/autumn4.webp";
+import summer1 from "@/assets/camps/summer1.webp";
+import summer2 from "@/assets/camps/summer2.webp";
+import summer3 from "@/assets/camps/summer3.webp";
+import summer4 from "@/assets/camps/summer4.webp";
+import spring1 from "@/assets/camps/spring1.webp";
+import spring2 from "@/assets/camps/spring2.webp";
+import spring3 from "@/assets/camps/spring3.webp";
+import spring4 from "@/assets/camps/spring4.webp";
 
 const seasons = [
   {
@@ -488,14 +489,14 @@ function CampsPage() {
   return (
     <>
       {/* Hero */}
-      <section className="py-20 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
+      <section className="py-12 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
         <Star4 className="absolute top-10 left-10" color="#f7df5d" size={50} />
         <Dot className="absolute top-20 right-20" color="#f04770" size={20} />
         <Squiggle className="absolute bottom-10 right-10 opacity-70" color="#17c590" size={130} />
         <BlobShape className="absolute -bottom-12 -left-12 opacity-25" color="#3056dd" size={200} />
 
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
-          <h1 className="text-4xl md:text-5xl font-semibold text-foreground">
+          <h1 className="text-3xl md:text-5xl font-semibold text-foreground">
             Наші <span className="text-ufo-pink">табори</span>
           </h1>
           <p className="mt-6 text-lg text-muted-foreground">
@@ -506,7 +507,7 @@ function CampsPage() {
 
       
       {/* Літні школи */}
-      <section className="py-20 bg-ufo-cream">
+      <section className="py-12 md:py-20 bg-ufo-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12 max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
@@ -517,7 +518,7 @@ function CampsPage() {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
+          <div className="grid grid-cols-1 min-[380px]:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
             {summerSchoolFeatures.map((f, i) => (
               <AnimatedSection key={f.title} delay={i * 0.05}>
                 <div className="rounded-2xl md:rounded-3xl bg-card border-2 border-border p-3 md:p-6 shadow-sm hover:shadow-md md:hover:-translate-y-1 transition-all h-full">
@@ -535,7 +536,7 @@ function CampsPage() {
       </section>
 
       {/* Правила нашого табору */}
-      <section className="py-20 bg-background">
+      <section className="py-12 md:py-20 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12 max-w-2xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
@@ -546,7 +547,7 @@ function CampsPage() {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4">
+          <div className="grid grid-cols-1 min-[380px]:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4">
             {campRules.map((r, i) => (
               <AnimatedSection key={r.title} delay={i * 0.05}>
                 <div className={`rounded-2xl md:rounded-3xl bg-card border-2 ${r.accent} p-3 md:p-5 text-center shadow-sm hover:shadow-md md:hover:-translate-y-1 transition-all h-full`}>
@@ -567,7 +568,7 @@ function CampsPage() {
       </section>
 
       {/* Табори за сезонами — interactive */}
-      <section className="py-20 bg-background">
+      <section className="py-12 md:py-20 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12 max-w-2xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
@@ -640,7 +641,7 @@ function CampsPage() {
                             className="group aspect-square rounded-2xl overflow-hidden bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/80"
                             aria-label={`Відкрити фото ${n + 1}: ${s.name} табір`}
                           >
-                            <img
+                            <ResponsiveImage
                               src={src}
                               alt={`${s.name} — фото ${n + 1}`}
                               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
@@ -660,7 +661,7 @@ function CampsPage() {
       </section>
 
       {/* Reviews */}
-      <section className="py-14 md:py-20 bg-ufo-cream">
+      <section className="py-14 md:py-12 md:py-20 bg-ufo-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-10 md:mb-14">
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground">
@@ -767,7 +768,7 @@ function CampsPage() {
                   touchStartX.current = null;
                 }}
               >
-                <img
+                <ResponsiveImage
                   src={seasonLightbox.images[seasonLightbox.index]}
                   alt={`${seasonLightbox.title} фото ${seasonLightbox.index + 1}`}
                   className="max-h-[65vh] md:max-h-[70vh] w-full object-contain"
@@ -820,7 +821,7 @@ function CampsPage() {
                       }`}
                       aria-label={`Показати фото ${n + 1}`}
                     >
-                      <img
+                      <ResponsiveImage
                         src={src}
                         alt={`${seasonLightbox.title} мініатюра ${n + 1}`}
                         className="h-full w-full object-cover"

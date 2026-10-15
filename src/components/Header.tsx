@@ -1,9 +1,10 @@
+import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { Link } from "@tanstack/react-router";
 import { Menu, X, Link2 } from "lucide-react";
 import { useState } from "react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { openRegistration } from "@/components/RegistrationModal";
-import logoImg from "@/assets/ufo-logo.png";
+import logoImg from "@/assets/ufo-logo.webp";
 
 const navLinks = [
   { to: "/" as const, label: "Головна" },
@@ -15,6 +16,7 @@ const navLinks = [
 ];
 
 const mobileNavLinks = [
+  { to: "/about" as const, label: "Про нас" },
   { to: "/" as const, label: "Головна" },
   { to: "/courses" as const, label: "Курси" },
   { to: "/camps" as const, label: "Табори" },
@@ -33,8 +35,8 @@ export function Header() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-14 md:h-[72px] items-center justify-between">
             <Link to="/" className="shrink-0 flex items-center gap-2 md:gap-3 group min-w-0">
-              <img
-                src={logoImg}
+              <ResponsiveImage
+                src={logoImg} sizes="48px" loading="eager"
                 alt="UFO STEAM HUB логотип"
                 className="h-8 w-8 md:h-11 md:w-11 object-contain rounded-xl shrink-0"
               />
@@ -46,7 +48,7 @@ export function Header() {
               </span>
             </Link>
 
-            <nav className="hidden md:flex items-center gap-6">
+            <nav className="hidden lg:flex items-center gap-6">
               {navLinks.map((link) => (
                 <Link
                   key={link.to}
@@ -74,9 +76,10 @@ export function Header() {
             </nav>
 
             <button
-              className="md:hidden h-9 w-9 rounded-full border border-border bg-background text-primary flex items-center justify-center active:scale-95 transition-transform shrink-0"
+              className="lg:hidden h-11 w-11 rounded-full border border-border bg-background text-primary flex items-center justify-center active:scale-95 transition-transform shrink-0"
               onClick={() => setMobileOpen(true)}
               aria-label="Відкрити меню"
+              aria-expanded={mobileOpen}
             >
               <Menu className="h-4.5 w-4.5" strokeWidth={2} />
             </button>
@@ -86,18 +89,18 @@ export function Header() {
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
           <SheetContent
             side="right"
-            className="w-[82%] max-w-xs bg-background p-0 flex flex-col [&>button]:hidden"
+            className="w-[min(90vw,360px)] max-w-sm bg-background p-0 flex flex-col overflow-y-auto [&>button]:hidden"
           >
             <SheetHeader className="border-b border-border px-5 py-4 flex-row items-center justify-between space-y-0">
               <SheetTitle className="flex items-center gap-2 text-base font-semibold" style={{ color: "#3056dd" }}>
-                <img src={logoImg} alt="" className="h-7 w-7 object-contain" />
+                <ResponsiveImage src={logoImg} sizes="48px" loading="eager" alt="" className="h-7 w-7 object-contain" />
                 UFO STEAM HUB
               </SheetTitle>
               <button
                 type="button"
                 aria-label="Закрити меню"
                 onClick={() => setMobileOpen(false)}
-                className="h-8 w-8 rounded-full border border-border flex items-center justify-center text-foreground/70 active:scale-95 transition-transform"
+                className="h-11 w-11 rounded-full border border-border flex items-center justify-center text-foreground/70 active:scale-95 transition-transform"
               >
                 <X className="h-4 w-4" />
               </button>

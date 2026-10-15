@@ -98,7 +98,7 @@ const courses = [
 function LinksPage() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-ufo-cream">
-      <div className="mx-auto w-full max-w-md space-y-6 px-4 py-6 md:max-w-2xl md:py-12">
+      <div className="mx-auto w-full max-w-lg space-y-8 px-4 pt-8 pb-10 sm:px-6 md:py-12">
 
         {/* Hero */}
         <AnimatedSection className="relative text-center">
@@ -120,7 +120,7 @@ function LinksPage() {
             </span>
           </div>
 
-          <h1 className="mt-3 text-2xl font-semibold text-foreground md:text-3xl">
+          <h1 className="mt-3 text-[1.75rem] leading-tight font-semibold text-foreground md:text-3xl">
             STEAM-простір для дітей у Кременчуці
           </h1>
 
@@ -130,29 +130,29 @@ function LinksPage() {
           </p>
         </AnimatedSection>
 
-        {/* Mini-course enrollment */}
-        <EnrollmentAnnouncement
-          sourcePage="Links — набір у нові групи"
-          compact
-        />
-
         {/* Navigation */}
-        <section className="space-y-3">
+        <nav aria-label="Швидкі посилання" className="grid grid-cols-2 gap-3">
           {navLinks.map(({ to, label, icon: Icon }) => (
             <Link
               key={to}
               to={to}
-              className="flex min-h-14 w-full items-center justify-between gap-3 rounded-2xl border border-border/50 bg-white px-4 py-3.5 text-base font-semibold text-foreground shadow-sm transition-colors hover:border-ufo-yellow hover:bg-ufo-yellow/20 active:bg-ufo-yellow/30"
+              className={`flex min-h-16 w-full items-center justify-between gap-2 rounded-2xl border border-primary/10 bg-white px-3 py-4 text-sm font-semibold text-foreground shadow-sm transition-colors hover:border-primary/30 hover:bg-ufo-yellow/20 active:bg-ufo-yellow/30 ${to === "/" ? "col-span-2" : ""}`}
             >
               <span className="flex min-w-0 items-center gap-3">
                 <Icon className="h-5 w-5 shrink-0 text-primary" />
-                <span className="truncate">{label}</span>
+                <span>{label}</span>
               </span>
 
               <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground" />
             </Link>
           ))}
-        </section>
+        </nav>
+
+        {/* Mini-course enrollment */}
+        <EnrollmentAnnouncement
+          sourcePage="Links — набір у нові групи"
+          compact
+        />
 
         {/* Courses */}
         <section>
@@ -167,9 +167,10 @@ function LinksPage() {
 
           <div className="mt-3 space-y-3">
             {courses.map((course) => (
-              <div
+              <Link
+                to="/courses"
                 key={course.title}
-                className="flex gap-3 rounded-2xl border border-border/50 bg-white p-4 shadow-sm"
+                className="flex gap-3 rounded-2xl border border-border/50 bg-white p-4 shadow-sm transition-colors hover:border-primary/30"
               >
                 <div className="shrink-0 text-2xl">
                   {course.emoji}
@@ -184,7 +185,8 @@ function LinksPage() {
                     {course.desc}
                   </p>
                 </div>
-              </div>
+                <ChevronRight className="ml-auto h-5 w-5 shrink-0 self-center text-primary" />
+              </Link>
             ))}
           </div>
 

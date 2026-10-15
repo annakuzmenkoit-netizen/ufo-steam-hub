@@ -1,8 +1,9 @@
+import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { Calendar, Clock3, Rocket, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { openRegistration } from "@/components/RegistrationModal";
-import animationImage from "@/assets/courses/animation2.jpg";
-import roboticsImage from "@/assets/courses/robotics1.jpg";
+import animationImage from "@/assets/courses/animation2.webp";
+import roboticsImage from "@/assets/courses/robotics1.webp";
 
 const PROMO_INFO = "Тематичний мінікурс із 4 занять. Акція: знижка 20% при бронюванні до 31.10.2026.";
 
@@ -71,8 +72,8 @@ export function EnrollmentAnnouncement({ compact = false }: { sourcePage?: strin
         <div className={`mt-5 grid gap-4 ${compact ? "" : "md:grid-cols-2 md:gap-6"}`}>
           {newGroups.map((g) => (
             <article key={g.id} id={g.id} className="flex min-w-0 scroll-mt-24 flex-col overflow-hidden rounded-2xl border border-border/50 bg-background shadow-sm">
-              <div className="relative aspect-[16/9] overflow-hidden">
-                <img src={g.image} alt={g.imageAlt} loading="lazy" className="h-full w-full object-cover" />
+              <div className={`relative overflow-hidden ${compact ? "aspect-[2/1]" : "aspect-[16/9]"}`}>
+                <ResponsiveImage src={g.image} sizes={compact ? "(min-width: 512px) 464px, calc(100vw - 32px)" : "(min-width: 768px) 560px, 100vw"} alt={g.imageAlt} loading="lazy" className="h-full w-full object-cover" />
                 <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-ufo-yellow px-3 py-1 text-xs font-bold text-primary shadow-sm">
                   <BookOpen className="h-3.5 w-3.5" /> 4 заняття
                 </span>
