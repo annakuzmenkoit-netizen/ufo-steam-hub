@@ -116,11 +116,11 @@ function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-ufo-cream pt-8 pb-10 md:py-24">
+      <section className="home-hero relative overflow-hidden pt-10 pb-10 md:py-20">
         <Star4 className="absolute top-6 left-4 md:top-10 md:left-6 opacity-90" color="#f7df5d" size={40} />
         <Dot className="absolute top-24 left-1/3 opacity-80 hidden md:block" color="#f04770" size={18} />
         <BlobShape className="absolute -bottom-10 -left-12 opacity-30" color="#17c590" size={220} />
-        <Squiggle className="absolute top-16 right-6 md:top-20 md:right-16 opacity-80" color="#3056dd" size={90} />
+        <Squiggle className="absolute top-16 right-6 md:top-20 md:right-16 opacity-80" color="#f7df5d" size={90} />
         <Star4 className="absolute bottom-16 right-1/4 opacity-80 hidden md:block" color="#f04770" size={36} />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -131,39 +131,43 @@ function HomePage() {
                 <span className="md:hidden">UFO STEAM HUB · Кременчук</span>
                 <span className="hidden md:inline">UFO STEAM HUB — освітній центр у Кременчуці</span>
               </div>
-              <h1 className="text-[clamp(2.5rem,10vw,3.5rem)] leading-[1.08] md:text-6xl md:leading-[1.05] font-semibold text-foreground tracking-tight">
-                Освіта на <span className="text-primary">дотик</span>
+              <h1 className="home-hero__title font-extrabold tracking-tight">
+                Освіта<br />на <span className="home-hero__highlight">дотик</span>
               </h1>
-              <p className="mt-3 md:mt-6 max-w-lg mx-auto lg:mx-0 text-base leading-relaxed md:text-lg text-muted-foreground">
+              <p className="mt-3 md:mt-6 max-w-lg mx-auto lg:mx-0 home-hero__description text-base leading-relaxed md:text-lg">
                 Діти 6–14 років відкривають науку, технології та мистецтво через гру та творчість.
               </p>
               <div className="mt-5 md:mt-8 flex flex-col sm:flex-row gap-3 md:gap-4 sm:justify-center lg:justify-start">
                 <button
                   type="button"
                   onClick={() => openRegistration()}
-                  className="rounded-full bg-ufo-yellow px-6 py-3 md:px-8 md:py-3.5 text-sm md:text-base font-semibold text-primary shadow-md hover:shadow-lg transition-shadow inline-flex items-center justify-center gap-2"
+                  className="brand-button min-h-12 rounded-full bg-ufo-yellow px-6 py-3 md:px-8 md:py-3.5 text-base font-bold text-primary inline-flex items-center justify-center gap-2"
                 >
                   Хочу спробувати <ArrowRight className="h-4 w-4" />
                 </button>
                 <Link
                   to="/courses"
-                  className="rounded-full border-2 border-primary px-6 py-3 md:px-8 md:py-3.5 text-sm md:text-base font-semibold text-primary hover:bg-primary hover:text-primary-foreground transition-all text-center"
+                  className="home-hero__secondary min-h-12 rounded-full border-2 px-6 py-3 md:px-8 md:py-3.5 text-base font-bold transition-colors text-center"
                 >
                   Наші курси
                 </Link>
               </div>
+              <div className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm font-medium text-white/90 lg:justify-start">
+                <span className="inline-flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-ufo-green" />6–14 років</span>
+                <span className="inline-flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-ufo-yellow" />Міні-групи 4–6 дітей</span>
+              </div>
             </div>
 
-            <div className="relative mx-auto w-full max-w-[280px] sm:max-w-sm md:max-w-md aspect-[4/3] lg:aspect-square">
+            <div className="home-hero__photo relative mx-auto w-full max-w-[320px] sm:max-w-sm md:max-w-md aspect-[4/3] lg:aspect-square">
               <div className="absolute inset-0 bg-ufo-yellow" style={{ clipPath: blobA }} />
               <ResponsiveImage
                 src={HERO_PHOTO}
-                alt="Щасливі діти на занятті"
+                alt="Логотип UFO, створений із конструктора"
                 className="absolute inset-3 w-[calc(100%-1.5rem)] h-[calc(100%-1.5rem)] object-cover"
                 style={{ clipPath: blobA }}
                 loading="eager"
                 fetchPriority="high"
-                sizes="(min-width: 1024px) 448px, (min-width: 640px) 384px, 280px"
+                sizes="(min-width: 1024px) 448px, (min-width: 640px) 384px, 320px"
                 decoding="async"
               />
               <Star4 className="absolute -top-3 -right-3 md:-top-4 md:-right-4" color="#f7df5d" size={40} />
@@ -177,13 +181,21 @@ function HomePage() {
               type="button"
               onClick={scrollToPrograms}
               aria-label="Прокрутити вниз"
-              className="h-10 w-10 rounded-full bg-white/70 backdrop-blur border border-primary/20 text-primary shadow-md flex items-center justify-center"
+              className="h-11 w-11 rounded-full border border-white/40 text-white flex items-center justify-center"
             >
               <ChevronDown className="h-5 w-5" />
             </button>
           </div>
         </div>
       </section>
+
+      <div className="brand-ribbon" aria-label="STEAM: наука, технології, інженерія, мистецтво, математика">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-5 gap-y-2 px-4 py-4 text-xs font-bold sm:text-sm">
+          {["Наука", "Технології", "Інженерія", "Мистецтво", "Математика"].map((label) => (
+            <span key={label} className="inline-flex items-center gap-3"><Star className="h-3 w-3 shrink-0" fill="currentColor" />{label}</span>
+          ))}
+        </div>
+      </div>
 
       {/* Mini-courses announcement — self-contained, no Lovable component dependency */}
       <section aria-labelledby="mini-courses-heading" className="section-art relative overflow-hidden bg-ufo-cream py-12 md:py-20">
@@ -206,7 +218,7 @@ function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-7">
-            <article className="flex h-full flex-col overflow-hidden rounded-3xl border-2 border-ufo-pink/40 bg-white p-6 shadow-md md:p-8">
+            <article className="feature-card flex h-full flex-col overflow-hidden rounded-3xl border-2 border-ufo-pink/40 bg-white p-6 shadow-md md:p-8">
               <div className="mb-4 flex items-center justify-between gap-3">
                 <span className="rounded-full bg-ufo-pink/15 px-3 py-1 text-xs font-semibold text-foreground">Анімація</span>
                 <span className="text-4xl" aria-hidden="true">🎭</span>
@@ -237,7 +249,7 @@ function HomePage() {
               </button>
             </article>
 
-            <article className="flex h-full flex-col overflow-hidden rounded-3xl border-2 border-ufo-green/40 bg-white p-6 shadow-md md:p-8">
+            <article className="feature-card flex h-full flex-col overflow-hidden rounded-3xl border-2 border-ufo-green/40 bg-white p-6 shadow-md md:p-8">
               <div className="mb-4 flex items-center justify-between gap-3">
                 <span className="rounded-full bg-ufo-green/15 px-3 py-1 text-xs font-semibold text-foreground">Робототехніка</span>
                 <span className="text-4xl" aria-hidden="true">🚀</span>
@@ -271,7 +283,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Courses — flip cards, no modal */}
+      {/* Courses */}
       <section id="programs" className="section-art relative py-12 md:py-20 bg-background overflow-hidden">
         <SectionDecor tone="sun" side="left" />
 
@@ -289,7 +301,7 @@ function HomePage() {
             {courses.map((course, index) => {
               const expanded = !!expandedCourses[course.title];
               return (
-                <article key={course.title} className={`self-start rounded-3xl bg-card border-2 ${course.accent} p-5 md:p-6 shadow-sm`}>
+                <article key={course.title} className={`program-card self-start rounded-3xl bg-card border-2 ${course.accent} p-5 md:p-6 shadow-sm`}>
                   <div className="flex items-start gap-3">
                     <div className={`${course.iconBg} rounded-2xl w-12 h-12 shrink-0 flex items-center justify-center`}>
                       <course.icon className={`h-6 w-6 ${course.iconColor}`} strokeWidth={1.75} />
@@ -365,7 +377,7 @@ function HomePage() {
       </section>
 
       {/* What is STEAM */}
-      <section className="section-art relative py-12 md:py-20 bg-background overflow-hidden">
+      <section className="section-art relative py-12 md:py-20 bg-ufo-yellow overflow-hidden">
         <SectionDecor tone="blue" side="left" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

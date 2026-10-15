@@ -301,7 +301,7 @@ const days = [
 function SchedulePage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-ufo-cream py-16 text-center md:py-28">
+      <section className="page-intro relative overflow-hidden bg-ufo-cream py-16 text-center md:py-28">
         <Star4
           className="absolute left-5 top-8 md:left-10 md:top-10"
           color="#f7df5d"

@@ -103,7 +103,7 @@ function LinksPage() {
       <div className="mx-auto w-full max-w-lg space-y-8 px-4 pt-8 pb-10 sm:px-6 md:py-12">
 
         {/* Hero */}
-        <AnimatedSection className="relative text-center">
+        <AnimatedSection className="links-intro relative rounded-[2rem] px-5 py-8 text-center">
           <Star4
             className="pointer-events-none absolute -left-1 -top-2 opacity-70"
             color="#f7df5d"
@@ -117,16 +117,16 @@ function LinksPage() {
           />
 
           <div className="inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-2 shadow-md">
-            <span className="text-xl font-bold tracking-tight text-primary md:text-2xl">
+            <span className="text-lg font-extrabold tracking-tight text-primary md:text-xl">
               UFO STEAM HUB
             </span>
           </div>
 
-          <h1 className="mt-3 text-[1.75rem] leading-tight font-semibold text-foreground md:text-3xl">
+          <h1 className="mt-4 text-[1.85rem] leading-tight font-extrabold text-white md:text-3xl">
             STEAM-простір для дітей у Кременчуці
           </h1>
 
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-3 text-sm leading-relaxed text-white/85">
             Курси, табори, робототехніка, 3D-друк,
             математика та творчі технології.
           </p>
@@ -138,10 +138,10 @@ function LinksPage() {
             <Link
               key={to}
               to={to}
-              className={`flex min-h-16 w-full items-center justify-between gap-2 rounded-2xl border border-primary/10 bg-white px-3 py-4 text-sm font-semibold text-foreground shadow-sm transition-colors hover:border-primary/30 hover:bg-ufo-yellow/20 active:bg-ufo-yellow/30 ${to === "/" ? "col-span-2" : ""}`}
+              className={`quick-link flex min-h-16 w-full items-center justify-between gap-2 rounded-2xl border border-primary/10 bg-white px-3 py-4 text-sm font-semibold text-foreground shadow-sm transition-colors hover:border-primary/30 hover:bg-ufo-yellow/20 active:bg-ufo-yellow/30 ${to === "/" ? "col-span-2" : ""}`}
             >
               <span className="flex min-w-0 items-center gap-3">
-                <Icon className="h-5 w-5 shrink-0 text-primary" />
+                <span className="quick-link__icon flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"><Icon className="h-5 w-5" /></span>
                 <span>{label}</span>
               </span>
 

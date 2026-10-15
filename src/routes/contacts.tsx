@@ -29,7 +29,7 @@ const contactInfo = [
 function ContactsPage() {
   return (
     <>
-      <section className="py-12 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
+      <section className="page-intro py-12 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
         <Star4 className="absolute top-10 left-10" color="#f7df5d" size={50} />
         <Dot className="absolute top-20 right-20" color="#f04770" size={20} />
         <Squiggle className="absolute bottom-10 right-10 opacity-70" color="#17c590" size={130} />
