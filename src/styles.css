@@ -290,8 +290,7 @@ main h3 { font-weight: 700; }
   margin-top: 0.1em;
   padding: 0 0.12em 0.08em;
   border-radius: 0.15em;
-  background: transparent;
-  box-shadow: 0 0 0 3px var(--ufo-yellow);
+  background: var(--ufo-yellow);
   color: white;
   rotate: -2deg;
 }
