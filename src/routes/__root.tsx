@@ -6,7 +6,7 @@ import { RegistrationModal } from "@/components/RegistrationModal";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { Toaster } from "@/components/ui/sonner";
 
-import appCss from "../styles.css?url";
+import appCss from "../styles.css?inline";
 
 function NotFoundComponent() {
   return (
@@ -47,7 +47,6 @@ export const Route = createRootRoute({
       { property: "og:type", content: "website" },
     ],
     links: [
-      { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" },
@@ -63,6 +62,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
     <html lang="uk">
       <head>
         <HeadContent />
+        <style id="ufo-app-styles" dangerouslySetInnerHTML={{ __html: appCss }} />
       </head>
       <body style={{ fontFamily: "'Montserrat', sans-serif" }}>
         {children}
