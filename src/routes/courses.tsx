@@ -14,7 +14,7 @@ export const Route = createFileRoute("/courses")({
   head: () => ({
     meta: [
       { title: "Курси — UFO STEAM HUB" },
-      { name: "description", content: "STEAM-гуртки, робототехніка, анімація, 3D моделювання та математика для дітей 6-14 років." },
+      { name: "description", content: "STEAM-гуртки, робототехніка, анімація, 3D моделювання та математика для дітей 7–14 років." },
       { property: "og:title", content: "Курси — UFO STEAM HUB" },
       { property: "og:description", content: "Наші освітні програми для дітей." },
       { property: "og:type", content: "website" },

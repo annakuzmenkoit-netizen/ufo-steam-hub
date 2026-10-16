@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "UFO STEAM HUB — Освіта на дотик" },
-      { name: "description", content: "Освітній центр STEAM-освіти у Кременчуці. Робототехніка, анімація, 3D моделювання та математика для дітей 6-14 років." },
+      { name: "description", content: "Освітній центр STEAM-освіти у Кременчуці. Робототехніка, анімація, 3D моделювання та математика для дітей 7–14 років." },
       { property: "og:title", content: "UFO STEAM HUB — Освіта на дотик" },
       { property: "og:description", content: "Освітній центр STEAM-освіти у Кременчуці" },
     ],
@@ -32,7 +32,7 @@ import future from "@/assets/future.webp";
 import space from "@/assets/space.webp";
 
 const features = [
-  { title: "Міні-групи", desc: "Для дітей 6–14 років, по 4–6 — увага кожному.", photo: groups },
+  { title: "Міні-групи", desc: "Для дітей 7–14 років, по 4–6 — увага кожному.", photo: groups },
   { title: "Безпечне навчання", desc: "Комфортний простір та турботлива команда.", photo: space },
   { title: "STEAM підхід", desc: "Наука, технології, мистецтво й проєкти — з сенсом.", photo: steam },
   { title: "Навички майбутнього", desc: "Критичне мислення, креативність та командна робота.", photo: future },
@@ -76,7 +76,7 @@ function HomePage() {
                 Освіта<br />на <span className="home-hero__highlight">дотик</span>
               </h1>
               <p className="mt-3 md:mt-6 max-w-lg mx-auto lg:mx-0 home-hero__description text-base leading-relaxed md:text-lg">
-                Діти 6–14 років відкривають науку, технології та мистецтво через гру та творчість.
+                Діти 7–14 років відкривають науку, технології та мистецтво через гру та творчість.
               </p>
               <div className="mt-5 md:mt-8 flex flex-col sm:flex-row gap-3 md:gap-4 sm:justify-center lg:justify-start">
                 <button
@@ -94,7 +94,7 @@ function HomePage() {
                 </Link>
               </div>
               <div className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm font-medium text-white/90 lg:justify-start">
-                <span className="inline-flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-ufo-green" />6–14 років</span>
+                <span className="inline-flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-ufo-green" />7–14 років</span>
                 <span className="inline-flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-ufo-yellow" />Міні-групи 4–6 дітей</span>
               </div>
             </div>
