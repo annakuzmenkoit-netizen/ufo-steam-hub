@@ -290,8 +290,9 @@ main h3 { font-weight: 700; }
   margin-top: 0.1em;
   padding: 0 0.12em 0.08em;
   border-radius: 0.15em;
-  background: var(--ufo-yellow);
-  color: var(--primary);
+  background: transparent;
+  box-shadow: inset 0 -0.08em 0 var(--ufo-yellow);
+  color: white;
   rotate: -2deg;
 }
 .home-hero__description { color: rgb(255 255 255 / 0.88); }
