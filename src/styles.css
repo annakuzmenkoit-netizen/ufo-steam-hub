@@ -292,6 +292,7 @@ main h3 { font-weight: 700; }
   border-radius: 0.15em;
   background: var(--ufo-yellow);
   color: white;
+  text-shadow: 0 1px 2px rgb(48 86 221 / 0.65), 0 0 5px rgb(48 86 221 / 0.45);
   rotate: -2deg;
 }
 .home-hero__description { color: rgb(255 255 255 / 0.88); }
