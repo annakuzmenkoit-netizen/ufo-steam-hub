@@ -1,3 +1,4 @@
+import { containedImageSizes } from "@/lib/contained-image-sizes";
 import { imageSources } from "@/lib/image-sources";
 import { useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
@@ -56,7 +57,7 @@ export function HomePrograms() {
         {courses.map((course, index) => (
           <article key={course.id} id={`home-program-${course.id}`} className={`program-slide program-slide--${course.id}`} role="group" aria-roledescription="слайд" aria-label={`${index + 1} із ${courses.length}: ${course.title}`} inert={selected !== index}>
             <div className="program-slide__photo">
-              <ResponsiveImage src={course.gallery[0]} alt={`Заняття: ${course.title}`} sizes={`(min-width: 768px) ${Math.min(560, 320 * imageSources[course.gallery[0]].width / imageSources[course.gallery[0]].height)}px, ${Math.min(360, 155 * imageSources[course.gallery[0]].width / imageSources[course.gallery[0]].height)}px`} className="h-full w-full object-contain" />
+              <ResponsiveImage src={course.gallery[0]} alt={`Заняття: ${course.title}`} sizes={containedImageSizes(imageSources[course.gallery[0]], 155, 320)} className="h-full w-full object-contain" />
               <span className="program-slide__number" aria-hidden="true">0{index + 1}</span>
             </div>
             <div className="program-slide__body">
