@@ -318,23 +318,26 @@ main h3 { font-weight: 700; }
   .quick-link__icon { width: 2rem; height: 2rem; }
 }
 
-.program-tile {
-  --program-accent: var(--ufo-blue);
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  overflow: hidden;
-  border: 2px solid var(--program-accent);
-  border-radius: 1.5rem;
-  background: var(--card);
-  box-shadow: 4px 5px 0 color-mix(in oklch, var(--program-accent) 20%, transparent);
+.program-carousel__viewport { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; border: 2px solid var(--primary); border-radius: 1.5rem; background: var(--primary); }
+.program-carousel__viewport::-webkit-scrollbar { display: none; }
+.program-slide { --slide-bg: var(--primary); --slide-text: white; display: grid; flex: 0 0 100%; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always; background: var(--slide-bg); color: var(--slide-text); }
+.program-slide--robotics, .program-slide--3d-modeling { --slide-bg: var(--ufo-green); --slide-text: var(--foreground); }
+.program-slide--animation { --slide-bg: var(--ufo-pink); }
+.program-slide--math-mind { --slide-bg: var(--ufo-yellow); --slide-text: var(--primary); }
+.program-slide__photo { position: relative; height: 180px; overflow: hidden; background: var(--muted); }
+.program-slide__number { position: absolute; left: 1rem; top: 1rem; display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border: 2px solid var(--primary); border-radius: 50%; background: var(--ufo-yellow); color: var(--primary); font-weight: 800; }
+.program-slide__body { display: flex; min-width: 0; flex-direction: column; align-items: flex-start; padding: 1.25rem; }
+.program-slide__age { border: 1px solid currentColor; border-radius: 999px; padding: 0.25rem 0.625rem; font-size: 0.75rem; font-weight: 600; }
+.program-slide__link { display: flex; width: 100%; min-height: 2.75rem; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: auto; position: relative; top: 0.25rem; padding: 0.75rem 1rem; border-radius: 999px; background: var(--card); color: var(--primary); font-size: 0.875rem; font-weight: 700; }
+.program-slide__body > p { margin-bottom: 1.25rem; }
+.program-slide__link:hover { background: var(--ufo-yellow); }
+.program-carousel__arrow { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 2px solid var(--primary); border-radius: 50%; background: var(--ufo-yellow); color: var(--primary); }
+.program-carousel__arrow:disabled { opacity: 0.3; cursor: default; }
+.program-carousel__label { min-height: 2.75rem; padding: 0.5rem 0.875rem; border: 1px solid var(--primary); border-radius: 999px; background: var(--card); color: var(--primary); font-size: 0.75rem; font-weight: 600; }
+.program-carousel__label[aria-pressed="true"] { background: var(--primary); color: white; }
+.program-carousel__label:hover { box-shadow: inset 0 0 0 1px var(--primary); }
+@media (min-width: 768px) {
+  .program-slide { grid-template-columns: 1fr 1fr; }
+  .program-slide__photo { height: 320px; }
+  .program-slide__body { padding: 2rem; }
 }
-.program-tile--robotics, .program-tile--3d-modeling { --program-accent: var(--ufo-green); }
-.program-tile--animation { --program-accent: var(--ufo-pink); }
-.program-tile--math-mind { --program-accent: var(--ufo-yellow); }
-.program-tile__photo { position: relative; aspect-ratio: 16 / 10; border-bottom: 5px solid var(--program-accent); background: var(--muted); }
-.program-tile__number { position: absolute; left: 0.875rem; top: 0.875rem; display: flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; border: 2px solid var(--primary); border-radius: 50%; background: var(--ufo-yellow); color: var(--primary); font-size: 1rem; font-weight: 800; }
-.program-tile__age { position: absolute; right: 0.875rem; bottom: 0.875rem; border-radius: 999px; padding: 0.375rem 0.75rem; background: var(--card); color: var(--primary); font-size: 0.75rem; font-weight: 700; }
-.program-tile__icon { display: flex; align-items: center; justify-content: center; flex: none; width: 3rem; height: 3rem; border-radius: 1rem; background: color-mix(in oklch, var(--program-accent) 18%, var(--card)); color: var(--primary); }
-.program-tile__link { display: flex; min-height: 3rem; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.75rem 1.25rem; border: 2px solid var(--primary); border-radius: 999px; background: var(--primary); color: white; font-size: 0.875rem; font-weight: 700; transition: background-color 150ms, color 150ms; }
-.program-tile__link:hover { background: var(--ufo-yellow); color: var(--primary); }

@@ -1,4 +1,4 @@
-import { courses } from "@/lib/courses";
+import { HomePrograms } from "@/components/HomePrograms";
 import { SectionDecor } from "@/components/SectionDecor";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -238,34 +238,7 @@ function HomePage() {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
-            {courses.map((course, index) => (
-              <article key={course.id} className={`program-tile program-tile--${course.id}`}>
-                <div className="program-tile__photo">
-                  <ResponsiveImage src={course.gallery[0]} alt={`Заняття: ${course.title}`} sizes="(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw" className="h-full w-full object-cover" />
-                  <span className="program-tile__number" aria-hidden="true">0{index + 1}</span>
-                  <span className="program-tile__age">{course.age}</span>
-                </div>
-                <div className="flex flex-1 flex-col p-5 md:p-6">
-                  <div className="mb-4 flex items-start gap-3">
-                    <div className="program-tile__icon"><course.icon className="h-6 w-6" strokeWidth={1.8} /></div>
-                    <h3 className="min-w-0 self-center text-xl leading-tight text-primary">{course.title}</h3>
-                  </div>
-                  <p className="text-sm leading-relaxed text-foreground">{course.desc}</p>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{course.details}</p>
-                  <div className="mt-4 flex items-start gap-2 text-sm font-medium text-primary">
-                    <Star className="mt-0.5 h-4 w-4 shrink-0" />{course.features[0]}
-                  </div>
-                  <div className="mt-auto pt-5">
-                    <p className="mb-3 text-sm font-bold text-primary">{course.price}</p>
-                    <Link to="/courses" hash={course.id} hashScrollIntoView={{ behavior: "instant", block: "start" }} aria-label={`Детальніше: ${course.title}`} className="program-tile__link">
-                      Детальніше <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+          <HomePrograms />
         </div>
       </section>
 
