@@ -1,9 +1,9 @@
+import { courses } from "@/lib/courses";
 import { SectionDecor } from "@/components/SectionDecor";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { Beaker, Bot, Film, Calculator, Cuboid, PenTool, Sparkles, ArrowRight, FlaskConical, Cpu, Wrench, Palette, Sigma, BookOpen, Star, ChevronDown } from "lucide-react";
+import { Sparkles, ArrowRight, FlaskConical, Cpu, Wrench, Palette, Sigma, Star, ChevronDown } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,63 +25,6 @@ export const Route = createFileRoute("/")({
 
 import heroPhoto from "@/assets/main.webp";
 const HERO_PHOTO = heroPhoto;
-
-const courses = [
-  {
-    title: "STEAM-гурток", age: "7-12 років",
-    desc: "Щомісяця — нова тема: світло, магніти, вода, повітря, ґрунт.",
-    details: "Діти досліджують явища через дослід, гру та власні проєкти. Заняття у міні-групах з акцентом на практику.",
-    plan: ["Вступ до теми місяця", "Експерименти та досліди", "Створення власного проєкту", "Презентація результатів"],
-    features: ["Міні-групи до 6 дітей", "Усі матеріали включено", "Сертифікат після завершення"],
-    icon: Beaker, accent: "border-ufo-blue", iconBg: "bg-ufo-blue/10", iconColor: "text-primary",
-    photo: "https://images.unsplash.com/photo-1567168544813-cc03465b4fa8?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    title: "Робототехніка", age: "6-12 років",
-    desc: "Конструювання, програмування та створення власних роботів.",
-    details: "Від простих механізмів до програмованих роботів. Вивчаємо основи інженерії та алгоритмічного мислення.",
-    plan: ["Основи конструювання", "Знайомство з датчиками", "Програмування рухів", "Змагання роботів"],
-    features: ["Роботи LEGO та Arduino", "Індивідуальний підхід", "Участь у змаганнях"],
-    icon: Bot, accent: "border-ufo-green", iconBg: "bg-ufo-green/10", iconColor: "text-ufo-green",
-    photo: "https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    title: "Анімація і мультиплікація", age: "7-12 років",
-    desc: "Оживляємо своїх героїв — створюємо мультики від ідеї до озвучки.",
-    details: "Діти придумують персонажів, малюють, анімують та озвучують — повний цикл створення мультфільму.",
-    plan: ["Створення персонажів", "Розкадровка та сценарій", "Анімація кадрів", "Озвучка та монтаж"],
-    features: ["Власний мультфільм", "Розвиток творчості", "Робота з планшетами"],
-    icon: Film, accent: "border-ufo-pink", iconBg: "bg-ufo-pink/10", iconColor: "text-ufo-pink",
-    photo: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    title: "Math&mind", age: "2-6 клас",
-    desc: "Цікава математика, нестандартні задачі.",
-    details: "Олімпіадна математика, логічні задачі, головоломки — розвиваємо математичне мислення через захоплення.",
-    plan: ["Логічні задачі", "Олімпіадні завдання", "Математичні ігри", "Командні змагання"],
-    features: ["Підготовка до олімпіад", "Розвиток логіки", "Ігровий формат"],
-    icon: Calculator, accent: "border-ufo-yellow", iconBg: "bg-ufo-yellow/30", iconColor: "text-primary",
-    photo: "https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    title: "Математика", age: "1-11 клас",
-    desc: "Шкільна математика зрозуміло та ефективно.",
-    details: "Допомагаємо розібратися зі шкільною програмою, заповнити пробіли та підготуватися до контрольних.",
-    plan: ["Діагностика рівня", "Робота з пробілами", "Практика та закріплення", "Підготовка до контрольних"],
-    features: ["Індивідуальна програма", "Зрозумілі пояснення", "Домашні завдання"],
-    icon: PenTool, accent: "border-ufo-blue", iconBg: "bg-ufo-blue/10", iconColor: "text-primary",
-    photo: "https://images.unsplash.com/photo-1596495577886-d920f1fb7238?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    title: "3D моделювання", age: "7-14 років",
-    desc: "Основи 3D друку, моделювання і ШІ.",
-    details: "Діти створюють 3D-моделі, вивчають основи дизайну та друкують свої вироби на 3D-принтері.",
-    plan: ["Знайомство з 3D-середовищем", "Створення простих моделей", "Складні об'єкти та текстури", "3D-друк власного виробу"],
-    features: ["Друк на 3D-принтері", "Основи ШІ у дизайні", "Власний виріб додому"],
-    icon: Cuboid, accent: "border-ufo-green", iconBg: "bg-ufo-green/10", iconColor: "text-ufo-green",
-    photo: "https://images.unsplash.com/photo-1631544114551-d4cfd9577c41?auto=format&fit=crop&w=600&q=80",
-  },
-];
 
 import groups from "@/assets/groups.webp";
 import steam from "@/assets/steam.webp";
@@ -106,8 +49,6 @@ const steamBlocks = [
 const blobA = "polygon(35% 5%, 65% 8%, 90% 25%, 95% 55%, 80% 85%, 50% 95%, 20% 88%, 5% 60%, 8% 30%)";
 
 function HomePage() {
-  const [expandedCourses, setExpandedCourses] = useState<Record<string, boolean>>({});
-
   const scrollToPrograms = () => {
     const el = document.getElementById("programs");
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -297,43 +238,33 @@ function HomePage() {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {courses.map((course, index) => {
-              const expanded = !!expandedCourses[course.title];
-              return (
-                <article key={course.title} className={`program-card self-start rounded-3xl bg-card border-2 ${course.accent} p-5 md:p-6 shadow-sm`}>
-                  <div className="flex items-start gap-3">
-                    <div className={`${course.iconBg} rounded-2xl w-12 h-12 shrink-0 flex items-center justify-center`}>
-                      <course.icon className={`h-6 w-6 ${course.iconColor}`} strokeWidth={1.75} />
-                    </div>
-                    <div className="min-w-0">
-                      <span className="text-xs font-semibold text-primary">{course.age}</span>
-                      <h3 className="mt-1 text-lg font-semibold leading-tight">{course.title}</h3>
-                    </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+            {courses.map((course, index) => (
+              <article key={course.id} className={`program-tile program-tile--${course.id}`}>
+                <div className="program-tile__photo">
+                  <ResponsiveImage src={course.gallery[0]} alt={`Заняття: ${course.title}`} sizes="(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw" className="h-full w-full object-cover" />
+                  <span className="program-tile__number" aria-hidden="true">0{index + 1}</span>
+                  <span className="program-tile__age">{course.age}</span>
+                </div>
+                <div className="flex flex-1 flex-col p-5 md:p-6">
+                  <div className="mb-4 flex items-start gap-3">
+                    <div className="program-tile__icon"><course.icon className="h-6 w-6" strokeWidth={1.8} /></div>
+                    <h3 className="min-w-0 self-center text-xl leading-tight text-primary">{course.title}</h3>
                   </div>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{course.desc}</p>
-                  <button
-                    type="button"
-                    aria-expanded={expanded}
-                    aria-controls={`program-details-${index}`}
-                    onClick={() => setExpandedCourses((state) => ({ ...state, [course.title]: !expanded }))}
-                    className="mt-2 flex min-h-11 w-full items-center justify-between gap-2 text-sm font-semibold text-primary"
-                  >
-                    {expanded ? "Згорнути опис" : "Детальніше про курс"}
-                    <ChevronDown className={`h-4 w-4 transition-transform ${expanded ? "rotate-180" : ""}`} />
-                  </button>
-                  <div id={`program-details-${index}`} hidden={!expanded}>
-                    <p className="border-t border-border pt-3 text-sm leading-relaxed text-muted-foreground">{course.details}</p>
-                    <p className="mt-3 rounded-xl bg-ufo-green/10 px-3 py-2 text-sm">
-                      <Star className="mr-1 inline h-4 w-4 text-ufo-green" />{course.features[0]}
-                    </p>
-                    <button type="button" onClick={() => openRegistration(course.title)} className="mt-4 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-ufo-yellow px-4 py-3 text-sm font-semibold text-primary">
-                      Хочу спробувати <ArrowRight className="h-4 w-4" />
-                    </button>
+                  <p className="text-sm leading-relaxed text-foreground">{course.desc}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{course.details}</p>
+                  <div className="mt-4 flex items-start gap-2 text-sm font-medium text-primary">
+                    <Star className="mt-0.5 h-4 w-4 shrink-0" />{course.features[0]}
                   </div>
-                </article>
-              );
-            })}
+                  <div className="mt-auto pt-5">
+                    <p className="mb-3 text-sm font-bold text-primary">{course.price}</p>
+                    <Link to="/courses" hash={course.id} hashScrollIntoView={{ behavior: "instant", block: "start" }} aria-label={`Детальніше: ${course.title}`} className="program-tile__link">
+                      Детальніше <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
