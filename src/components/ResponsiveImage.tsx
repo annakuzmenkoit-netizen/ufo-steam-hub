@@ -16,7 +16,7 @@ export function ResponsiveImage({
       width={image?.width}
       height={image?.height}
       srcSet={image?.srcSet}
-      sizes={image ? sizes : undefined}
+      sizes={image || props.srcSet ? sizes : undefined}
       {...props}
       src={src}
       alt={alt}

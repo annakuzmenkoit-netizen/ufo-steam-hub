@@ -5,7 +5,10 @@ import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { EnrollmentAnnouncement } from "@/components/EnrollmentAnnouncement";
 import { SectionDecor } from "@/components/SectionDecor";
 import { openRegistration } from "@/components/RegistrationModal";
-import heroPhoto from "@/assets/groups.webp";
+import heroPhoto from "@/assets/hero-children.webp";
+import heroSmall from "@/assets/hero-children-320.webp";
+import heroMedium from "@/assets/hero-children-640.webp";
+import heroLarge from "@/assets/hero-children-960.webp";
 import { courses } from "@/lib/courses";
 
 export const Route = createFileRoute("/")({
@@ -42,11 +45,10 @@ function HomePage() {
               <Link to="/courses" className="parent-button bg-ufo-yellow text-primary">Обрати курс <ArrowRight className="h-4 w-4" /></Link>
               <button type="button" onClick={() => openRegistration()} className="parent-button border border-white/60 text-white">Допоможіть обрати</button>
             </div>
-            <p className="mt-4 text-xs text-white/85">Міні-групи 4–6 дітей · від {Math.min(...prices)} грн/місяць</p>
+            <p className="mt-4 text-xs text-white/85">Міні-групи 4–6 дітей</p>
           </div>
           <figure className="hero-moment">
-            <ResponsiveImage src={heroPhoto} alt="Діти разом створюють проєкт на занятті UFO" loading="eager" fetchPriority="high" sizes="(min-width: 768px) 540px, 250px" className="h-full w-full object-contain" />
-            <figcaption>Справжні заняття. Власні відкриття.</figcaption>
+            <ResponsiveImage src={heroPhoto} width={1200} height={800} srcSet={`${heroSmall} 320w, ${heroMedium} 640w, ${heroLarge} 960w, ${heroPhoto} 1200w`} alt="Діти разом створюють проєкт на занятті UFO" loading="eager" fetchPriority="high" sizes="(min-width: 768px) 540px, 320px" className="h-full w-full object-contain" />
           </figure>
         </div>
       </section>
