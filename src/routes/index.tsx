@@ -38,14 +38,14 @@ function HomePage() {
         <SectionDecor tone="sun" />
         <div className="mx-auto grid max-w-6xl items-center gap-6 px-4 md:grid-cols-2 md:gap-10 sm:px-6">
           <div className="text-center">
-            <p className="mb-3 text-xs font-bold uppercase tracking-wider text-white/85">Кременчук · Для дітей 7–14 років</p>
+            <p className="mb-3 text-xs font-bold uppercase tracking-wider text-white/85">UFO STEAM HUB · Кременчук</p>
             <h1 className="home-hero__title">Освіта<br />на <span className="home-hero__highlight">дотик</span></h1>
             <p className="mt-4 mx-auto max-w-lg text-sm leading-relaxed text-white/90 md:text-lg">Робототехніка, творчість і наукові відкриття. Допоможемо знайти заняття, на які дитина захоче повертатися.</p>
             <div className="mt-5 flex flex-wrap justify-center gap-3">
               <Link to="/courses" className="parent-button bg-ufo-yellow text-primary">Обрати курс <ArrowRight className="h-4 w-4" /></Link>
               <button type="button" onClick={() => openRegistration()} className="parent-button border border-white/60 text-white">Допоможіть обрати</button>
             </div>
-            <p className="mt-4 text-xs text-white/85">Міні-групи 4–6 дітей</p>
+            <p className="mt-4 text-xs text-white/85">Для дітей 7–14 років · Міні-групи 4–6 дітей</p>
           </div>
           <figure className="hero-moment">
             <ResponsiveImage src={heroPhoto} width={1200} height={800} srcSet={`${heroSmall} 320w, ${heroMedium} 640w, ${heroLarge} 960w, ${heroPhoto} 1200w`} alt="Діти разом створюють проєкт на занятті UFO" loading="eager" fetchPriority="high" sizes="(min-width: 768px) 540px, 320px" className="h-full w-full object-contain" />
