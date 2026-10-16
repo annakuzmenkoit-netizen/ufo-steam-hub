@@ -34,11 +34,11 @@ function HomePage() {
       <section className="home-hero parent-hero section-art">
         <SectionDecor tone="sun" />
         <div className="mx-auto grid max-w-6xl items-center gap-6 px-4 md:grid-cols-2 md:gap-10 sm:px-6">
-          <div>
+          <div className="text-center">
             <p className="mb-3 text-xs font-bold uppercase tracking-wider text-white/85">Кременчук · Для дітей 7–14 років</p>
-            <h1 className="home-hero__title">Освіта на <span className="home-hero__highlight">дотик</span></h1>
-            <p className="mt-4 max-w-lg text-sm leading-relaxed text-white/90 md:text-lg">Робототехніка, творчість і наукові відкриття. Допоможемо знайти заняття, на які дитина захоче повертатися.</p>
-            <div className="mt-5 flex flex-wrap gap-3">
+            <h1 className="home-hero__title">Освіта<br />на <span className="home-hero__highlight">дотик</span></h1>
+            <p className="mt-4 mx-auto max-w-lg text-sm leading-relaxed text-white/90 md:text-lg">Робототехніка, творчість і наукові відкриття. Допоможемо знайти заняття, на які дитина захоче повертатися.</p>
+            <div className="mt-5 flex flex-wrap justify-center gap-3">
               <Link to="/courses" className="parent-button bg-ufo-yellow text-primary">Обрати курс <ArrowRight className="h-4 w-4" /></Link>
               <button type="button" onClick={() => openRegistration()} className="parent-button border border-white/60 text-white">Допоможіть обрати</button>
             </div>
