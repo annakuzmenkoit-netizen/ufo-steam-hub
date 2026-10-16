@@ -520,7 +520,7 @@ function CampsPage() {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 min-[380px]:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
             {summerSchoolFeatures.map((f, i) => (
               <AnimatedSection key={f.title} delay={i * 0.05}>
                 <div className="rounded-2xl md:rounded-3xl bg-card border-2 border-border p-3 md:p-6 shadow-sm hover:shadow-md md:hover:-translate-y-1 transition-all h-full">
@@ -550,7 +550,7 @@ function CampsPage() {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 min-[380px]:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4">
             {campRules.map((r, i) => (
               <AnimatedSection key={r.title} delay={i * 0.05}>
                 <div className={`rounded-2xl md:rounded-3xl bg-card border-2 ${r.accent} p-3 md:p-5 text-center shadow-sm hover:shadow-md md:hover:-translate-y-1 transition-all h-full`}>
@@ -598,7 +598,7 @@ function CampsPage() {
 
             {seasons.map((s) => (
               <TabsContent key={s.key} value={s.key} className="mt-0">
-                <div className={`${s.bg} ${s.text} rounded-3xl p-6 md:p-8 shadow-lg`}>
+                <div className={`${s.bg} ${s.text} rounded-3xl p-4 md:p-8 shadow-lg`}>
                   <div className="flex items-center gap-4 mb-6">
                     <div className={`${s.accent} rounded-2xl w-14 h-14 flex items-center justify-center shrink-0`}>
                       <s.icon className="h-7 w-7" />
@@ -616,7 +616,7 @@ function CampsPage() {
 
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* Особливості */}
-                    <div className={`${s.accent} rounded-2xl p-5`}>
+                    <div className={`${s.accent} rounded-2xl p-4`}>
                       <h4 className="font-semibold text-lg mb-3 flex items-center gap-2">
                         <Star className="h-5 w-5" /> Особливості
                       </h4>
@@ -631,7 +631,7 @@ function CampsPage() {
                     </div>
 
                     {/* Галерея */}
-                    <div className={`${s.accent} rounded-2xl p-5`}>
+                    <div className={`${s.accent} rounded-2xl p-4`}>
                       <h4 className="font-semibold text-lg mb-3 flex items-center gap-2">
                         <Sparkles className="h-5 w-5" /> Галерея
                       </h4>
@@ -642,13 +642,14 @@ function CampsPage() {
                             key={`${s.key}-${n}`}
                             type="button"
                             onClick={() => openSeasonLightbox(`${s.name} табір`, s.gallery, n)}
-                            className="group aspect-square rounded-2xl overflow-hidden bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/80"
+                            className="group aspect-[4/3] rounded-2xl overflow-hidden bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/80"
                             aria-label={`Відкрити фото ${n + 1}: ${s.name} табір`}
                           >
                             <ResponsiveImage
                               src={src}
+                              sizes="(min-width: 1024px) 240px, 140px"
                               alt={`${s.name} — фото ${n + 1}`}
-                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                              className="w-full h-full object-contain"
                               loading="lazy"
                               decoding="async"
                             />
@@ -829,7 +830,7 @@ function CampsPage() {
                       <ResponsiveImage
                         src={src}
                         alt={`${seasonLightbox.title} мініатюра ${n + 1}`}
-                        className="h-full w-full object-cover"
+                        className="h-full w-full object-contain"
                         loading="lazy"
                         decoding="async"
                       />

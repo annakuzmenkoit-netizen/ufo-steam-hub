@@ -15,8 +15,8 @@ export function Footer() {
         <Star4 className="absolute right-6 top-6 opacity-60" size={28} />
         <Squiggle className="absolute bottom-5 left-5 opacity-40" color="#17c590" size={70} />
       </div>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-10">
           <div>
             <div className="mb-4 inline-flex items-center gap-2 sm:gap-3 bg-white rounded-2xl px-3 sm:px-4 py-3 shadow-md">
               <ResponsiveImage
@@ -29,14 +29,14 @@ export function Footer() {
                 UFO STEAM HUB
               </span>
             </div>
-            <p className="text-primary-foreground/80 text-sm leading-relaxed">
+            <p className="hidden md:block text-primary-foreground/80 text-sm leading-relaxed">
               UFO STEAM HUB — простір для STEAM-навчання, творчості, технологій, робототехніки, математики та дитячих освітніх програм.
             </p>
           </div>
 
-          <div>
+          <div className="hidden md:block">
             <h3 className="font-semibold text-lg mb-4">Навігація</h3>
-            <ul className="space-y-2 text-sm text-primary-foreground/80">
+            <ul className="grid grid-cols-2 gap-x-4 text-sm text-primary-foreground/80">
               <li><Link to="/" className="inline-flex min-h-11 items-center hover:text-ufo-yellow transition-colors">Головна</Link></li>
               <li><Link to="/about" className="inline-flex min-h-11 items-center hover:text-ufo-yellow transition-colors">Про нас</Link></li>
               <li><Link to="/courses" className="inline-flex min-h-11 items-center hover:text-ufo-yellow transition-colors">Курси</Link></li>
@@ -48,14 +48,14 @@ export function Footer() {
 
           <div>
             <h3 className="font-semibold text-lg mb-4">Контакти</h3>
-            <ul className="space-y-3 text-sm text-primary-foreground/80">
+            <ul className="space-y-1 text-sm text-primary-foreground/80">
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-ufo-yellow" />
-                +380 (96) 066-26-04
+                <a href="tel:+380960662604" className="inline-flex min-h-11 items-center">+380 (96) 066-26-04</a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-ufo-yellow" />
-                ufosteamhub@gmail.com
+                <a href="mailto:ufosteamhub@gmail.com" className="inline-flex min-h-11 items-center break-all">ufosteamhub@gmail.com</a>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 text-ufo-yellow mt-0.5" />
@@ -73,7 +73,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-primary-foreground/20 text-center text-xs text-primary-foreground/60">
+        <div className="mt-5 md:mt-10 pt-4 md:pt-6 border-t border-primary-foreground/20 text-center text-xs text-primary-foreground/60">
           © 2026 UFO STEAM HUB. Усі права захищено.
         </div>
       </div>

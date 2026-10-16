@@ -1,10 +1,11 @@
+import { CourseGallery } from "@/components/CourseGallery";
 import { courses } from "@/lib/courses";
 import { SectionDecor } from "@/components/SectionDecor";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { ArrowRight, BookOpen, Star } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { openRegistration } from "@/components/RegistrationModal";
 import { Star4, Dot, Squiggle, BlobShape } from "@/components/Blobs";
@@ -26,6 +27,8 @@ export const Route = createFileRoute("/courses")({
 
 
 function CoursesPage() {
+  const hash = useRouterState({ select: (state) => state.location.hash });
+  const [selectedCourse, setSelectedCourse] = useState(courses[0].id);
   const [lightbox, setLightbox] = useState<{
     title: string;
     images: string[];
@@ -33,20 +36,14 @@ function CoursesPage() {
   } | null>(null);
 
   useEffect(() => {
-    const hash = window.location.hash.replace("#", "");
-    if (!hash) return;
-    const scroll = () => {
-      const el = document.getElementById(hash);
-      if (!el) return false;
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
-      return true;
-    };
-    if (!scroll()) {
-      const t = setTimeout(scroll, 300);
-      return () => clearTimeout(t);
-    }
-  }, []);
+    const id = hash.replace(/^#/, "");
+    if (!courses.some((course) => course.id === id)) return;
+    setSelectedCourse(id);
+    const frame = requestAnimationFrame(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "instant", block: "start" });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [hash]);
 
   const openLightbox = (title: string, images: string[], index: number) => {
     setLightbox({ title, images, index });
@@ -88,206 +85,49 @@ function CoursesPage() {
         <AnimatedSection delay={0.1} className="relative mx-auto max-w-3xl px-4 mt-8">
           <div className="flex flex-wrap justify-center gap-2">
             {courses.map((c) => (
-              <a
+              <Link
                 key={c.id}
-                href={`#${c.id}`}
-                className="rounded-full bg-card border border-border px-4 py-1.5 text-sm font-semibold text-foreground hover:bg-ufo-yellow hover:text-primary transition-colors"
+                to="/courses"
+                hash={c.id}
+                data-selected={selectedCourse === c.id}
+                className="inline-flex min-h-11 items-center rounded-full bg-card border border-border px-4 py-1.5 text-sm font-semibold text-foreground hover:bg-ufo-yellow hover:text-primary transition-colors"
               >
                 {c.title}
-              </a>
+              </Link>
             ))}
           </div>
         </AnimatedSection>
       </section>
 
-      <div className="section-art bg-background">
+      <div className="section-art parent-section">
         <SectionDecor tone="mint" />
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-14 md:py-20 space-y-10 md:space-y-16">
-          {courses.map((course, i) => {
-            const gallery = course.gallery ?? [];
-            const [main, ...rest] = gallery;
-
-            return (
-              <AnimatedSection key={course.id} delay={0.04}>
-                <section
-                  id={course.id}
-                  className={`scroll-mt-2 rounded-3xl bg-card border border-border border-l-4 ${course.color} shadow-sm shadow-ufo-yellow/10 hover:shadow-xl transition-shadow overflow-hidden`}
-                >
-                  <div
-                    className={`grid gap-6 p-5 sm:p-7 md:p-8 md:grid-cols-2 md:gap-10 items-start ${
-                      i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
-                    }`}
-                  >
-                    {/* Gallery */}
-                    <div className="order-2 md:order-none">
-                      {gallery.length ? (
-                        <>
-                          {/* mobile: swipe row */}
-                          <div className="md:hidden -mx-1 flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-2">
-                            {gallery.map((src, n) => (
-                              <button
-                                key={`m-${course.id}-${n}`}
-                                type="button"
-                                onClick={() => openLightbox(course.title, gallery, n)}
-                                className="h-44 w-[78%] shrink-0 snap-center overflow-hidden rounded-2xl border border-border bg-muted"
-                                aria-label={`Відкрити фото ${n + 1} курсу ${course.title}`}
-                              >
-                                <ResponsiveImage
-                                  src={src}
-                                  alt={`${course.title} фото ${n + 1}`}
-                                  className="h-full w-full object-cover"
-                                  loading="lazy"
-                                  decoding="async"
-                                />
-                              </button>
-                            ))}
-                          </div>
-
-                          {/* desktop: one big + small column */}
-                          <div className="hidden md:grid grid-cols-3 gap-3">
-                            <button
-                              type="button"
-                              onClick={() => openLightbox(course.title, gallery, 0)}
-                              className="group col-span-2 h-64 overflow-hidden rounded-2xl border border-border bg-muted focus:outline-none focus:ring-2 focus:ring-primary"
-                              aria-label={`Відкрити фото 1 курсу ${course.title}`}
-                            >
-                              <ResponsiveImage
-                                src={main} sizes="(min-width: 1024px) 360px, 40vw"
-                                alt={`${course.title} фото 1`}
-                                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                loading="lazy"
-                                decoding="async"
-                              />
-                            </button>
-
-                            <div className="flex h-64 flex-col gap-3">
-                              {rest.slice(0, 2).map((src, n) => (
-                                <button
-                                  key={`d-${course.id}-${n}`}
-                                  type="button"
-                                  onClick={() => openLightbox(course.title, gallery, n + 1)}
-                                  className="group min-h-0 flex-1 overflow-hidden rounded-2xl border border-border bg-muted focus:outline-none focus:ring-2 focus:ring-primary"
-                                  aria-label={`Відкрити фото ${n + 2} курсу ${course.title}`}
-                                >
-                                  <ResponsiveImage
-                                    src={src}
-                                    alt={`${course.title} фото ${n + 2}`}
-                                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                    loading="lazy"
-                                    decoding="async"
-                                  />
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-                        </>
-                      ) : (
-                        <p className="text-sm text-muted-foreground">
-                          Фото для цього курсу скоро з’являться.
-                        </p>
-                      )}
-                    </div>
-
-                    {/* Content */}
-                    <div className="order-1 md:order-none min-w-0">
-                      <div className="flex items-start gap-3">
-                        <div className={`${course.iconBg} rounded-xl p-2.5 shrink-0`}>
-                          <course.icon className={`h-6 w-6 md:h-7 md:w-7 ${course.iconColor}`} />
-                        </div>
-                        <div className="min-w-0">
-                          <h2 className="text-xl md:text-2xl font-semibold text-foreground">
-                            {course.title}
-                          </h2>
-                          <div className="mt-2 flex flex-wrap items-center gap-2">
-                            <span className="text-xs font-semibold text-primary bg-primary/10 rounded-full px-3 py-0.5">
-                              {course.age}
-                            </span>
-                            <span className="text-xs font-semibold text-ufo-green bg-ufo-green/10 rounded-full px-3 py-0.5">
-                              {course.price}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <p className="mt-4 text-sm md:text-base text-muted-foreground">
-                        {course.desc}
-                      </p>
-                      <p className="mt-2 text-sm text-muted-foreground">
-                        {course.details}
-                      </p>
-
-                      <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                        <div className="rounded-2xl bg-ufo-yellow/10 p-4">
-                          <div className="flex items-center gap-2 mb-2">
-                            <BookOpen className="h-4 w-4 text-primary shrink-0" />
-                            <h3 className="text-sm font-bold text-foreground">Що робимо</h3>
-                          </div>
-                          <ul className="space-y-1.5">
-                            {course.plan.map((step, idx) => (
-                              <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                                <span className="shrink-0 mt-0.5 w-4 h-4 rounded-full bg-ufo-yellow text-primary text-[10px] flex items-center justify-center font-bold">
-                                  {idx + 1}
-                                </span>
-                                {step}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        <div className="rounded-2xl bg-ufo-green/10 p-4">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Star className="h-4 w-4 text-ufo-green shrink-0" />
-                            <h3 className="text-sm font-bold text-foreground">Особливості</h3>
-                          </div>
-                          <ul className="space-y-1.5">
-                            {course.features.map((feat, idx) => (
-                              <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                                <span className="shrink-0 text-ufo-green mt-0.5">✓</span>
-                                {feat}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-
-                      <button
-                        type="button"
-                        onClick={() =>
-                          openRegistration({
-                            registrationType: "course",
-                            sourcePage: "Сторінка курсів",
-                            title: `Запис на пробний урок — ${course.title}`,
-                            program: course.title,
-                            age: course.age,
-                          })
-                        }
-                        className="mt-6 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-ufo-yellow px-6 py-3 font-semibold text-primary shadow-lg hover:shadow-xl transition-all"
-                      >
-                        Хочу спробувати <ArrowRight className="h-4 w-4" />
-                      </button>
-                    </div>
+        <div className="mx-auto max-w-6xl space-y-5 px-4 sm:px-6 md:space-y-8">
+          <p className="text-sm text-muted-foreground">Оберіть напрям угорі — нижче його вік, ціна, фото та програма.</p>
+          {courses.filter((course) => course.id === selectedCourse).map((course) => (
+            <section key={course.id} id={course.id} className={`course-overview scroll-mt-2 rounded-3xl border-2 border-l-4 ${course.color} bg-card`}>
+              <div className="course-overview__heading">
+                <div className="flex items-center gap-3"><div className={`${course.iconBg} rounded-xl p-2.5 text-primary`}><course.icon className="h-6 w-6" /></div><h2 className="text-xl md:text-2xl">{course.title}</h2></div>
+                <div className="mt-3 flex flex-wrap gap-2"><span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary">{course.age}</span><span className="rounded-full bg-ufo-yellow/50 px-3 py-1 text-xs font-bold text-primary">{course.price}</span></div>
+              </div>
+              <div className="grid gap-4 px-4 pb-4 md:grid-cols-2 md:gap-6 md:px-6 md:pb-6">
+                <CourseGallery title={course.title} images={course.gallery} onOpen={(index) => openLightbox(course.title, course.gallery, index)} />
+                <div className="min-w-0">
+                  <p className="text-sm leading-relaxed text-muted-foreground">{course.desc}</p>
+                  <details className="parent-details mt-3">
+                    <summary>Програма та особливості</summary>
+                    <p>{course.details}</p>
+                    <h3 className="mt-3 text-sm">Що робимо</h3><ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-muted-foreground">{course.plan.map((step) => <li key={step}>{step}</li>)}</ul>
+                    <h3 className="mt-3 text-sm">Особливості</h3><ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-muted-foreground">{course.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>
+                  </details>
+                  <div className="mt-4 flex flex-wrap items-center gap-3">
+                    <button type="button" onClick={() => openRegistration({ registrationType: "course", sourcePage: "Сторінка курсів", title: `Запис на пробний урок — ${course.title}`, program: course.title, age: course.age })} className="parent-button bg-ufo-yellow text-primary">Записатися <ArrowRight className="h-4 w-4" /></button>
+                    <Link to="/schedule" className="inline-flex min-h-11 items-center text-sm font-semibold text-primary underline underline-offset-4">Переглянути розклад</Link>
                   </div>
-                </section>
-              </AnimatedSection>
-            );
-          })}
+                </div>
+              </div>
+            </section>
+          ))}
         </div>
-
-        <AnimatedSection className="text-center pb-20 px-4">
-          <button
-            type="button"
-            onClick={() =>
-              openRegistration({
-                registrationType: "general",
-                sourcePage: "Сторінка курсів",
-                title: "Загальна заявка на пробний урок",
-              })
-            }
-            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-ufo-yellow px-8 py-3.5 font-semibold text-primary shadow-lg hover:shadow-xl hover:scale-105 transition-all"
-          >
-            Хочу спробувати <ArrowRight className="h-4 w-4" />
-          </button>
-        </AnimatedSection>
       </div>
 
       <Dialog open={!!lightbox} onOpenChange={(open) => !open && setLightbox(null)}>
@@ -346,7 +186,7 @@ function CoursesPage() {
                       <ResponsiveImage
                         src={src}
                         alt={`${lightbox.title} мініатюра ${n + 1}`}
-                        className="h-full w-full object-cover"
+                        className="h-full w-full object-contain"
                         loading="lazy"
                         decoding="async"
                       />

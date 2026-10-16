@@ -1,3 +1,4 @@
+import { MobileNav } from "@/components/MobileNav";
 import { Outlet, Link, createRootRoute, HeadContent, Scripts, useRouterState } from "@tanstack/react-router";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -73,13 +74,15 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const isLinksPage = useRouterState({ select: (state) => state.location.pathname === "/links" });
+  const showMobileNav = useRouterState({ select: (state) => !["/links", "/auth"].includes(state.location.pathname) && !state.location.pathname.startsWith("/admin") });
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className={`flex min-h-screen flex-col ${showMobileNav ? "with-mobile-nav" : ""}`}>
       {!isLinksPage && <Header />}
       <main className="flex-1">
         <Outlet />
       </main>
       {!isLinksPage && <Footer />}
+      {showMobileNav && <MobileNav />}
       <RegistrationModal />
       <ScrollToTop />
       <Toaster />

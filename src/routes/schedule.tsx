@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { SectionDecor } from "@/components/SectionDecor";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AnimatedSection } from "@/components/AnimatedSection";
@@ -299,6 +300,7 @@ const days = [
 ];
 
 function SchedulePage() {
+  const [selectedDay, setSelectedDay] = useState(days.find((day) => slots.some((slot) => slot.day === day)) ?? days[0]);
   return (
     <>
       <section className="page-intro relative overflow-hidden bg-ufo-cream py-16 text-center md:py-28">
@@ -341,7 +343,8 @@ function SchedulePage() {
       <section className="section-art bg-background py-12 md:py-20">
         <SectionDecor tone="mint" side="right" />
         <div className="mx-auto max-w-5xl space-y-8 px-4 sm:px-6 md:space-y-10 lg:px-8">
-          {days.map((day, dayIdx) => {
+          <div className="day-picker" role="group" aria-label="Оберіть день занять">{days.map((day) => <button key={day} type="button" aria-pressed={day === selectedDay} onClick={() => setSelectedDay(day)}>{day}</button>)}</div>
+          {days.filter((day) => day === selectedDay).map((day, dayIdx) => {
             const daySlots = slots.filter((slot) => slot.day === day);
 
             return (

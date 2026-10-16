@@ -1,3 +1,4 @@
+import { courses } from "@/lib/courses";
 import { SectionDecor } from "@/components/SectionDecor";
 
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -62,39 +63,12 @@ export const Route = createFileRoute("/links")({
 
 const navLinks = [
   { to: "/", label: "Головна", icon: Home },
-  { to: "/courses", label: "Курси", icon: BookOpen },
+  { to: "/courses", label: "Курси й ціни", icon: BookOpen },
   { to: "/camps", label: "Табори", icon: Tent },
   { to: "/schedule", label: "Розклад", icon: Calendar },
   { to: "/contacts", label: "Контакти", icon: Phone },
 ] as const;
 
-const courses = [
-  {
-    emoji: "🤖",
-    title: "Робототехніка",
-    desc: "Конструювання, програмування, MakerZoid і перші інженерні виклики.",
-  },
-  {
-    emoji: "🧊",
-    title: "3D-друк та моделювання",
-    desc: "Від ідеї до власної 3D-моделі та готового об'єкта.",
-  },
-  {
-    emoji: "🧠",
-    title: "MATH&mind",
-    desc: "Логіка, нестандартні задачі, головоломки й математичне мислення.",
-  },
-  {
-    emoji: "📐",
-    title: "Математика",
-    desc: "Підтягування шкільної програми, пояснення складного простими словами.",
-  },
-  {
-    emoji: "🎬",
-    title: "Анімація і мультиплікація",
-    desc: "Персонажі, історії, розкадрування та власні мультфільми.",
-  },
-];
 
 function LinksPage() {
   return (
@@ -103,7 +77,7 @@ function LinksPage() {
       <div className="mx-auto w-full max-w-lg space-y-8 px-4 pt-8 pb-10 sm:px-6 md:py-12">
 
         {/* Hero */}
-        <AnimatedSection className="links-intro relative rounded-[2rem] px-5 py-8 text-center">
+        <AnimatedSection className="links-intro relative rounded-[2rem] px-5 py-6 text-center">
           <Star4
             className="pointer-events-none absolute -left-1 -top-2 opacity-70"
             color="#f7df5d"
@@ -122,13 +96,12 @@ function LinksPage() {
             </span>
           </div>
 
-          <h1 className="mt-4 text-[1.85rem] leading-tight font-extrabold text-white md:text-3xl">
-            STEAM-простір для дітей у Кременчуці
+          <h1 className="mt-4 text-[1.5rem] leading-tight font-extrabold text-white md:text-3xl">
+            Заняття для дітей 7–14 років
           </h1>
 
           <p className="mt-3 text-sm leading-relaxed text-white/85">
-            Курси, табори, робототехніка, 3D-друк,
-            математика та творчі технології.
+            Кременчук · ТЦ «Лідер», каб. 208
           </p>
         </AnimatedSection>
 
@@ -172,11 +145,12 @@ function LinksPage() {
             {courses.map((course) => (
               <Link
                 to="/courses"
+                hash={course.id}
                 key={course.title}
                 className="flex gap-3 rounded-2xl border border-border/50 bg-white p-4 shadow-sm transition-colors hover:border-primary/30"
               >
                 <div className="shrink-0 text-2xl">
-                  {course.emoji}
+                  <course.icon className="h-6 w-6 text-primary" />
                 </div>
 
                 <div className="min-w-0">
@@ -185,7 +159,7 @@ function LinksPage() {
                   </h3>
 
                   <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                    {course.desc}
+                    {course.age} · {course.price.replace("Вартість: ", "")}
                   </p>
                 </div>
                 <ChevronRight className="ml-auto h-5 w-5 shrink-0 self-center text-primary" />

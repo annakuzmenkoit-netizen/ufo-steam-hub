@@ -1,15 +1,12 @@
-import { HomePrograms } from "@/components/HomePrograms";
-import { SectionDecor } from "@/components/SectionDecor";
-import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { AnimatedSection } from "@/components/AnimatedSection";
-import { Sparkles, ArrowRight, FlaskConical, Cpu, Wrench, Palette, Sigma, Star, ChevronDown } from "lucide-react";
-
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { BlobShape, Squiggle, Star4, Dot } from "@/components/Blobs";
+import { ArrowRight, CalendarDays, MapPin, Phone, Users, ShieldCheck, Lightbulb, HeartHandshake } from "lucide-react";
+import { HomePrograms } from "@/components/HomePrograms";
+import { ResponsiveImage } from "@/components/ResponsiveImage";
+import { EnrollmentAnnouncement } from "@/components/EnrollmentAnnouncement";
+import { SectionDecor } from "@/components/SectionDecor";
 import { openRegistration } from "@/components/RegistrationModal";
+import heroPhoto from "@/assets/groups.webp";
+import { courses } from "@/lib/courses";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -23,362 +20,72 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-import heroPhoto from "@/assets/main.webp";
-const HERO_PHOTO = heroPhoto;
-
-import groups from "@/assets/groups.webp";
-import steam from "@/assets/steam.webp";
-import future from "@/assets/future.webp";
-import space from "@/assets/space.webp";
-
-const features = [
-  { title: "Міні-групи", desc: "Для дітей 7–14 років, по 4–6 — увага кожному.", photo: groups },
-  { title: "Безпечне навчання", desc: "Комфортний простір та турботлива команда.", photo: space },
-  { title: "STEAM підхід", desc: "Наука, технології, мистецтво й проєкти — з сенсом.", photo: steam },
-  { title: "Навички майбутнього", desc: "Критичне мислення, креативність та командна робота.", photo: future },
+const benefits = [
+  { icon: Users, title: "4–6 дітей у групі", text: "Увага до кожної дитини." },
+  { icon: ShieldCheck, title: "Турботлива команда", text: "Комфортний простір для навчання." },
+  { icon: Lightbulb, title: "Навчання через практику", text: "Досліди, творчість і власні проєкти." },
+  { icon: HeartHandshake, title: "Допоможемо обрати", text: "Врахуємо вік та інтереси дитини." },
 ];
-
-const steamBlocks = [
-  { letter: "S", word: "Science", desc: "Дослідження та експерименти", icon: FlaskConical, bg: "bg-ufo-blue", text: "text-white" },
-  { letter: "T", word: "Technology", desc: "Сучасні технології та цифрові навички", icon: Cpu, bg: "bg-ufo-green", text: "text-white" },
-  { letter: "E", word: "Engineering", desc: "Конструювання та інженерне мислення", icon: Wrench, bg: "bg-ufo-pink", text: "text-white" },
-  { letter: "A", word: "Art", desc: "Творчість, дизайн і мистецтво", icon: Palette, bg: "bg-ufo-yellow", text: "text-primary" },
-  { letter: "M", word: "Mathematics", desc: "Логіка, числа та закономірності", icon: Sigma, bg: "bg-primary", text: "text-white" },
-];
-
-const blobA = "polygon(35% 5%, 65% 8%, 90% 25%, 95% 55%, 80% 85%, 50% 95%, 20% 88%, 5% 60%, 8% 30%)";
+const prices = courses.map((course) => Number(course.price.match(/\d+/)?.[0]));
 
 function HomePage() {
-  const scrollToPrograms = () => {
-    const el = document.getElementById("programs");
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
   return (
     <>
-      {/* Hero */}
-      <section className="home-hero relative overflow-hidden pt-10 pb-10 md:py-20">
-        <Star4 className="absolute top-6 left-4 md:top-10 md:left-6 opacity-90" color="#f7df5d" size={40} />
-        <Dot className="absolute top-24 left-1/3 opacity-80 hidden md:block" color="#f04770" size={18} />
-        <BlobShape className="absolute -bottom-10 -left-12 opacity-30" color="#17c590" size={220} />
-        <Squiggle className="absolute top-16 right-6 md:top-20 md:right-16 opacity-80" color="#f7df5d" size={90} />
-        <Star4 className="absolute bottom-16 right-1/4 opacity-80 hidden md:block" color="#f04770" size={36} />
-
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 items-center">
-            <div className="text-center lg:text-left">
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-ufo-yellow px-3 py-1 text-[11px] md:text-sm font-semibold text-primary mb-4 md:mb-6 shadow-md">
-                <Sparkles className="h-3 w-3 md:h-4 md:w-4 text-ufo-pink" />
-                <span className="md:hidden">UFO STEAM HUB · Кременчук</span>
-                <span className="hidden md:inline">UFO STEAM HUB — освітній центр у Кременчуці</span>
-              </div>
-              <h1 className="home-hero__title font-extrabold tracking-tight">
-                Освіта<br />на <span className="home-hero__highlight">дотик</span>
-              </h1>
-              <p className="mt-3 md:mt-6 max-w-lg mx-auto lg:mx-0 home-hero__description text-base leading-relaxed md:text-lg">
-                Діти 7–14 років відкривають науку, технології та мистецтво через гру та творчість.
-              </p>
-              <div className="mt-5 md:mt-8 flex flex-col sm:flex-row gap-3 md:gap-4 sm:justify-center lg:justify-start">
-                <button
-                  type="button"
-                  onClick={() => openRegistration()}
-                  className="brand-button min-h-12 rounded-full bg-ufo-yellow px-6 py-3 md:px-8 md:py-3.5 text-base font-bold text-primary inline-flex items-center justify-center gap-2"
-                >
-                  Хочу спробувати <ArrowRight className="h-4 w-4" />
-                </button>
-                <Link
-                  to="/courses"
-                  className="home-hero__secondary min-h-12 rounded-full border-2 px-6 py-3 md:px-8 md:py-3.5 text-base font-bold transition-colors text-center"
-                >
-                  Наші курси
-                </Link>
-              </div>
-              <div className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm font-medium text-white/90 lg:justify-start">
-                <span className="inline-flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-ufo-green" />7–14 років</span>
-                <span className="inline-flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-ufo-yellow" />Міні-групи 4–6 дітей</span>
-              </div>
+      <section className="home-hero parent-hero section-art">
+        <SectionDecor tone="sun" />
+        <div className="mx-auto grid max-w-6xl items-center gap-6 px-4 md:grid-cols-2 md:gap-10 sm:px-6">
+          <div>
+            <p className="mb-3 text-xs font-bold uppercase tracking-wider text-white/85">Кременчук · Для дітей 7–14 років</p>
+            <h1 className="home-hero__title">Освіта на <span className="home-hero__highlight">дотик</span></h1>
+            <p className="mt-4 max-w-lg text-sm leading-relaxed text-white/90 md:text-lg">Робототехніка, творчість і наукові відкриття. Допоможемо знайти заняття, на які дитина захоче повертатися.</p>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Link to="/courses" className="parent-button bg-ufo-yellow text-primary">Обрати курс <ArrowRight className="h-4 w-4" /></Link>
+              <button type="button" onClick={() => openRegistration()} className="parent-button border border-white/60 text-white">Допоможіть обрати</button>
             </div>
-
-            <div className="home-hero__photo relative mx-auto w-full max-w-[320px] sm:max-w-sm md:max-w-md aspect-[4/3] lg:aspect-square">
-              <div className="absolute inset-0 bg-ufo-yellow" style={{ clipPath: blobA }} />
-              <ResponsiveImage
-                src={HERO_PHOTO}
-                alt="Логотип UFO, створений із конструктора"
-                className="absolute inset-3 w-[calc(100%-1.5rem)] h-[calc(100%-1.5rem)] object-cover"
-                style={{ clipPath: blobA }}
-                loading="eager"
-                fetchPriority="high"
-                sizes="(min-width: 1024px) 448px, (min-width: 640px) 384px, 320px"
-                decoding="async"
-              />
-              <Star4 className="absolute -top-3 -right-3 md:-top-4 md:-right-4" color="#f7df5d" size={40} />
-              <Dot className="absolute -bottom-2 -left-2" color="#17c590" size={32} />
-            </div>
+            <p className="mt-4 text-xs text-white/85">Міні-групи 4–6 дітей · від {Math.min(...prices)} грн/місяць</p>
           </div>
-
-          {/* Mobile scroll-down cue */}
-          <div className="md:hidden flex justify-center mt-6">
-            <button
-              type="button"
-              onClick={scrollToPrograms}
-              aria-label="Прокрутити вниз"
-              className="h-11 w-11 rounded-full border border-white/40 text-white flex items-center justify-center"
-            >
-              <ChevronDown className="h-5 w-5" />
-            </button>
-          </div>
+          <figure className="hero-moment">
+            <ResponsiveImage src={heroPhoto} alt="Діти разом створюють проєкт на занятті UFO" loading="eager" fetchPriority="high" sizes="(min-width: 768px) 540px, 250px" className="h-full w-full object-contain" />
+            <figcaption>Справжні заняття. Власні відкриття.</figcaption>
+          </figure>
         </div>
       </section>
-
-      <div className="brand-ribbon" aria-label="STEAM: наука, технології, інженерія, мистецтво, математика">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-5 gap-y-2 px-4 py-4 text-xs font-bold sm:text-sm">
-          {["Наука", "Технології", "Інженерія", "Мистецтво", "Математика"].map((label) => (
-            <span key={label} className="inline-flex items-center gap-3"><Star className="h-3 w-3 shrink-0" fill="currentColor" />{label}</span>
-          ))}
-        </div>
-      </div>
-
-      {/* Mini-courses announcement — self-contained, no Lovable component dependency */}
-      <section aria-labelledby="mini-courses-heading" className="section-art relative overflow-hidden bg-ufo-cream py-12 md:py-20">
-        <SectionDecor tone="mint" side="right" />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto mb-8 max-w-3xl text-center md:mb-12">
-            <span className="inline-flex rounded-full bg-ufo-yellow px-4 py-2 text-xs font-bold text-primary shadow-sm md:text-sm">
-              Новий набір · Листопад 2026
-            </span>
-            <h2 id="mini-courses-heading" className="mt-4 text-3xl font-semibold text-foreground md:text-5xl">
-              Старт нових <span className="text-primary">мінікурсів!</span>
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-lg">
-              Чотири заняття, щоб спробувати новий напрям, створити власний проєкт і отримати яскраві враження.
-            </p>
-            <div className="mt-5 inline-flex flex-wrap items-center justify-center gap-2 rounded-2xl border-2 border-ufo-pink/30 bg-white px-4 py-3 shadow-sm">
-              <span className="text-xl font-extrabold text-ufo-pink md:text-2xl">−20%</span>
-              <span className="text-sm font-semibold text-foreground md:text-base">за запис до 31 жовтня 2026 року</span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-7">
-            <article className="feature-card flex h-full flex-col overflow-hidden rounded-3xl border-2 border-ufo-pink/40 bg-white p-6 shadow-md md:p-8">
-              <div className="mb-4 flex items-center justify-between gap-3">
-                <span className="rounded-full bg-ufo-pink/15 px-3 py-1 text-xs font-semibold text-foreground">Анімація</span>
-                <span className="text-4xl" aria-hidden="true">🎭</span>
-              </div>
-              <h3 className="text-2xl font-bold text-foreground md:text-3xl">Театр тіней</h3>
-              <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground md:text-base">
-                Діти вигадають власну історію, створять персонажів і декорації та оживлять їх за допомогою світла й тіней.
-              </p>
-              <div className="mt-5 space-y-2 rounded-2xl bg-ufo-pink/10 p-4 text-sm font-semibold text-foreground">
-                <p>📅 Старт: 12 листопада 2026, четвер</p>
-                <p>🕞 Час: 15:30</p>
-                <p>✨ Тривалість: 4 заняття</p>
-              </div>
-              <button
-                type="button"
-                onClick={() => openRegistration({
-                  registrationType: "course",
-                  sourcePage: "Головна — мінікурси",
-                  title: "Запис на мінікурс «Театр тіней»",
-                  program: "Театр тіней — анімація",
-                  date: "12.11.2026",
-                  time: "15:30",
-                  additionalInfo: "4 заняття. Знижка 20% за запис до 31.10.2026",
-                })}
-                className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-ufo-pink px-5 py-3 text-sm font-bold text-white shadow-sm transition-transform hover:scale-[1.02]"
-              >
-                Записатися на мінікурс <ArrowRight className="h-4 w-4" />
-              </button>
-            </article>
-
-            <article className="feature-card flex h-full flex-col overflow-hidden rounded-3xl border-2 border-ufo-green/40 bg-white p-6 shadow-md md:p-8">
-              <div className="mb-4 flex items-center justify-between gap-3">
-                <span className="rounded-full bg-ufo-green/15 px-3 py-1 text-xs font-semibold text-foreground">Робототехніка</span>
-                <span className="text-4xl" aria-hidden="true">🚀</span>
-              </div>
-              <h3 className="text-2xl font-bold text-foreground md:text-3xl">Космічна експедиція</h3>
-              <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground md:text-base">
-                Діти створюватимуть космічні конструкції, досліджуватимуть роботу механізмів і виконуватимуть цікаві інженерні завдання.
-              </p>
-              <div className="mt-5 space-y-2 rounded-2xl bg-ufo-green/10 p-4 text-sm font-semibold text-foreground">
-                <p>📅 Старт: 13 листопада 2026, п’ятниця</p>
-                <p>🕞 Час: 15:30</p>
-                <p>✨ Тривалість: 4 заняття</p>
-              </div>
-              <button
-                type="button"
-                onClick={() => openRegistration({
-                  registrationType: "course",
-                  sourcePage: "Головна — мінікурси",
-                  title: "Запис на мінікурс «Космічна експедиція»",
-                  program: "Космічна експедиція — робототехніка",
-                  date: "13.11.2026",
-                  time: "15:30",
-                  additionalInfo: "4 заняття. Знижка 20% за запис до 31.10.2026",
-                })}
-                className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-ufo-green px-5 py-3 text-sm font-bold text-white shadow-sm transition-transform hover:scale-[1.02]"
-              >
-                Записатися на мінікурс <ArrowRight className="h-4 w-4" />
-              </button>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      {/* Courses */}
-      <section id="programs" className="section-art relative py-12 md:py-20 bg-background overflow-hidden">
-        <SectionDecor tone="sun" side="left" />
-
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-6 md:mb-12">
-            <h2 className="text-2xl md:text-5xl font-semibold text-foreground">
-              Наші <span className="text-primary">програми</span>
-            </h2>
-            <p className="mt-2 md:mt-4 max-w-2xl mx-auto text-sm md:text-base text-muted-foreground">
-              Оберіть напрям, який зацікавить вашу дитину
-            </p>
-          </AnimatedSection>
-
+      <nav aria-label="Батькам: швидкий доступ" className="parent-shortcuts mx-auto grid max-w-6xl grid-cols-3 gap-2 px-4 sm:px-6">
+        <Link to="/courses"><span>Вік і вартість</span><ArrowRight className="h-4 w-4" /></Link>
+        <Link to="/schedule"><span>Розклад</span><CalendarDays className="h-4 w-4" /></Link>
+        <Link to="/contacts"><span>Як нас знайти</span><MapPin className="h-4 w-4" /></Link>
+      </nav>
+      <section id="programs" className="section-art parent-section">
+        <SectionDecor tone="mint" />
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="parent-section-heading"><h2>Знайдіть свій курс</h2><p>Вік і вартість — одразу на картці.</p></div>
           <HomePrograms />
         </div>
       </section>
-
-
-      {/* Why Us — real photos in blob frames */}
-      <section className="section-art relative py-12 md:py-20 bg-ufo-cream overflow-hidden">
-        <SectionDecor tone="rose" side="right" />
-
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-8 md:mb-14">
-            <h2 className="text-2xl md:text-5xl font-semibold text-foreground">
-              Що робить нас <span className="text-ufo-pink">особливими</span>
-            </h2>
-            <p className="mt-2 md:mt-4 max-w-2xl mx-auto text-sm md:text-base text-muted-foreground">
-              Місце, де діти навчаються цікаво, безпечно та з увагою до кожного.
-            </p>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8">
-            {features.map((f, i) => (
-              <AnimatedSection key={f.title} delay={i * 0.1}>
-                <div className="text-center">
-                  <div className="relative mx-auto w-24 h-24 md:w-40 md:h-40 mb-3 md:mb-5">
-                    <div className="absolute inset-0 bg-ufo-yellow shadow-md" style={{ clipPath: blobA }} />
-                    <ResponsiveImage
-                      src={f.photo}
-                      sizes="(min-width: 768px) 160px, 96px"
-                      alt={f.title}
-                      className="absolute inset-2 w-[calc(100%-1rem)] h-[calc(100%-1rem)] object-cover"
-                      style={{ clipPath: blobA }}
-                    />
-                  </div>
-                  <h3 className="font-semibold text-sm md:text-lg text-foreground">{f.title}</h3>
-                  <p className="mt-1 md:mt-2 text-xs md:text-sm text-muted-foreground">{f.desc}</p>
-                </div>
-              </AnimatedSection>
-            ))}
+      <section className="parent-section bg-ufo-yellow/20"><EnrollmentAnnouncement compact sourcePage="Головна — мінікурси" /></section>
+      <section className="parent-section section-art">
+        <SectionDecor tone="rose" side="left" />
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="parent-section-heading"><p className="parent-eyebrow">Батькам спокійно, дітям цікаво</p><h2>З увагою до дітей</h2></div>
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4">{benefits.map(({icon: Icon, title}) => <article key={title} className="benefit-card"><Icon className="mb-3 h-6 w-6 text-primary" /><h3 className="text-sm leading-snug">{title}</h3></article>)}</div>
+          <details className="parent-details mt-4"><summary>Що означає STEAM?</summary><p>Наука, технології, інженерія, мистецтво та математика — разом у практичних завданнях. Діти досліджують, конструюють і створюють власні проєкти.</p></details>
+        </div>
+      </section>
+      <section className="parent-section">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6">
+          <div className="parent-section-heading"><h2>Відповіді для батьків</h2></div>
+          <div className="space-y-3">
+            <details className="parent-details"><summary>Як записатися на заняття?</summary><p>Оберіть напрям і залиште заявку. Ми зв’яжемося, допоможемо з вибором та узгодимо деталі першого заняття.</p><button type="button" onClick={() => openRegistration()} className="parent-button mb-3 bg-ufo-yellow text-primary">Підібрати заняття <ArrowRight className="h-4 w-4" /></button></details>
+            <details className="parent-details"><summary>Для якого віку цей простір?</summary><p>Простір розрахований на дітей 7–14 років. Вік для кожної програми вказано на сторінці курсів.</p></details>
+            <details className="parent-details"><summary>Скільки коштують заняття?</summary><p>Вартість регулярних курсів — від {Math.min(...prices)} до {Math.max(...prices)} грн/місяць залежно від напряму. <Link to="/courses" className="font-semibold text-primary underline">Переглянути ціни</Link>.</p></details>
+            <details className="parent-details"><summary>Як дізнатися, чи підходить розклад?</summary><p>Перегляньте <Link to="/schedule" className="font-semibold text-primary underline">орієнтовний розклад</Link>. Час уточнимо під час запису — він залежить від формування груп.</p></details>
           </div>
         </div>
       </section>
-
-      {/* What is STEAM */}
-      <section className="section-art relative py-12 md:py-20 bg-ufo-yellow overflow-hidden">
-        <SectionDecor tone="blue" side="left" />
-
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-6 md:mb-14 max-w-3xl mx-auto">
-            <h2 className="text-2xl md:text-5xl font-semibold text-foreground">
-              Що таке <span className="text-primary">STEAM</span>?
-            </h2>
-            <p className="mt-2 md:mt-6 text-sm md:text-base text-muted-foreground leading-relaxed">
-              Підхід, що поєднує науку, технології, інженерію, мистецтво та математику.
-            </p>
-          </AnimatedSection>
-
-          {/* Mobile: compact list; Desktop: full cards */}
-          <div className="md:hidden grid grid-cols-1 gap-2">
-            {steamBlocks.map((block) => (
-              <div
-                key={block.letter}
-                className={`${block.bg} ${block.text} rounded-2xl px-4 py-3 flex items-center gap-3 shadow-sm`}
-              >
-                <span className="text-2xl font-semibold leading-none w-7 text-center shrink-0">{block.letter}</span>
-                <div className="min-w-0">
-                  <p className="text-sm font-semibold leading-tight">{block.word}</p>
-                  <p className="text-xs opacity-90 leading-tight mt-0.5">{block.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
-            {steamBlocks.map((block, i) => (
-              <AnimatedSection key={block.letter} delay={i * 0.08}>
-                <div
-                  className={`${block.bg} ${block.text} rounded-3xl p-6 h-full shadow-lg hover:shadow-2xl transition-shadow flex flex-col items-center text-center`}
-                >
-                  <div className="text-6xl font-semibold opacity-90 leading-none">{block.letter}</div>
-                  <div className="mt-3 inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-white/20">
-                    <block.icon className="h-6 w-6" />
-                  </div>
-                  <p className="mt-4 font-semibold text-lg">{block.word}</p>
-                  <p className="mt-2 text-sm opacity-90">{block.desc}</p>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-
-      {/* Map + Contact */}
-      <section className="section-art py-12 md:py-20 bg-ufo-cream">
-        <SectionDecor tone="mint" side="right" />
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-6 md:mb-12">
-            <h2 className="text-2xl md:text-5xl font-semibold text-foreground">
-              Де нас <span className="text-ufo-green">знайти</span>
-            </h2>
-            <p className="mt-2 md:mt-4 text-sm md:text-base text-muted-foreground">м. Кременчук, ТЦ "Лідер", каб. 208</p>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-            <AnimatedSection>
-              <div className="rounded-3xl overflow-hidden border-4 border-ufo-yellow shadow-xl h-64 md:h-80 lg:h-full lg:min-h-[400px]">
-                <iframe
-                  title="UFO STEAM HUB на карті"
-                  src="https://www.google.com/maps?q=%D0%A2%D0%A6+%D0%9B%D1%96%D0%B4%D0%B5%D1%80+%D0%9A%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D1%87%D1%83%D0%BA&output=embed"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
-            </AnimatedSection>
-            <AnimatedSection delay={0.1}>
-              <div className="rounded-3xl bg-card border-2 border-border p-7 shadow-md">
-                <h3 className="text-2xl font-semibold text-foreground">Залишились питання?</h3>
-                <p className="mt-2 text-muted-foreground">Напишіть нам — ми з радістю відповімо!</p>
-                <form className="mt-6 space-y-4" onSubmit={(e) => { e.preventDefault(); openRegistration(); }}>
-                  <div>
-                    <label className="text-sm font-medium text-foreground">Ім'я</label>
-                    <Input placeholder="Ваше ім'я" className="mt-1 rounded-xl" />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-foreground">Телефон</label>
-                    <Input placeholder="+380..." className="mt-1 rounded-xl" />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-foreground">Повідомлення</label>
-                    <Textarea placeholder="Ваше повідомлення" className="mt-1 rounded-xl" rows={4} />
-                  </div>
-                  <Button className="rounded-full bg-ufo-yellow hover:bg-ufo-yellow/90 text-primary px-8 py-6 font-semibold shadow-md hover:shadow-lg w-full sm:w-auto">
-                    Відправити
-                  </Button>
-                </form>
-              </div>
-            </AnimatedSection>
-          </div>
+      <section className="parent-section bg-ufo-yellow/20">
+        <div className="mx-auto flex max-w-6xl flex-col justify-between gap-4 px-4 sm:px-6 md:flex-row md:items-center">
+          <div><p className="parent-eyebrow">Поруч із вами</p><h2 className="text-2xl">Чекаємо у Кременчуці</h2><p className="mt-2 text-sm text-muted-foreground">ТЦ «Лідер», каб. 208</p></div>
+          <div className="flex flex-wrap gap-3"><a href="tel:+380960662604" className="parent-button bg-primary text-white"><Phone className="h-4 w-4" />Зателефонувати</a><Link to="/contacts" className="parent-button border border-primary text-primary">Адреса та контакти <MapPin className="h-4 w-4" /></Link></div>
         </div>
       </section>
     </>

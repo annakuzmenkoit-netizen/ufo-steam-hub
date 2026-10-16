@@ -16,12 +16,12 @@ const navLinks = [
 ];
 
 const mobileNavLinks = [
-  { to: "/about" as const, label: "Про нас" },
   { to: "/" as const, label: "Головна" },
   { to: "/courses" as const, label: "Курси" },
   { to: "/camps" as const, label: "Табори" },
   { to: "/schedule" as const, label: "Розклад" },
   { to: "/contacts" as const, label: "Контакти" },
+  { to: "/about" as const, label: "Про нас" },
   { to: "/links" as const, label: "Швидкі посилання", icon: Link2 },
 ];
 

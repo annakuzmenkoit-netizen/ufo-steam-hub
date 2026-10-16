@@ -1,11 +1,6 @@
-import { SectionDecor } from "@/components/SectionDecor";
+import { openRegistration } from "@/components/RegistrationModal";
 import { createFileRoute } from "@tanstack/react-router";
-import { AnimatedSection } from "@/components/AnimatedSection";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Star4, Dot, Squiggle, BlobShape } from "@/components/Blobs";
+import { Phone, Mail, MapPin, Clock, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/contacts")({
   head: () => ({
@@ -19,88 +14,24 @@ export const Route = createFileRoute("/contacts")({
   component: ContactsPage,
 });
 
-const contactInfo = [
-  { icon: Phone, label: "Телефон", value: "+380 (96) 066-26-04" },
-  { icon: Mail, label: "Email", value: "ufosteamhub@gmail.com" },
-  { icon: MapPin, label: "Адреса", value: "м. Кременчук, ТЦ Лідер, каб. 208" },
-  { icon: Clock, label: "Графік", value: "Пн–Пт: 14:00–19:00, Сб: 10:00–16:00" },
-];
-
 function ContactsPage() {
   return (
     <>
-      <section className="page-intro py-12 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
-        <Star4 className="absolute top-10 left-10" color="#f7df5d" size={50} />
-        <Dot className="absolute top-20 right-20" color="#f04770" size={20} />
-        <Squiggle className="absolute bottom-10 right-10 opacity-70" color="#17c590" size={130} />
-        <BlobShape className="absolute -bottom-12 -left-12 opacity-25" color="#3056dd" size={200} />
-        <AnimatedSection className="relative mx-auto max-w-3xl px-4">
-          <h1 className="text-3xl md:text-5xl font-bold text-foreground">Контакти</h1>
-          <p className="mt-6 text-lg text-muted-foreground">
-            Зв'яжіться з нами — ми з радістю відповімо на всі ваші питання!
-          </p>
-        </AnimatedSection>
-      </section>
-
-      <section className="section-art py-12 md:py-20 bg-background">
-        <SectionDecor tone="mint" side="right" />
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-            <AnimatedSection>
-              <h2 className="text-2xl font-bold text-foreground mb-6">Наші контакти</h2>
-              <div className="space-y-5">
-                {contactInfo.map((c) => (
-                  <div key={c.label} className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-ufo-yellow/20 flex items-center justify-center shrink-0">
-                      <c.icon className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">{c.label}</p>
-                      {c.label === "Телефон" ? (
-                        <a href="tel:+380960662604" className="inline-flex min-h-11 items-center text-sm text-primary underline underline-offset-4">{c.value}</a>
-                      ) : c.label === "Email" ? (
-                        <a href="mailto:ufosteamhub@gmail.com" className="inline-flex min-h-11 items-center break-all text-sm text-primary underline underline-offset-4">{c.value}</a>
-                      ) : <p className="text-sm leading-relaxed text-muted-foreground">{c.value}</p>}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-10 rounded-3xl overflow-hidden border-4 border-ufo-yellow shadow-xl">
-                <iframe
-                  title="UFO STEAM HUB на карті"
-                  src="https://maps.google.com/maps?q=%D0%A2%D0%A6%20%D0%9B%D1%96%D0%B4%D0%B5%D1%80%20%D0%9A%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D1%87%D1%83%D0%BA&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                  width="100%"
-                  height="400"
-                  className="h-72 sm:h-[400px]"
-                  style={{ border: 0, borderRadius: "24px" }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
-            </AnimatedSection>
-
-            <AnimatedSection delay={0.1}>
-              <h2 className="text-2xl font-bold text-foreground mb-6">Напишіть нам</h2>
-              <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
-                <div>
-                  <label className="text-sm font-medium text-foreground">Ім'я</label>
-                  <Input placeholder="Ваше ім'я" className="mt-1 rounded-xl" />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground">Телефон</label>
-                  <Input placeholder="+380..." className="mt-1 rounded-xl" />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground">Повідомлення</label>
-                  <Textarea placeholder="Ваше повідомлення" className="mt-1 rounded-xl" rows={5} />
-                </div>
-                <Button className="min-h-12 w-full rounded-full bg-ufo-yellow hover:bg-ufo-yellow/90 text-primary py-3 font-bold text-base shadow-md">
-                  Відправити
-                </Button>
-              </form>
-            </AnimatedSection>
+      <section className="page-intro text-center"><div className="mx-auto max-w-3xl px-4"><p className="parent-eyebrow !text-ufo-yellow">Будемо раді знайомству</p><h1 className="text-3xl md:text-5xl">Ми на <span>зв’язку</span></h1><p className="mt-3 text-sm md:text-lg">Допоможемо обрати заняття й уточнимо зручний час.</p></div></section>
+      <section className="parent-section">
+        <div className="mx-auto grid max-w-6xl gap-6 px-4 sm:px-6 md:grid-cols-2">
+          <div>
+            <h2 className="text-2xl">Як вам зручніше?</h2>
+            <a href="tel:+380960662604" className="contact-action mt-4"><span className="contact-action__icon"><Phone /></span><span><strong>Зателефонувати</strong><span>+380 (96) 066-26-04</span></span></a>
+            <a href="mailto:ufosteamhub@gmail.com" className="contact-action mt-3"><span className="contact-action__icon"><Mail /></span><span className="min-w-0"><strong>Написати на пошту</strong><span className="break-all">ufosteamhub@gmail.com</span></span></a>
+            <div className="mt-5 rounded-2xl bg-ufo-yellow/25 p-4"><h3 className="text-base">Хочете, щоб ми зв’язалися з вами?</h3><p className="mt-2 text-sm leading-relaxed text-muted-foreground">Залиште контакти й інтереси дитини у формі запису.</p><button type="button" onClick={() => openRegistration({ registrationType: "contact", sourcePage: "Контакти", title: "Допомога з вибором заняття" })} className="parent-button mt-3 bg-primary text-white">Залишити заявку <ArrowRight className="h-4 w-4" /></button></div>
+          </div>
+          <div className="rounded-3xl border-2 border-primary/15 bg-card p-4 sm:p-5">
+            <h2 className="text-2xl">Як нас знайти</h2>
+            <div className="mt-4 flex items-start gap-3"><MapPin className="h-5 w-5 shrink-0 text-primary" /><p className="text-sm leading-relaxed">м. Кременчук, ТЦ «Лідер», каб. 208</p></div>
+            <div className="mt-3 flex items-start gap-3"><Clock className="h-5 w-5 shrink-0 text-primary" /><p className="text-sm leading-relaxed">Пн–Пт: 14:00–19:00<br />Сб: 10:00–16:00</p></div>
+            <a href="https://www.google.com/maps/search/?api=1&query=%D0%A2%D0%A6+%D0%9B%D1%96%D0%B4%D0%B5%D1%80+%D0%9A%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D1%87%D1%83%D0%BA" target="_blank" rel="noopener noreferrer" className="parent-button mt-4 w-full bg-ufo-yellow text-primary">Відкрити маршрут у Google Maps <ArrowRight className="h-4 w-4" /></a>
+            <p className="mt-3 text-xs leading-relaxed text-muted-foreground">Перед першим візитом узгодьте час телефоном.</p>
           </div>
         </div>
       </section>

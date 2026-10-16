@@ -4,7 +4,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { Heart, Target, Eye, Users } from "lucide-react";
 import { Star4, Dot, Squiggle, BlobShape } from "@/components/Blobs";
-import ufoLogo from "@/assets/ufo-logo.webp";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -50,10 +49,6 @@ function AboutPage() {
         <BlobShape className="absolute -bottom-12 -left-12 opacity-25" color="#3056dd" size={200} />
 
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
-          {/* Logo placeholder */}
-          <div className="inline-block bg-white rounded-3xl p-5 shadow-lg ring-4 ring-ufo-yellow/40 mb-8">
-            <ResponsiveImage src={ufoLogo} sizes="96px" loading="eager" alt="UFO STEAM HUB Logo" className="h-20 md:h-24 w-auto object-contain" />
-          </div>
           <h1 className="text-3xl md:text-5xl font-semibold text-foreground">
             Про <span className="text-primary">нас</span>
           </h1>
@@ -67,15 +62,15 @@ function AboutPage() {
       <section className="section-art py-12 md:py-20 bg-background">
         <SectionDecor tone="mint" side="right" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-14">
+          <AnimatedSection className="text-center mb-6 md:mb-10">
             <h2 className="text-3xl font-bold text-foreground">Наші <span className="text-ufo-pink">цінності</span></h2>
           </AnimatedSection>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
             {values.map((v, i) => (
               <AnimatedSection key={v.title} delay={i * 0.1}>
-                <div className="rounded-2xl bg-card border border-border p-6 text-center h-full shadow-sm hover:shadow-lg transition-shadow">
-                  <div className="mx-auto w-14 h-14 rounded-2xl bg-ufo-yellow/30 flex items-center justify-center mb-4">
-                    <v.icon className="h-7 w-7 text-primary" />
+                <div className="rounded-2xl bg-card border border-border p-4 text-left h-full shadow-sm hover:shadow-lg transition-shadow">
+                  <div className="w-10 h-10 rounded-2xl bg-ufo-yellow/30 flex items-center justify-center mb-4">
+                    <v.icon className="h-5 w-5 text-primary" />
                   </div>
                   <h3 className="font-bold text-foreground">{v.title}</h3>
                   <p className="mt-2 text-sm text-muted-foreground">{v.desc}</p>
@@ -91,21 +86,17 @@ function AboutPage() {
         <SectionDecor tone="sun" side="left" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-14">
+          <AnimatedSection className="text-center mb-6 md:mb-10">
             <h2 className="text-3xl font-bold text-foreground">Наша <span className="text-ufo-green">команда</span></h2>
             <p className="mt-4 text-muted-foreground">Люди, які надихають дітей щодня</p>
           </AnimatedSection>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {team.map((t, i) => (
               <AnimatedSection key={t.name} delay={i * 0.1}>
-                <div className="rounded-3xl bg-card border-2 border-border p-6 text-center shadow-md hover:shadow-xl hover:-translate-y-1 transition-all h-full flex flex-col items-center">
-                  <div className="w-28 h-28 rounded-full overflow-hidden mb-4 ring-4 ring-ufo-yellow shadow-lg">
-                    <ResponsiveImage src={t.photo} sizes="112px" alt={t.name} className="w-full h-full object-cover" />
-                  </div>
-                  <h3 className="font-bold text-foreground text-lg">{t.name}</h3>
-                  <p className="mt-1 text-xs font-bold text-ufo-pink uppercase tracking-wide">{t.role}</p>
-                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{t.bio}</p>
-                </div>
+                <article className="team-card">
+                  <div className="team-card__photo"><ResponsiveImage src={t.photo} sizes="(min-width: 768px) 144px, 100px" alt={t.name} className="h-full w-full object-contain" /></div>
+                  <div className="min-w-0"><h3 className="text-lg">{t.name}</h3><p className="mt-1 text-xs font-semibold leading-relaxed text-primary">{t.role}</p><details className="mt-2 text-sm text-muted-foreground"><summary className="min-h-11 cursor-pointer py-2 font-semibold text-primary">Познайомитися</summary><p className="leading-relaxed">{t.bio}</p></details></div>
+                </article>
               </AnimatedSection>
             ))}
           </div>
