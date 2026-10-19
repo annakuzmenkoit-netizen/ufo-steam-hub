@@ -57,13 +57,13 @@ function HomePage() {
         <Link to="/schedule"><span>Розклад</span><CalendarDays className="h-4 w-4" /></Link>
         <Link to="/contacts"><span>Як нас знайти</span><MapPin className="h-4 w-4" /></Link>
       </nav>
+      <section className="parent-section bg-ufo-yellow/20"><EnrollmentAnnouncement compact sourcePage="Головна — мінікурси" /></section>
       <section id="programs" className="section-art parent-section">
         <SectionDecor tone="mint" />
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <HomePrograms />
         </div>
       </section>
-      <section className="parent-section bg-ufo-yellow/20"><EnrollmentAnnouncement compact sourcePage="Головна — мінікурси" /></section>
       <section className="parent-section section-art">
         <SectionDecor tone="rose" side="left" />
         <div className="mx-auto max-w-6xl px-4 sm:px-6">

@@ -124,6 +124,7 @@ export function HomePrograms() {
             );
           })}
         </div>
+      {!puzzle.solved && <p className="mt-3 text-center text-xs leading-relaxed text-muted-foreground">Псс… ці пазли приховують маленький космічний секрет <span aria-hidden="true">👽</span></p>}
       <p className="sr-only" aria-live="polite">{puzzle.announcement}</p>
       <div id="alien-puzzle-reward" role="status" className="alien-game__reward" hidden={!puzzle.solved}>
         {puzzle.solved && <><Gift className="h-8 w-8" aria-hidden="true" /><h3>Таємницю UFO розкрито!</h3><p>У нас є для вас подарунок! Зробіть скриншот і покажіть його в UFO STEAM HUB.</p></>}
