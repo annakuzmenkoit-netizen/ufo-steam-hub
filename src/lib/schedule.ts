@@ -24,17 +24,6 @@ export const slots: Slot[] = [
     accent: "border-l-ufo-blue",
   },
   {
-    id: "tue-2",
-    day: "Вівторок",
-    time: "16:00",
-    course: "STEAM-гурток",
-    age: "7–12 років",
-    description:
-      "Досліджуємо фізику, хімію, технології та інженерію через експерименти, конструювання і власні проєкти.",
-    color: "bg-ufo-green/15 text-ufo-green",
-    accent: "border-l-ufo-green",
-  },
-  {
     id: "tue-3",
     day: "Вівторок",
     time: "17:30",
