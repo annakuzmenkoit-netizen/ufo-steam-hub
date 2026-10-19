@@ -8,6 +8,7 @@ export type RegistrationType =
   | "contact";
 
 export type RegistrationContext = {
+  intent?: "inquiry";
   registrationType: RegistrationType;
   sourcePage: string;
   title?: string;
@@ -66,7 +67,7 @@ export function normalizeRegistrationContext(
 
 /** Builds the dynamic email subject, e.g. "[UFO] Заняття з розкладу — Робототехніка — П’ятниця 15:30". */
 export function buildRegistrationSubject(ctx: RegistrationContext): string {
-  const parts: string[] = [SUBJECT_TYPE_LABELS[ctx.registrationType]];
+  const parts: string[] = [ctx.intent === "inquiry" ? "Запит про мінікурс" : SUBJECT_TYPE_LABELS[ctx.registrationType]];
   const program = ctx.program ?? ctx.eventName;
   if (program) parts.push(program);
 
@@ -91,7 +92,7 @@ export function buildRegistrationEmailFields(
   meta: { url?: string; pathname?: string; submittedAt?: string } = {},
 ): Record<string, string> {
   const entries: [string, string | undefined][] = [
-    ["Тип заявки", REGISTRATION_TYPE_LABELS[ctx.registrationType]],
+    ["Тип заявки", ctx.intent === "inquiry" ? "Запит про мінікурс" : REGISTRATION_TYPE_LABELS[ctx.registrationType]],
     ["Джерело", "UFO STEAM HUB — сайт"],
     ["Сторінка сайту", ctx.sourcePage],
     ["Назва заявки", ctx.title],
@@ -133,7 +134,7 @@ export function currentPageMeta() {
 /** Rows for the "Ви записуєтесь на:" summary card. Empty values omitted. */
 export function summaryRows(ctx: RegistrationContext): { label: string; value: string }[] {
   const rows: [string, string | undefined][] = [
-    ["Тип заявки", REGISTRATION_TYPE_LABELS[ctx.registrationType]],
+    ["Тип заявки", ctx.intent === "inquiry" ? "Запит про мінікурс" : REGISTRATION_TYPE_LABELS[ctx.registrationType]],
     ["Програма", ctx.program ?? ctx.eventName],
     ["День", ctx.day],
     ["Дата", ctx.date],

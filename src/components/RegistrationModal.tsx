@@ -41,6 +41,7 @@ export function RegistrationModal() {
   const [childAge, setChildAge] = useState("");
   const [comment, setComment] = useState("");
   const [course, setCourse] = useState<string>("");
+  const isInquiry = context.intent === "inquiry";
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -98,7 +99,7 @@ export function RegistrationModal() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (submitting) return;
-    if (!childName.trim() || !childAge.trim() || !parentName.trim() || !phone.trim()) {
+    if ((!isInquiry && (!childName.trim() || !childAge.trim())) || !parentName.trim() || !phone.trim()) {
       setError("Заповніть, будь ласка, усі обов’язкові поля.");
       return;
     }
@@ -131,10 +132,10 @@ export function RegistrationModal() {
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       setSuccess(true);
-      toast.success("Заявку надіслано!");
+      toast.success(isInquiry ? "Запит надіслано!" : "Заявку надіслано!");
     } catch (err) {
       console.error("Registration submit failed", err);
-      setError("Не вдалося надіслати заявку. Ваші дані збережено у формі — перевірте з’єднання та спробуйте ще раз.");
+      setError(`Не вдалося надіслати ${isInquiry ? "запит" : "заявку"}. Ваші дані збережено у формі — перевірте з’єднання та спробуйте ще раз.`);
     } finally {
       setSubmitting(false);
     }
@@ -169,10 +170,10 @@ export function RegistrationModal() {
             <span className="h-2 w-2 rounded-full bg-ufo-green" /> UFO STEAM HUB
           </div>
           <DialogTitle className="text-xl font-semibold leading-tight text-primary sm:text-2xl">
-            {success ? "Заявку надіслано!" : "Запис на заняття"}
+            {success ? (isInquiry ? "Запит надіслано!" : "Заявку надіслано!") : (isInquiry ? "Дізнатися про мінікурс" : "Запис на заняття")}
           </DialogTitle>
           <DialogDescription className="text-sm leading-relaxed">
-            {success ? "Дякуємо за інтерес до наших занять." : "Залиште контакти — ми зателефонуємо й узгодимо деталі."}
+            {success ? "Дякуємо за інтерес до наших занять." : (isInquiry ? "Залиште контакти — розкажемо про програму та відповімо на запитання." : "Залиште контакти — ми зателефонуємо й узгодимо деталі.")}
           </DialogDescription>
           <DialogClose disabled={submitting} className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full bg-muted text-foreground transition-colors hover:bg-secondary disabled:opacity-40" aria-label="Закрити форму">
             <X className="h-5 w-5" />
@@ -222,15 +223,15 @@ export function RegistrationModal() {
               </fieldset>
 
               <fieldset disabled={submitting} className="min-w-0 space-y-4 disabled:opacity-70">
-                <legend className="mb-3 text-sm font-semibold text-foreground">Про дитину</legend>
+                <legend className="mb-3 text-sm font-semibold text-foreground">{isInquiry ? "Про дитину (необов’язково)" : "Про дитину"}</legend>
                 <div className="grid grid-cols-[minmax(0,1fr)_5.5rem] gap-3">
                   <div>
-                    <label htmlFor="registration-child" className="text-sm font-medium">Ім’я дитини <span aria-hidden="true">*</span></label>
-                    <Input id="registration-child" name="childName" autoComplete="section-child given-name" required maxLength={120} value={childName} onChange={(event) => setChildName(event.target.value)} placeholder="Ім’я" className="mt-1.5 h-12 rounded-xl" />
+                    <label htmlFor="registration-child" className="text-sm font-medium">Ім’я дитини {!isInquiry && <span aria-hidden="true">*</span>}</label>
+                    <Input id="registration-child" name="childName" autoComplete="section-child given-name" required={!isInquiry} maxLength={120} value={childName} onChange={(event) => setChildName(event.target.value)} placeholder="Ім’я" className="mt-1.5 h-12 rounded-xl" />
                   </div>
                   <div>
-                    <label htmlFor="registration-age" className="text-sm font-medium">Вік <span aria-hidden="true">*</span></label>
-                    <Input id="registration-age" name="childAge" type="number" inputMode="numeric" required min={2} max={18} step={1} value={childAge} onChange={(event) => setChildAge(event.target.value)} placeholder="Років" className="mt-1.5 h-12 rounded-xl" />
+                    <label htmlFor="registration-age" className="text-sm font-medium">Вік {!isInquiry && <span aria-hidden="true">*</span>}</label>
+                    <Input id="registration-age" name="childAge" type="number" inputMode="numeric" required={!isInquiry} min={2} max={18} step={1} value={childAge} onChange={(event) => setChildAge(event.target.value)} placeholder="Років" className="mt-1.5 h-12 rounded-xl" />
                   </div>
                 </div>
                 {needsCourseSelect && (
@@ -259,9 +260,9 @@ export function RegistrationModal() {
           ) : (
             <>
               <Button type="submit" form="registration-form" disabled={submitting} className="h-12 w-full gap-2 rounded-full bg-ufo-yellow text-base font-semibold text-primary hover:bg-ufo-yellow/90">
-                {submitting ? <><Loader2 className="h-4 w-4 animate-spin" /> Надсилаємо…</> : <>Надіслати заявку <ArrowRight className="h-4 w-4" /></>}
+                {submitting ? <><Loader2 className="h-4 w-4 animate-spin" /> Надсилаємо…</> : <>{isInquiry ? "Надіслати запит" : "Надіслати заявку"} <ArrowRight className="h-4 w-4" /></>}
               </Button>
-              <p className="mt-2 flex items-center justify-center gap-1.5 text-xs text-muted-foreground"><Phone className="h-3 w-3" /> Підтвердимо запис телефоном</p>
+              <p className="mt-2 flex items-center justify-center gap-1.5 text-xs text-muted-foreground"><Phone className="h-3 w-3" /> {isInquiry ? "Зв’яжемося й відповімо на запитання" : "Підтвердимо запис телефоном"}</p>
             </>
           )}
         </div>
