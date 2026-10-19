@@ -5,7 +5,7 @@ import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { createFileRoute, Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 
 import { openRegistration } from "@/components/RegistrationModal";
 import { Star4, Dot, Squiggle, BlobShape } from "@/components/Blobs";
@@ -67,7 +67,7 @@ function CoursesPage() {
 
   return (
     <>
-      <section className="page-intro py-12 md:py-28 bg-ufo-cream text-center relative overflow-hidden">
+      <section className="page-intro course-page-intro text-center relative overflow-hidden">
         <Star4 className="absolute top-10 left-10" color="#f7df5d" size={50} />
         <Dot className="absolute top-24 right-20" color="#f04770" size={20} />
         <Squiggle className="absolute bottom-10 right-10 opacity-70" color="#17c590" size={130} />
@@ -83,19 +83,22 @@ function CoursesPage() {
         </AnimatedSection>
 
         <AnimatedSection delay={0.1} className="relative mx-auto max-w-3xl px-4 mt-8">
-          <div className="flex flex-wrap justify-center gap-2">
+          <nav className="course-lego-menu" aria-label="Оберіть курс">
             {courses.map((c) => (
               <Link
                 key={c.id}
                 to="/courses"
                 hash={c.id}
+                activeOptions={{ includeHash: true }}
                 data-selected={selectedCourse === c.id}
-                className="inline-flex min-h-11 items-center rounded-lg bg-card border border-border px-4 py-1.5 text-sm font-semibold text-foreground hover:bg-ufo-yellow hover:text-primary transition-colors"
+                aria-current={selectedCourse === c.id ? "true" : undefined}
+                className={`course-lego course-lego--${c.id}`}
               >
-                {c.title}
+                <span>{c.title}</span>
+                {selectedCourse === c.id && <Check className="course-lego__check" aria-hidden="true" />}
               </Link>
             ))}
-          </div>
+          </nav>
         </AnimatedSection>
       </section>
 
