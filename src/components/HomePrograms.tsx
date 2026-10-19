@@ -1,5 +1,3 @@
-import { containedImageSizes } from "@/lib/contained-image-sizes";
-import { imageSources } from "@/lib/image-sources";
 import { useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
@@ -64,7 +62,6 @@ export function HomePrograms() {
         }}
       >
         {courses.map((course, index) => {
-          // Portraits stay whole in a portrait-sized area, without cutting off faces.
           const photo = course.id === "math" ? course.gallery[1] : course.gallery[0];
           return (
             <article key={course.id} id={`home-program-${course.id}`} className={`program-card program-card--${course.id}`} data-selected={selected === index} role="group" aria-roledescription="слайд" aria-label={`${index + 1} із ${courses.length}: ${course.title}`}>
@@ -78,7 +75,7 @@ export function HomePrograms() {
                 <span className="program-card__price">{course.price.replace("Вартість: ", "")} </span>
               </div>
               <div className="program-card__photo">
-                <ResponsiveImage src={photo} alt={`Заняття: ${course.title}`} sizes={containedImageSizes(imageSources[photo], 210, 230, 360)} className="h-full w-full object-contain" />
+                <ResponsiveImage src={photo} alt={`Заняття: ${course.title}`} sizes="(min-width: 1280px) 340px, (min-width: 1024px) 30vw, (min-width: 640px) 44vw, 84vw" className="h-full w-full object-cover" />
                 <Link to="/courses" hash={course.id} hashScrollIntoView={{ behavior: "instant", block: "start" }} onFocus={() => { programmaticSelection.current = index; setSelected(index); }} className="program-card__photo-link" aria-label={`Про курс: ${course.title}`}>Детальніше <ArrowUpRight className="h-4 w-4" /></Link>
               </div>
             </article>
