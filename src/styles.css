@@ -387,23 +387,25 @@ main h3 { font-weight: 600; }
 
 main .font-bold, main .font-extrabold { font-weight: 600; }
 
-/* Tilted course highlights echo the hero's “дотик” accent. */
+/* Small puzzle pieces reveal one shared-width detail panel per row. */
 .program-discovery__heading { margin-bottom: 1.5rem; font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.2; }
-.program-notes { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; padding: 0.375rem; }
-.program-note { --note-color: var(--primary); --note-ink: white; --note-tilt: -1.5deg; min-width: 0; }
+.program-notes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem 0.625rem; padding: 0.375rem; }
+.program-note { --note-color: var(--primary); --note-ink: white; --note-tilt: -1.5deg; display: contents; }
 .program-note:nth-child(even) { --note-tilt: 1.25deg; }
 .program-note--robotics, .program-note--3d-modeling { --note-color: var(--ufo-green); }
 .program-note--animation { --note-color: var(--ufo-pink); }
 .program-note--math-mind { --note-color: var(--ufo-yellow); --note-ink: var(--primary); }
-.program-note h3 { position: relative; z-index: 1; }
-.program-note__trigger { display: flex; width: 100%; min-height: 5rem; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.875rem 1.125rem; border-radius: 1rem; background: var(--note-color); color: var(--note-ink); text-align: left; rotate: var(--note-tilt); transition: rotate 160ms ease; }
+.program-note h3 { position: relative; min-width: 0; z-index: 1; grid-row: var(--puzzle-row); grid-column: var(--puzzle-column); }
+.program-note__trigger { position: relative; isolation: isolate; display: flex; width: 100%; height: 150px; align-items: center; justify-content: center; padding: 1.5rem 1rem 2rem; color: var(--note-ink); text-align: center; rotate: var(--note-tilt); transition: rotate 160ms ease; }
+.program-note__trigger::before { content: ""; position: absolute; z-index: -1; inset: 0; background: var(--note-color); mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 200' preserveAspectRatio='none'%3E%3Cpath d='M28 20H115C100-4 160-4 145 20H244Q260 20 260 36V80C284 65 284 125 260 110V164Q260 180 244 180H160C175 156 115 156 130 180H28Q12 180 12 164V115C36 130 36 70 12 85V36Q12 20 28 20Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat; }
+
 .program-note__trigger:hover, .program-note[data-open="true"] .program-note__trigger { rotate: 0deg; }
-.program-note__trigger:focus-visible { outline: 3px solid var(--primary); outline-offset: 5px; }
-.program-note__name { font-size: clamp(1.125rem, 4.8vw, 1.75rem); font-weight: 600; line-height: 1.2; letter-spacing: -0.035em; overflow-wrap: anywhere; }
-.program-note__age { display: block; margin-top: 0.375rem; font-size: 0.75rem; font-weight: 400; letter-spacing: 0; }
-.program-note__toggle { flex: none; width: 1.5rem; height: 1.5rem; transition: rotate 160ms ease; }
+.program-note__trigger:focus-visible { outline: 3px solid var(--primary); outline-offset: 1px; border-radius: 1rem; }
+.program-note__name { font-size: clamp(0.8125rem, 3.5vw, 1.375rem); font-weight: 600; line-height: 1.2; letter-spacing: -0.035em; overflow-wrap: anywhere; }
+.program-note__age { display: block; margin-top: 0.375rem; font-size: 0.6875rem; font-weight: 400; letter-spacing: 0; }
+.program-note__toggle { position: absolute; bottom: 1.875rem; right: 1.375rem; width: 1rem; height: 1rem; transition: rotate 160ms ease; }
 .program-note[data-open="true"] .program-note__toggle { rotate: 45deg; }
-.program-note__details { margin-top: -0.75rem; padding: 1.75rem 1rem 1rem; border: 1px solid var(--border); border-radius: 0 0 1.25rem 1.25rem; background: var(--card); }
+.program-note__details { grid-column: 1 / -1; grid-row: calc(var(--puzzle-row) + 1); margin-bottom: 0.5rem; padding: 1rem; border: 1px solid var(--border); border-radius: 1.25rem; background: var(--card); }
 .program-note__details > p { font-size: 0.875rem; line-height: 1.6; color: var(--foreground); }
 .program-note__schedule { display: flex; min-height: 2.75rem; align-items: center; gap: 0.5rem; margin-block: 0.625rem; color: var(--primary); font-size: 0.75rem; line-height: 1.5; }
 .program-note__schedule > span { flex: 1; }
@@ -413,9 +415,11 @@ main .font-bold, main .font-extrabold { font-weight: 600; }
 .program-note__footer a { display: inline-flex; min-height: 2.75rem; align-items: center; gap: 0.375rem; padding: 0.5rem 0.875rem; border-radius: 999px; background: var(--ufo-yellow); color: var(--primary); font-weight: 600; }
 .program-note__footer a:hover { box-shadow: inset 0 0 0 1px var(--primary); }
 @media (min-width: 768px) {
-  .program-notes { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 1.75rem 2rem; padding: 0.5rem; }
-  .program-note__trigger { min-height: 6rem; padding: 1rem 1.5rem; }
-  .program-note__details { padding-inline: 1.5rem; }
+  .program-notes { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.625rem 1.25rem; }
+  .program-note h3 { grid-row: var(--puzzle-desktop-row); grid-column: var(--puzzle-desktop-column); }
+  .program-note__trigger { height: 180px; padding-inline: 2rem; }
+  .program-note__toggle { right: 2.5rem; bottom: 2.25rem; width: 1.25rem; height: 1.25rem; }
+  .program-note__details { grid-row: calc(var(--puzzle-desktop-row) + 1); padding: 1.25rem 1.5rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .program-note__trigger, .program-note__toggle { transition: none; }

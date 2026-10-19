@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Clock, Plus } from "lucide-react";
 import { slots } from "@/lib/schedule";
@@ -36,15 +36,20 @@ export function HomePrograms() {
     <div className="program-discovery">
       <h2 className="program-discovery__heading">Знайдіть свій курс</h2>
       <div className="program-notes">
-        {courses.map((course) => {
+        {courses.map((course, index) => {
           const open = expanded === course.id;
           const triggerId = `program-trigger-${course.id}`;
           const panelId = `program-details-${course.id}`;
           return (
-            <article key={course.id} className={`program-note program-note--${course.id}`} data-open={open}>
+            <article key={course.id} className={`program-note program-note--${course.id}`} data-open={open} style={{
+              "--puzzle-row": Math.floor(index / 2) * 2 + 1,
+              "--puzzle-column": index % 2 + 1,
+              "--puzzle-desktop-row": Math.floor(index / 3) * 2 + 1,
+              "--puzzle-desktop-column": index % 3 + 1,
+            } as CSSProperties}>
               <h3>
-                <button id={triggerId} type="button" className="program-note__trigger" aria-expanded={open} aria-controls={panelId} onClick={() => setExpanded(open ? null : course.id)}>
-                  <span className="program-note__name">{course.title}<span className="program-note__age">{course.age}</span></span>
+                <button id={triggerId} type="button" className="program-note__trigger" aria-label={`${course.title}, ${course.age}`} aria-expanded={open} aria-controls={panelId} onClick={() => setExpanded(open ? null : course.id)}>
+                  <span className="program-note__name">{course.id === "animation" ? "Анімація" : course.title}<span className="program-note__age">{course.age}</span></span>
                   <Plus className="program-note__toggle" aria-hidden="true" />
                 </button>
               </h3>
