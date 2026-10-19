@@ -410,8 +410,8 @@ main .font-bold, main .font-extrabold { font-weight: 600; }
   .program-note__trigger:hover { animation: none; rotate: 0deg; translate: 0 0; }
 }
 @keyframes puzzle-sway {
-  from { rotate: calc(var(--note-tilt) - 0.8deg); translate: 0 0; }
-  to { rotate: calc(var(--note-tilt) + 0.8deg); translate: 0 -2px; }
+  from { rotate: calc(var(--note-tilt) - 1.2deg); translate: 0 0; }
+  to { rotate: calc(var(--note-tilt) + 1.2deg); translate: 0 -2px; }
 }
 .program-note__trigger:focus-visible { outline: 3px solid var(--primary); outline-offset: 1px; border-radius: 1rem; }
 .program-note__name { font-size: clamp(1rem, 4.2vw, 1.75rem); font-weight: 600; line-height: 1.2; letter-spacing: -0.035em; overflow-wrap: anywhere; }
@@ -454,7 +454,7 @@ main .font-bold, main .font-extrabold { font-weight: 600; }
 /* A faint alien drawing hints at the optional puzzle game. */
 .program-discovery__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 1.25rem; }
 .program-discovery__top .program-discovery__heading { margin-bottom: 0; }
-.program-note__trigger::after { content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none; opacity: 0.055; background: var(--alien-art) var(--alien-mobile-x) var(--alien-mobile-y) / 200% 300% no-repeat; mask: var(--puzzle-mask) center / 100% 100% no-repeat; }
+.program-note__trigger::after { content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none; opacity: 0.1; background: var(--alien-art) var(--alien-mobile-x) var(--alien-mobile-y) / 200% 300% no-repeat; mask: var(--puzzle-mask) center / 100% 100% no-repeat; }
 .program-note--math-mind .program-note__trigger::after { filter: brightness(0.4) saturate(2); }
 .alien-game__reward { margin-top: 1rem; padding: 1.25rem; border: 2px solid var(--primary); border-radius: 1.25rem; background: var(--ufo-yellow); color: var(--primary); scroll-margin-block: 6rem; }
 .alien-game__reward h3 { margin-block: 0.5rem; font-size: 1.25rem; }
