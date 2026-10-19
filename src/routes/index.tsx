@@ -1,3 +1,4 @@
+import { SteamGears } from "@/components/SteamGears";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarDays, MapPin, Phone, Users, ShieldCheck, Lightbulb, HeartHandshake } from "lucide-react";
 import { HomePrograms } from "@/components/HomePrograms";
@@ -52,12 +53,14 @@ function HomePage() {
           </figure>
         </div>
       </section>
+      <div className="home-discovery-intro">
       <nav aria-label="Батькам: швидкий доступ" className="parent-shortcuts mx-auto grid max-w-6xl grid-cols-3 gap-2 px-4 sm:px-6">
         <Link to="/courses"><span>Наші курси</span><ArrowRight className="h-4 w-4" /></Link>
         <Link to="/schedule"><span>Розклад</span><CalendarDays className="h-4 w-4" /></Link>
         <Link to="/contacts"><span>Як нас знайти</span><MapPin className="h-4 w-4" /></Link>
       </nav>
       <section className="parent-section home-minicourses"><EnrollmentAnnouncement compact sourcePage="Головна — мінікурси" /></section>
+      </div>
       <section id="programs" className="section-art parent-section">
         <SectionDecor tone="mint" />
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -69,7 +72,7 @@ function HomePage() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="parent-section-heading"><p className="parent-eyebrow">Батькам спокійно, дітям цікаво</p><h2>З увагою до дітей</h2></div>
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4">{benefits.map(({icon: Icon, title}) => <article key={title} className="benefit-card"><Icon className="mb-3 h-6 w-6 text-primary" /><h3 className="text-sm leading-snug">{title}</h3></article>)}</div>
-          <details className="parent-details mt-4"><summary>Що означає STEAM?</summary><p>Наука, технології, інженерія, мистецтво та математика — разом у практичних завданнях. Діти досліджують, конструюють і створюють власні проєкти.</p></details>
+          <SteamGears />
         </div>
       </section>
       <section className="parent-section">

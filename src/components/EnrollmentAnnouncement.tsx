@@ -1,4 +1,5 @@
-import { ArrowUpRight, Calendar, Clock3, Film, Orbit, Rocket } from "lucide-react";
+import { useRef, useState } from "react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Calendar, Clock3, Film, Orbit, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { openRegistration } from "@/components/RegistrationModal";
 
@@ -46,6 +47,17 @@ const newGroups = [
 ];
 
 export function EnrollmentAnnouncement({ compact = false, sourcePage = "Тематичні мінікурси" }: { sourcePage?: string; compact?: boolean }) {
+  const rail = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+
+  function select(index: number) {
+    const viewport = rail.current;
+    const card = viewport?.children[index] as HTMLElement | undefined;
+    if (!viewport || !card) return;
+    setActive(index);
+    viewport.scrollTo({ left: card.offsetLeft, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+  }
+
   return (
     <section id="new-groups" aria-labelledby="new-groups-title" className="scroll-mt-24">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
@@ -57,11 +69,19 @@ export function EnrollmentAnnouncement({ compact = false, sourcePage = "Тема
           </div>
           <p className="minicourse-offer"><strong>−20%</strong><span>за бронювання<br />до 31 жовтня 2026</span></p>
         </div>
-        <div className={`mt-5 grid gap-4 ${compact ? "md:grid-cols-2" : "md:grid-cols-2 md:gap-6"}`}>
-          {newGroups.map((g) => (
+        <div className="minicourse-carousel" data-compact={compact}>
+        <div className="minicourse-rail" ref={rail} tabIndex={0} aria-label="Мінікурси: гортайте вбік" onScroll={event => {
+          const viewport = event.currentTarget;
+          setActive(viewport.scrollLeft > (viewport.scrollWidth - viewport.clientWidth) / 2 ? 1 : 0);
+        }} onKeyDown={event => {
+          if (event.target !== event.currentTarget) return;
+          if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); select(event.key === "ArrowRight" ? 1 : 0); }
+        }}>
+          {newGroups.map((g, index) => (
             <article key={g.id} id={g.id} className={`minicourse-card minicourse-card--${g.theme}`}>
               <div className="minicourse-card__banner">
                 <g.icon className="minicourse-card__art" aria-hidden="true" />
+                <div className="minicourse-card__ticket"><span>Мінікурс</span><span>UFO / 0{index + 1}</span></div>
                 <p>{g.category}</p>
                 <h3>{g.title}</h3>
               </div>
@@ -69,7 +89,9 @@ export function EnrollmentAnnouncement({ compact = false, sourcePage = "Тема
                 <div className="minicourse-card__when"><span><Calendar className="h-4 w-4" aria-hidden="true" />{g.start}</span><span><Clock3 className="h-4 w-4" aria-hidden="true" />{g.schedule}</span></div>
                 <p className="minicourse-card__intro">{g.description[0]}</p>
                 <details className="minicourse-card__more"><summary>Про мінікурс</summary><p>{g.description[1]}</p></details>
-                <p className="minicourse-card__price"><span>Вартість мінікурсу</span><strong>{g.price}</strong></p>
+              </div>
+              <div className="minicourse-card__stub">
+                <p className="minicourse-card__price"><span>Вартість</span><strong>{g.price}</strong></p>
                 <Button
                   type="button"
                   onClick={() =>
@@ -92,6 +114,13 @@ export function EnrollmentAnnouncement({ compact = false, sourcePage = "Тема
               </div>
             </article>
           ))}
+        </div>
+        <div className="minicourse-carousel__controls" role="group" aria-label="Оберіть мінікурс">
+          <button type="button" aria-label="Попередній мінікурс" disabled={active === 0} onClick={() => select(0)}><ArrowLeft className="h-5 w-5" /></button>
+          <div className="minicourse-carousel__positions">{newGroups.map((g, index) => <button key={g.id} type="button" aria-label={`Показати: ${g.title}`} aria-controls={g.id} aria-pressed={active === index} onClick={() => select(index)}><span /></button>)}</div>
+          <span className="sr-only" aria-live="polite">Мінікурс {active + 1} із 2</span>
+          <button type="button" aria-label="Наступний мінікурс" disabled={active === 1} onClick={() => select(1)}><ArrowRight className="h-5 w-5" /></button>
+        </div>
         </div>
       </div>
     </section>
