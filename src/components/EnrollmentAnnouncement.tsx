@@ -65,9 +65,8 @@ export function EnrollmentAnnouncement({ compact = false, sourcePage = "Тема
           <div>
             <p className="parent-eyebrow inline-flex items-center gap-2"><Rocket className="h-4 w-4" />Листопад 2026</p>
             <h2 id="new-groups-title">Набір на <span>мінікурси</span></h2>
-            <p className="minicourse-heading__intro">Оберіть мінікурс за інтересами дитини. Розкажемо деталі та відповімо на запитання.</p>
           </div>
-          <p className="minicourse-offer"><strong>−20%</strong><span>за бронювання<br />до 31 жовтня 2026</span></p>
+          <p className="minicourse-offer" aria-label="Знижка 20% за бронювання до 31 жовтня 2026"><strong>−20%</strong><span>за бронювання до 31 жовтня</span></p>
         </div>
         <div className="minicourse-carousel" data-compact={compact}>
         <div className="minicourse-rail" ref={rail} tabIndex={0} aria-label="Мінікурси: гортайте вбік" onScroll={event => {
@@ -77,21 +76,19 @@ export function EnrollmentAnnouncement({ compact = false, sourcePage = "Тема
           if (event.target !== event.currentTarget) return;
           if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); select(event.key === "ArrowRight" ? 1 : 0); }
         }}>
-          {newGroups.map((g, index) => (
+          {newGroups.map((g) => (
             <article key={g.id} id={g.id} className={`minicourse-card minicourse-card--${g.theme}`}>
               <div className="minicourse-card__banner">
                 <g.icon className="minicourse-card__art" aria-hidden="true" />
-                <div className="minicourse-card__ticket"><span>Мінікурс</span><span>UFO / 0{index + 1}</span></div>
                 <p>{g.category}</p>
                 <h3>{g.title}</h3>
               </div>
               <div className="minicourse-card__body">
                 <div className="minicourse-card__when"><span><Calendar className="h-4 w-4" aria-hidden="true" />{g.start}</span><span><Clock3 className="h-4 w-4" aria-hidden="true" />{g.schedule}</span></div>
-                <p className="minicourse-card__intro">{g.description[0]}</p>
                 <details className="minicourse-card__more"><summary>Про мінікурс</summary><p>{g.description[1]}</p></details>
               </div>
               <div className="minicourse-card__stub">
-                <p className="minicourse-card__price"><span>Вартість</span><strong>{g.price}</strong></p>
+                <p className="minicourse-card__price"><span className="sr-only">Вартість мінікурсу: </span><strong>{g.price}</strong></p>
                 <Button
                   type="button"
                   onClick={() =>
@@ -108,8 +105,9 @@ export function EnrollmentAnnouncement({ compact = false, sourcePage = "Тема
                     })
                   }
                   className="minicourse-card__button"
+                  aria-label={`Запитати про мінікурс: ${g.title}`}
                 >
-                  Запитати про мінікурс <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                  Запитати <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                 </Button>
               </div>
             </article>

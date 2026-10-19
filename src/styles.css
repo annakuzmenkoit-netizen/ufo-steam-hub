@@ -336,7 +336,6 @@ main h3 { font-weight: 600; }
 .parent-shortcuts a:nth-child(2) { background: var(--primary); color: white; }
 .parent-shortcuts a:nth-child(3) { background: var(--ufo-green); color: white; }
 .parent-shortcuts svg { flex: none; }
-.benefit-card { padding: 1rem; border: 1px solid var(--border); border-radius: 0.5rem; background: var(--card); }
 .parent-details { padding: 0.25rem 1rem; border: 1px solid var(--border); border-radius: 0.375rem; background: var(--card); color: var(--foreground); }
 .parent-details summary { min-height: 2.75rem; padding-block: 0.75rem; cursor: pointer; color: var(--primary); font-size: 0.875rem; font-weight: 600; }
 .parent-details > p { padding-bottom: 0.75rem; color: var(--muted-foreground); font-size: 0.875rem; line-height: 1.65; }
@@ -473,56 +472,35 @@ main .font-bold, main .font-extrabold { font-weight: 600; }
 .program-note__drag:active { cursor: grabbing; }
 .program-note__drag:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
 
-/* Minicourse enrollment: clear invitations with the existing brand colors. */
-.minicourse-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
-.minicourse-heading h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); line-height: 1.3; color: var(--primary); }
-.minicourse-heading h2 > span { display: inline-block; padding: 0.025em 0.2em 0.1em; border-radius: 0.1em; background: var(--ufo-yellow); rotate: -2deg; }
-.minicourse-heading__intro { max-width: 30rem; margin-top: 0.625rem; color: var(--muted-foreground); font-size: 0.875rem; line-height: 1.6; }
-.minicourse-offer { display: flex; flex: none; align-items: center; gap: 0.75rem; color: var(--primary); }
-.minicourse-offer strong { font-size: 1.75rem; font-weight: 600; letter-spacing: -0.05em; }
-.minicourse-offer > span { font-size: 0.6875rem; line-height: 1.5; }
-.minicourse-card { --mini-color: var(--primary); display: flex; min-width: 0; flex-direction: column; overflow: hidden; scroll-margin-top: 6rem; border: 1px solid color-mix(in oklch, var(--mini-color) 25%, white); border-radius: 0.625rem; background: var(--card); }
-.minicourse-card--green { --mini-color: var(--ufo-green); }
-.minicourse-card__banner { position: relative; overflow: hidden; padding: 1.125rem 1.25rem; background: var(--mini-color); color: white; }
-.minicourse-card__banner > p, .minicourse-card__banner h3 { position: relative; }
-.minicourse-card__banner > p { font-size: 0.6875rem; line-height: 1.5; }
-.minicourse-card__banner h3 { max-width: 95%; margin-top: 0.375rem; font-size: clamp(1.25rem, 3vw, 1.625rem); line-height: 1.25; color: white; }
-.minicourse-card__art { position: absolute; right: -0.5rem; bottom: -1rem; width: 6rem; height: 6rem; opacity: 0.15; rotate: -15deg; stroke-width: 1; }
-.minicourse-card__body { display: flex; flex: 1; flex-direction: column; padding: 1rem 1.25rem; }
-.minicourse-card__when { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; color: var(--primary); font-size: 0.6875rem; }
-.minicourse-card__when > span { display: inline-flex; align-items: center; gap: 0.375rem; }
-.minicourse-card__intro { margin-top: 0.875rem; font-size: 0.875rem; line-height: 1.5; color: var(--foreground); }
-.minicourse-card__more { margin-block: 0.25rem 0.75rem; color: var(--muted-foreground); font-size: 0.8125rem; }
-.minicourse-card__more summary { min-height: 2.75rem; padding-block: 0.75rem; cursor: pointer; color: var(--primary); }
-.minicourse-card__more > p { padding-bottom: 0.5rem; line-height: 1.6; }
-.minicourse-card__button { display: inline-flex; width: 100%; min-height: 2.75rem; align-items: center; justify-content: center; gap: 0.5rem; margin-top: auto; border-radius: 0.375rem; background: var(--ufo-yellow); color: var(--primary); font-size: 0.8125rem; font-weight: 600; }
-.minicourse-card__button:hover { background: var(--primary); color: white; }
-
-/* One backdrop connects the shortcut links and minicourses without a section seam. */
-.home-discovery-intro { background: linear-gradient(to bottom, var(--background) 0, color-mix(in oklch, var(--ufo-yellow) 16%, var(--background)) 6rem, color-mix(in oklch, var(--ufo-yellow) 16%, var(--background)) calc(100% - 5rem), var(--background) 100%); }
-.minicourse-card__price { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem; margin-top: auto; margin-bottom: 0.875rem; color: var(--primary); }
-.minicourse-card__price > span { font-size: 0.75rem; }
-.minicourse-card__price > strong { font-size: 1.25rem; font-weight: 600; white-space: nowrap; }
-.minicourse-card__button { margin-top: 0; }
-
-/* Minicourse tickets stay in one swipeable row at every screen size. */
-.minicourse-carousel { container-type: inline-size; margin-top: 1.25rem; }
-.minicourse-rail { position: relative; display: flex; align-items: stretch; gap: 1rem; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 0.25rem 0 0.5rem; }
+/* Compact minicourses use the site's flat cards and restrained brand accents. */
+.minicourse-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; }
+.minicourse-heading h2 { font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.3; color: var(--primary); }
+.minicourse-heading h2 > span { display: inline-block; padding: 0.025em 0.15em 0.08em; border-radius: 0.1em; background: var(--ufo-yellow); rotate: -2deg; }
+.minicourse-offer { display: flex; align-items: baseline; gap: 0.5rem; color: var(--primary); }
+.minicourse-offer strong { font-size: 1.125rem; font-weight: 600; }
+.minicourse-offer > span { font-size: 0.6875rem; }
+.minicourse-carousel { container-type: inline-size; margin-top: 0.875rem; }
+.minicourse-rail { position: relative; display: flex; align-items: stretch; gap: 0.875rem; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 0.25rem 0 0.5rem; }
 .minicourse-rail::-webkit-scrollbar { display: none; }
-.minicourse-rail .minicourse-card { flex: 0 0 86%; scroll-snap-align: start; border-radius: 0.375rem; mask-image: radial-gradient(circle at 0 calc(100% - 116px), transparent 7px, black 8px), radial-gradient(circle at 100% calc(100% - 116px), transparent 7px, black 8px); mask-composite: intersect; }
-.minicourse-card__banner { min-height: 140px; padding: 1rem 1.125rem; }
-.minicourse-card__banner h3 { max-width: 90%; font-size: clamp(1.375rem, 4cqi, 1.875rem); line-height: 1.15; }
-.minicourse-card__banner > p { margin-top: 0.875rem; }
-.minicourse-card__ticket { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgb(255 255 255 / 0.3); font-size: 0.625rem; letter-spacing: 0.08em; text-transform: uppercase; }
-.minicourse-card__art { width: 8rem; height: 8rem; opacity: 0.18; right: -0.75rem; bottom: -1.5rem; }
-.minicourse-card__body { padding: 1rem 1.125rem 0.5rem; }
-.minicourse-card__when { align-items: flex-start; flex-direction: column; gap: 0.5rem; }
-.minicourse-card__intro { font-size: 0.8125rem; }
-.minicourse-card__more { margin-bottom: 0; }
-.minicourse-card__stub { display: flex; min-height: 116px; height: 116px; flex: none; flex-direction: column; justify-content: space-between; gap: 0.5rem; padding: 0.875rem 1.125rem 1rem; border-top: 1px dashed color-mix(in oklch, var(--mini-color) 45%, white); background: color-mix(in oklch, var(--mini-color) 4%, white); }
-.minicourse-card__stub .minicourse-card__price { margin: 0; }
-.minicourse-card__stub .minicourse-card__price > span { font-size: 0.6875rem; }
-.minicourse-carousel__controls { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 0.375rem; }
+.minicourse-card { --mini-color: var(--primary); display: flex; flex: 0 0 86%; min-width: 0; flex-direction: column; overflow: hidden; scroll-snap-align: start; scroll-margin-top: 6rem; border: 1px solid var(--border); border-top: 3px solid var(--mini-color); border-radius: 0.375rem; background: var(--card); }
+.minicourse-card--green { --mini-color: var(--ufo-green); }
+.minicourse-card__banner { position: relative; padding: 0.75rem 0.875rem 0.5rem; }
+.minicourse-card__banner > p { padding-right: 1.5rem; color: var(--primary); font-size: 0.625rem; line-height: 1.5; }
+.minicourse-card__banner h3 { margin-top: 0.375rem; color: var(--primary); font-size: 1.125rem; line-height: 1.25; }
+.minicourse-card__art { position: absolute; right: 0.75rem; top: 0.625rem; width: 1.25rem; height: 1.25rem; color: var(--mini-color); }
+.minicourse-card__body { display: flex; flex: 1; flex-direction: column; padding: 0.25rem 0.875rem 0; }
+.minicourse-card__when { display: flex; flex-wrap: wrap; gap: 0.375rem 0.75rem; color: var(--muted-foreground); font-size: 0.6875rem; }
+.minicourse-card__when > span { display: inline-flex; align-items: center; gap: 0.375rem; }
+.minicourse-card__when svg { width: 0.8125rem; height: 0.8125rem; flex: none; }
+.minicourse-card__more { color: var(--muted-foreground); font-size: 0.8125rem; }
+.minicourse-card__more summary { min-height: 2.75rem; padding-block: 0.75rem; cursor: pointer; color: var(--primary); font-size: 0.75rem; }
+.minicourse-card__more > p { padding-bottom: 0.75rem; line-height: 1.6; }
+.minicourse-card__stub { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 0.5rem 0.875rem 0.75rem; }
+.minicourse-card__price { color: var(--primary); }
+.minicourse-card__price > strong { font-size: 1.125rem; font-weight: 600; white-space: nowrap; }
+.minicourse-card__button { display: inline-flex; min-height: 2.75rem; align-items: center; justify-content: center; gap: 0.375rem; padding-inline: 0.625rem; border-radius: 0.25rem; background: var(--ufo-yellow); color: var(--primary); font-size: 0.75rem; font-weight: 600; }
+.minicourse-card__button:hover { background: var(--primary); color: white; }
+.minicourse-carousel__controls { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 0.25rem; }
 .minicourse-carousel__controls > button { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 1px solid var(--primary); border-radius: 0.25rem; color: var(--primary); background: var(--card); }
 .minicourse-carousel__controls > button:disabled { opacity: 0.3; }
 .minicourse-carousel__positions { display: flex; }
@@ -530,33 +508,61 @@ main .font-bold, main .font-extrabold { font-weight: 600; }
 .minicourse-carousel__positions span { width: 2rem; height: 3px; background: color-mix(in oklch, var(--primary) 20%, white); }
 .minicourse-carousel__positions [aria-pressed="true"] span { background: var(--primary); }
 @container (min-width: 700px) {
-  .minicourse-rail .minicourse-card { flex-basis: calc((100% - 1rem) / 2); }
-  .minicourse-card__when { flex-direction: row; flex-wrap: wrap; gap: 0.5rem 1rem; }
+  .minicourse-card { flex-basis: calc((100% - 0.875rem) / 2); }
   .minicourse-carousel__controls { display: none; }
 }
 
-.minicourse-card__stub .minicourse-card__button { padding-inline: 0.5rem; font-size: 0.75rem; }
 .steam-gears { margin-top: 2rem; }
-.steam-gears__row { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 0.375rem; }
-.steam-gear { --gear-color: var(--primary); --gear-ink: white; flex: 0 0 calc((100% - 0.75rem) / 3); min-width: 0; text-align: center; }
+.steam-train { display: block; width: 100%; max-width: 900px; height: auto; margin-inline: auto; overflow: visible; }
+.steam-train__gear { --gear-color: var(--primary); --gear-ink: white; color: var(--gear-ink); cursor: pointer; outline: none; }
 .steam-gear--green { --gear-color: var(--ufo-green); }
 .steam-gear--pink { --gear-color: var(--ufo-pink); }
 .steam-gear--yellow { --gear-color: var(--ufo-yellow); --gear-ink: var(--primary); }
-.steam-gear__button { display: block; width: 100%; max-width: 210px; margin-inline: auto; color: var(--gear-ink); border-radius: 0.375rem; }
-.steam-gear__button svg { display: block; width: 100%; height: auto; overflow: visible; }
-.steam-gear__button:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
-.steam-gear__kick, .steam-gear__wheel { transform-origin: 64px 64px; }
-.steam-gear__wheel { animation: steam-turn 75s linear infinite; }
-.steam-gear__wheel--reverse { animation-direction: reverse; }
-.steam-gear__button:hover .steam-gear__wheel, .steam-gear__button:focus-visible .steam-gear__wheel { animation-play-state: paused; }
-.steam-gear > p { margin-top: 0.5rem; color: var(--primary); font-size: 0.8125rem; font-weight: 600; overflow-wrap: anywhere; }
-.steam-gear > span { display: block; max-width: 12rem; margin: 0.25rem auto 0; color: var(--muted-foreground); font-size: 0.6875rem; line-height: 1.5; }
+.steam-train__wheel { animation: steam-turn linear infinite; }
+.steam-train:has(.steam-train__gear:focus-visible) .steam-train__wheel { animation-play-state: paused; }
+@media (hover: hover) {
+  .steam-train:hover .steam-train__wheel { animation-play-state: paused; }
+}
+.steam-train__focus { opacity: 0; pointer-events: none; }
+.steam-train__gear:focus-visible .steam-train__focus { opacity: 1; }
+.steam-gears__caption { min-height: 2.75rem; margin-top: 0.75rem; color: var(--muted-foreground); text-align: center; font-size: 0.8125rem; line-height: 1.6; }
+.steam-gears__caption strong { color: var(--primary); font-weight: 600; }
 @keyframes steam-turn { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .steam-train__wheel { animation: none; }
+}
+
+.home-learning { padding-block: 1.25rem; border-block: 1px solid var(--border); }
+.home-learning > h2 { margin-bottom: 1.125rem; font-size: 1.25rem; line-height: 1.3; }
+.home-learning__items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+.home-learning__items h3 { display: flex; align-items: center; gap: 0.375rem; color: var(--foreground); font-size: 0.8125rem; line-height: 1.4; }
+.home-learning__items h3 svg { flex: none; color: var(--muted-foreground); }
+.home-learning__items p { margin-top: 0.5rem; font-size: 0.8125rem; line-height: 1.6; color: var(--muted-foreground); }
 @media (min-width: 768px) {
-  .steam-gear { flex-basis: calc((100% - 1.5rem) / 5); }
-  .steam-gear > p { font-size: 0.9375rem; }
-  .steam-gear > span { font-size: 0.8125rem; }
+  .home-learning__items { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; }
+}
+
+/* Course navigation is a small set of colored building bricks. */
+.course-page-intro { padding-block: 2rem; }
+.course-lego-menu { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 0.875rem; padding: 0.75rem 0.125rem 0.375rem; }
+.course-lego { --lego-color: var(--ufo-yellow); --lego-ink: var(--primary); position: relative; display: flex; min-width: 0; min-height: 4.5rem; align-items: center; justify-content: center; padding: 0.75rem 0.875rem 1rem; border: 1px solid rgb(255 255 255 / 0.35); border-radius: 3px; background: var(--lego-color); color: var(--lego-ink); text-align: center; box-shadow: inset 0 -5px 0 rgb(0 0 0 / 0.14), 0 3px 0 rgb(0 0 0 / 0.12); transition: transform 140ms ease; }
+.course-lego--robotics, .course-lego--3d-modeling { --lego-color: var(--ufo-green); --lego-ink: white; }
+.course-lego--animation { --lego-color: var(--ufo-pink); --lego-ink: white; }
+.course-lego--math { --lego-color: var(--primary); --lego-ink: white; }
+.course-lego::before, .course-lego::after { content: ""; position: absolute; top: -0.6875rem; width: 1.75rem; height: 0.75rem; border: 1px solid rgb(255 255 255 / 0.35); border-radius: 50% 50% 2px 2px; background: var(--lego-color); box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.12); }
+.course-lego::before { left: 20%; }
+.course-lego::after { right: 20%; }
+.course-lego > span { font-size: 0.75rem; font-weight: 600; line-height: 1.35; overflow-wrap: anywhere; }
+.page-intro .course-lego[data-selected="true"] { border-color: white; background: var(--lego-color); color: var(--lego-ink); outline: 2px solid white; outline-offset: 3px; }
+.course-lego:hover { transform: translateY(-2px); }
+.course-lego:focus-visible { outline: 3px solid white; outline-offset: 4px; }
+.course-lego__check { position: absolute; right: 0.25rem; bottom: 0.5rem; width: 0.875rem; height: 0.875rem; }
+@media (min-width: 768px) {
+  .course-page-intro { padding-block: 3rem; }
+  .course-lego-menu { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .course-lego { min-height: 4.75rem; }
+  .course-lego > span { font-size: 0.875rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .steam-gear__wheel { animation: none; }
+  .course-lego { transition: none; }
 }

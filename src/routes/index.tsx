@@ -1,6 +1,6 @@
 import { SteamGears } from "@/components/SteamGears";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, CalendarDays, MapPin, Phone, Users, ShieldCheck, Lightbulb, HeartHandshake } from "lucide-react";
+import { ArrowRight, CalendarDays, MapPin, Phone, Users, ShieldCheck, Lightbulb, Brain } from "lucide-react";
 import { HomePrograms } from "@/components/HomePrograms";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { EnrollmentAnnouncement } from "@/components/EnrollmentAnnouncement";
@@ -25,10 +25,10 @@ export const Route = createFileRoute("/")({
 });
 
 const benefits = [
-  { icon: Users, title: "4–6 дітей у групі", text: "Увага до кожної дитини." },
-  { icon: ShieldCheck, title: "Турботлива команда", text: "Комфортний простір для навчання." },
-  { icon: Lightbulb, title: "Навчання через практику", text: "Досліди, творчість і власні проєкти." },
-  { icon: HeartHandshake, title: "Допоможемо обрати", text: "Врахуємо вік та інтереси дитини." },
+  { icon: Users, title: "Міні-групи", text: "Для дітей 7–14 років, по 4–6 у групі — увага кожному." },
+  { icon: ShieldCheck, title: "Безпечне навчання", text: "Комфортний простір та турботлива команда." },
+  { icon: Lightbulb, title: "STEAM-підхід", text: "Наука, технології, інженерія, мистецтво й математика — через досліди та власні проєкти." },
+  { icon: Brain, title: "Навички майбутнього", text: "Критичне мислення, креативність та командна робота." },
 ];
 const prices = courses.map((course) => Number(course.price.match(/\d+/)?.[0]));
 
@@ -67,11 +67,12 @@ function HomePage() {
           <HomePrograms />
         </div>
       </section>
-      <section className="parent-section section-art">
-        <SectionDecor tone="rose" side="left" />
+      <section className="parent-section">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="parent-section-heading"><p className="parent-eyebrow">Батькам спокійно, дітям цікаво</p><h2>З увагою до дітей</h2></div>
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-4">{benefits.map(({icon: Icon, title}) => <article key={title} className="benefit-card"><Icon className="mb-3 h-6 w-6 text-primary" /><h3 className="text-sm leading-snug">{title}</h3></article>)}</div>
+          <div className="home-learning" aria-labelledby="home-learning-title">
+            <h2 id="home-learning-title">Як ми навчаємо</h2>
+            <div className="home-learning__items">{benefits.map(({icon: Icon, title, text}) => <article key={title}><h3><Icon className="h-4 w-4" aria-hidden="true" />{title}</h3><p>{text}</p></article>)}</div>
+          </div>
           <SteamGears />
         </div>
       </section>
@@ -86,7 +87,7 @@ function HomePage() {
           </div>
         </div>
       </section>
-      <section className="parent-section bg-ufo-yellow/20">
+      <section className="parent-section">
         <div className="mx-auto flex max-w-6xl flex-col justify-between gap-4 px-4 sm:px-6 md:flex-row md:items-center">
           <div><p className="parent-eyebrow">Поруч із вами</p><h2 className="text-2xl">Чекаємо у Кременчуці</h2><p className="mt-2 text-sm text-muted-foreground">ТЦ «Лідер», каб. 208</p></div>
           <div className="flex flex-wrap gap-3"><a href="tel:+380960662604" className="parent-button bg-primary text-white"><Phone className="h-4 w-4" />Зателефонувати</a><Link to="/contacts" className="parent-button border border-primary text-primary">Адреса та контакти <MapPin className="h-4 w-4" /></Link></div>
