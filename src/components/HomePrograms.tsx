@@ -1,9 +1,10 @@
-import { AlienPuzzle } from "@/components/AlienPuzzle";
+import { useCoursePuzzle } from "@/components/useCoursePuzzle";
+import { initialPuzzle } from "@/lib/alien-puzzle";
 import { formatCourseTimes } from "@/lib/course-times";
 import alienArt from "@/assets/puzzle-alien.webp";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, Check, Clock, Plus, Puzzle, X } from "lucide-react";
+import { ArrowUpRight, Check, Clock, Gift, Grip, Plus, RotateCcw, X } from "lucide-react";
 import { slots } from "@/lib/schedule";
 import { courses } from "@/lib/courses";
 
@@ -23,9 +24,8 @@ function courseTimes(id: string, title: string) {
 
 export function HomePrograms() {
   const [expanded, setExpanded] = useState<string | null>(null);
-  const [playing, setPlaying] = useState(false);
-  const playButton = useRef<HTMLButtonElement>(null);
-  const board = useRef<HTMLDivElement>(null);
+  const puzzle = useCoursePuzzle(() => setExpanded(null));
+  const { board } = puzzle;
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export function HomePrograms() {
     const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting));
     observer.observe(board.current);
     return () => observer.disconnect();
-  }, []);
+  }, [board]);
 
   useEffect(() => {
     if (!expanded) return;
@@ -46,6 +46,10 @@ export function HomePrograms() {
     return () => cancelAnimationFrame(frame);
   }, [expanded]);
 
+  useEffect(() => {
+    if (puzzle.solved) document.getElementById("alien-puzzle-reward")?.scrollIntoView({ block: "nearest", behavior: "instant" });
+  }, [puzzle.solved]);
+
   function closeCourse(id: string) {
     setExpanded(null);
     const trigger = document.getElementById(`program-trigger-${id}`);
@@ -55,28 +59,27 @@ export function HomePrograms() {
 
   return (
     <div className="program-discovery" onKeyDown={(event) => {
-      if (event.key === "Escape" && expanded) { event.preventDefault(); closeCourse(expanded); }
+      if (event.key === "Escape") { puzzle.cancel(); if (expanded) { event.preventDefault(); closeCourse(expanded); } }
     }}>
       <div className="program-discovery__top">
         <h2 className="program-discovery__heading">Знайдіть свій курс</h2>
-        <button ref={playButton} type="button" className="alien-game__launch" aria-expanded={playing} onClick={() => {
-          setExpanded(null); setPlaying(!playing);
-        }}><Puzzle className="h-4 w-4" /> {playing ? "Повернутись до курсів" : "Скласти прибульця"}</button>
+        <button type="button" className="alien-game__shuffle" onClick={puzzle.reset}><RotateCcw className="h-4 w-4" /> Перемішати</button>
       </div>
-      {playing && <AlienPuzzle onClose={() => { setPlaying(false); playButton.current?.focus(); }} />}
-      <div hidden={playing}>
+      <p id="course-puzzle-help" className="sr-only">Натисніть назву, щоб прочитати про курс. Тягніть за значок із крапками або натисніть два такі значки, щоб переставити пазли.</p>
         <div className="program-notes" ref={board} data-in-view={inView}>
-          {courses.map((course, index) => {
+          {puzzle.order.map((piece, index) => {
+            const course = courses[piece];
+            const fragment = initialPuzzle[piece];
             const open = expanded === course.id;
             const triggerId = `program-trigger-${course.id}`;
             const panelId = `program-details-${course.id}`;
             return (
               <article key={course.id} className={`program-note program-note--${course.id}`} data-open={open} style={{
                 "--alien-art": `url("${alienArt}")`,
-                "--alien-mobile-x": `${index % 2 * 100}%`,
-                "--alien-mobile-y": `${Math.floor(index / 2) * 50}%`,
-                "--alien-desktop-x": `${index % 3 * 50}%`,
-                "--alien-desktop-y": `${Math.floor(index / 3) * 100}%`,
+                "--alien-mobile-x": `${fragment % 2 * 100}%`,
+                "--alien-mobile-y": `${Math.floor(fragment / 2) * 50}%`,
+                "--alien-desktop-x": `${fragment % 3 * 50}%`,
+                "--alien-desktop-y": `${Math.floor(fragment / 3) * 100}%`,
                 "--sway-duration": `${5.5 + index * 0.45}s`,
                 "--sway-delay": `${index * -0.8}s`,
                 "--panel-pointer": `${(index % 2 + 0.5) * 50}%`,
@@ -86,11 +89,12 @@ export function HomePrograms() {
                 "--puzzle-desktop-row": Math.floor(index / 3) * 2 + 1,
                 "--puzzle-desktop-column": index % 3 + 1,
               } as CSSProperties}>
-                <h3>
+                <h3 data-puzzle-slot={index} data-piece={piece} data-selected={puzzle.selected === index} data-target={puzzle.target === index} data-dragging={puzzle.dragging?.from === index} style={{ transform: puzzle.dragging?.from === index ? `translate(${puzzle.dragging.x}px, ${puzzle.dragging.y}px)` : undefined }}>
                   <button id={triggerId} type="button" className="program-note__trigger" aria-label={`${course.title}, ${course.age}`} aria-expanded={open} aria-controls={panelId} onClick={() => setExpanded(open ? null : course.id)}>
                     <span className="program-note__name">{course.id === "animation" ? "Анімація" : course.title}<span className="program-note__age">{course.age}</span></span>
                     <span className="program-note__hint">{open ? <>Відкрито <Check aria-hidden="true" /></> : <>Про курс <Plus aria-hidden="true" /></>}</span>
                   </button>
+                  <button type="button" className="program-note__drag" aria-label={`Переставити курс: ${course.title}`} aria-describedby="course-puzzle-help" aria-pressed={puzzle.selected === index} onPointerDown={event => puzzle.startDrag(event, index)} onPointerMove={puzzle.moveDrag} onPointerUp={event => puzzle.finishDrag(event)} onPointerCancel={event => puzzle.finishDrag(event, true)} onLostPointerCapture={event => puzzle.finishDrag(event, true)} onClick={event => puzzle.handleClick(event.detail, index)}><Grip className="h-4 w-4" aria-hidden="true" /></button>
                 </h3>
                 <div id={panelId} role="region" aria-labelledby={`${panelId}-title`} hidden={!open} className="program-note__details">
                   <div className="program-note__details-heading">
@@ -115,6 +119,9 @@ export function HomePrograms() {
             );
           })}
         </div>
+      <p className="sr-only" aria-live="polite">{puzzle.announcement}</p>
+      <div id="alien-puzzle-reward" role="status" className="alien-game__reward" hidden={!puzzle.solved}>
+        {puzzle.solved && <><Gift className="h-8 w-8" aria-hidden="true" /><h3>Таємницю UFO розкрито!</h3><p>У нас є для вас подарунок! Зробіть скриншот і покажіть його в UFO STEAM HUB.</p></>}
       </div>
     </div>
   );
