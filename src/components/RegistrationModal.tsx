@@ -256,10 +256,10 @@ export function RegistrationModal() {
         <div className="registration-footer">
           {error && <p role="alert" className="mb-3 text-sm leading-relaxed text-destructive">{error}</p>}
           {success ? (
-            <Button type="button" onClick={() => changeOpen(false)} className="h-12 w-full rounded-full bg-ufo-yellow text-base font-semibold text-primary hover:bg-ufo-yellow/90">Готово</Button>
+            <Button type="button" onClick={() => changeOpen(false)} className="h-12 w-full rounded-lg bg-ufo-yellow text-base font-semibold text-primary hover:bg-ufo-yellow/90">Готово</Button>
           ) : (
             <>
-              <Button type="submit" form="registration-form" disabled={submitting} className="h-12 w-full gap-2 rounded-full bg-ufo-yellow text-base font-semibold text-primary hover:bg-ufo-yellow/90">
+              <Button type="submit" form="registration-form" disabled={submitting} className="h-12 w-full gap-2 rounded-lg bg-ufo-yellow text-base font-semibold text-primary hover:bg-ufo-yellow/90">
                 {submitting ? <><Loader2 className="h-4 w-4 animate-spin" /> Надсилаємо…</> : <>{isInquiry ? "Надіслати запит" : "Надіслати заявку"} <ArrowRight className="h-4 w-4" /></>}
               </Button>
               <p className="mt-2 flex items-center justify-center gap-1.5 text-xs text-muted-foreground"><Phone className="h-3 w-3" /> {isInquiry ? "Зв’яжемося й відповімо на запитання" : "Підтвердимо запис телефоном"}</p>

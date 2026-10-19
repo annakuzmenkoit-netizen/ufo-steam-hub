@@ -77,7 +77,7 @@ function LinksPage() {
       <div className="mx-auto w-full max-w-lg space-y-8 px-4 pt-8 pb-10 sm:px-6 md:py-12">
 
         {/* Hero */}
-        <AnimatedSection className="links-intro relative rounded-[2rem] px-5 py-6 text-center">
+        <AnimatedSection className="links-intro relative rounded-xl px-5 py-6 text-center">
           <Star4
             className="pointer-events-none absolute -left-1 -top-2 opacity-70"
             color="#f7df5d"

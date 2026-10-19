@@ -216,7 +216,7 @@ function DemoDayAdminPage() {
                   </p>
                 </div>
                 <span
-                  className={`shrink-0 rounded-full px-2 py-1 text-[11px] font-semibold ${STATUS_STYLES[row.status] ?? ""}`}
+                  className={`shrink-0 rounded-lg px-2 py-1 text-[11px] font-semibold ${STATUS_STYLES[row.status] ?? ""}`}
                 >
                   {DEMO_STATUS_LABELS[row.status as DemoRegistrationStatus] ?? row.status}
                 </span>

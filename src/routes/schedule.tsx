@@ -130,12 +130,12 @@ function SchedulePage() {
                               </div>
 
                               <span
-                                className={`rounded-full px-3 py-1 text-xs font-semibold md:text-sm ${slot.color}`}
+                                className={`rounded-lg px-3 py-1 text-xs font-semibold md:text-sm ${slot.color}`}
                               >
                                 {slot.course}
                               </span>
 
-                              <span className="rounded-full bg-muted/60 px-2.5 py-1 text-xs font-semibold text-muted-foreground">
+                              <span className="rounded-lg bg-muted/60 px-2.5 py-1 text-xs font-semibold text-muted-foreground">
                                 {slot.age}
                               </span>
                             </div>
@@ -173,7 +173,7 @@ function SchedulePage() {
                                     teacher: slot.teacher,
                                   })
                                 }
-                                className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-ufo-yellow px-6 py-3 text-sm font-semibold text-primary shadow-md transition-all hover:scale-[1.02] hover:shadow-lg sm:w-auto"
+                                className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-ufo-yellow px-6 py-3 text-sm font-semibold text-primary shadow-md transition-all hover:scale-[1.02] hover:shadow-lg sm:w-auto"
                               >
                                 Хочу спробувати
                                 <ArrowRight className="h-4 w-4" />
@@ -216,7 +216,7 @@ function SchedulePage() {
 
                 <Link
                   to="/contacts"
-                  className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-ufo-yellow px-7 py-3 text-sm font-semibold text-primary shadow-md transition-all hover:scale-[1.02] hover:shadow-lg"
+                  className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-ufo-yellow px-7 py-3 text-sm font-semibold text-primary shadow-md transition-all hover:scale-[1.02] hover:shadow-lg"
                 >
                   Написати нам
                   <ArrowRight className="h-4 w-4" />

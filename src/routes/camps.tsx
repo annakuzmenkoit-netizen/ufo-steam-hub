@@ -308,7 +308,7 @@ function CampDetailsDialog({ camp, open, onOpenChange }: {
             <Button
               type="button"
               onClick={() => onOpenChange(false)}
-              className="mt-6 w-full rounded-full bg-ufo-yellow hover:bg-ufo-yellow/90 text-primary font-semibold"
+              className="mt-6 w-full rounded-lg bg-ufo-yellow hover:bg-ufo-yellow/90 text-primary font-semibold"
             >
               Закрити
             </Button>
@@ -425,7 +425,7 @@ function CampDetailsDialog({ camp, open, onOpenChange }: {
                 <Button
                   type="submit"
                   disabled={submitting}
-                  className="w-full rounded-full bg-ufo-yellow hover:bg-ufo-yellow/90 text-primary py-3 font-semibold text-base shadow-md"
+                  className="w-full rounded-lg bg-ufo-yellow hover:bg-ufo-yellow/90 text-primary py-3 font-semibold text-base shadow-md"
                 >
                   {submitting ? (
                     <span className="inline-flex items-center gap-2">
@@ -589,7 +589,7 @@ function CampsPage() {
                 <TabsTrigger
                   key={s.key}
                   value={s.key}
-                  className="rounded-full border-2 border-border bg-card px-5 py-2 text-sm font-semibold text-foreground data-[state=active]:bg-ufo-yellow data-[state=active]:text-primary data-[state=active]:border-ufo-yellow data-[state=active]:shadow-md"
+                  className="rounded-lg border-2 border-border bg-card px-5 py-2 text-sm font-semibold text-foreground data-[state=active]:bg-ufo-yellow data-[state=active]:text-primary data-[state=active]:border-ufo-yellow data-[state=active]:shadow-md"
                 >
                   <s.icon className="h-4 w-4 mr-2" /> {s.name}
                 </TabsTrigger>
@@ -701,7 +701,7 @@ function CampsPage() {
                 </p>
                 <Link
                   to="/contacts"
-                  className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-md"
+                  className="mt-4 inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-md"
                   aria-label="Залишити відгук — перейти до контактів"
                 >
                   Залишити відгук <ArrowRight className="h-4 w-4" />
@@ -787,7 +787,7 @@ function CampsPage() {
                     <button
                       type="button"
                       onClick={showPrevSeasonPhoto}
-                      className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
+                      className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 rounded-lg bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
                       aria-label="Попереднє фото"
                     >
                       ‹
@@ -796,7 +796,7 @@ function CampsPage() {
                     <button
                       type="button"
                       onClick={showNextSeasonPhoto}
-                      className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
+                      className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 rounded-lg bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
                       aria-label="Наступне фото"
                     >
                       ›

@@ -90,7 +90,7 @@ function CoursesPage() {
                 to="/courses"
                 hash={c.id}
                 data-selected={selectedCourse === c.id}
-                className="inline-flex min-h-11 items-center rounded-full bg-card border border-border px-4 py-1.5 text-sm font-semibold text-foreground hover:bg-ufo-yellow hover:text-primary transition-colors"
+                className="inline-flex min-h-11 items-center rounded-lg bg-card border border-border px-4 py-1.5 text-sm font-semibold text-foreground hover:bg-ufo-yellow hover:text-primary transition-colors"
               >
                 {c.title}
               </Link>
@@ -107,7 +107,7 @@ function CoursesPage() {
             <section key={course.id} id={course.id} className={`course-overview scroll-mt-2 rounded-3xl border-2 border-l-4 ${course.color} bg-card`}>
               <div className="course-overview__heading">
                 <div className="flex items-center gap-3"><div className={`${course.iconBg} rounded-xl p-2.5 text-primary`}><course.icon className="h-6 w-6" /></div><h2 className="text-xl md:text-2xl">{course.title}</h2></div>
-                <div className="mt-3 flex flex-wrap gap-2"><span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary">{course.age}</span><span className="rounded-full bg-ufo-yellow/50 px-3 py-1 text-xs font-bold text-primary">{course.price}</span></div>
+                <div className="mt-3 flex flex-wrap gap-2"><span className="rounded-lg bg-primary/10 px-3 py-1 text-xs font-bold text-primary">{course.age}</span><span className="rounded-lg bg-ufo-yellow/50 px-3 py-1 text-xs font-bold text-primary">{course.price}</span></div>
               </div>
               <div className="grid gap-4 px-4 pb-4 md:grid-cols-2 md:gap-6 md:px-6 md:pb-6">
                 <CourseGallery title={course.title} images={course.gallery} onOpen={(index) => openLightbox(course.title, course.gallery, index)} />
@@ -151,7 +151,7 @@ function CoursesPage() {
                     <button
                       type="button"
                       onClick={showPrevPhoto}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 rounded-lg bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
                       aria-label="Попереднє фото"
                     >
                       ‹
@@ -160,7 +160,7 @@ function CoursesPage() {
                     <button
                       type="button"
                       onClick={showNextPhoto}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg bg-white/90 px-4 py-3 text-xl font-bold text-primary shadow-md hover:bg-white"
                       aria-label="Наступне фото"
                     >
                       ›
