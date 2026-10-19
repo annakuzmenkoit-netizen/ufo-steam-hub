@@ -60,7 +60,6 @@ function HomePage() {
       <section id="programs" className="section-art parent-section">
         <SectionDecor tone="mint" />
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="parent-section-heading"><h2>Знайдіть свій курс</h2></div>
           <HomePrograms />
         </div>
       </section>
