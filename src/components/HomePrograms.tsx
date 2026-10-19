@@ -4,7 +4,7 @@ import { formatCourseTimes } from "@/lib/course-times";
 import alienArt from "@/assets/puzzle-alien.webp";
 import { useEffect, useState, type CSSProperties } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, Check, Clock, Gift, Grip, Plus, RotateCcw, X } from "lucide-react";
+import { ArrowUpRight, Check, Clock, Gift, Grip, Plus, X } from "lucide-react";
 import { slots } from "@/lib/schedule";
 import { courses } from "@/lib/courses";
 
@@ -27,6 +27,13 @@ export function HomePrograms() {
   const puzzle = useCoursePuzzle(() => setExpanded(null));
   const { board } = puzzle;
   const [inView, setInView] = useState(false);
+  const [swayIndex, setSwayIndex] = useState(0);
+
+  useEffect(() => {
+    if (!inView || expanded || puzzle.dragging) return;
+    const timer = window.setInterval(() => setSwayIndex(index => (index + 1) % courses.length), 2200);
+    return () => window.clearInterval(timer);
+  }, [inView, expanded, puzzle.dragging]);
 
   useEffect(() => {
     if (!board.current) return;
@@ -63,7 +70,7 @@ export function HomePrograms() {
     }}>
       <div className="program-discovery__top">
         <h2 className="program-discovery__heading">Знайдіть свій курс</h2>
-        <button type="button" className="alien-game__shuffle" onClick={puzzle.reset}><RotateCcw className="h-4 w-4" /> Перемішати</button>
+        <p className="program-discovery__help">Натисніть на пазл, щоб дізнатися більше про курс.</p>
       </div>
       <p id="course-puzzle-help" className="sr-only">Натисніть назву, щоб прочитати про курс. Тягніть за значок із крапками або натисніть два такі значки, щоб переставити пазли.</p>
         <div className="program-notes" ref={board} data-in-view={inView}>
@@ -74,14 +81,12 @@ export function HomePrograms() {
             const triggerId = `program-trigger-${course.id}`;
             const panelId = `program-details-${course.id}`;
             return (
-              <article key={course.id} className={`program-note program-note--${course.id}`} data-open={open} style={{
+              <article key={course.id} className={`program-note program-note--${course.id}`} data-open={open} data-sway={inView && !expanded && !puzzle.dragging && index === swayIndex} style={{
                 "--alien-art": `url("${alienArt}")`,
                 "--alien-mobile-x": `${fragment % 2 * 100}%`,
                 "--alien-mobile-y": `${Math.floor(fragment / 2) * 50}%`,
                 "--alien-desktop-x": `${fragment % 3 * 50}%`,
                 "--alien-desktop-y": `${Math.floor(fragment / 3) * 100}%`,
-                "--sway-duration": `${5.5 + index * 0.45}s`,
-                "--sway-delay": `${index * -0.8}s`,
                 "--panel-pointer": `${(index % 2 + 0.5) * 50}%`,
                 "--panel-desktop-pointer": `${(index % 3 + 0.5) * 100 / 3}%`,
                 "--puzzle-row": Math.floor(index / 2) * 2 + 1,

@@ -401,17 +401,19 @@ main .font-bold, main .font-extrabold { font-weight: 600; }
 .program-note--math { --note-tilt: -2.5deg; --puzzle-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20280%20200%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M28%2020H115C100%2046%20180%2046%20165%2020H252Q260%2020%20260%2028V80C234%2065%20234%20135%20260%20120V172Q260%20180%20252%20180H165C180%20206%20100%20206%20115%20180H28Q20%20180%2020%20172V120C-6%20135%20-6%2065%2020%2080V28Q20%2020%2028%2020Z%22%2F%3E%3C%2Fsvg%3E"); }
 .program-note--3d-modeling { --note-tilt: 1.5deg; --puzzle-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20280%20200%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M28%2020H115C100%2046%20180%2046%20165%2020H252Q260%2020%20260%2028V80C286%2065%20286%20135%20260%20120V172Q260%20180%20252%20180H165C180%20206%20100%20206%20115%20180H28Q20%20180%2020%20172V120C46%20135%2046%2065%2020%2080V28Q20%2020%2028%2020Z%22%2F%3E%3C%2Fsvg%3E"); }
 .program-note h3 { position: relative; min-width: 0; z-index: 1; grid-row: var(--puzzle-row); grid-column: var(--puzzle-column); }
-.program-note__trigger { position: relative; isolation: isolate; display: flex; width: 100%; height: 150px; align-items: center; justify-content: center; padding: 1.5rem 1rem 2rem; color: var(--note-ink); text-align: center; rotate: var(--note-tilt); transition: rotate 160ms ease; animation: puzzle-sway var(--sway-duration, 6s) ease-in-out var(--sway-delay, 0s) infinite alternate; animation-play-state: paused; }
+.program-note__trigger { position: relative; isolation: isolate; display: flex; width: 100%; height: 150px; align-items: center; justify-content: center; padding: 1.5rem 1rem 2rem; color: var(--note-ink); text-align: center; rotate: var(--note-tilt); transition: rotate 160ms ease; animation: none; }
 .program-note__trigger::before { content: ""; position: absolute; z-index: -1; inset: 0; background-color: var(--note-color); mask: var(--puzzle-mask) center / 100% 100% no-repeat; }
 
-.program-notes[data-in-view="true"] .program-note__trigger { animation-play-state: running; }
+.program-note:where([data-sway="true"]) .program-note__trigger { animation: puzzle-sway 1.8s ease-in-out; }
 .program-note[data-open="true"] .program-note__trigger, .program-note__trigger:focus-visible { animation: none; rotate: 0deg; translate: 0 0; }
 @media (hover: hover) {
   .program-note__trigger:hover { animation: none; rotate: 0deg; translate: 0 0; }
 }
 @keyframes puzzle-sway {
-  from { rotate: calc(var(--note-tilt) - 1.2deg); translate: 0 0; }
-  to { rotate: calc(var(--note-tilt) + 1.2deg); translate: 0 -2px; }
+  0%, 100% { rotate: var(--note-tilt); }
+  20% { rotate: calc(var(--note-tilt) - 1.2deg); }
+  50% { rotate: calc(var(--note-tilt) + 1.2deg); }
+  75% { rotate: calc(var(--note-tilt) - 0.6deg); }
 }
 .program-note__trigger:focus-visible { outline: 3px solid var(--primary); outline-offset: 1px; border-radius: 1rem; }
 .program-note__name { font-size: clamp(1rem, 4.2vw, 1.75rem); font-weight: 600; line-height: 1.2; letter-spacing: -0.035em; overflow-wrap: anywhere; }
@@ -459,7 +461,7 @@ main .font-bold, main .font-extrabold { font-weight: 600; }
 .alien-game__reward { margin-top: 1rem; padding: 1.25rem; border: 2px solid var(--primary); border-radius: 1.25rem; background: var(--ufo-yellow); color: var(--primary); scroll-margin-block: 6rem; }
 .alien-game__reward h3 { margin-block: 0.5rem; font-size: 1.25rem; }
 .alien-game__reward p { font-size: 0.875rem; line-height: 1.6; }
-.alien-game__shuffle { display: inline-flex; min-height: 2.75rem; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 999px; background: var(--card); color: var(--primary); font-size: 0.75rem; }
+.program-discovery__help { color: var(--muted-foreground); font-size: 0.8125rem; line-height: 1.5; }
 @media (min-width: 768px) {
   .program-note__trigger::after { background-size: 300% 200%; background-position: var(--alien-desktop-x) var(--alien-desktop-y); }
 }

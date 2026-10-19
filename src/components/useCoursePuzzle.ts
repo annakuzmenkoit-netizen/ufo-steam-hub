@@ -1,5 +1,5 @@
 import { useRef, useState, type PointerEvent } from "react";
-import { initialPuzzle, isPuzzleSolved, shufflePuzzle, swapPuzzle } from "@/lib/alien-puzzle";
+import { initialPuzzle, isPuzzleSolved, swapPuzzle } from "@/lib/alien-puzzle";
 
 type Drag = { from: number; pointerId: number; startX: number; startY: number; moved: boolean };
 
@@ -73,17 +73,6 @@ export function useCoursePuzzle(beforeMove: () => void) {
     if (destination !== null) exchange(current.from, destination);
   }
 
-  function reset() {
-    drag.current = null;
-    setDragging(null);
-    setTarget(null);
-    setSelected(null);
-    beforeMove();
-    const shuffled = shufflePuzzle();
-    setOrder(isPuzzleSolved(shuffled.map(piece => initialPuzzle[piece])) ? [0, 1, 2, 3, 4, 5] : shuffled);
-    setAnnouncement("Пазли перемішано. Спробуйте знову!");
-  }
-
   function cancel() {
     drag.current = null; setDragging(null); setTarget(null); setSelected(null);
     setAnnouncement("Вибір скасовано.");
@@ -94,5 +83,5 @@ export function useCoursePuzzle(beforeMove: () => void) {
     suppressClick.current = false; choose(index);
   }
 
-  return { order, board, selected, dragging, target, announcement, solved, reset, cancel, startDrag, moveDrag, finishDrag, handleClick };
+  return { order, board, selected, dragging, target, announcement, solved, cancel, startDrag, moveDrag, finishDrag, handleClick };
 }
