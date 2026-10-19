@@ -401,16 +401,25 @@ main .font-bold, main .font-extrabold { font-weight: 600; }
 .program-note--math { --note-tilt: -2.5deg; --puzzle-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20280%20200%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M28%2020H115C100%2046%20180%2046%20165%2020H252Q260%2020%20260%2028V80C234%2065%20234%20135%20260%20120V172Q260%20180%20252%20180H165C180%20206%20100%20206%20115%20180H28Q20%20180%2020%20172V120C-6%20135%20-6%2065%2020%2080V28Q20%2020%2028%2020Z%22%2F%3E%3C%2Fsvg%3E"); --note-pattern: repeating-linear-gradient(0deg, transparent 0 20px, rgb(255 255 255 / 0.08) 20px 23px); --pattern-size: auto; }
 .program-note--3d-modeling { --note-tilt: 1.5deg; --puzzle-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20280%20200%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M28%2020H115C100%2046%20180%2046%20165%2020H252Q260%2020%20260%2028V80C286%2065%20286%20135%20260%20120V172Q260%20180%20252%20180H165C180%20206%20100%20206%20115%20180H28Q20%20180%2020%20172V120C46%20135%2046%2065%2020%2080V28Q20%2020%2028%2020Z%22%2F%3E%3C%2Fsvg%3E"); --note-pattern: linear-gradient(rgb(255 255 255 / 0.1) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / 0.1) 1px, transparent 1px); --pattern-size: 20px 20px; }
 .program-note h3 { position: relative; min-width: 0; z-index: 1; grid-row: var(--puzzle-row); grid-column: var(--puzzle-column); }
-.program-note__trigger { position: relative; isolation: isolate; display: flex; width: 100%; height: 150px; align-items: center; justify-content: center; padding: 1.5rem 1rem 2rem; color: var(--note-ink); text-align: center; rotate: var(--note-tilt); transition: rotate 160ms ease; }
+.program-note__trigger { position: relative; isolation: isolate; display: flex; width: 100%; height: 150px; align-items: center; justify-content: center; padding: 1.5rem 1rem 2rem; color: var(--note-ink); text-align: center; rotate: var(--note-tilt); transition: rotate 160ms ease; animation: puzzle-sway var(--sway-duration, 6s) ease-in-out var(--sway-delay, 0s) infinite alternate; animation-play-state: paused; }
 .program-note__trigger::before { content: ""; position: absolute; z-index: -1; inset: 0; background-color: var(--note-color); background-image: var(--note-pattern); background-size: var(--pattern-size, 24px 24px); mask: var(--puzzle-mask) center / 100% 100% no-repeat; }
 
-.program-note__trigger:hover, .program-note[data-open="true"] .program-note__trigger { rotate: 0deg; }
+.program-notes[data-in-view="true"] .program-note__trigger { animation-play-state: running; }
+.program-note[data-open="true"] .program-note__trigger, .program-note__trigger:focus-visible { animation: none; rotate: 0deg; translate: 0 0; }
+@media (hover: hover) {
+  .program-note__trigger:hover { animation: none; rotate: 0deg; translate: 0 0; }
+}
+@keyframes puzzle-sway {
+  from { rotate: calc(var(--note-tilt) - 0.8deg); translate: 0 0; }
+  to { rotate: calc(var(--note-tilt) + 0.8deg); translate: 0 -2px; }
+}
 .program-note__trigger:focus-visible { outline: 3px solid var(--primary); outline-offset: 1px; border-radius: 1rem; }
 .program-note__name { font-size: clamp(0.8125rem, 3.5vw, 1.375rem); font-weight: 600; line-height: 1.2; letter-spacing: -0.035em; overflow-wrap: anywhere; }
 .program-note__age { display: block; margin-top: 0.375rem; font-size: 0.6875rem; font-weight: 400; letter-spacing: 0; }
-.program-note__toggle { position: absolute; bottom: 1.875rem; right: 1.375rem; width: 1rem; height: 1rem; transition: rotate 160ms ease; }
-.program-note[data-open="true"] .program-note__toggle { rotate: 45deg; }
-.program-note__details { grid-column: 1 / -1; grid-row: calc(var(--puzzle-row) + 1); margin-bottom: 0.5rem; padding: 1rem; border: 1px solid var(--border); border-radius: 1.25rem; background: var(--card); }
+.program-note__hint { position: absolute; bottom: 1.5rem; left: 50%; translate: -50% 0; display: inline-flex; align-items: center; gap: 0.25rem; white-space: nowrap; font-size: 0.625rem; font-weight: 400; }
+.program-note__hint svg { width: 0.875rem; height: 0.875rem; }
+.program-note[data-open="true"] .program-note__hint { padding: 0.2rem 0.4rem; border-radius: 999px; background: white; color: var(--primary); }
+.program-note__details { position: relative; scroll-margin-block: 6rem; border-top: 4px solid var(--note-color); grid-column: 1 / -1; grid-row: calc(var(--puzzle-row) + 1); margin-bottom: 0.5rem; padding: 1rem; border: 1px solid var(--note-color); border-top-width: 4px; border-radius: 1.25rem; background: var(--card); }
 .program-note__details > p { font-size: 0.875rem; line-height: 1.6; color: var(--foreground); }
 .program-note__schedule { display: flex; min-height: 2.75rem; align-items: center; gap: 0.5rem; margin-block: 0.625rem; color: var(--primary); font-size: 0.75rem; line-height: 1.5; }
 .program-note__schedule > span { flex: 1; }
@@ -423,9 +432,21 @@ main .font-bold, main .font-extrabold { font-weight: 600; }
   .program-notes { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.625rem 1.25rem; }
   .program-note h3 { grid-row: var(--puzzle-desktop-row); grid-column: var(--puzzle-desktop-column); }
   .program-note__trigger { height: 180px; padding-inline: 2rem; }
-  .program-note__toggle { right: 2.5rem; bottom: 2.25rem; width: 1.25rem; height: 1.25rem; }
+  .program-note__hint { bottom: 1.875rem; font-size: 0.75rem; }
   .program-note__details { grid-row: calc(var(--puzzle-desktop-row) + 1); padding: 1.25rem 1.5rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .program-note__trigger, .program-note__toggle { transition: none; }
+  .program-notes .program-note__trigger { animation: none; transition: none; }
+}
+
+.program-note__details::before { content: ""; position: absolute; width: 0.875rem; height: 0.875rem; top: -0.625rem; left: var(--panel-pointer); translate: -50% 0; rotate: 45deg; background: var(--card); border-top: 4px solid var(--note-color); border-left: 4px solid var(--note-color); }
+.program-note__details-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.875rem; }
+.program-note__details-title { display: flex; min-width: 0; align-items: center; gap: 0.625rem; }
+.program-note__details-title h4 { color: var(--primary); font-size: 1rem; font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; }
+.program-note__details-title > div > span { display: block; margin-top: 0.25rem; font-size: 0.75rem; color: var(--muted-foreground); }
+.program-note__course-icon { display: grid; flex: none; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 0.75rem; background: var(--note-color); color: var(--note-ink); }
+.program-note__close { display: inline-flex; min-height: 2.75rem; flex: none; align-items: center; gap: 0.25rem; padding: 0.375rem 0.5rem; border-radius: 0.75rem; border: 1px solid var(--border); color: var(--primary); font-size: 0.75rem; }
+.program-note__close:hover { background: var(--secondary); }
+@media (min-width: 768px) {
+  .program-note__details::before { left: var(--panel-desktop-pointer); }
 }
