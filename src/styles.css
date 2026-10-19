@@ -497,3 +497,10 @@ main .font-bold, main .font-extrabold { font-weight: 600; }
 .minicourse-card__more > p { padding-bottom: 0.5rem; line-height: 1.6; }
 .minicourse-card__button { display: inline-flex; width: 100%; min-height: 2.75rem; align-items: center; justify-content: center; gap: 0.5rem; margin-top: auto; border-radius: 999px; background: var(--ufo-yellow); color: var(--primary); font-size: 0.8125rem; font-weight: 600; }
 .minicourse-card__button:hover { background: var(--primary); color: white; }
+
+/* Fade the minicourse backdrop into the page instead of a hard section edge. */
+.home-minicourses { background: linear-gradient(to bottom, var(--background) 0, color-mix(in oklch, var(--ufo-yellow) 16%, var(--background)) 5rem, color-mix(in oklch, var(--ufo-yellow) 16%, var(--background)) calc(100% - 5rem), var(--background) 100%); }
+.minicourse-card__price { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem; margin-top: auto; margin-bottom: 0.875rem; color: var(--primary); }
+.minicourse-card__price > span { font-size: 0.75rem; }
+.minicourse-card__price > strong { font-size: 1.25rem; font-weight: 600; white-space: nowrap; }
+.minicourse-card__button { margin-top: 0; }

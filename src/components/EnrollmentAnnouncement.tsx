@@ -11,6 +11,7 @@ const newGroups = [
     theme: "blue",
     category: "Анімація та мультиплікація",
     title: "Театр тіней 🎭",
+    price: "1500 грн",
     inquiryTitle: "Запитання про мінікурс: Театр тіней",
     program: "Анімація — Театр тіней",
     day: "Четвер",
@@ -29,6 +30,7 @@ const newGroups = [
     theme: "green",
     category: "Робототехніка",
     title: "Космічна експедиція 🪐",
+    price: "1800 грн",
     inquiryTitle: "Запитання про мінікурс: Космічна експедиція",
     program: "Робототехніка — Космічна експедиція",
     day: "П'ятниця",
@@ -51,7 +53,7 @@ export function EnrollmentAnnouncement({ compact = false, sourcePage = "Тема
           <div>
             <p className="parent-eyebrow inline-flex items-center gap-2"><Rocket className="h-4 w-4" />Листопад 2026</p>
             <h2 id="new-groups-title">Набір на <span>мінікурси</span></h2>
-            <p className="minicourse-heading__intro">Тематичні програми для дітей. Розкажемо деталі й допоможемо обрати.</p>
+            <p className="minicourse-heading__intro">Оберіть мінікурс за інтересами дитини. Розкажемо деталі та відповімо на запитання.</p>
           </div>
           <p className="minicourse-offer"><strong>−20%</strong><span>за бронювання<br />до 31 жовтня 2026</span></p>
         </div>
@@ -67,6 +69,7 @@ export function EnrollmentAnnouncement({ compact = false, sourcePage = "Тема
                 <div className="minicourse-card__when"><span><Calendar className="h-4 w-4" aria-hidden="true" />{g.start}</span><span><Clock3 className="h-4 w-4" aria-hidden="true" />{g.schedule}</span></div>
                 <p className="minicourse-card__intro">{g.description[0]}</p>
                 <details className="minicourse-card__more"><summary>Про мінікурс</summary><p>{g.description[1]}</p></details>
+                <p className="minicourse-card__price"><span>Вартість мінікурсу</span><strong>{g.price}</strong></p>
                 <Button
                   type="button"
                   onClick={() =>
@@ -79,7 +82,7 @@ export function EnrollmentAnnouncement({ compact = false, sourcePage = "Тема
                       day: g.day,
                       date: g.date,
                       time: g.time,
-                      additionalInfo: `Запит про деталі мінікурсу, без бронювання. Категорія: ${g.category}. Розклад: ${g.schedule}. ${PROMO_INFO}`,
+                      additionalInfo: `Запит про деталі мінікурсу, без бронювання. Категорія: ${g.category}. Розклад: ${g.schedule}. Вартість мінікурсу: ${g.price}. ${PROMO_INFO}`,
                     })
                   }
                   className="minicourse-card__button"

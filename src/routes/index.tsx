@@ -43,7 +43,7 @@ function HomePage() {
             <p className="mt-4 mx-auto max-w-lg text-sm leading-relaxed text-white/90 md:text-lg">Робототехніка, творчість і наукові відкриття. Допоможемо знайти заняття, на які дитина захоче повертатися.</p>
             <div className="mt-5 flex flex-wrap justify-center gap-3">
               <Link to="/courses" className="parent-button bg-ufo-yellow text-primary">Обрати курс <ArrowRight className="h-4 w-4" /></Link>
-              <button type="button" onClick={() => openRegistration()} className="parent-button border border-white/60 text-white">Допоможіть обрати</button>
+              <Link to="/contacts" className="parent-button border border-white/60 text-white">Порадитись про курс</Link>
             </div>
             <p className="mt-4 text-xs text-white/85">Для дітей 7–14 років · Міні-групи 4–6 дітей</p>
           </div>
@@ -53,11 +53,11 @@ function HomePage() {
         </div>
       </section>
       <nav aria-label="Батькам: швидкий доступ" className="parent-shortcuts mx-auto grid max-w-6xl grid-cols-3 gap-2 px-4 sm:px-6">
-        <Link to="/courses"><span>Вік і вартість</span><ArrowRight className="h-4 w-4" /></Link>
+        <Link to="/courses"><span>Наші курси</span><ArrowRight className="h-4 w-4" /></Link>
         <Link to="/schedule"><span>Розклад</span><CalendarDays className="h-4 w-4" /></Link>
         <Link to="/contacts"><span>Як нас знайти</span><MapPin className="h-4 w-4" /></Link>
       </nav>
-      <section className="parent-section bg-ufo-yellow/20"><EnrollmentAnnouncement compact sourcePage="Головна — мінікурси" /></section>
+      <section className="parent-section home-minicourses"><EnrollmentAnnouncement compact sourcePage="Головна — мінікурси" /></section>
       <section id="programs" className="section-art parent-section">
         <SectionDecor tone="mint" />
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
