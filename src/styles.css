@@ -482,24 +482,24 @@ main .font-bold, main .font-extrabold { font-weight: 600; }
 .minicourse-carousel { container-type: inline-size; margin-top: 0.875rem; }
 .minicourse-rail { position: relative; display: flex; align-items: stretch; gap: 0.875rem; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 0.25rem 0 0.5rem; }
 .minicourse-rail::-webkit-scrollbar { display: none; }
-.minicourse-card { --mini-color: var(--primary); display: flex; flex: 0 0 86%; min-width: 0; flex-direction: column; overflow: hidden; scroll-snap-align: start; scroll-margin-top: 6rem; border: 1px solid var(--border); border-top: 3px solid var(--mini-color); border-radius: 0.375rem; background: var(--card); }
+.minicourse-card { --mini-color: white; display: flex; flex: 0 0 86%; min-width: 0; flex-direction: column; overflow: hidden; scroll-snap-align: start; scroll-margin-top: 6rem; border: 1px solid var(--mini-color); border-top: 3px solid var(--mini-color); border-radius: 0.375rem; background: var(--mini-color); color: white; }
 .minicourse-card--green { --mini-color: var(--ufo-green); }
 .minicourse-card__banner { position: relative; padding: 0.75rem 0.875rem 0.5rem; }
-.minicourse-card__banner > p { padding-right: 1.5rem; color: var(--primary); font-size: 0.625rem; line-height: 1.5; }
-.minicourse-card__banner h3 { margin-top: 0.375rem; color: var(--primary); font-size: 1.125rem; line-height: 1.25; }
-.minicourse-card__art { position: absolute; right: 0.75rem; top: 0.625rem; width: 1.25rem; height: 1.25rem; color: var(--mini-color); }
+.minicourse-card__banner > p { padding-right: 1.5rem; color: white; font-size: 0.625rem; line-height: 1.5; }
+.minicourse-card__banner h3 { margin-top: 0.375rem; color: white; font-size: 1.125rem; line-height: 1.25; }
+.minicourse-card__art { position: absolute; right: 0.75rem; top: 0.625rem; width: 1.25rem; height: 1.25rem; color: white; }
 .minicourse-card__body { display: flex; flex: 1; flex-direction: column; padding: 0.25rem 0.875rem 0; }
-.minicourse-card__when { display: flex; flex-wrap: wrap; gap: 0.375rem 0.75rem; color: var(--muted-foreground); font-size: 0.6875rem; }
+.minicourse-card__when { display: flex; flex-wrap: wrap; gap: 0.375rem 0.75rem; color: white; font-size: 0.6875rem; }
 .minicourse-card__when > span { display: inline-flex; align-items: center; gap: 0.375rem; }
 .minicourse-card__when svg { width: 0.8125rem; height: 0.8125rem; flex: none; }
-.minicourse-card__more { color: var(--muted-foreground); font-size: 0.8125rem; }
-.minicourse-card__more summary { min-height: 2.75rem; padding-block: 0.75rem; cursor: pointer; color: var(--primary); font-size: 0.75rem; }
+.minicourse-card__more { color: white; font-size: 0.8125rem; }
+.minicourse-card__more summary { min-height: 2.75rem; padding-block: 0.75rem; cursor: pointer; color: white; font-size: 0.75rem; }
 .minicourse-card__more > p { padding-bottom: 0.75rem; line-height: 1.6; }
 .minicourse-card__stub { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 0.5rem 0.875rem 0.75rem; }
-.minicourse-card__price { color: var(--primary); }
+.minicourse-card__price { color: white; }
 .minicourse-card__price > strong { font-size: 1.125rem; font-weight: 600; white-space: nowrap; }
 .minicourse-card__button { display: inline-flex; min-height: 2.75rem; align-items: center; justify-content: center; gap: 0.375rem; padding-inline: 0.625rem; border-radius: 0.25rem; background: var(--ufo-yellow); color: var(--primary); font-size: 0.75rem; font-weight: 600; }
-.minicourse-card__button:hover { background: var(--primary); color: white; }
+.minicourse-card__button:hover { background: white; color: var(--primary); }
 .minicourse-carousel__controls { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 0.25rem; }
 .minicourse-carousel__controls > button { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 1px solid var(--primary); border-radius: 0.25rem; color: var(--primary); background: var(--card); }
 .minicourse-carousel__controls > button:disabled { opacity: 0.3; }
