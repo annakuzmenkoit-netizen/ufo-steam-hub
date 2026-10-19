@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { isAssetLoadError, shouldReloadAssets } from "@/lib/asset-load-error";
+import { assetRecoveryUrl, isAssetLoadError, shouldReloadAssets } from "@/lib/asset-load-error";
 import { createRouter, useRouter, type ErrorComponentProps } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
@@ -15,7 +15,7 @@ function DefaultErrorComponent({ error, reset }: ErrorComponentProps) {
       const now = Date.now();
       if (shouldReloadAssets(sessionStorage.getItem(key), now)) {
         sessionStorage.setItem(key, String(now));
-        window.location.reload();
+        window.location.replace(assetRecoveryUrl(window.location.href, Date.now()));
       }
     } catch {
       // Private browsers can deny storage. Keep the manual retry available.
@@ -56,7 +56,7 @@ function DefaultErrorComponent({ error, reset }: ErrorComponentProps) {
           <button
             onClick={() => {
               if (assetError) {
-                window.location.reload();
+                window.location.replace(assetRecoveryUrl(window.location.href, Date.now()));
               } else {
                 void router.invalidate();
                 reset();

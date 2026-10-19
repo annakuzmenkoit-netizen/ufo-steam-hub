@@ -6,6 +6,8 @@ import { RegistrationModal } from "@/components/RegistrationModal";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { Toaster } from "@/components/ui/sonner";
 
+import { assetRecoveryScript } from "@/lib/asset-load-error";
+
 import appCss from "../styles.css?inline";
 
 function NotFoundComponent() {
@@ -61,6 +63,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="uk">
       <head>
+        <script dangerouslySetInnerHTML={{ __html: assetRecoveryScript }} />
         <HeadContent />
         <style id="ufo-app-styles" dangerouslySetInnerHTML={{ __html: appCss }} />
       </head>
