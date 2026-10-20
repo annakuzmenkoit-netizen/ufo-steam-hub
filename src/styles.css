@@ -482,7 +482,7 @@ main .font-bold, main .font-extrabold { font-weight: 600; }
 .minicourse-carousel { container-type: inline-size; margin-top: 0.875rem; }
 .minicourse-rail { position: relative; display: flex; align-items: stretch; gap: 0.875rem; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 0.25rem 0 0.5rem; }
 .minicourse-rail::-webkit-scrollbar { display: none; }
-.minicourse-card { --mini-color: white; display: flex; flex: 0 0 86%; min-width: 0; flex-direction: column; overflow: hidden; scroll-snap-align: start; scroll-margin-top: 6rem; border: 1px solid var(--mini-color); border-top: 3px solid var(--mini-color); border-radius: 0.375rem; background: var(--mini-color); color: white; }
+.minicourse-card { --mini-color: var(--primary); display: flex; flex: 0 0 86%; min-width: 0; flex-direction: column; overflow: hidden; scroll-snap-align: start; scroll-margin-top: 6rem; border: 1px solid var(--mini-color); border-top: 3px solid var(--mini-color); border-radius: 0.375rem; background: var(--mini-color); color: white; }
 .minicourse-card--green { --mini-color: var(--ufo-green); }
 .minicourse-card__banner { position: relative; padding: 0.75rem 0.875rem 0.5rem; }
 .minicourse-card__banner > p { padding-right: 1.5rem; color: white; font-size: 0.625rem; line-height: 1.5; }
