@@ -46,7 +46,7 @@ function HomePage() {
             <p className="mt-4 mx-auto max-w-lg text-sm leading-relaxed text-white/90 md:text-lg">Робототехніка, творчість і наукові відкриття. Допоможемо знайти заняття, на які дитина захоче повертатися.</p>
             <div className="mt-5 flex flex-wrap justify-center gap-3">
               <Link to="/courses" className="parent-button bg-ufo-yellow text-primary">Обрати курс <ArrowRight className="h-4 w-4" /></Link>
-              <Link to="/contacts" className="parent-button border border-white/60 text-white">Порадитись про курс</Link>
+              <Link to="/contacts" className="parent-button border border-white/60 text-white">Зв’язатися з нами</Link>
             </div>
             <p className="mt-4 text-xs text-white/85">Для дітей 7–14 років · Міні-групи 4–6 дітей</p>
           </div>
