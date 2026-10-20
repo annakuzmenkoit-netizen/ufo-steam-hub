@@ -105,9 +105,9 @@ export function EnrollmentAnnouncement({ compact = false, sourcePage = "Тема
                     })
                   }
                   className="minicourse-card__button"
-                  aria-label={`Запитати про мінікурс: ${g.title}`}
+                  aria-label={`Хочу спробувати: ${g.title}`}
                 >
-                  Запитати <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                  Хочу спробувати <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                 </Button>
               </div>
             </article>

@@ -40,7 +40,15 @@ function CoursesPage() {
     if (!courses.some((course) => course.id === id)) return;
     setSelectedCourse(id);
     const frame = requestAnimationFrame(() => {
-      document.getElementById(id)?.scrollIntoView({ behavior: "instant", block: "start" });
+      const details = document.getElementById(id);
+      if (!details) return;
+      const top = details.getBoundingClientRect().top;
+      // Keep the page still when the new course is already comfortably visible.
+      if (top >= 96 && top <= window.innerHeight * 0.55) return;
+      details.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+        block: "start",
+      });
     });
     return () => cancelAnimationFrame(frame);
   }, [hash]);
@@ -74,8 +82,8 @@ function CoursesPage() {
         <BlobShape className="absolute -bottom-12 -left-12 opacity-25" color="#3056dd" size={200} />
 
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
-          <h1 className="text-3xl md:text-5xl font-semibold text-foreground">
-            Наші <span className="text-primary">курси</span>
+          <h1 className="home-hero__title">
+            Наші<br /> <span className="home-hero__highlight">курси</span>
           </h1>
           <p className="mt-6 text-lg text-muted-foreground">
             Ми створили програми, які розвивають дітей через дослідження, творчість і технології.
@@ -83,19 +91,21 @@ function CoursesPage() {
         </AnimatedSection>
 
         <AnimatedSection delay={0.1} className="relative mx-auto max-w-3xl px-4 mt-8">
-          <nav className="course-lego-menu" aria-label="Оберіть курс">
+          <nav className="course-selector-menu" aria-label="Оберіть курс">
             {courses.map((c) => (
               <Link
                 key={c.id}
                 to="/courses"
                 hash={c.id}
                 activeOptions={{ includeHash: true }}
+                hashScrollIntoView={false}
+                resetScroll={false}
                 data-selected={selectedCourse === c.id}
                 aria-current={selectedCourse === c.id ? "true" : undefined}
-                className={`course-lego course-lego--${c.id}`}
+                className={`course-selector course-selector--${c.id}`}
               >
                 <span>{c.title}</span>
-                {selectedCourse === c.id && <Check className="course-lego__check" aria-hidden="true" />}
+                {selectedCourse === c.id && <Check className="course-selector__check" aria-hidden="true" />}
               </Link>
             ))}
           </nav>
@@ -107,7 +117,7 @@ function CoursesPage() {
         <div className="mx-auto max-w-6xl space-y-5 px-4 sm:px-6 md:space-y-8">
           <p className="text-sm text-muted-foreground">Оберіть напрям угорі — нижче його вік, ціна, фото та програма.</p>
           {courses.filter((course) => course.id === selectedCourse).map((course) => (
-            <section key={course.id} id={course.id} className={`course-overview scroll-mt-2 rounded-3xl border-2 border-l-4 ${course.color} bg-card`}>
+            <section key={course.id} id={course.id} className={`course-overview scroll-mt-24 rounded-3xl border-2 border-l-4 ${course.color} bg-card`}>
               <div className="course-overview__heading">
                 <div className="flex items-center gap-3"><div className={`${course.iconBg} rounded-xl p-2.5 text-primary`}><course.icon className="h-6 w-6" /></div><h2 className="text-xl md:text-2xl">{course.title}</h2></div>
                 <div className="mt-3 flex flex-wrap gap-2"><span className="rounded-lg bg-primary/10 px-3 py-1 text-xs font-bold text-primary">{course.age}</span><span className="rounded-lg bg-ufo-yellow/50 px-3 py-1 text-xs font-bold text-primary">{course.price}</span></div>
