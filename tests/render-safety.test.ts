@@ -17,6 +17,8 @@ test("portrait sizes follow the displayed aspect ratio", () => {
 test("asset recovery distinguishes stale modules from application errors", () => {
   assert.ok(isAssetLoadError(new Error("Failed to fetch dynamically imported module: /assets/old.js")));
   assert.ok(isAssetLoadError(new Error("Importing a module script failed.")));
+  assert.ok(isAssetLoadError({ message: "Importing a module script failed." }));
+  assert.equal(isAssetLoadError({ message: "Cannot read properties of undefined" }), false);
   assert.equal(isAssetLoadError(new Error("Cannot read properties of undefined")), false);
 });
 

@@ -35,6 +35,11 @@ function NotFoundComponent() {
 }
 
 export const Route = createRootRoute({
+  // HTML names the current build's hashed modules; never reuse it across deploys.
+  headers: () => ({
+    "Cache-Control": "no-store, max-age=0",
+    "CDN-Cache-Control": "no-store",
+  }),
   head: () => ({
     meta: [
       { charSet: "utf-8" },

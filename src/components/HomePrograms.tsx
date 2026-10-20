@@ -110,7 +110,7 @@ export function HomePrograms() {
                     <button type="button" onClick={() => closeCourse(course.id)} className="program-note__close" aria-label={`Закрити опис: ${course.title}`}>Закрити <X className="h-4 w-4" aria-hidden="true" /></button>
                   </div>
                   <p>{summaries[course.id]}</p>
-                  <Link to="/schedule" className="program-note__schedule" aria-label={`Орієнтовний розклад: ${course.title}. Час і вік для кожної групи — у розкладі.`}>
+                  <Link to="/schedule" className="program-note__schedule" aria-label={`Розклад: ${course.title}. Час і вік для кожної групи — у розкладі.`}>
                     <Clock className="h-4 w-4 shrink-0" />
                     <span>{courseTimes(course.id, course.title)}</span>
                     <ArrowUpRight className="h-4 w-4 shrink-0" />

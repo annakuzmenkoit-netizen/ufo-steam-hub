@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import { assetRecoveryUrl, isAssetLoadError, shouldReloadAssets } from "@/lib/asset-load-error";
-import { createRouter, useRouter, type ErrorComponentProps } from "@tanstack/react-router";
+import { createRouter, type ErrorComponentProps } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
-function DefaultErrorComponent({ error, reset }: ErrorComponentProps) {
-  const router = useRouter();
+function DefaultErrorComponent({ error }: ErrorComponentProps) {
   const assetError = isAssetLoadError(error);
 
   useEffect(() => {
@@ -55,12 +54,8 @@ function DefaultErrorComponent({ error, reset }: ErrorComponentProps) {
         <div className="mt-6 flex items-center justify-center gap-3">
           <button
             onClick={() => {
-              if (assetError) {
-                window.location.replace(assetRecoveryUrl(window.location.href, Date.now()));
-              } else {
-                void router.invalidate();
-                reset();
-              }
+              // A router-only retry reuses failed modules and an outdated shell.
+              window.location.replace(assetRecoveryUrl(window.location.href, Date.now()));
             }}
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >

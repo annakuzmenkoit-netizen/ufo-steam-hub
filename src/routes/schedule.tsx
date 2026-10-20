@@ -20,7 +20,7 @@ export const Route = createFileRoute("/schedule")({
       {
         name: "description",
         content:
-          "Орієнтовний розклад занять UFO STEAM HUB на 2026–2027 навчальний рік.",
+          "Розклад занять UFO STEAM HUB на 2026–2027 навчальний рік.",
       },
       {
         property: "og:title",
@@ -29,7 +29,7 @@ export const Route = createFileRoute("/schedule")({
       {
         property: "og:description",
         content:
-          "Орієнтовний розклад занять освітнього центру UFO STEAM HUB на 2026–2027 навчальний рік.",
+          "Розклад занять освітнього центру UFO STEAM HUB на 2026–2027 навчальний рік.",
       },
     ],
   }),
@@ -82,8 +82,7 @@ function SchedulePage() {
           </h1>
 
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground md:mt-6 md:text-lg">
-            Орієнтовний розклад занять на 2026–2027 навчальний рік.
-            Час може змінюватися залежно від формування груп.
+            Розклад занять на 2026–2027 навчальний рік.
           </p>
         </AnimatedSection>
       </section>

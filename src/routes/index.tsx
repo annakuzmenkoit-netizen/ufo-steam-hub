@@ -13,6 +13,8 @@ import heroLarge from "@/assets/hero-children-960.webp";
 import { courses } from "@/lib/courses";
 
 export const Route = createFileRoute("/")({
+  // Keep the landing page in the entry graph so it cannot lag behind the shell.
+  codeSplitGroupings: [],
   head: () => ({
     meta: [
       { title: "UFO STEAM HUB — Освіта на дотик" },
@@ -97,7 +99,7 @@ function HomePage() {
             <details className="parent-details"><summary>Як записатися на заняття?</summary><p>Оберіть напрям і залиште заявку. Ми зв’яжемося, допоможемо з вибором та узгодимо деталі першого заняття.</p><button type="button" onClick={() => openRegistration()} className="parent-button mb-3 bg-ufo-yellow text-primary">Підібрати заняття <ArrowRight className="h-4 w-4" /></button></details>
             <details className="parent-details"><summary>Для якого віку цей простір?</summary><p>Простір розрахований на дітей 7–14 років. Вік для кожної програми вказано на сторінці курсів.</p></details>
             <details className="parent-details"><summary>Скільки коштують заняття?</summary><p>Вартість регулярних курсів — від {Math.min(...prices)} до {Math.max(...prices)} грн/місяць залежно від напряму. <Link to="/courses" className="font-semibold text-primary underline">Переглянути ціни</Link>.</p></details>
-            <details className="parent-details"><summary>Як дізнатися, чи підходить розклад?</summary><p>Перегляньте <Link to="/schedule" className="font-semibold text-primary underline">орієнтовний розклад</Link>. Час уточнимо під час запису — він залежить від формування груп.</p></details>
+            <details className="parent-details"><summary>Як дізнатися, чи підходить розклад?</summary><p>Перегляньте <Link to="/schedule" className="font-semibold text-primary underline">розклад</Link>. Оберіть зручний день і час занять для вашої дитини.</p></details>
           </div>
         </div>
       </section>
