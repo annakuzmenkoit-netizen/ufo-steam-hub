@@ -90,7 +90,7 @@ function HomePage() {
           <SteamGears />
         </div>
       </section>
-      <section className="parent-section">
+      <section className="parent-section home-faq">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <div className="parent-section-heading"><h2>Поширені запитання</h2></div>
           <div className="space-y-3">
