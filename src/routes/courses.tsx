@@ -1,11 +1,13 @@
 import { CourseGallery } from "@/components/CourseGallery";
 import { courses } from "@/lib/courses";
+import { slots } from "@/lib/schedule";
+import { formatCourseTimes } from "@/lib/course-times";
 import { SectionDecor } from "@/components/SectionDecor";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { createFileRoute, Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, ArrowUp, Check, Clock } from "lucide-react";
 
 import { openRegistration } from "@/components/RegistrationModal";
 import { Star4, Dot, Squiggle, BlobShape } from "@/components/Blobs";
@@ -25,6 +27,11 @@ export const Route = createFileRoute("/courses")({
   component: CoursesPage,
 });
 
+
+const shortCourseNames: Record<string, string> = { animation: "Анімація", "3d-modeling": "3D-моделювання" };
+function courseSchedule(id: string, title: string) {
+  return formatCourseTimes(slots.filter(slot => slot.course === (shortCourseNames[id] ?? title)));
+}
 
 function CoursesPage() {
   const hash = useRouterState({ select: (state) => state.location.hash });
@@ -83,15 +90,15 @@ function CoursesPage() {
 
         <AnimatedSection className="relative mx-auto max-w-3xl px-4">
           <h1 className="home-hero__title">
-            Наші<br /> <span className="home-hero__highlight">курси</span>
+            Наші <span className="home-hero__highlight">курси</span>
           </h1>
           <p className="mt-6 text-lg text-muted-foreground">
             Ми створили програми, які розвивають дітей через дослідження, творчість і технології.
           </p>
         </AnimatedSection>
 
-        <AnimatedSection delay={0.1} className="relative mx-auto max-w-3xl px-4 mt-8">
-          <nav className="course-selector-menu" aria-label="Оберіть курс">
+        <AnimatedSection delay={0.1} className="course-page-choices relative mx-auto max-w-3xl px-4">
+          <nav id="course-choices" className="course-selector-menu" aria-label="Оберіть курс">
             {courses.map((c) => (
               <Link
                 key={c.id}
@@ -102,9 +109,10 @@ function CoursesPage() {
                 resetScroll={false}
                 data-selected={selectedCourse === c.id}
                 aria-current={selectedCourse === c.id ? "true" : undefined}
+                aria-label={c.title}
                 className={`course-selector course-selector--${c.id}`}
               >
-                <span>{c.title}</span>
+                <span>{shortCourseNames[c.id] ?? c.title}</span>
                 {selectedCourse === c.id && <Check className="course-selector__check" aria-hidden="true" />}
               </Link>
             ))}
@@ -112,31 +120,41 @@ function CoursesPage() {
         </AnimatedSection>
       </section>
 
-      <div className="section-art parent-section">
+      <div className="section-art parent-section course-page-content">
         <SectionDecor tone="mint" />
         <div className="mx-auto max-w-6xl space-y-5 px-4 sm:px-6 md:space-y-8">
-          <p className="text-sm text-muted-foreground">Оберіть напрям угорі — нижче його вік, ціна, фото та програма.</p>
           {courses.filter((course) => course.id === selectedCourse).map((course) => (
-            <section key={course.id} id={course.id} className={`course-overview scroll-mt-24 rounded-3xl border-2 border-l-4 ${course.color} bg-card`}>
+            <section key={course.id} id={course.id} className={`course-overview scroll-mt-24 rounded-3xl border border-l-4 ${course.color} bg-card`}>
               <div className="course-overview__heading">
-                <div className="flex items-center gap-3"><div className={`${course.iconBg} rounded-xl p-2.5 text-primary`}><course.icon className="h-6 w-6" /></div><h2 className="text-xl md:text-2xl">{course.title}</h2></div>
-                <div className="mt-3 flex flex-wrap gap-2"><span className="rounded-lg bg-primary/10 px-3 py-1 text-xs font-bold text-primary">{course.age}</span><span className="rounded-lg bg-ufo-yellow/50 px-3 py-1 text-xs font-bold text-primary">{course.price}</span></div>
-              </div>
-              <div className="grid gap-4 px-4 pb-4 md:grid-cols-2 md:gap-6 md:px-6 md:pb-6">
-                <CourseGallery title={course.title} images={course.gallery} onOpen={(index) => openLightbox(course.title, course.gallery, index)} />
-                <div className="min-w-0">
-                  <p className="text-sm leading-relaxed text-muted-foreground">{course.desc}</p>
-                  <details className="parent-details mt-3">
-                    <summary>Програма та особливості</summary>
-                    <p>{course.details}</p>
-                    <h3 className="mt-3 text-sm">Що робимо</h3><ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-muted-foreground">{course.plan.map((step) => <li key={step}>{step}</li>)}</ul>
-                    <h3 className="mt-3 text-sm">Особливості</h3><ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-muted-foreground">{course.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>
-                  </details>
-                  <div className="mt-4 flex flex-wrap items-center gap-3">
-                    <button type="button" onClick={() => openRegistration({ registrationType: "course", sourcePage: "Сторінка курсів", title: `Запис на пробний урок — ${course.title}`, program: course.title, age: course.age })} className="parent-button bg-ufo-yellow text-primary">Записатися <ArrowRight className="h-4 w-4" /></button>
-                    <Link to="/schedule" className="inline-flex min-h-11 items-center text-sm font-semibold text-primary underline underline-offset-4">Переглянути розклад</Link>
-                  </div>
+                <button type="button" className="course-overview__back" onClick={() => document.getElementById("course-choices")?.scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" })}>
+                  <ArrowUp aria-hidden="true" />Обрати інший курс
+                </button>
+                <div className="course-overview__title">
+                  <div className={`${course.iconBg} rounded-xl p-2 text-primary`}><course.icon className="h-5 w-5" aria-hidden="true" /></div>
+                  <h2>{course.title}</h2>
                 </div>
+                <dl className="course-overview__facts">
+                  <div><dt>Для кого</dt><dd>{course.age}</dd></div>
+                  <div><dt>Вартість</dt><dd>{course.price.replace("Вартість: ", "").replace("/місяць", "")}<small> / місяць</small></dd></div>
+                </dl>
+              </div>
+              <div className="course-overview__body">
+                <div className="course-overview__intro">
+                  <p>{course.desc}</p>
+                  <Link to="/schedule" className="course-overview__schedule">
+                    <Clock aria-hidden="true" />
+                    <span><small>Коли заняття</small>{courseSchedule(course.id, course.title)}</span>
+                    <ArrowRight aria-hidden="true" />
+                  </Link>
+                  <button type="button" onClick={() => openRegistration({ registrationType: "course", sourcePage: "Сторінка курсів", title: `Запис на пробний урок — ${course.title}`, program: course.title, age: course.age })} className="parent-button course-overview__cta bg-ufo-yellow text-primary">Записатися <ArrowRight className="h-4 w-4" /></button>
+                </div>
+                <CourseGallery title={course.title} images={course.gallery} onOpen={(index) => openLightbox(course.title, course.gallery, index)} />
+                <details className="parent-details course-overview__program">
+                  <summary>Програма та особливості</summary>
+                  <p>{course.details}</p>
+                  <h3 className="mt-3 text-sm">Що робимо</h3><ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-muted-foreground">{course.plan.map((step) => <li key={step}>{step}</li>)}</ul>
+                  <h3 className="mt-3 text-sm">Особливості</h3><ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-muted-foreground">{course.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>
+                </details>
               </div>
             </section>
           ))}
