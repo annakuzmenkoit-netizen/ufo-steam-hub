@@ -70,8 +70,8 @@ function HomePage() {
       <section className="parent-section">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="home-learning" aria-labelledby="home-learning-title">
-            <h2 id="home-learning-title">Як ми навчаємо</h2>
-            <div className="home-learning__items">{benefits.map(({icon: Icon, title, text}) => <article key={title}><h3><Icon className="h-4 w-4" aria-hidden="true" />{title}</h3><p>{text}</p></article>)}</div>
+            <h2 id="home-learning-title">Наші переваги</h2>
+            <div className="home-learning__items">{benefits.map(({icon: Icon, title, text}) => <article key={title}><h3><Icon className="h-4 w-4" aria-hidden="true" /><span>{title}</span></h3><p>{text}</p></article>)}</div>
           </div>
           <SteamGears />
         </div>

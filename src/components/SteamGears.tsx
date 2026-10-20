@@ -27,7 +27,7 @@ export function SteamGears() {
       <svg className="steam-train" viewBox="0 0 540 148" role="group" aria-label="П’ять взаємопов’язаних напрямів STEAM">
         {areas.map((area, index) => {
           const radius = area.teeth * 4 + 5;
-          const ring = radius * 0.69;
+          const ring = radius * 0.55;
           const pathId = `${id}-ring-${area.letter}`;
           return (
             <g key={area.letter} className={`steam-train__gear steam-gear--${area.color}`} role="button" tabIndex={0} aria-label={`${area.letter} — ${area.english}. ${area.title}: ${area.meaning}.`} aria-pressed={active === index} onClick={() => setActive(index)} onFocus={() => setActive(index)} onPointerEnter={() => setActive(index)} onKeyDown={event => {
