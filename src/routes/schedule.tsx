@@ -60,7 +60,7 @@ function SchedulePage() {
 
         <Dot
           className="absolute right-8 top-20 hidden md:block"
-          color="#f04770"
+          color="var(--ufo-pink)"
           size={20}
         />
 

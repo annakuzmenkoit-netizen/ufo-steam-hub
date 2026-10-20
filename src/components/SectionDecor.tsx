@@ -5,7 +5,7 @@ type Props = {
   side?: "left" | "right";
 };
 
-const colors = { mint: "#17c590", blue: "#3056dd", rose: "#f04770", sun: "#f7df5d" };
+const colors = { mint: "#17c590", blue: "#3056dd", rose: "var(--ufo-pink)", sun: "#f7df5d" };
 
 /** Quiet echoes of the hero artwork, kept behind content and outside hit targets. */
 export function SectionDecor({ tone = "mint", side = "right" }: Props) {

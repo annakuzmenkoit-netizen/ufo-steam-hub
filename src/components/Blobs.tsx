@@ -14,7 +14,7 @@ export function BlobShape({ className = "", color = "#17c590", size = 180 }: Pro
   );
 }
 
-export function Squiggle({ className = "", color = "#f04770", size = 120 }: Props) {
+export function Squiggle({ className = "", color = "var(--ufo-pink)", size = 120 }: Props) {
   return (
     <svg viewBox="0 0 120 30" width={size} height={size * 0.25} className={className} aria-hidden>
       <path d="M2 15 Q 17 0 32 15 T 62 15 T 92 15 T 118 15" stroke={color} strokeWidth="5" strokeLinecap="round" fill="none" />

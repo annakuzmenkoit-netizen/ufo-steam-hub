@@ -59,7 +59,7 @@
   --card-foreground: oklch(0.25 0.02 260);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.25 0.02 260);
-  --primary: var(--ufo-blue);
+  --primary: oklch(0.45 0.2 265);
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.95 0.01 95);
   --secondary-foreground: oklch(0.25 0.02 260);
@@ -71,25 +71,25 @@
   --destructive-foreground: oklch(1 0 0);
   --border: oklch(0.92 0.01 95);
   --input: oklch(0.92 0.01 95);
-  --ring: var(--ufo-blue);
-  --chart-1: var(--ufo-blue);
-  --chart-2: var(--ufo-green);
-  --chart-3: var(--ufo-yellow);
+  --ring: oklch(0.45 0.2 265);
+  --chart-1: oklch(0.45 0.2 265);
+  --chart-2: oklch(0.65 0.18 165);
+  --chart-3: oklch(0.88 0.15 95);
   --chart-4: var(--ufo-pink);
-  --chart-5: var(--ufo-green);
+  --chart-5: oklch(0.65 0.18 165);
   --sidebar: oklch(0.99 0.005 95);
   --sidebar-foreground: oklch(0.25 0.02 260);
-  --sidebar-primary: var(--ufo-blue);
+  --sidebar-primary: oklch(0.45 0.2 265);
   --sidebar-primary-foreground: oklch(1 0 0);
   --sidebar-accent: oklch(0.95 0.01 95);
   --sidebar-accent-foreground: oklch(0.25 0.02 260);
   --sidebar-border: oklch(0.92 0.01 95);
-  --sidebar-ring: var(--ufo-blue);
-  --ufo-blue: #3056dd;
-  --ufo-yellow: #f7df5d;
-  --ufo-green: #17c590;
-  --ufo-cream: #fffdf0;
-  --ufo-pink: #f04770;
+  --sidebar-ring: oklch(0.45 0.2 265);
+  --ufo-blue: oklch(0.45 0.2 265);
+  --ufo-yellow: oklch(0.9 0.15 95);
+  --ufo-green: oklch(0.65 0.18 165);
+  --ufo-cream: oklch(0.99 0.005 95);
+  --ufo-pink: oklch(0.64 0.15 25);
 }
 
 .dark {
@@ -99,7 +99,7 @@
   --card-foreground: oklch(0.95 0.005 95);
   --popover: oklch(0.2 0.02 260);
   --popover-foreground: oklch(0.95 0.005 95);
-  --primary: var(--ufo-blue);
+  --primary: oklch(0.6 0.2 265);
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.25 0.02 260);
   --secondary-foreground: oklch(0.95 0.005 95);
@@ -111,25 +111,25 @@
   --destructive-foreground: oklch(1 0 0);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: var(--ufo-blue);
-  --chart-1: var(--ufo-blue);
-  --chart-2: var(--ufo-green);
-  --chart-3: var(--ufo-yellow);
+  --ring: oklch(0.6 0.2 265);
+  --chart-1: oklch(0.6 0.2 265);
+  --chart-2: oklch(0.65 0.18 165);
+  --chart-3: oklch(0.88 0.15 95);
   --chart-4: var(--ufo-pink);
-  --chart-5: var(--ufo-green);
+  --chart-5: oklch(0.65 0.18 165);
   --sidebar: oklch(0.2 0.02 260);
   --sidebar-foreground: oklch(0.95 0.005 95);
-  --sidebar-primary: var(--ufo-blue);
+  --sidebar-primary: oklch(0.6 0.2 265);
   --sidebar-primary-foreground: oklch(1 0 0);
   --sidebar-accent: oklch(0.25 0.02 260);
   --sidebar-accent-foreground: oklch(0.95 0.005 95);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: var(--ufo-blue);
-  --ufo-blue: #3056dd;
-  --ufo-yellow: #f7df5d;
-  --ufo-green: #17c590;
-  --ufo-cream: #fffdf0;
-  --ufo-pink: #f04770;
+  --sidebar-ring: oklch(0.6 0.2 265);
+  --ufo-blue: oklch(0.6 0.2 265);
+  --ufo-yellow: oklch(0.88 0.15 95);
+  --ufo-green: oklch(0.65 0.18 165);
+  --ufo-cream: oklch(0.15 0.02 260);
+  --ufo-pink: oklch(0.7 0.15 25);
 }
 
 @layer base {
@@ -581,8 +581,8 @@ main .font-bold, main .font-extrabold { font-weight: 600; }
 .home-learning__items article:nth-child(3) h3 > span { background: var(--primary); color: white; }
 .home-learning__items article:nth-child(4) h3 > span { background: var(--ufo-pink); color: white; }
 
-.home-learning__items article h3 > span.home-learning__words { display: flex; flex-wrap: wrap; gap: 0.125rem 0.25rem; padding: 0; background: transparent; }
-.home-learning__words > span { display: inline-block; padding: 0.125rem 0.25rem; background: var(--ufo-pink); color: white; }
+.home-learning__items article h3 > span.home-learning__words { display: flex; flex-wrap: wrap; gap: 1px 0.25rem; padding: 0; background: transparent; line-height: 1.15; }
+.home-learning__words > span { display: inline-block; padding: 0.0625rem 0.25rem; background: var(--ufo-pink); color: white; }
 
 /* One text ink on the homepage; colored surfaces keep their explicit white text. */
 main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--ufo-blue); --card-foreground: var(--ufo-blue); color: var(--foreground); }

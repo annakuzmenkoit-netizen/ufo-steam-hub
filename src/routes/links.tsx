@@ -86,7 +86,7 @@ function LinksPage() {
 
           <Dot
             className="pointer-events-none absolute right-0 top-0 opacity-70"
-            color="#f04770"
+            color="var(--ufo-pink)"
             size={12}
           />
 

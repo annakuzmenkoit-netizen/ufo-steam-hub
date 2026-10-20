@@ -92,7 +92,7 @@ function HomePage() {
       </section>
       <section className="parent-section">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
-          <div className="parent-section-heading"><h2>Відповіді для батьків</h2></div>
+          <div className="parent-section-heading"><h2>Поширені запитання</h2></div>
           <div className="space-y-3">
             <details className="parent-details"><summary>Як записатися на заняття?</summary><p>Оберіть напрям і залиште заявку. Ми зв’яжемося, допоможемо з вибором та узгодимо деталі першого заняття.</p><button type="button" onClick={() => openRegistration()} className="parent-button mb-3 bg-ufo-yellow text-primary">Підібрати заняття <ArrowRight className="h-4 w-4" /></button></details>
             <details className="parent-details"><summary>Для якого віку цей простір?</summary><p>Простір розрахований на дітей 7–14 років. Вік для кожної програми вказано на сторінці курсів.</p></details>
