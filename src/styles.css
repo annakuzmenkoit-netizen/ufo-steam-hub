@@ -59,7 +59,7 @@
   --card-foreground: oklch(0.25 0.02 260);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.25 0.02 260);
-  --primary: oklch(0.45 0.2 265);
+  --primary: var(--ufo-blue);
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.95 0.01 95);
   --secondary-foreground: oklch(0.25 0.02 260);
@@ -71,25 +71,25 @@
   --destructive-foreground: oklch(1 0 0);
   --border: oklch(0.92 0.01 95);
   --input: oklch(0.92 0.01 95);
-  --ring: oklch(0.45 0.2 265);
-  --chart-1: oklch(0.45 0.2 265);
-  --chart-2: oklch(0.65 0.18 165);
-  --chart-3: oklch(0.88 0.15 95);
-  --chart-4: oklch(0.58 0.22 25);
-  --chart-5: oklch(0.65 0.18 165);
+  --ring: var(--ufo-blue);
+  --chart-1: var(--ufo-blue);
+  --chart-2: var(--ufo-green);
+  --chart-3: var(--ufo-yellow);
+  --chart-4: var(--ufo-pink);
+  --chart-5: var(--ufo-green);
   --sidebar: oklch(0.99 0.005 95);
   --sidebar-foreground: oklch(0.25 0.02 260);
-  --sidebar-primary: oklch(0.45 0.2 265);
+  --sidebar-primary: var(--ufo-blue);
   --sidebar-primary-foreground: oklch(1 0 0);
   --sidebar-accent: oklch(0.95 0.01 95);
   --sidebar-accent-foreground: oklch(0.25 0.02 260);
   --sidebar-border: oklch(0.92 0.01 95);
-  --sidebar-ring: oklch(0.45 0.2 265);
-  --ufo-blue: oklch(0.45 0.2 265);
-  --ufo-yellow: oklch(0.9 0.15 95);
-  --ufo-green: oklch(0.65 0.18 165);
-  --ufo-cream: oklch(0.99 0.005 95);
-  --ufo-pink: oklch(0.58 0.22 25);
+  --sidebar-ring: var(--ufo-blue);
+  --ufo-blue: #3056dd;
+  --ufo-yellow: #f7df5d;
+  --ufo-green: #17c590;
+  --ufo-cream: #fffdf0;
+  --ufo-pink: #f04770;
 }
 
 .dark {
@@ -99,7 +99,7 @@
   --card-foreground: oklch(0.95 0.005 95);
   --popover: oklch(0.2 0.02 260);
   --popover-foreground: oklch(0.95 0.005 95);
-  --primary: oklch(0.6 0.2 265);
+  --primary: var(--ufo-blue);
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.25 0.02 260);
   --secondary-foreground: oklch(0.95 0.005 95);
@@ -111,25 +111,25 @@
   --destructive-foreground: oklch(1 0 0);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.6 0.2 265);
-  --chart-1: oklch(0.6 0.2 265);
-  --chart-2: oklch(0.65 0.18 165);
-  --chart-3: oklch(0.88 0.15 95);
-  --chart-4: oklch(0.65 0.22 25);
-  --chart-5: oklch(0.65 0.18 165);
+  --ring: var(--ufo-blue);
+  --chart-1: var(--ufo-blue);
+  --chart-2: var(--ufo-green);
+  --chart-3: var(--ufo-yellow);
+  --chart-4: var(--ufo-pink);
+  --chart-5: var(--ufo-green);
   --sidebar: oklch(0.2 0.02 260);
   --sidebar-foreground: oklch(0.95 0.005 95);
-  --sidebar-primary: oklch(0.6 0.2 265);
+  --sidebar-primary: var(--ufo-blue);
   --sidebar-primary-foreground: oklch(1 0 0);
   --sidebar-accent: oklch(0.25 0.02 260);
   --sidebar-accent-foreground: oklch(0.95 0.005 95);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.6 0.2 265);
-  --ufo-blue: oklch(0.6 0.2 265);
-  --ufo-yellow: oklch(0.88 0.15 95);
-  --ufo-green: oklch(0.65 0.18 165);
-  --ufo-cream: oklch(0.15 0.02 260);
-  --ufo-pink: oklch(0.65 0.22 25);
+  --sidebar-ring: var(--ufo-blue);
+  --ufo-blue: #3056dd;
+  --ufo-yellow: #f7df5d;
+  --ufo-green: #17c590;
+  --ufo-cream: #fffdf0;
+  --ufo-pink: #f04770;
 }
 
 @layer base {
@@ -542,26 +542,34 @@ main .font-bold, main .font-extrabold { font-weight: 600; }
   .home-learning__items { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; }
 }
 
-/* Course navigation is a small set of colored building bricks. */
+/* Flat, staggered construction bricks, using the shared brand palette. */
 .course-page-intro { padding-block: 2rem; }
-.course-lego-menu { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 0.875rem; padding: 0.75rem 0.125rem 0.375rem; }
-.course-lego { --lego-color: var(--ufo-yellow); --lego-ink: var(--primary); position: relative; display: flex; min-width: 0; min-height: 4.5rem; align-items: center; justify-content: center; padding: 0.75rem 0.875rem 1rem; border: 1px solid rgb(255 255 255 / 0.35); border-radius: 3px; background: var(--lego-color); color: var(--lego-ink); text-align: center; box-shadow: inset 0 -5px 0 rgb(0 0 0 / 0.14), 0 3px 0 rgb(0 0 0 / 0.12); transition: transform 140ms ease; }
-.course-lego--robotics, .course-lego--3d-modeling { --lego-color: var(--ufo-green); --lego-ink: white; }
-.course-lego--animation { --lego-color: var(--ufo-pink); --lego-ink: white; }
-.course-lego--math { --lego-color: var(--primary); --lego-ink: white; }
-.course-lego::before, .course-lego::after { content: ""; position: absolute; top: -0.6875rem; width: 1.75rem; height: 0.75rem; border: 1px solid rgb(255 255 255 / 0.35); border-radius: 50% 50% 2px 2px; background: var(--lego-color); box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.12); }
-.course-lego::before { left: 20%; }
-.course-lego::after { right: 20%; }
-.course-lego > span { font-size: 0.75rem; font-weight: 600; line-height: 1.35; overflow-wrap: anywhere; }
-.page-intro .course-lego[data-selected="true"] { border-color: white; background: var(--lego-color); color: var(--lego-ink); outline: 2px solid white; outline-offset: 3px; }
-.course-lego:hover { transform: translateY(-2px); }
-.course-lego:focus-visible { outline: 3px solid white; outline-offset: 4px; }
-.course-lego__check { position: absolute; right: 0.25rem; bottom: 0.5rem; width: 0.875rem; height: 0.875rem; }
+.course-lego-menu { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0; padding-top: 1rem; isolation: isolate; }
+.course-lego { --lego-color: var(--ufo-yellow); --lego-ink: var(--ufo-blue); position: relative; display: flex; grid-column: span 6; min-width: 0; min-height: 5rem; align-items: center; justify-content: center; padding: 1rem 0.625rem; border: 0; border-radius: 2px; background: var(--lego-color); color: var(--lego-ink); text-align: center; transition: filter 140ms ease; }
+.course-lego:nth-child(1) { grid-column: 2 / span 5; }
+.course-lego:nth-child(2) { grid-column: 7 / span 6; }
+.course-lego:nth-child(3) { grid-column: 1 / span 7; }
+.course-lego:nth-child(4) { grid-column: 8 / span 5; }
+.course-lego:nth-child(5) { grid-column: 2 / span 5; }
+.course-lego:nth-child(6) { grid-column: 7 / span 5; }
+.course-lego--robotics { --lego-color: var(--ufo-green); --lego-ink: white; }
+.course-lego--animation { --lego-color: var(--ufo-cream); }
+.course-lego--math-mind { --lego-color: var(--ufo-pink); --lego-ink: white; }
+.course-lego--3d-modeling { --lego-color: var(--ufo-green); --lego-ink: white; }
+.course-lego::before, .course-lego::after { content: ""; position: absolute; z-index: -1; top: -0.75rem; width: 22%; max-width: 3rem; height: 1rem; border-radius: 5px 5px 0 0; background: var(--lego-color); }
+.course-lego::before { left: 14%; }
+.course-lego::after { right: 14%; }
+.course-lego > span { font-size: clamp(1rem, 4.6vw, 1.5rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.035em; overflow-wrap: anywhere; }
+.page-intro .course-lego[data-selected="true"] { background: var(--lego-color); color: var(--lego-ink); box-shadow: inset 0 -4px 0 var(--lego-ink); }
+.course-lego:hover { filter: brightness(1.06); }
+.course-lego:focus-visible { z-index: 2; outline: 3px solid var(--ufo-cream); outline-offset: 3px; }
+.course-lego__check { position: absolute; right: 0.25rem; bottom: 0.375rem; width: 0.75rem; height: 0.75rem; }
 @media (min-width: 768px) {
   .course-page-intro { padding-block: 3rem; }
-  .course-lego-menu { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .course-lego { min-height: 4.75rem; }
-  .course-lego > span { font-size: 0.875rem; }
+  .course-lego { min-height: 6.25rem; padding: 1.25rem 1rem; }
+  .course-lego > span { font-size: 1.875rem; }
+  .course-lego::before, .course-lego::after { top: -1rem; height: 1.25rem; }
+  .course-lego__check { right: 0.5rem; bottom: 0.5rem; width: 1rem; height: 1rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .course-lego { transition: none; }
@@ -572,3 +580,9 @@ main .font-bold, main .font-extrabold { font-weight: 600; }
 .home-learning__items article:nth-child(2) h3 > span { background: var(--ufo-green); color: white; }
 .home-learning__items article:nth-child(3) h3 > span { background: var(--primary); color: white; }
 .home-learning__items article:nth-child(4) h3 > span { background: var(--ufo-pink); color: white; }
+
+.home-learning__items article h3 > span.home-learning__words { display: flex; flex-wrap: wrap; gap: 0.125rem 0.25rem; padding: 0; background: transparent; }
+.home-learning__words > span { display: inline-block; padding: 0.125rem 0.25rem; background: var(--ufo-pink); color: white; }
+
+/* One text ink on the homepage; colored surfaces keep their explicit white text. */
+main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--ufo-blue); --card-foreground: var(--ufo-blue); color: var(--foreground); }

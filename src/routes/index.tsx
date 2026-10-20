@@ -71,7 +71,21 @@ function HomePage() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="home-learning" aria-labelledby="home-learning-title">
             <h2 id="home-learning-title">Наші переваги</h2>
-            <div className="home-learning__items">{benefits.map(({icon: Icon, title, text}) => <article key={title}><h3><Icon className="h-4 w-4" aria-hidden="true" /><span>{title}</span></h3><p>{text}</p></article>)}</div>
+            <div className="home-learning__items">
+              {benefits.map(({ icon: Icon, title, text }) => (
+                <article key={title}>
+                  <h3>
+                    <Icon className="h-4 w-4" aria-hidden="true" />
+                    <span className={title === "Навички майбутнього" ? "home-learning__words" : undefined}>
+                      {title === "Навички майбутнього" ? (
+                        <><span>Навички</span>{" "}<span>майбутнього</span></>
+                      ) : title}
+                    </span>
+                  </h3>
+                  <p>{text}</p>
+                </article>
+              ))}
+            </div>
           </div>
           <SteamGears />
         </div>
