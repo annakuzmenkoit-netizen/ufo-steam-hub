@@ -3,7 +3,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Calendar, Clock3, Film, Orbit, Roc
 import { Button } from "@/components/ui/button";
 import { openRegistration } from "@/components/RegistrationModal";
 
-const PROMO_INFO = "Тематичний мінікурс із 4 занять. Акція: знижка 20% при бронюванні до 31.10.2026.";
+const MINI_COURSE_INFO = "Тематичний мінікурс із 4 занять.";
 
 const newGroups = [
   {
@@ -66,7 +66,6 @@ export function EnrollmentAnnouncement({ compact = false, sourcePage = "Тема
             <p className="parent-eyebrow inline-flex items-center gap-2"><Rocket className="h-4 w-4" />Листопад 2026</p>
             <h2 id="new-groups-title">Набір на <span>мінікурси</span></h2>
           </div>
-          <p className="minicourse-offer" aria-label="Знижка 20% за бронювання до 31 жовтня 2026"><strong>−20%</strong><span>за бронювання до 31 жовтня</span></p>
         </div>
         <div className="minicourse-carousel" data-compact={compact}>
         <div className="minicourse-rail" ref={rail} tabIndex={0} aria-label="Мінікурси: гортайте вбік" onScroll={event => {
@@ -101,7 +100,7 @@ export function EnrollmentAnnouncement({ compact = false, sourcePage = "Тема
                       day: g.day,
                       date: g.date,
                       time: g.time,
-                      additionalInfo: `Запит про деталі мінікурсу, без бронювання. Категорія: ${g.category}. Розклад: ${g.schedule}. Вартість мінікурсу: ${g.price}. ${PROMO_INFO}`,
+                      additionalInfo: `Запит про деталі мінікурсу, без бронювання. Категорія: ${g.category}. Розклад: ${g.schedule}. Вартість мінікурсу: ${g.price}. ${MINI_COURSE_INFO}`,
                     })
                   }
                   className="minicourse-card__button"
