@@ -39,6 +39,7 @@ export function Footer() {
             <ul className="grid grid-cols-2 gap-x-4 text-sm text-primary-foreground/80">
               <li><Link to="/" className="inline-flex min-h-11 items-center hover:text-ufo-yellow transition-colors">Головна</Link></li>
               <li><Link to="/about" className="inline-flex min-h-11 items-center hover:text-ufo-yellow transition-colors">Про нас</Link></li>
+              <li><Link to="/community" className="inline-flex min-h-11 items-center hover:text-ufo-yellow transition-colors">Громадська діяльність</Link></li>
               <li><Link to="/courses" className="inline-flex min-h-11 items-center hover:text-ufo-yellow transition-colors">Курси</Link></li>
               <li><Link to="/camps" className="inline-flex min-h-11 items-center hover:text-ufo-yellow transition-colors">Табори</Link></li>
               <li><Link to="/schedule" className="inline-flex min-h-11 items-center hover:text-ufo-yellow transition-colors">Розклад</Link></li>

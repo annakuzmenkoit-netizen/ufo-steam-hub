@@ -9,6 +9,7 @@ import logoImg from "@/assets/ufo-logo.webp";
 const navLinks = [
   { to: "/" as const, label: "Головна" },
   { to: "/about" as const, label: "Про нас" },
+  { to: "/community" as const, label: "Громадська діяльність" },
   { to: "/courses" as const, label: "Курси" },
   { to: "/camps" as const, label: "Табори" },
   { to: "/schedule" as const, label: "Розклад" },
@@ -22,6 +23,7 @@ const mobileNavLinks = [
   { to: "/schedule" as const, label: "Розклад" },
   { to: "/contacts" as const, label: "Контакти" },
   { to: "/about" as const, label: "Про нас" },
+  { to: "/community" as const, label: "Громадська діяльність" },
   { to: "/links" as const, label: "Швидкі посилання", icon: Link2 },
 ];
 
@@ -48,7 +50,7 @@ export function Header() {
               </span>
             </Link>
 
-            <nav className="hidden lg:flex items-center gap-6">
+            <nav className="hidden xl:flex items-center gap-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.to}
@@ -76,7 +78,7 @@ export function Header() {
             </nav>
 
             <button
-              className="lg:hidden h-11 w-11 rounded-full border border-border bg-background text-primary flex items-center justify-center active:scale-95 transition-transform shrink-0"
+              className="xl:hidden h-11 w-11 rounded-full border border-border bg-background text-primary flex items-center justify-center active:scale-95 transition-transform shrink-0"
               onClick={() => setMobileOpen(true)}
               aria-label="Відкрити меню"
               aria-expanded={mobileOpen}

@@ -626,3 +626,52 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
   .course-overview__cta { width: auto; }
   .course-gallery__main { height: 280px; }
 }
+
+/* Community projects */
+.community-container { max-width: 1200px; margin-inline: auto; padding-inline: 24px; }
+.community-section { padding-block: 72px; }
+.community-page h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); line-height: 1.17; font-weight: 800; letter-spacing: -.04em; }
+.community-eyebrow { font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 16px; }
+.community-hero { background: #244bd4; color: white; padding-block: 64px; overflow: hidden; }
+.community-hero h1 { font-size: clamp(2.6rem, 5vw, 4.4rem); line-height: 1.08; letter-spacing: -.055em; font-weight: 800; }
+.community-hero h1 span { color: #ffe57a; }
+.community-hero-photo { position: relative; height: 430px; border-radius: 100px 24px 100px 24px; overflow: hidden; transform: rotate(2deg); border: 6px solid #ffffff30; }
+.community-photo-note { position: absolute; bottom: 24px; left: 18px; background: #ffe57a; color: #193c9e; padding: 14px 20px; border-radius: 12px; font-size: .9rem; transform: rotate(-5deg); }
+.community-stories { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.community-story { border-radius: 24px; overflow: hidden; }
+.community-story-photo { position: relative; height: 235px; }
+.community-story-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(#0003, transparent 40%, #0005); }
+.community-story-progress { position: absolute; inset: 12px 12px auto; display: flex; gap: 4px; z-index: 1; }
+.community-story-progress span { height: 3px; flex: 1; border-radius: 4px; background: #ffffff60; }
+.community-story-progress .active { background: white; }
+.community-story-tag { position: absolute; bottom: 12px; left: 12px; right: 12px; z-index: 1; color: white; font-size: .7rem; font-weight: 700; }
+.community-founded { display: flex; justify-content: space-between; gap: 20px; align-items: center; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.community-founded .community-eyebrow { margin: 0; }
+.community-founded p { max-width: 550px; font-size: 1.2rem; }
+.community-stat { padding: 24px 20px; background: #f4f6ff; border-radius: 20px; }
+.community-stat > span { font-size: 3.6rem; font-weight: 800; color: #244bd4; line-height: 1; letter-spacing: -.06em; }
+.community-engineering { display: flex; align-items: center; gap: 24px; padding: 28px; border-radius: 20px; background: #fff1b2; color: #253b68; }
+.community-trip { display: flex; align-items: center; gap: 16px; padding: 24px; border: 1px solid var(--border); border-radius: 20px; }
+.community-network { display: grid; grid-template-columns: 1fr 2fr; align-items: center; gap: 48px; }
+.community-network-mark { padding: 36px; border-radius: 24px; background: #c6ebd9; color: #164d3a; font-size: clamp(2.5rem, 5vw, 4.2rem); font-weight: 800; letter-spacing: -.05em; }
+.community-document { display: block; padding: 28px; border: 1px solid var(--border); border-radius: 20px; transition: border-color .2s, background .2s; }
+.community-document:hover { border-color: #244bd4; background: #f4f6ff; }
+.community-support { text-align: center; padding: 56px 24px; border-radius: 32px; color: white; background: #244bd4; }
+.community-support .parent-button { max-width: 100%; }
+@media (max-width: 1023px) {
+  .community-stories { display: flex; overflow-x: auto; gap: 16px; scroll-snap-type: x mandatory; padding-bottom: 16px; }
+  .community-story { flex: 0 0 260px; scroll-snap-align: start; }
+}
+@media (max-width: 639px) {
+  .community-container { padding-inline: 20px; }
+  .community-section { padding-block: 44px; }
+  .community-hero { padding-block: 40px; }
+  .community-hero-photo { height: 300px; border-radius: 70px 20px 70px 20px; }
+  .community-founded { display: block; }
+  .community-founded p { margin-top: 16px; }
+  .community-network { grid-template-columns: 1fr; gap: 24px; }
+  .community-network-mark { max-width: 240px; }
+  .community-trip { padding: 20px 16px; gap: 12px; }
+  .community-support { padding: 36px 18px; }
+  .community-hero .parent-button, .community-support .parent-button { font-size: .75rem; padding-inline: 12px; }
+}

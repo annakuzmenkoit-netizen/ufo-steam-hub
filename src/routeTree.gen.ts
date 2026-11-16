@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CampsRouteImport } from './routes/camps'
+import { Route as CommunityRouteImport } from './routes/community'
 import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as LinksRouteImport } from './routes/links'
@@ -46,6 +47,11 @@ const AuthRoute = AuthRouteImport.update({
 const CampsRoute = CampsRouteImport.update({
   id: '/camps',
   path: '/camps',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactsRoute = ContactsRouteImport.update({
@@ -103,6 +109,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/camps': typeof CampsRoute
+  '/community': typeof CommunityRoute
   '/contacts': typeof ContactsRoute
   '/courses': typeof CoursesRoute
   '/links': typeof LinksRoute
@@ -118,6 +125,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/camps': typeof CampsRoute
+  '/community': typeof CommunityRoute
   '/contacts': typeof ContactsRoute
   '/courses': typeof CoursesRoute
   '/links': typeof LinksRoute
@@ -135,6 +143,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/camps': typeof CampsRoute
+  '/community': typeof CommunityRoute
   '/contacts': typeof ContactsRoute
   '/courses': typeof CoursesRoute
   '/links': typeof LinksRoute
@@ -152,6 +161,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/camps'
+    | '/community'
     | '/contacts'
     | '/courses'
     | '/links'
@@ -167,6 +177,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/camps'
+    | '/community'
     | '/contacts'
     | '/courses'
     | '/links'
@@ -183,6 +194,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/camps'
+    | '/community'
     | '/contacts'
     | '/courses'
     | '/links'
@@ -200,6 +212,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
   CampsRoute: typeof CampsRoute
+  CommunityRoute: typeof CommunityRoute
   ContactsRoute: typeof ContactsRoute
   CoursesRoute: typeof CoursesRoute
   LinksRoute: typeof LinksRoute
@@ -245,6 +258,13 @@ declare module '@tanstack/react-router' {
       path: '/camps'
       fullPath: '/camps'
       preLoaderRoute: typeof CampsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contacts': {
@@ -330,6 +350,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
   CampsRoute: CampsRoute,
+  CommunityRoute: CommunityRoute,
   ContactsRoute: ContactsRoute,
   CoursesRoute: CoursesRoute,
   LinksRoute: LinksRoute,
