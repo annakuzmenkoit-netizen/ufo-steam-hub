@@ -53,12 +53,15 @@ function Initiatives() {
   const track = useRef<HTMLDivElement>(null);
   const direction = useRef(1);
   const gesture = useRef<{ x: number; y: number } | null>(null);
-  const swiped = useRef(false);
-  const [touching, setTouching] = useState(false);
+  const dragged = useRef(false);
   const [flipped, setFlipped] = useState<string | null>(null);
   const [paused, setPaused] = useState(false);
   const [focused, setFocused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
+  useEffect(() => {
+    // Touch devices start with native manual scrolling. Autoplay is opt-in.
+    if (window.matchMedia("(pointer: coarse), (prefers-reduced-motion: reduce)").matches) setPaused(true);
+  }, []);
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => setReducedMotion(media.matches);
@@ -68,10 +71,10 @@ function Initiatives() {
   function scroll(step: number) {
     if (!track.current) return;
     const card = track.current.querySelector("article");
-    track.current.scrollBy({ left: step * ((card?.getBoundingClientRect().width ?? 280) + 18), behavior: reducedMotion ? "instant" : "smooth" });
+    track.current.scrollBy({ left: step * ((card?.getBoundingClientRect().width ?? 280) + parseFloat(getComputedStyle(track.current).columnGap)), behavior: reducedMotion ? "instant" : "smooth" });
   }
   useEffect(() => {
-    if (paused || focused || flipped || touching) return;
+    if (paused || focused || flipped) return;
     const timer = window.setInterval(() => {
       const element = track.current;
       if (!element || document.hidden) return;
@@ -80,30 +83,30 @@ function Initiatives() {
       if (element.scrollLeft >= max - 2) direction.current = -1;
       else if (element.scrollLeft <= 2) direction.current = 1;
       const width = element.querySelector("article")?.getBoundingClientRect().width ?? 280;
-      element.scrollBy({ left: direction.current * (width + 18), behavior: reducedMotion ? "instant" : "smooth" });
-    }, 2800);
+      element.scrollBy({ left: direction.current * (width + parseFloat(getComputedStyle(element).columnGap)), behavior: reducedMotion ? "instant" : "smooth" });
+    }, 4500);
     return () => window.clearInterval(timer);
-  }, [paused, focused, flipped, touching, reducedMotion]);
+  }, [paused, focused, flipped, reducedMotion]);
   return <div onPointerDown={() => setFocused(false)} onFocusCapture={event => setFocused(window.matchMedia("(hover: hover)").matches && event.target.matches(":focus-visible"))} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
-    <div className="community-carousel-toolbar"><p className="text-sm text-muted-foreground">Натисніть на картку, щоб дізнатися більше</p><div className="flex gap-2">
+    <div className="community-carousel-toolbar"><p className="text-sm text-muted-foreground">Гортайте пальцем · Натисніть, щоб дізнатися більше</p><div className="flex gap-2">
       {<button type="button" onClick={() => setPaused(value => !value)} aria-label={paused ? "Увімкнути автогортання" : "Призупинити автогортання"} aria-pressed={paused}>{paused ? <Play /> : <Pause />}</button>}
       <button type="button" onClick={() => scroll(-1)} aria-label="Попередні ініціативи" aria-controls="initiative-cards"><ChevronLeft /></button><button type="button" onClick={() => scroll(1)} aria-label="Наступні ініціативи" aria-controls="initiative-cards"><ChevronRight /></button>
     </div></div>
     <div ref={track} id="initiative-cards" className="community-stories"
-      onTouchStart={event => { const touch = event.touches[0]; gesture.current = { x: touch.clientX, y: touch.clientY }; swiped.current = false; setTouching(true); }}
-      onTouchMove={event => { if (gesture.current && Math.abs(event.touches[0].clientX - gesture.current.x) > 12) swiped.current = true; }}
-      onTouchEnd={event => {
-        const start = gesture.current;
-        const end = event.changedTouches[0];
-        if (start && end) {
-          const dx = start.x - end.clientX;
-          const dy = start.y - end.clientY;
-          if (Math.abs(dx) > 35 && Math.abs(dx) > Math.abs(dy)) { swiped.current = true; setFlipped(null); scroll(dx > 0 ? 1 : -1); }
-        }
-        gesture.current = null; setTouching(false);
+      onPointerDown={event => {
+        gesture.current = { x: event.clientX, y: event.clientY };
+        dragged.current = false;
+        if (event.pointerType === "touch" || event.pointerType === "pen") setPaused(true);
       }}
-      onTouchCancel={() => { gesture.current = null; setTouching(false); }}
-      onClickCapture={event => { if (swiped.current) { event.preventDefault(); event.stopPropagation(); swiped.current = false; } }}
+      onPointerMove={event => {
+        const start = gesture.current;
+        if (start && Math.hypot(event.clientX - start.x, event.clientY - start.y) > 10) dragged.current = true;
+      }}
+      onPointerUp={() => { gesture.current = null; }}
+      onPointerCancel={() => { gesture.current = null; dragged.current = true; }}
+      onClickCapture={event => {
+        if (dragged.current) { event.preventDefault(); event.stopPropagation(); dragged.current = false; }
+      }}
       role="region" tabIndex={0} aria-label="Напрями громадської діяльності" onKeyDown={event => {
       if (event.target !== event.currentTarget) return;
       if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); scroll(event.key === "ArrowRight" ? 1 : -1); }

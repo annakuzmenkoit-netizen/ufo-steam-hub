@@ -711,9 +711,9 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
   .community-stat p { margin-top: 4px; font-size: .75rem; line-height: 1.5; }
 }
 
-/* Keep vertical page scrolling; horizontal touch gestures turn the initiative rail. */
-.community-stories { touch-action: pan-y pinch-zoom; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; }
-.community-flip-card { touch-action: pan-y pinch-zoom; }
+/* Let the browser handle momentum, diagonal gestures and page scrolling. */
+.community-stories { touch-action: auto; overscroll-behavior-x: auto; -webkit-overflow-scrolling: touch; scroll-snap-type: x proximity; align-items: stretch; }
+.community-flip-card { touch-action: auto; }
 @media (max-width: 639px) {
   .community-stories { gap: 18px; margin-inline: -4px; padding-inline: 4px; }
   .community-story { flex: 0 0 86%; min-width: 0; border-radius: 18px; }
@@ -728,4 +728,25 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
   .community-flip-hint { margin-top: 14px; font-size: .7rem; }
   .community-carousel-toolbar { flex-wrap: wrap; gap: 12px; }
   .community-carousel-toolbar > p { max-width: none; flex: 1 1 170px; font-size: .75rem; }
+}
+
+/* Both faces contribute to card height, including larger accessibility text. */
+.community-flip-card { height: 100%; min-height: 440px; }
+.community-flip-inner { display: grid; height: 100%; }
+.community-flip-front, .community-flip-back { position: relative; inset: auto; grid-area: 1 / 1; min-width: 0; }
+.community-flip-back { display: flex; flex-direction: column; }
+.community-flip-back .community-flip-hint { position: static; padding-top: 24px; margin-top: auto; }
+.community-flip-front .community-story-tag { line-height: 1.45; }
+@media (max-width: 639px) {
+  .community-stories { gap: 14px; margin-inline: -4px; padding: 8px 4px 20px; }
+  .community-story { flex-basis: 88%; max-width: 340px; }
+  .community-flip-card { min-height: 0; }
+  .community-flip-card .community-story-photo { height: auto; aspect-ratio: 16 / 10; }
+  .community-flip-front > .p-5 { padding: 18px; }
+  .community-flip-front .leading-relaxed, .community-flip-back .leading-relaxed { font-size: .875rem; line-height: 1.6; }
+  .community-flip-back { padding: 22px 18px; }
+  .community-flip-hint { font-size: .75rem; }
+  .community-carousel-toolbar { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 10px; }
+  .community-carousel-toolbar > p { font-size: .75rem; line-height: 1.6; }
+  .community-carousel-toolbar button { width: 42px; height: 42px; }
 }
