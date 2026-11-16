@@ -1,13 +1,10 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Heart, MapPin, FileText, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight, Heart, MapPin, FileText, ChevronLeft, ChevronRight, Pause, Play, RotateCcw } from "lucide-react";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
 import hero from "@/assets/hero-children.webp";
 import robotics1 from "@/assets/courses/robotics1.webp";
-import robotics2 from "@/assets/courses/robotics2.webp";
 import modeling1 from "@/assets/courses/modeling1.webp";
-import modeling2 from "@/assets/courses/modeling2.webp";
-import steam1 from "@/assets/courses/steam1.webp";
 import teens from "@/assets/groups.webp";
 import balance from "@/assets/steam.webp";
 import trips from "@/assets/space.webp";
@@ -17,56 +14,84 @@ export const Route = createFileRoute("/community")({
   component: CommunityPage,
 });
 const stories = [
-  { title: "Підлітки", tag: "Зростаємо разом", text: "Простір для спілкування, власних ідей та відкриття своїх сильних сторін.", images: [teens], color: "#f2caef" },
-  { title: "Розробка сайтів", tag: "Діджитал скілс", text: "Від першої ідеї до власного сайту. Створюємо сторінки та втілюємо свої задуми в цифровому світі.", images: [hero], color: "#ffe57a" },
-  { title: "3D-моделювання", tag: "Діджитал скілс", text: "Перетворюємо ідеї на об’ємні моделі та розвиваємо просторове мислення.", images: [modeling1, modeling2], color: "#d9cafa" },
-  { title: "Робототехніка", tag: "Діджитал скілс", text: "Конструюємо, програмуємо й досліджуємо, як оживають власноруч створені механізми.", images: [robotics1, robotics2], color: "#bcd9ff" },
-  { title: "Баланс тайм", tag: "Час для себе", text: "Спільний час, творчість і підтримка. Вчимося знаходити баланс у щоденному житті.", images: [balance, steam1], color: "#bce7d2" },
-  { title: "Виїзні екскурсії", tag: "Відкриваємо нове", text: "Подорожі для сімей новомістян: знайомимося, досліджуємо та створюємо спільні спогади.", images: [trips], color: "#ffd7b4" },
+  { title: "Підлітки", tag: "Зростаємо разом", text: "Простір для спілкування, власних ідей та відкриття своїх сильних сторін.", images: [teens], color: "var(--ufo-yellow)" },
+  { title: "Розробка сайтів", tag: "Діджитал скілс", text: "Від першої ідеї до власного сайту. Створюємо сторінки та втілюємо свої задуми в цифровому світі.", images: [hero], color: "var(--secondary)" },
+  { title: "3D-моделювання", tag: "Діджитал скілс", text: "Перетворюємо ідеї на об’ємні моделі та розвиваємо просторове мислення.", images: [modeling1], color: "var(--ufo-yellow)" },
+  { title: "Робототехніка", tag: "Діджитал скілс", text: "Конструюємо, програмуємо й досліджуємо, як оживають власноруч створені механізми.", images: [robotics1], color: "var(--secondary)" },
+  { title: "Баланс тайм", tag: "Час для себе", text: "Спільний час, творчість і підтримка. Вчимося знаходити баланс у щоденному житті.", images: [balance], color: "var(--ufo-yellow)" },
+  { title: "Виїзні екскурсії", tag: "Відкриваємо нове", text: "Подорожі для сімей новомістян: знайомимося, досліджуємо та створюємо спільні спогади.", images: [trips], color: "var(--secondary)" },
 ];
 
-function InitiativeCard({ story }: { story: typeof stories[number] }) {
-  const [photo, setPhoto] = useState(0);
-  const touchStart = useRef<number | null>(null);
-  function changePhoto(step: number) {
-    setPhoto(current => (current + step + story.images.length) % story.images.length);
-  }
+const projectDetails: Record<string, string[]> = {
+  "Підлітки": ["Знайомство та спілкування з однолітками.", "Простір, щоб ділитися ідеями, пробувати нове й знаходити свої сильні сторони."],
+  "Розробка сайтів": ["Продумуємо ідею та структуру власної сторінки.", "Поєднуємо тексти, зображення й оформлення у власному вебпроєкті."],
+  "3D-моделювання": ["Досліджуємо форми й створюємо об’ємні цифрові моделі.", "У підсумках 2025 року — 36 занять для дітей у межах проєкту «Шелтер Полтава»."],
+  "Робототехніка": ["Поєднуємо конструювання та програмування.", "Досліджуємо роботу механізмів і перевіряємо свої ідеї на практиці."],
+  "Баланс тайм": ["Знаходимо час для творчості, спілкування та відпочинку.", "Створюємо простір підтримки й спільного часу."],
+  "Виїзні екскурсії": ["Спільні подорожі для сімей новомістян.", "У 2025 році: Ковалівка — 46 учасників, Чигирин — 48 учасників."],
+};
+
+function InitiativeCard({ story, flipped, onFlip }: { story: typeof stories[number]; flipped: boolean; onFlip: () => void }) {
   return <article className="community-story" style={{ backgroundColor: story.color }}>
-    <div className="community-story-photo"
-      onTouchStart={event => { touchStart.current = event.touches[0].clientX; }}
-      onTouchEnd={event => {
-        if (touchStart.current !== null && story.images.length > 1) {
-          const distance = touchStart.current - event.changedTouches[0].clientX;
-          if (Math.abs(distance) > 40) changePhoto(distance > 0 ? 1 : -1);
-        }
-        touchStart.current = null;
-      }}>
-      <ResponsiveImage src={story.images[photo]} alt={`${story.title} — фото ${photo + 1}`} sizes="300px" className="h-full w-full object-cover" />
-      {story.images.length > 1 && <>
-        <div className="community-story-progress" aria-label="Обрати фото">{story.images.map((image, index) => <button type="button" key={image} onClick={() => setPhoto(index)} aria-label={`${story.title}: фото ${index + 1}`} aria-pressed={index === photo} className={index === photo ? "active" : ""} />)}</div>
-        <button type="button" className="community-photo-arrow previous" aria-label={`${story.title}: попереднє фото`} onClick={() => changePhoto(-1)}><ChevronLeft /></button>
-        <button type="button" className="community-photo-arrow next" aria-label={`${story.title}: наступне фото`} onClick={() => changePhoto(1)}><ChevronRight /></button>
-      </>}
-      <span className="community-story-tag">{story.tag}</span>
-    </div>
-    <div className="p-5"><h3 className="text-xl font-bold">{story.title}</h3><p className="mt-3 text-sm leading-relaxed">{story.text}</p></div>
+    <button type="button" className={`community-flip-card ${flipped ? "is-flipped" : ""}`} onClick={onFlip} aria-expanded={flipped} aria-label={`${story.title}: ${flipped ? "повернути до фото" : "детальніше про проєкт"}`}>
+      <span className="community-flip-inner">
+        <span className="community-flip-front" aria-hidden={flipped}>
+          <span className="community-story-photo"><ResponsiveImage src={story.images[0]} alt="" sizes="300px" className="h-full w-full object-cover" /><span className="community-story-tag">{story.tag}</span></span>
+          <span className="block p-5"><span role="heading" aria-level={3} className="block text-xl font-bold">{story.title}</span><span className="mt-3 block text-sm leading-relaxed">{story.text}</span><span className="community-flip-hint">Детальніше про проєкт <ArrowUpRight className="h-4 w-4" /></span></span>
+        </span>
+        <span className="community-flip-back" aria-hidden={!flipped}>
+          <span className="community-eyebrow text-primary">{story.tag}</span><span role="heading" aria-level={3} className="block text-2xl font-bold">{story.title}</span>
+          {projectDetails[story.title].map(text => <span key={text} className="mt-5 block text-sm leading-relaxed">{text}</span>)}
+          <span className="community-flip-hint"><RotateCcw className="h-4 w-4" />Повернути до фото</span>
+        </span>
+      </span>
+    </button>
   </article>;
 }
 
 function Initiatives() {
   const track = useRef<HTMLDivElement>(null);
-  function scroll(direction: number) {
+  const direction = useRef(1);
+  const [flipped, setFlipped] = useState<string | null>(null);
+  const [paused, setPaused] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReducedMotion(media.matches);
+    update(); media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+  function scroll(step: number) {
     if (!track.current) return;
     const card = track.current.querySelector("article");
-    track.current.scrollBy({ left: direction * ((card?.getBoundingClientRect().width ?? 280) + 18), behavior: "smooth" });
+    track.current.scrollBy({ left: step * ((card?.getBoundingClientRect().width ?? 280) + 18), behavior: reducedMotion ? "instant" : "smooth" });
   }
-  return <>
-    <div className="community-carousel-toolbar"><p className="text-sm text-muted-foreground">Гортайте ініціативи та фото</p><div className="flex gap-2"><button type="button" onClick={() => scroll(-1)} aria-label="Попередні ініціативи" aria-controls="initiative-cards"><ChevronLeft /></button><button type="button" onClick={() => scroll(1)} aria-label="Наступні ініціативи" aria-controls="initiative-cards"><ChevronRight /></button></div></div>
+  useEffect(() => {
+    if (paused || hovered || focused || flipped || reducedMotion) return;
+    const timer = window.setInterval(() => {
+      const element = track.current;
+      if (!element || document.hidden) return;
+      const max = element.scrollWidth - element.clientWidth;
+      if (max < 1) return;
+      if (element.scrollLeft >= max - 2) direction.current = -1;
+      else if (element.scrollLeft <= 2) direction.current = 1;
+      const width = element.querySelector("article")?.getBoundingClientRect().width ?? 280;
+      element.scrollBy({ left: direction.current * (width + 18), behavior: "smooth" });
+    }, 4000);
+    return () => window.clearInterval(timer);
+  }, [paused, hovered, focused, flipped, reducedMotion]);
+  return <div onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} onFocusCapture={() => setFocused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
+    <div className="community-carousel-toolbar"><p className="text-sm text-muted-foreground">Натисніть на картку, щоб дізнатися більше</p><div className="flex gap-2">
+      {!reducedMotion && <button type="button" onClick={() => setPaused(value => !value)} aria-label={paused ? "Увімкнути автогортання" : "Призупинити автогортання"} aria-pressed={paused}>{paused ? <Play /> : <Pause />}</button>}
+      <button type="button" onClick={() => scroll(-1)} aria-label="Попередні ініціативи" aria-controls="initiative-cards"><ChevronLeft /></button><button type="button" onClick={() => scroll(1)} aria-label="Наступні ініціативи" aria-controls="initiative-cards"><ChevronRight /></button>
+    </div></div>
     <div ref={track} id="initiative-cards" className="community-stories" role="region" tabIndex={0} aria-label="Напрями громадської діяльності" onKeyDown={event => {
       if (event.target !== event.currentTarget) return;
       if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); scroll(event.key === "ArrowRight" ? 1 : -1); }
-    }}>{stories.map(story => <InitiativeCard key={story.title} story={story} />)}</div>
-  </>;
+    }}>{stories.map(story => <InitiativeCard key={story.title} story={story} flipped={flipped === story.title} onFlip={() => setFlipped(current => current === story.title ? null : story.title)} />)}</div>
+  </div>;
 }
 
 function SupportLink() {
