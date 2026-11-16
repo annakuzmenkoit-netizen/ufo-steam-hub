@@ -9,7 +9,7 @@ import logoImg from "@/assets/ufo-logo.webp";
 const navLinks = [
   { to: "/" as const, label: "Головна" },
   { to: "/about" as const, label: "Про нас" },
-  { to: "/community" as const, label: "Громадська діяльність" },
+  { to: "/community" as const, label: "ГО" },
   { to: "/courses" as const, label: "Курси" },
   { to: "/camps" as const, label: "Табори" },
   { to: "/schedule" as const, label: "Розклад" },
@@ -23,7 +23,7 @@ const mobileNavLinks = [
   { to: "/schedule" as const, label: "Розклад" },
   { to: "/contacts" as const, label: "Контакти" },
   { to: "/about" as const, label: "Про нас" },
-  { to: "/community" as const, label: "Громадська діяльність" },
+  { to: "/community" as const, label: "ГО" },
   { to: "/links" as const, label: "Швидкі посилання", icon: Link2 },
 ];
 
