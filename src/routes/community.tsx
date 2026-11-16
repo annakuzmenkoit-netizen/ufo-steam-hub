@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Heart, MapPin, FileText, ChevronLeft, ChevronRight, Pause, Play, RotateCcw } from "lucide-react";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
@@ -14,12 +14,12 @@ export const Route = createFileRoute("/community")({
   component: CommunityPage,
 });
 const stories = [
-  { title: "Підлітки", tag: "Зростаємо разом", text: "Простір для спілкування, власних ідей та відкриття своїх сильних сторін.", images: [teens], color: "var(--ufo-yellow)" },
-  { title: "Розробка сайтів", tag: "Діджитал скілс", text: "Від першої ідеї до власного сайту. Створюємо сторінки та втілюємо свої задуми в цифровому світі.", images: [hero], color: "var(--secondary)" },
-  { title: "3D-моделювання", tag: "Діджитал скілс", text: "Перетворюємо ідеї на об’ємні моделі та розвиваємо просторове мислення.", images: [modeling1], color: "var(--ufo-yellow)" },
-  { title: "Робототехніка", tag: "Діджитал скілс", text: "Конструюємо, програмуємо й досліджуємо, як оживають власноруч створені механізми.", images: [robotics1], color: "var(--secondary)" },
-  { title: "Баланс тайм", tag: "Час для себе", text: "Спільний час, творчість і підтримка. Вчимося знаходити баланс у щоденному житті.", images: [balance], color: "var(--ufo-yellow)" },
-  { title: "Виїзні екскурсії", tag: "Відкриваємо нове", text: "Подорожі для сімей новомістян: знайомимося, досліджуємо та створюємо спільні спогади.", images: [trips], color: "var(--secondary)" },
+  { title: "Підлітки", tag: "Зростаємо разом", text: "Простір для спілкування, власних ідей та відкриття своїх сильних сторін.", images: [teens], color: "var(--primary)" },
+  { title: "Розробка сайтів", tag: "Діджитал скілс", text: "Від першої ідеї до власного сайту. Створюємо сторінки та втілюємо свої задуми в цифровому світі.", images: [hero], color: "var(--ufo-yellow)" },
+  { title: "3D-моделювання", tag: "Діджитал скілс", text: "Перетворюємо ідеї на об’ємні моделі та розвиваємо просторове мислення.", images: [modeling1], color: "var(--ufo-green)" },
+  { title: "Робототехніка", tag: "Діджитал скілс", text: "Конструюємо, програмуємо й досліджуємо, як оживають власноруч створені механізми.", images: [robotics1], color: "var(--primary)" },
+  { title: "Баланс тайм", tag: "Час для себе", text: "Спільний час, творчість і підтримка. Вчимося знаходити баланс у щоденному житті.", images: [balance], color: "var(--ufo-pink)" },
+  { title: "Виїзні екскурсії", tag: "Відкриваємо нове", text: "Подорожі для сімей новомістян: знайомимося, досліджуємо та створюємо спільні спогади.", images: [trips], color: "var(--ufo-green)" },
 ];
 
 const projectDetails: Record<string, string[]> = {
@@ -32,7 +32,7 @@ const projectDetails: Record<string, string[]> = {
 };
 
 function InitiativeCard({ story, flipped, onFlip }: { story: typeof stories[number]; flipped: boolean; onFlip: () => void }) {
-  return <article className="community-story" style={{ backgroundColor: story.color }}>
+  return <article className="community-story" style={{ "--story-color": story.color, "--story-ink": story.color === "var(--ufo-yellow)" ? "var(--primary)" : "white" } as CSSProperties}>
     <button type="button" className={`community-flip-card ${flipped ? "is-flipped" : ""}`} onClick={onFlip} aria-expanded={flipped} aria-label={`${story.title}: ${flipped ? "повернути до фото" : "детальніше про проєкт"}`}>
       <span className="community-flip-inner">
         <span className="community-flip-front" aria-hidden={flipped}>
