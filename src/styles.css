@@ -648,7 +648,17 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
 .community-founded p { max-width: 550px; font-size: 1.2rem; }
 .community-stat { padding: 24px 20px; background: var(--secondary); border-radius: 20px; }
 .community-stat > span { font-size: 3.6rem; font-weight: 800; color: var(--primary); line-height: 1; letter-spacing: -.06em; }
-.community-engineering { display: flex; align-items: center; gap: 24px; padding: 28px; border-radius: 20px; background: var(--ufo-yellow); color: var(--primary); }
+.community-engineering { display: flex; align-items: center; gap: 14px; padding: 16px 20px; border-radius: 14px; background: var(--ufo-yellow); color: var(--primary); }
+.community-engineering > span { flex: none; font-size: 1.75rem; line-height: 1; }
+.community-engineering > div { min-width: 0; }
+.community-engineering .community-eyebrow { margin-bottom: 4px; font-size: .625rem; }
+.community-engineering h3 { font-size: 1.125rem; line-height: 1.35; }
+.community-engineering p:last-child { margin-top: 4px; font-size: .8125rem; line-height: 1.5; }
+@media (max-width: 639px) {
+  .community-engineering { gap: 12px; padding: 14px 16px; }
+  .community-engineering > span { font-size: 1.5rem; }
+  .community-engineering h3 { font-size: 1rem; }
+}
 .community-trip { display: flex; align-items: center; gap: 16px; padding: 24px; border: 1px solid var(--border); border-radius: 20px; }
 .community-network { display: grid; grid-template-columns: 1fr 2fr; align-items: center; gap: 48px; }
 .community-network-mark { padding: 36px; border-radius: 24px; background: var(--ufo-green); color: var(--primary-foreground); font-size: clamp(2.5rem, 5vw, 4.2rem); font-weight: 800; letter-spacing: -.05em; }
