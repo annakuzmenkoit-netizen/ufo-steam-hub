@@ -777,3 +777,98 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
   .community-excursions .community-trip p { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 5px; margin: 0; text-align: left; }
   .community-excursions .community-trip strong { font-size: 1.375rem; }
 }
+
+/* About: a warm introduction to the people and values behind the hub. */
+.about-container { max-width: 1200px; margin-inline: auto; padding-inline: 24px; }
+.about-section { padding-block: 64px; }
+.about-eyebrow { margin-bottom: 14px; font-size: .6875rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.about-page h2 { font-size: clamp(1.75rem, 3.2vw, 2.75rem); line-height: 1.2; letter-spacing: -.04em; }
+.about-hero { overflow: hidden; padding-block: 56px 24px; background: var(--primary); color: white; }
+.about-hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; }
+.about-hero h1 { font-size: clamp(2.25rem, 4.3vw, 4rem); font-weight: 800; line-height: 1.12; letter-spacing: -.045em; }
+.about-hero h1 span { color: var(--ufo-yellow); }
+.about-hero-lead { margin-top: 24px; max-width: 450px; font-size: 1.125rem; font-weight: 600; line-height: 1.6; }
+.about-hero-text { max-width: 500px; margin-top: 14px; font-size: .9375rem; line-height: 1.75; color: #ffffffe0; }
+.about-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.about-hero-art { position: relative; padding: 20px 8px 36px; min-width: 0; }
+.about-hero-image { height: 400px; overflow: hidden; border-radius: 72px 24px 72px 24px; background: var(--ufo-yellow); border: 6px solid #ffffff30; rotate: 2deg; }
+.about-art-star { position: absolute; top: -4px; right: -12px; z-index: 1; color: var(--ufo-yellow); rotate: 12deg; }
+.about-art-star svg { width: 64px; height: 64px; }
+.about-photo-note { display: flex; align-items: center; gap: 12px; position: absolute; bottom: 12px; left: -12px; padding: 16px 20px; border-radius: 14px; background: var(--ufo-yellow); color: var(--primary); rotate: -4deg; box-shadow: 0 8px 24px #0002; }
+.about-photo-note > svg { width: 28px; height: 28px; flex: none; }
+.about-photo-note span { font-size: .875rem; }
+.about-photo-note strong { display: block; margin-top: 4px; font-size: .75rem; }
+.about-hero-tags { display: flex; flex-wrap: wrap; gap: 20px; padding-top: 24px; margin-top: 28px; border-top: 1px solid #ffffff30; }
+.about-hero-tags span { display: flex; align-items: center; gap: 8px; font-size: .75rem; font-weight: 600; }
+.about-hero-tags svg { width: 18px; height: 18px; color: var(--ufo-yellow); }
+.about-section-heading { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: 28px; }
+.about-section-heading > p { max-width: 340px; font-size: .875rem; line-height: 1.7; color: var(--muted-foreground); }
+.about-values { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.about-value { padding: 24px; border-radius: 20px; color: white; }
+.about-value--yellow { background: var(--ufo-yellow); color: var(--primary); }
+.about-value--blue { background: var(--primary); }
+.about-value--green { background: var(--ufo-green); color: var(--foreground); }
+.about-value--coral { background: var(--ufo-pink); }
+.about-value-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+.about-value-top svg { width: 28px; height: 28px; }
+.about-value-top span { font-size: .6875rem; font-weight: 600; opacity: .8; }
+.about-value h3 { font-size: 1.0625rem; line-height: 1.4; }
+.about-value p { margin-top: 10px; font-size: .8125rem; line-height: 1.7; }
+.about-team-section { background: white; scroll-margin-top: 80px; }
+.about-team-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; }
+.about-person { grid-column: span 2; overflow: hidden; border: 1px solid var(--border); border-radius: 20px; background: var(--background); }
+.about-person:nth-child(4) { grid-column: 2 / span 2; }
+.about-person-photo { height: 240px; padding: 14px 20px 0; }
+.about-person-photo--0 { background: color-mix(in oklch, var(--ufo-yellow) 40%, white); }
+.about-person-photo--1 { background: color-mix(in oklch, var(--ufo-green) 18%, white); }
+.about-person-photo--2 { background: color-mix(in oklch, var(--primary) 13%, white); }
+.about-person-photo--3 { background: color-mix(in oklch, var(--ufo-pink) 15%, white); }
+.about-person-copy { padding: 22px; }
+.about-person h3 { font-size: 1.25rem; }
+.about-person-role { margin-top: 6px; color: var(--primary); font-size: .75rem; font-weight: 700; line-height: 1.6; }
+.about-person-bio { margin-top: 14px; font-size: .8125rem; line-height: 1.75; color: var(--muted-foreground); }
+.about-invitation { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 32px; padding: 40px; border-radius: 24px; background: var(--primary); color: white; }
+.about-invitation p:not(.about-eyebrow) { margin-top: 16px; max-width: 480px; font-size: .875rem; line-height: 1.7; color: #ffffffe0; }
+.about-invitation-actions { display: flex; flex-direction: column; gap: 12px; }
+@media (max-width: 1023px) {
+  .about-hero-grid { gap: 24px; }
+  .about-values { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .about-team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .about-person, .about-person:nth-child(4) { grid-column: auto; }
+  .about-person:last-child { grid-column: 1 / -1; max-width: 550px; width: 100%; justify-self: center; }
+  .about-invitation { grid-template-columns: 1fr; }
+  .about-invitation-actions { flex-direction: row; flex-wrap: wrap; }
+}
+@media (max-width: 639px) {
+  .about-container { padding-inline: 20px; }
+  .about-section { padding-block: 40px; }
+  .about-hero { padding-top: 36px; }
+  .about-hero-grid { grid-template-columns: 1fr; gap: 20px; }
+  .about-hero h1 { font-size: clamp(2rem, 8vw, 2.75rem); }
+  .about-hero-lead { font-size: 1rem; margin-top: 20px; }
+  .about-hero-text { font-size: .875rem; }
+  .about-hero-actions .parent-button { font-size: .75rem; padding-inline: 12px; }
+  .about-hero-image { height: 260px; border-radius: 56px 18px; }
+  .about-photo-note { left: 0; padding: 12px 14px; }
+  .about-art-star svg { width: 44px; height: 44px; }
+  .about-hero-tags { gap: 12px 20px; margin-top: 12px; padding-top: 20px; }
+  .about-hero-tags span { font-size: .6875rem; }
+  .about-section-heading { display: block; margin-bottom: 22px; }
+  .about-section-heading > p { margin-top: 16px; }
+  .about-values { gap: 12px; }
+  .about-value { padding: 18px 14px; border-radius: 16px; }
+  .about-value-top { margin-bottom: 20px; }
+  .about-value h3 { font-size: .9375rem; }
+  .about-value p { font-size: .75rem; line-height: 1.65; }
+  .about-team-grid { grid-template-columns: 1fr; gap: 14px; }
+  .about-person, .about-person:last-child { display: grid; grid-template-columns: 94px minmax(0, 1fr); max-width: none; border-radius: 16px; }
+  .about-person-photo { height: 100%; min-height: 180px; padding: 8px 4px; }
+  .about-person-copy { padding: 16px 14px; }
+  .about-person h3 { font-size: 1.0625rem; }
+  .about-person-role { font-size: .6875rem; }
+  .about-person-bio { font-size: .75rem; line-height: 1.65; margin-top: 10px; }
+  .about-invitation { padding: 28px 20px; gap: 24px; border-radius: 20px; }
+  .about-invitation-actions { flex-direction: column; }
+  .about-invitation-actions .parent-button { font-size: .75rem; }
+}
+@media (max-width: 359px) { .about-values { grid-template-columns: 1fr; } .about-value-top { margin-bottom: 14px; } }

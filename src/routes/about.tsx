@@ -1,9 +1,8 @@
-import { SectionDecor } from "@/components/SectionDecor";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
-import { createFileRoute } from "@tanstack/react-router";
-import { AnimatedSection } from "@/components/AnimatedSection";
-import { Heart, Target, Eye, Users } from "lucide-react";
-import { Star4, Dot, Squiggle, BlobShape } from "@/components/Blobs";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Heart, Target, Eye, Users, ArrowDown, ArrowUpRight, Sparkles, Lightbulb, Puzzle } from "lucide-react";
+import { openRegistration } from "@/components/RegistrationModal";
+import learningPhoto from "@/assets/hero-children.webp";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -18,10 +17,10 @@ export const Route = createFileRoute("/about")({
 });
 
 const values = [
-  { icon: Heart, title: "Любов до дітей", desc: "Кожна дитина — унікальна. Ми допомагаємо їй знайти свій шлях." },
-  { icon: Target, title: "Якість освіти", desc: "Сучасні методики та постійний розвиток програм." },
-  { icon: Eye, title: "Відкритість", desc: "Прозорий процес навчання, зворотний зв'язок для батьків." },
-  { icon: Users, title: "Командна робота", desc: "Діти вчаться працювати разом і підтримувати одне одного." },
+  { icon: Heart, tone: "yellow", title: "Любов до дітей", desc: "Кожна дитина — унікальна. Ми допомагаємо їй знайти свій шлях." },
+  { icon: Target, tone: "blue", title: "Якість освіти", desc: "Сучасні методики та постійний розвиток програм." },
+  { icon: Eye, tone: "green", title: "Відкритість", desc: "Прозорий процес навчання, зворотний зв'язок для батьків." },
+  { icon: Users, tone: "coral", title: "Командна робота", desc: "Діти вчаться працювати разом і підтримувати одне одного." },
 ];
 
 import katerynaPhoto from "@/assets/kateryna.webp";
@@ -39,69 +38,35 @@ const team = [
 ];
 
 function AboutPage() {
-  return (
-    <>
-      {/* Hero with logo placeholder */}
-      <section className="page-intro relative py-12 md:py-28 bg-ufo-cream text-center overflow-hidden">
-        <Star4 className="absolute top-10 left-10" color="#f7df5d" size={50} />
-        <Dot className="absolute top-20 right-20" color="var(--ufo-pink)" size={20} />
-        <Squiggle className="absolute bottom-10 right-10 opacity-70" color="#17c590" size={130} />
-        <BlobShape className="absolute -bottom-12 -left-12 opacity-25" color="#3056dd" size={200} />
-
-        <AnimatedSection className="relative mx-auto max-w-3xl px-4">
-          <h1 className="text-3xl md:text-5xl font-semibold text-foreground">
-            Про <span className="text-primary">нас</span>
-          </h1>
-          <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-            UFO STEAM HUB — це простір для дітей, де наука стає пригодою, а навчання — захоплюючою грою. Ми віримо, що кожна дитина має потенціал стати дослідником, винахідником та творцем.
-          </p>
-        </AnimatedSection>
-      </section>
-
-      {/* Values */}
-      <section className="section-art py-12 md:py-20 bg-background">
-        <SectionDecor tone="mint" side="right" />
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-6 md:mb-10">
-            <h2 className="text-3xl font-bold text-foreground">Наші <span className="text-ufo-pink">цінності</span></h2>
-          </AnimatedSection>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-            {values.map((v, i) => (
-              <AnimatedSection key={v.title} delay={i * 0.1}>
-                <div className="rounded-2xl bg-card border border-border p-4 text-left h-full shadow-sm hover:shadow-lg transition-shadow">
-                  <div className="w-10 h-10 rounded-2xl bg-ufo-yellow/30 flex items-center justify-center mb-4">
-                    <v.icon className="h-5 w-5 text-primary" />
-                  </div>
-                  <h3 className="font-bold text-foreground">{v.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{v.desc}</p>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
+  return <div className="about-page">
+    <section className="about-hero">
+      <div className="about-container about-hero-grid">
+        <div className="about-hero-copy">
+          <p className="about-eyebrow">Знайомтеся, UFO STEAM HUB</p>
+          <h1>Місце, де цікавість<br />стає <span>відкриттям.</span></h1>
+          <p className="about-hero-lead">Наука стає пригодою, а навчання — захопливою грою.</p>
+          <p className="about-hero-text">Ми створюємо простір, де діти можуть досліджувати, винаходити й творити. Віримо в потенціал кожної дитини та допомагаємо їй знайти свій шлях.</p>
+          <div className="about-hero-actions"><a href="#about-team" className="parent-button bg-ufo-yellow text-primary">Познайомитися з командою <ArrowDown className="h-4 w-4" /></a><Link to="/courses" className="parent-button border border-white/40 text-white">Наші курси <ArrowUpRight className="h-4 w-4" /></Link></div>
         </div>
-      </section>
-
-      {/* Team */}
-      <section className="section-art relative py-12 md:py-20 bg-ufo-cream overflow-hidden">
-        <SectionDecor tone="sun" side="left" />
-
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-6 md:mb-10">
-            <h2 className="text-3xl font-bold text-foreground">Наша <span className="text-ufo-green">команда</span></h2>
-            <p className="mt-4 text-muted-foreground">Люди, які надихають дітей щодня</p>
-          </AnimatedSection>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {team.map((t, i) => (
-              <AnimatedSection key={t.name} delay={i * 0.1}>
-                <article className="team-card">
-                  <div className="team-card__photo"><ResponsiveImage src={t.photo} sizes="(min-width: 768px) 144px, 100px" alt={t.name} className="h-full w-full object-contain" /></div>
-                  <div className="min-w-0"><h3 className="text-lg">{t.name}</h3><p className="mt-1 text-xs font-semibold leading-relaxed text-primary">{t.role}</p><details className="mt-2 text-sm text-muted-foreground"><summary className="min-h-11 cursor-pointer py-2 font-semibold text-primary">Познайомитися</summary><p className="leading-relaxed">{t.bio}</p></details></div>
-                </article>
-              </AnimatedSection>
-            ))}
-          </div>
+        <div className="about-hero-art">
+          <span className="about-art-star" aria-hidden="true"><Sparkles /></span>
+          <div className="about-hero-image"><ResponsiveImage src={learningPhoto} alt="Діти разом досліджують та створюють проєкт на занятті UFO STEAM HUB" sizes="(min-width: 768px) 540px, 100vw" loading="eager" className="h-full w-full object-cover" /></div>
+          <div className="about-photo-note"><Lightbulb /><span>«А що, якщо…»<strong>З цього починаються відкриття.</strong></span></div>
         </div>
-      </section>
-    </>
-  );
+      </div>
+      <div className="about-container"><div className="about-hero-tags"><span><Lightbulb />Досліджуємо</span><span><Puzzle />Створюємо</span><span><Users />Зростаємо разом</span></div></div>
+    </section>
+
+    <section className="about-container about-section" aria-labelledby="about-values-heading">
+      <div className="about-section-heading"><div><p className="about-eyebrow text-primary">Те, що об’єднує нас</p><h2 id="about-values-heading">Маленькі відкриття.<br /><span className="text-primary">Велика увага до дитини.</span></h2></div><p>Наші цінності — у кожному занятті, спільній ідеї та розмові з батьками.</p></div>
+      <div className="about-values">{values.map((value, index) => <article key={value.title} className={`about-value about-value--${value.tone}`}><div className="about-value-top"><value.icon aria-hidden="true" /><span aria-hidden="true">0{index + 1}</span></div><h3>{value.title}</h3><p>{value.desc}</p></article>)}</div>
+    </section>
+
+    <section id="about-team" className="about-team-section" aria-labelledby="about-team-heading"><div className="about-container about-section">
+      <div className="about-section-heading"><div><p className="about-eyebrow text-primary">Люди поруч</p><h2 id="about-team-heading">Знайомтеся:<br />наша <span className="text-primary">команда.</span></h2></div><p>Люди, які підтримують дитячі «чому?», радіють відкриттям і допомагають ідеям ставати реальністю.</p></div>
+      <div className="about-team-grid">{team.map((person, index) => <article className="about-person" key={person.name}><div className={`about-person-photo about-person-photo--${index % 4}`}><ResponsiveImage src={person.photo} sizes="(min-width: 1024px) 340px, (min-width: 640px) 45vw, 100px" alt={person.name} className="h-full w-full object-contain" /></div><div className="about-person-copy"><h3>{person.name}</h3><p className="about-person-role">{person.role}</p><p className="about-person-bio">{person.bio}.</p></div></article>)}</div>
+    </div></section>
+
+    <section className="about-container about-section"><div className="about-invitation"><div><p className="about-eyebrow">Від знайомства — до першого відкриття</p><h2>Давайте знайдемо те,<br />що захопить вашу дитину.</h2><p>Познайомтеся з нашими курсами або залиште заявку на пробне заняття.</p></div><div className="about-invitation-actions"><button type="button" className="parent-button bg-ufo-yellow text-primary" onClick={() => openRegistration({ registrationType: "general", sourcePage: "Про нас", title: "Знайомство з UFO STEAM HUB" })}>Хочу спробувати <ArrowUpRight className="h-4 w-4" /></button><Link to="/community" className="parent-button border border-white/40 text-white">Наша громадська діяльність <ArrowUpRight className="h-4 w-4" /></Link></div></div></section>
+  </div>;
 }
