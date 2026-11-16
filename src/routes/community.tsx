@@ -52,6 +52,9 @@ function InitiativeCard({ story, flipped, onFlip }: { story: typeof stories[numb
 function Initiatives() {
   const track = useRef<HTMLDivElement>(null);
   const direction = useRef(1);
+  const gesture = useRef<{ x: number; y: number } | null>(null);
+  const swiped = useRef(false);
+  const [touching, setTouching] = useState(false);
   const [flipped, setFlipped] = useState<string | null>(null);
   const [paused, setPaused] = useState(false);
   const [focused, setFocused] = useState(false);
@@ -68,7 +71,7 @@ function Initiatives() {
     track.current.scrollBy({ left: step * ((card?.getBoundingClientRect().width ?? 280) + 18), behavior: reducedMotion ? "instant" : "smooth" });
   }
   useEffect(() => {
-    if (paused || focused || flipped || reducedMotion) return;
+    if (paused || focused || flipped || touching) return;
     const timer = window.setInterval(() => {
       const element = track.current;
       if (!element || document.hidden) return;
@@ -77,16 +80,31 @@ function Initiatives() {
       if (element.scrollLeft >= max - 2) direction.current = -1;
       else if (element.scrollLeft <= 2) direction.current = 1;
       const width = element.querySelector("article")?.getBoundingClientRect().width ?? 280;
-      element.scrollBy({ left: direction.current * (width + 18), behavior: "smooth" });
+      element.scrollBy({ left: direction.current * (width + 18), behavior: reducedMotion ? "instant" : "smooth" });
     }, 2800);
     return () => window.clearInterval(timer);
-  }, [paused, focused, flipped, reducedMotion]);
-  return <div onFocusCapture={event => setFocused(event.target.matches(":focus-visible"))} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
+  }, [paused, focused, flipped, touching, reducedMotion]);
+  return <div onPointerDown={() => setFocused(false)} onFocusCapture={event => setFocused(window.matchMedia("(hover: hover)").matches && event.target.matches(":focus-visible"))} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
     <div className="community-carousel-toolbar"><p className="text-sm text-muted-foreground">Натисніть на картку, щоб дізнатися більше</p><div className="flex gap-2">
-      {!reducedMotion && <button type="button" onClick={() => setPaused(value => !value)} aria-label={paused ? "Увімкнути автогортання" : "Призупинити автогортання"} aria-pressed={paused}>{paused ? <Play /> : <Pause />}</button>}
+      {<button type="button" onClick={() => setPaused(value => !value)} aria-label={paused ? "Увімкнути автогортання" : "Призупинити автогортання"} aria-pressed={paused}>{paused ? <Play /> : <Pause />}</button>}
       <button type="button" onClick={() => scroll(-1)} aria-label="Попередні ініціативи" aria-controls="initiative-cards"><ChevronLeft /></button><button type="button" onClick={() => scroll(1)} aria-label="Наступні ініціативи" aria-controls="initiative-cards"><ChevronRight /></button>
     </div></div>
-    <div ref={track} id="initiative-cards" className="community-stories" role="region" tabIndex={0} aria-label="Напрями громадської діяльності" onKeyDown={event => {
+    <div ref={track} id="initiative-cards" className="community-stories"
+      onTouchStart={event => { const touch = event.touches[0]; gesture.current = { x: touch.clientX, y: touch.clientY }; swiped.current = false; setTouching(true); }}
+      onTouchMove={event => { if (gesture.current && Math.abs(event.touches[0].clientX - gesture.current.x) > 12) swiped.current = true; }}
+      onTouchEnd={event => {
+        const start = gesture.current;
+        const end = event.changedTouches[0];
+        if (start && end) {
+          const dx = start.x - end.clientX;
+          const dy = start.y - end.clientY;
+          if (Math.abs(dx) > 35 && Math.abs(dx) > Math.abs(dy)) { swiped.current = true; setFlipped(null); scroll(dx > 0 ? 1 : -1); }
+        }
+        gesture.current = null; setTouching(false);
+      }}
+      onTouchCancel={() => { gesture.current = null; setTouching(false); }}
+      onClickCapture={event => { if (swiped.current) { event.preventDefault(); event.stopPropagation(); swiped.current = false; } }}
+      role="region" tabIndex={0} aria-label="Напрями громадської діяльності" onKeyDown={event => {
       if (event.target !== event.currentTarget) return;
       if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); scroll(event.key === "ArrowRight" ? 1 : -1); }
     }}>{stories.map(story => <InitiativeCard key={story.title} story={story} flipped={flipped === story.title} onFlip={() => setFlipped(current => current === story.title ? null : story.title)} />)}</div>
@@ -102,7 +120,7 @@ function CommunityPage() {
     <section id="our-stories" className="community-container community-section scroll-mt-24"><p className="community-eyebrow text-primary">Наші історії</p><div className="mb-8 flex flex-wrap items-end justify-between gap-4"><h2>Маленькі кроки.<br /><span className="text-primary">Великі зміни.</span></h2><p className="max-w-sm text-sm leading-relaxed text-muted-foreground">Навчаємося, підтримуємо одне одного й відкриваємо світ разом.</p></div><Initiatives /></section>
     <section className="bg-white"><div className="community-container community-section"><div className="community-founded"><span className="community-eyebrow text-primary">Початок нашої історії</span><p>Громадську організацію зареєстровано <strong>28 липня 2025 року.</strong></p></div><div className="community-results mt-14 grid gap-8 md:grid-cols-[1fr_2fr]"><div><p className="community-eyebrow text-primary">Від ідей — до дії</p><h2>Підсумки <br className="hidden md:block" />2025 року</h2><p className="mt-5 text-sm leading-relaxed text-muted-foreground">Освітні заняття в межах проєкту <a href="https://www.allianceofdevelopment.org/shelter-poltava/" target="_blank" rel="noopener noreferrer" className="community-project-link">«Шелтер Полтава»<ArrowUpRight className="inline h-3.5 w-3.5" /></a>.</p></div><div className="community-results-stats grid gap-4 sm:grid-cols-3">{[{ n: "60", title: "Діджитал скілс", text: "занять для дітей новомістян 6–12 років" }, { n: "36", title: "3D-моделювання", text: "занять для дітей" }, { n: "27", title: "Англійська мова", text: "занять" }].map(item => <article className="community-stat" key={item.title}><span>{item.n}</span><h3 className="mt-5 font-bold">{item.title}</h3><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.text}</p></article>)}</div></div><article className="community-engineering mt-8"><span className="text-4xl" aria-hidden="true">✳</span><div><p className="community-eyebrow">Ініціатива</p><h3 className="text-2xl font-bold">Інженерний тиждень</h3><p className="mt-2">У межах проєкту «Бути почутими».</p></div></article><div className="mt-12"><h3 className="text-2xl font-bold">Нові місця — спільні спогади</h3><p className="mt-3 leading-relaxed text-muted-foreground">Екскурсії для сімей новомістян у межах проєкту <a href="https://www.allianceofdevelopment.org/shelter-poltava/" target="_blank" rel="noopener noreferrer" className="community-project-link">«Шелтер Полтава»<ArrowUpRight className="inline h-3.5 w-3.5" /></a>.</p><div className="mt-6 grid gap-4 sm:grid-cols-2">{[{ name: "Ковалівка", count: "46" }, { name: "Чигирин", count: "48" }].map(trip => <article className="community-trip" key={trip.name}><MapPin className="h-6 w-6 text-primary" /><h4 className="text-xl font-bold">{trip.name}</h4><p className="ml-auto text-right"><strong className="block text-3xl text-primary">{trip.count}</strong><span className="text-xs text-muted-foreground">учасників</span></p></article>)}</div></div></div></section>
     <section className="community-container community-section"><div className="community-network"><div className="community-network-mark" aria-hidden="true">КРІП <ArrowUpRight className="inline h-10 w-10" /></div><div><p className="community-eyebrow text-primary">Сильніші разом</p><h2>Ми — частина КРІП</h2><p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">Об’єднуємо зусилля заради освітніх можливостей і підтримки родин у громаді.</p></div></div></section>
-    <section id="documents" className="bg-white"><div className="community-container community-section"><p className="community-eyebrow text-primary">Відкритість і довіра</p><h2>Документи та політики</h2><p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">Статут, документи про статус організації та політики можна запитати у нашої команди.</p><div className="mt-8 grid gap-4 sm:grid-cols-3">{["Статут організації", "Реєстрація та статус", "Політики організації"].map(title => <a key={title} className="community-document" href={`mailto:ufosteamhub@gmail.com?subject=${encodeURIComponent(`Запит: ${title}`)}`}><FileText className="h-7 w-7 text-primary" /><h3 className="mt-5 font-bold">{title}</h3><span className="mt-4 inline-flex items-center gap-2 text-sm text-primary">Запитати документ<ArrowUpRight className="h-4 w-4" /></span></a>)}</div></div></section>
+    <section id="documents" className="bg-white"><div className="community-container community-section"><p className="community-eyebrow text-primary">Відкритість і довіра</p><h2>Документи та політики</h2><p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">Статут і політики організації можна запитати у нашої команди.</p><div className="mt-8 grid gap-4 sm:grid-cols-2">{["Статут організації", "Політики організації"].map(title => <a key={title} className="community-document" href={`mailto:ufosteamhub@gmail.com?subject=${encodeURIComponent(`Запит: ${title}`)}`}><FileText className="h-7 w-7 text-primary" /><h3 className="mt-5 font-bold">{title}</h3><span className="mt-4 inline-flex items-center gap-2 text-sm text-primary">Запитати документ<ArrowUpRight className="h-4 w-4" /></span></a>)}</div></div></section>
     <section className="community-container community-section"><div className="community-support"><Heart className="mx-auto mb-5 h-10 w-10" /><p className="community-eyebrow">Долучайтеся до змін</p><h2>Більше можливостей<br />для дітей — разом із вами.</h2><p className="mx-auto mb-7 mt-5 max-w-lg leading-relaxed text-white/85">Підтримайте освітні проєкти UFO STEAM HUB для дітей і родин, що адаптуються у новій громаді.</p><SupportLink /></div></section>
   </div>;
 }
