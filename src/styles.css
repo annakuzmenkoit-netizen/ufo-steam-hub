@@ -760,3 +760,20 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
   .community-carousel-toolbar > p { font-size: .75rem; line-height: 1.6; }
   .community-carousel-toolbar button { width: 42px; height: 42px; }
 }
+
+.community-excursions { margin-top: 28px; }
+.community-excursions > h3 { font-size: 1.125rem; line-height: 1.4; }
+.community-excursions > p { margin-top: 6px; font-size: .8125rem; line-height: 1.6; }
+.community-excursions-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
+.community-excursions .community-trip { gap: 10px; padding: 12px 16px; border-radius: 12px; }
+.community-excursions .community-trip > svg { width: 18px; height: 18px; flex: none; }
+.community-excursions .community-trip h4 { font-size: 1rem; }
+.community-excursions .community-trip strong { font-size: 1.5rem; line-height: 1.2; }
+.community-excursions .community-trip p > span { font-size: .625rem; }
+@media (max-width: 639px) {
+  .community-excursions > h3 { font-size: 1rem; }
+  .community-excursions .community-trip { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 6px; padding: 12px; }
+  .community-excursions .community-trip h4 { font-size: .8125rem; }
+  .community-excursions .community-trip p { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 5px; margin: 0; text-align: left; }
+  .community-excursions .community-trip strong { font-size: 1.375rem; }
+}
