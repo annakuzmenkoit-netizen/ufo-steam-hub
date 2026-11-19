@@ -1,6 +1,7 @@
 import { SteamGears } from "@/components/SteamGears";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarDays, MapPin, Phone, Users, ShieldCheck, Lightbulb, Brain } from "lucide-react";
+import { WinterWorkshops } from "@/components/WinterWorkshops";
 import { HomePrograms } from "@/components/HomePrograms";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { EnrollmentAnnouncement } from "@/components/EnrollmentAnnouncement";
@@ -32,6 +33,7 @@ const benefits = [
   { icon: Lightbulb, title: "STEAM-підхід", text: "Наука, технології, інженерія, мистецтво й математика — через досліди та власні проєкти." },
   { icon: Brain, title: "Навички майбутнього", text: "Критичне мислення, креативність та командна робота." },
 ];
+const snowflakePositions = [4, 13, 21, 30, 39, 47, 54, 62, 71, 79, 88, 96];
 const prices = courses.map((course) => Number(course.price.match(/\d+/)?.[0]));
 
 function HomePage() {
@@ -39,6 +41,13 @@ function HomePage() {
     <>
       <section className="home-hero parent-hero section-art">
         <SectionDecor tone="sun" />
+        <div className="home-snow" aria-hidden="true">
+          {snowflakePositions.map((position, index) => (
+            <span key={position} style={{ left: `${position}%`, animationDelay: `${(index % 4) * 180}ms` }}>
+              {index % 3 === 0 ? "❄" : "•"}
+            </span>
+          ))}
+        </div>
         <div className="mx-auto grid max-w-6xl items-center gap-6 px-4 md:grid-cols-2 md:gap-10 sm:px-6">
           <div className="text-center">
             <p className="mb-3 text-xs font-bold uppercase tracking-wider text-white/85">UFO STEAM HUB · Кременчук</p>
@@ -46,6 +55,7 @@ function HomePage() {
             <p className="mt-4 mx-auto max-w-lg text-sm leading-relaxed text-white/90 md:text-lg">Робототехніка, творчість і наукові відкриття. Допоможемо знайти заняття, на які дитина захоче повертатися.</p>
             <div className="mt-5 flex flex-wrap justify-center gap-3">
               <Link to="/courses" className="parent-button bg-ufo-yellow text-primary">Обрати курс <ArrowRight className="h-4 w-4" /></Link>
+              <a href="#winter-workshops" className="parent-button border border-white/60 text-white">Зимові майстерки</a>
               <Link to="/contacts" className="parent-button border border-white/60 text-white">Зв’язатися з нами</Link>
             </div>
             <p className="mt-4 text-xs text-white/85">Для дітей 7–14 років · Міні-групи 4–6 дітей</p>
@@ -63,6 +73,7 @@ function HomePage() {
       </nav>
       <section className="parent-section home-minicourses"><EnrollmentAnnouncement compact sourcePage="Головна — мінікурси" /></section>
       </div>
+      <WinterWorkshops />
       <section id="programs" className="section-art parent-section">
         <SectionDecor tone="mint" />
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
