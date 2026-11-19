@@ -895,7 +895,7 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
   height: 100svh;
   margin-bottom: -100svh;
   overflow: clip;
-  color: #82c8f2;
+  color: #55a9df;
 }
 
 main:has(.home-snow-toggle input:checked) .home-snow { visibility: hidden; }
@@ -906,17 +906,23 @@ main:has(.home-snow-toggle input:checked) .home-snow > span { animation-play-sta
   top: 0;
   height: 100%;
   opacity: 0;
-  animation: home-snow-fall 12s linear infinite;
+  font-size: 1.25rem;
+  animation: home-snow-fall 10s linear infinite;
 }
 
-.home-snow > span:nth-child(3n + 2) { font-size: 0.65rem; animation-duration: 15s; }
-.home-snow > span:nth-child(3n) { font-size: 1.25rem; animation-duration: 18s; }
+.home-snow > span:nth-child(3n + 2) { font-size: 1rem; animation-duration: 13s; }
+.home-snow > span:nth-child(3n) { font-size: 1.55rem; animation-duration: 16s; }
 
 @keyframes home-snow-fall {
   0% { opacity: 0; transform: translateY(-8%); }
-  18% { opacity: 0.58; }
-  76% { opacity: 0.58; }
+  18% { opacity: 0.82; }
+  76% { opacity: 0.82; }
   100% { opacity: 0; transform: translate(1rem, 98%); }
+}
+
+@media (max-width: 639px) {
+  .home-hero .home-snow { z-index: 1; }
+  .home-snow > span { text-shadow: 0 1px 2px rgb(28 91 157 / 0.3); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -930,17 +936,24 @@ main:has(.home-snow-toggle input:checked) .home-snow > span { animation-play-sta
 .winter-workshops__heading {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.75rem;
+  padding: clamp(1rem, 4vw, 1.75rem);
+  border-radius: 1rem;
+  background:
+    radial-gradient(ellipse at 95% 0%, rgb(143 209 252 / 0.35), transparent 55%),
+    var(--ufo-blue);
 }
 
 .winter-workshops__heading h2 {
+  color: white;
   text-wrap: balance;
 }
 
 .winter-workshops__stars {
   flex: none;
-  color: #ac7828;
-  font-size: clamp(1rem, 4vw, 1.75rem);
+  color: var(--ufo-yellow);
+  font-size: clamp(1.6rem, 6vw, 3.5rem);
   line-height: 1;
 }
 
@@ -953,9 +966,10 @@ main:has(.home-snow-toggle input:checked) .home-snow > span { animation-play-sta
 .winter-workshops__card {
   padding: clamp(0.875rem, 3vw, 1.125rem);
   background:
-    radial-gradient(ellipse 54% 10rem at 85% 3.5rem, color-mix(in srgb, var(--ufo-yellow) 19%, transparent), transparent),
+    radial-gradient(ellipse 68% 13rem at 82% 4rem, color-mix(in srgb, var(--ufo-yellow) 37%, transparent), transparent),
     var(--card);
-  border-color: color-mix(in srgb, var(--primary) 18%, var(--card));
+  border-color: color-mix(in srgb, var(--primary) 24%, var(--card));
+  box-shadow: 0 4px 14px rgb(28 59 92 / 0.09);
 }
 
 .winter-workshops__intro {

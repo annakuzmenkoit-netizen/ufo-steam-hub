@@ -32,7 +32,7 @@ const benefits = [
   { icon: Lightbulb, title: "STEAM-підхід", text: "Наука, технології, інженерія, мистецтво й математика — через досліди та власні проєкти." },
   { icon: Brain, title: "Навички майбутнього", text: "Критичне мислення, креативність та командна робота." },
 ];
-const snowflakePositions = [4, 13, 21, 30, 39, 47, 54, 62, 71, 79, 88, 96];
+const snowflakePositions = [3, 7, 12, 18, 24, 30, 36, 42, 49, 55, 61, 68, 74, 80, 86, 91, 96];
 const prices = courses.map((course) => Number(course.price.match(/\d+/)?.[0]));
 
 function HomeSnow({ light = false }: { light?: boolean }) {
@@ -40,7 +40,7 @@ function HomeSnow({ light = false }: { light?: boolean }) {
     <div className={light ? "home-snow home-snow--light" : "home-snow"} aria-hidden="true">
       {snowflakePositions.map((position, index) => (
         <span key={position} style={{ left: `${position}%`, animationDelay: `${index * -1.17}s` }}>
-          ❄
+          ❄︎
         </span>
       ))}
     </div>
