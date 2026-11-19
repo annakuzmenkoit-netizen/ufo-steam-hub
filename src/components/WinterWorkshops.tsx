@@ -11,6 +11,7 @@ const workshops = [
     image: candle,
     imageAlt: "Свічки з вощини у формі чобітка, сніговика та ялинки",
     title: "Свічка бажань та лист Святому Миколаю",
+    quantity: "Орієнтовно 1–2 свічки та лист Святому Миколаю",
     description: "Створимо святкову свічку власноруч та напишемо лист Святому Миколаю з найзаповітнішими бажаннями.",
   },
   {
@@ -18,6 +19,7 @@ const workshops = [
     image: stainedGlass,
     imageAlt: "Вітражні підвіски з будиночком, ліхтарем і зіркою",
     title: "Вітражний розпис",
+    quantity: "3 вітражні вироби",
     description: "Оживимо прозорі прикраси яскравими кольорами та створимо власні малюнки в техніці вітражного розпису.",
   },
   {
@@ -25,6 +27,7 @@ const workshops = [
     image: macrame,
     imageAlt: "Плетений вінок із червоним бантом і дзвіночками",
     title: "Ялинкова прикраса з макраме",
+    quantity: "1 прикраса, до 2, якщо встигнемо",
     description: "Опануємо основи макраме та сплетемо особливу прикрасу для святкової ялинки.",
   },
   {
@@ -32,6 +35,7 @@ const workshops = [
     image: metalBird,
     imageAlt: "Карбовані золотисті прикраси у формі сонця, зірки й птаха",
     title: "Карбування по металу",
+    quantity: "До 7 виробів залежно від розміру",
     description: "Познайомимося з традиційною технікою карбування та створимо прикраси для ялинки й оселі з українськими мотивами.",
   },
   {
@@ -39,15 +43,17 @@ const workshops = [
     image: strawSpider,
     imageAlt: "Підвісна геометрична прикраса зі сплетеної соломи",
     title: "Різдвяний павук із соломи",
+    quantity: "1 солом’яний павук",
     description: "Відродимо давню українську традицію та створимо солом’яного павука — символ добробуту й гармонії в оселі.",
     price: 600,
-    family: true,
+    audience: "Сімейний майстерклас для мам і дітей. Діти від 11 років можуть долучитися самостійно.",
   },
   {
     days: ["20"],
     image: strawSnowflakes,
     imageAlt: "Три плетені сніжинки з натуральної та кольорової соломи",
     title: "Сніжинки із соломи",
+    quantity: "2–3 сніжинки",
     description: "Опануємо основи соломоплетіння та створимо витончені сніжинки з натуральної соломи.",
   },
 ];
@@ -60,7 +66,7 @@ export function WinterWorkshops() {
           <h2 id="winter-workshops-title">Розклад зимових майстерок</h2>
         </div>
         <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {workshops.map(({ days, image, imageAlt, title, description, family, price = 500 }) => (
+          {workshops.map(({ days, image, imageAlt, title, description, quantity, audience = "Для дітей 7+ років", price = 500 }) => (
             <li key={title} className="winter-workshops__card flex flex-col rounded-xl border">
               <div className="winter-workshops__intro">
                 <div className="min-w-0">
@@ -72,11 +78,14 @@ export function WinterWorkshops() {
                     ))}
                   </div>
                   <h3 className="mt-2.5 text-[clamp(1rem,4vw,1.25rem)] font-bold leading-tight">{title}</h3>
-                  {family && <p className="mt-1.5 text-xs font-semibold text-primary">Сімейна майстерка</p>}
                 </div>
                 <img src={image} alt={imageAlt} loading="lazy" decoding="async" className="winter-workshops__cutout" />
               </div>
               <p className="winter-workshops__description text-sm leading-relaxed">{description}</p>
+              <div className="mb-3 space-y-1 text-sm">
+                <p className="font-semibold">{audience}</p>
+                <p><span className="font-semibold">За майстерку</span> · {quantity}</p>
+              </div>
               <p className="winter-workshops__price mt-auto font-bold">{price} грн</p>
             </li>
           ))}
