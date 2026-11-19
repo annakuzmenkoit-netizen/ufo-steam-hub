@@ -924,15 +924,49 @@ main:has(.home-snow-toggle input:checked) .home-snow > span { animation-play-sta
 }
 
 .winter-workshops {
-  background: color-mix(in srgb, var(--primary) 6%, var(--background));
+  --workshop-evergreen: #17483b;
+  --workshop-ink: #193e35;
+  --workshop-gold: #e5bd76;
+  color: var(--workshop-ink);
+  background: linear-gradient(160deg, #edf5ef, #f8f2e7 60%, #edf5ef);
+}
+
+.winter-workshops__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: clamp(1rem, 4vw, 1.75rem);
+  border: 1px solid #917650;
+  border-radius: 0.875rem;
+  background: linear-gradient(120deg, #123a30, #205a48);
+}
+
+.winter-workshops__heading h2 {
+  color: #fff9ed;
+  text-wrap: balance;
+}
+
+.winter-workshops__stars {
+  flex: none;
+  color: var(--workshop-gold);
+  font-size: clamp(1.25rem, 5vw, 2.5rem);
+  line-height: 1;
+}
+
+.winter-workshops__stars span {
+  display: inline-block;
+  font-size: 0.6em;
+  vertical-align: top;
 }
 
 .winter-workshops__card {
   padding: clamp(0.875rem, 3vw, 1.125rem);
   background:
-    radial-gradient(ellipse 55% 9rem at 85% 3.5rem, rgb(184 226 249 / 0.46), transparent),
-    var(--card);
-  border-color: color-mix(in srgb, var(--primary) 18%, var(--card));
+    radial-gradient(ellipse 58% 10rem at 85% 3.5rem, #f3e5be, transparent),
+    #fffdf7;
+  border-color: #d9c8a5;
+  box-shadow: 0 4px 12px rgb(25 62 53 / 0.07);
 }
 
 .winter-workshops__intro {
@@ -940,6 +974,10 @@ main:has(.home-snow-toggle input:checked) .home-snow > span { animation-play-sta
   grid-template-columns: minmax(0, 1fr) minmax(0, 48%);
   align-items: center;
   gap: 0.625rem;
+}
+
+.winter-workshops__intro h3 {
+  color: var(--workshop-ink);
 }
 
 .winter-workshops__cutout {
@@ -956,11 +994,26 @@ main:has(.home-snow-toggle input:checked) .home-snow > span { animation-play-sta
 
 .winter-workshops__price {
   padding-top: 0.625rem;
-  border-top: 1px solid color-mix(in srgb, var(--primary) 16%, transparent);
-  color: var(--primary);
+  border-top: 1px solid #e8dcc3;
+  color: var(--workshop-ink);
 }
 
 .winter-workshops__date {
-  background: var(--primary);
-  color: var(--primary-foreground);
+  background: #f7e8e3;
+  color: #772f42;
+}
+
+.winter-workshops__button {
+  border: 1px solid #b49b62;
+  background: var(--workshop-evergreen);
+  color: #fff9ed;
+}
+
+.winter-workshops__button:hover {
+  background: #235b49;
+}
+
+.winter-workshops__button:focus-visible {
+  outline: 2px solid var(--workshop-evergreen);
+  outline-offset: 3px;
 }

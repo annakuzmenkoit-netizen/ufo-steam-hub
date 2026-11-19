@@ -63,8 +63,9 @@ export function WinterWorkshops() {
   return (
     <section id="winter-workshops" className="parent-section winter-workshops scroll-mt-24" aria-labelledby="winter-workshops-title">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="parent-section-heading">
+        <div className="parent-section-heading winter-workshops__heading">
           <h2 id="winter-workshops-title">Розклад зимових майстерок</h2>
+          <span className="winter-workshops__stars" aria-hidden="true">✦ <span>✧</span></span>
         </div>
         <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {workshops.map(({ days, image, imageAlt, title, description, quantity, audience = "Для дітей 7+ років", price = 500 }) => (
@@ -91,7 +92,7 @@ export function WinterWorkshops() {
                 <p className="font-bold">{price} грн</p>
                 <button
                   type="button"
-                  className="parent-button mt-2 w-full bg-ufo-yellow text-primary hover:bg-ufo-yellow/90"
+                  className="parent-button winter-workshops__button mt-2 w-full"
                   aria-label={`Записатися на майстерку «${title}»`}
                   onClick={() => openRegistration({
                     registrationType: "workshop",
