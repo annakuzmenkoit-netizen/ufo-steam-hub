@@ -4,7 +4,6 @@ import { ArrowRight, CalendarDays, MapPin, Phone, Users, ShieldCheck, Lightbulb,
 import { WinterWorkshops } from "@/components/WinterWorkshops";
 import { HomePrograms } from "@/components/HomePrograms";
 import { ResponsiveImage } from "@/components/ResponsiveImage";
-import { EnrollmentAnnouncement } from "@/components/EnrollmentAnnouncement";
 import { SectionDecor } from "@/components/SectionDecor";
 import { openRegistration } from "@/components/RegistrationModal";
 import heroPhoto from "@/assets/hero-children.webp";
@@ -77,14 +76,11 @@ function HomePage() {
       </section>
       <div className="home-snow-content">
         <HomeSnow light />
-        <div className="home-discovery-intro">
         <nav aria-label="Батькам: швидкий доступ" className="parent-shortcuts mx-auto grid max-w-6xl grid-cols-3 gap-2 px-4 sm:px-6">
           <Link to="/courses"><span>Наші курси</span><ArrowRight className="h-4 w-4" /></Link>
           <Link to="/schedule"><span>Розклад</span><CalendarDays className="h-4 w-4" /></Link>
           <Link to="/contacts"><span>Як нас знайти</span><MapPin className="h-4 w-4" /></Link>
         </nav>
-        <section className="parent-section home-minicourses"><EnrollmentAnnouncement compact sourcePage="Головна — мінікурси" /></section>
-        </div>
         <WinterWorkshops />
         <section id="programs" className="section-art parent-section">
           <SectionDecor tone="mint" />
