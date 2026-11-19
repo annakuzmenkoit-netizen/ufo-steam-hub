@@ -1,6 +1,7 @@
 export type RegistrationType =
   | "general"
   | "course"
+  | "workshop"
   | "schedule"
   | "summer_school"
   | "camp"
@@ -25,6 +26,7 @@ export type RegistrationContext = {
 export const REGISTRATION_TYPE_LABELS: Record<RegistrationType, string> = {
   general: "Загальна заявка на пробний урок",
   course: "Курс",
+  workshop: "Зимова майстерка",
   schedule: "Заняття з розкладу",
   summer_school: "Літня школа",
   camp: "Табір",
@@ -36,6 +38,7 @@ export const REGISTRATION_TYPE_LABELS: Record<RegistrationType, string> = {
 const SUBJECT_TYPE_LABELS: Record<RegistrationType, string> = {
   general: "Загальна заявка на пробний урок",
   course: "Курс",
+  workshop: "Зимова майстерка",
   schedule: "Заняття з розкладу",
   summer_school: "Літня школа",
   camp: "Табір",

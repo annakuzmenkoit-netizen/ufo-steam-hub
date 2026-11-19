@@ -131,6 +131,10 @@ export function RegistrationModal() {
         }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const result = await res.json();
+      if (result.success !== true && result.success !== "true") {
+        throw new Error("FormSubmit did not accept the submission");
+      }
       setSuccess(true);
       toast.success(isInquiry ? "Запит надіслано!" : "Заявку надіслано!");
     } catch (err) {
@@ -196,7 +200,10 @@ export function RegistrationModal() {
               {rows.length > 0 && (context.program || context.eventName || context.date) && (
                 <details className="group rounded-2xl border border-primary/10 bg-primary/5 p-3.5">
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-primary [&::-webkit-details-marker]:hidden">
-                    <span className="min-w-0 leading-relaxed">{context.program ?? context.eventName ?? context.title}</span>
+                    <span className="min-w-0 leading-relaxed">
+                      {context.program ?? context.eventName ?? context.title}
+                      {context.registrationType === "workshop" && context.date && ` · ${context.date}`}
+                    </span>
                     <ChevronDown className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180" />
                   </summary>
                   <dl className="mt-3 space-y-2 border-t border-primary/10 pt-3">

@@ -937,7 +937,7 @@ main:has(.home-snow-toggle input:checked) .home-snow > span { animation-play-sta
 
 .winter-workshops__intro {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 42%);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 48%);
   align-items: center;
   gap: 0.625rem;
 }
@@ -945,7 +945,7 @@ main:has(.home-snow-toggle input:checked) .home-snow > span { animation-play-sta
 .winter-workshops__cutout {
   display: block;
   width: 100%;
-  height: clamp(7rem, 32vw, 9.25rem);
+  height: clamp(8.5rem, 38vw, 11.5rem);
   object-fit: contain;
   filter: drop-shadow(0 4px 6px rgb(28 59 92 / 0.15));
 }

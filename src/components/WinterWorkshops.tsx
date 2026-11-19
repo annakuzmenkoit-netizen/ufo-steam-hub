@@ -1,3 +1,4 @@
+import { openRegistration } from "@/components/RegistrationModal";
 import candle from "@/assets/workshops/candle.webp";
 import stainedGlass from "@/assets/workshops/stained-glass.webp";
 import macrame from "@/assets/workshops/macrame.webp";
@@ -86,7 +87,28 @@ export function WinterWorkshops() {
                 <p className="font-semibold">{audience}</p>
                 <p><span className="font-semibold">За майстерку</span> · {quantity}</p>
               </div>
-              <p className="winter-workshops__price mt-auto font-bold">{price} грн</p>
+              <div className="winter-workshops__price mt-auto">
+                <p className="font-bold">{price} грн</p>
+                <div className="mt-2 grid gap-2">
+                  {days.map((day) => (
+                    <button
+                      key={day}
+                      type="button"
+                      className="parent-button w-full bg-ufo-yellow text-primary hover:bg-ufo-yellow/90"
+                      aria-label={`Записатися на майстерку «${title}» ${day}.12`}
+                      onClick={() => openRegistration({
+                        registrationType: "workshop",
+                        sourcePage: "Головна — зимові майстерки",
+                        program: title,
+                        date: `${day}.12`,
+                        age: audience,
+                      })}
+                    >
+                      Записатися на {day}.12
+                    </button>
+                  ))}
+                </div>
+              </div>
             </li>
           ))}
         </ol>
