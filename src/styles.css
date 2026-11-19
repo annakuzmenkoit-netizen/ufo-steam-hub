@@ -932,6 +932,10 @@ main:has(.home-snow-toggle input:checked) .home-snow > span { animation-play-sta
   border-color: color-mix(in srgb, var(--primary) 18%, var(--card));
 }
 
+.winter-workshops__photo {
+  background: radial-gradient(ellipse at center, #fffaf0, #edf7fd);
+}
+
 .winter-workshops__date {
   background: var(--primary);
   color: var(--primary-foreground);
