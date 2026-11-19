@@ -36,18 +36,24 @@ const benefits = [
 const snowflakePositions = [4, 13, 21, 30, 39, 47, 54, 62, 71, 79, 88, 96];
 const prices = courses.map((course) => Number(course.price.match(/\d+/)?.[0]));
 
+function HomeSnow({ light = false }: { light?: boolean }) {
+  return (
+    <div className={light ? "home-snow home-snow--light" : "home-snow"} aria-hidden="true">
+      {snowflakePositions.map((position, index) => (
+        <span key={position} style={{ left: `${position}%`, animationDelay: `${index * -1.17}s` }}>
+          ❄
+        </span>
+      ))}
+    </div>
+  );
+}
+
 function HomePage() {
   return (
     <>
       <section className="home-hero parent-hero section-art">
         <SectionDecor tone="sun" />
-        <div className="home-snow" aria-hidden="true">
-          {snowflakePositions.map((position, index) => (
-            <span key={position} style={{ left: `${position}%`, animationDelay: `${(index % 4) * 180}ms` }}>
-              {index % 3 === 0 ? "❄" : "•"}
-            </span>
-          ))}
-        </div>
+        <HomeSnow />
         <div className="mx-auto grid max-w-6xl items-center gap-6 px-4 md:grid-cols-2 md:gap-10 sm:px-6">
           <div className="text-center">
             <p className="mb-3 text-xs font-bold uppercase tracking-wider text-white/85">UFO STEAM HUB · Кременчук</p>
@@ -59,67 +65,74 @@ function HomePage() {
               <Link to="/contacts" className="parent-button border border-white/60 text-white">Зв’язатися з нами</Link>
             </div>
             <p className="mt-4 text-xs text-white/85">Для дітей 7–14 років · Міні-групи 4–6 дітей</p>
+            <label className="home-snow-toggle mt-2 inline-flex min-h-6 cursor-pointer items-center gap-2 text-xs text-white">
+              <input type="checkbox" className="accent-ufo-yellow" />
+              Призупинити снігопад
+            </label>
           </div>
           <figure className="hero-moment">
             <ResponsiveImage src={heroPhoto} width={1200} height={800} srcSet={`${heroSmall} 320w, ${heroMedium} 640w, ${heroLarge} 960w, ${heroPhoto} 1200w`} alt="Діти разом створюють проєкт на занятті UFO" loading="eager" fetchPriority="high" sizes="(min-width: 768px) 540px, 320px" className="h-full w-full object-contain" />
           </figure>
         </div>
       </section>
-      <div className="home-discovery-intro">
-      <nav aria-label="Батькам: швидкий доступ" className="parent-shortcuts mx-auto grid max-w-6xl grid-cols-3 gap-2 px-4 sm:px-6">
-        <Link to="/courses"><span>Наші курси</span><ArrowRight className="h-4 w-4" /></Link>
-        <Link to="/schedule"><span>Розклад</span><CalendarDays className="h-4 w-4" /></Link>
-        <Link to="/contacts"><span>Як нас знайти</span><MapPin className="h-4 w-4" /></Link>
-      </nav>
-      <section className="parent-section home-minicourses"><EnrollmentAnnouncement compact sourcePage="Головна — мінікурси" /></section>
-      </div>
-      <WinterWorkshops />
-      <section id="programs" className="section-art parent-section">
-        <SectionDecor tone="mint" />
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <HomePrograms />
+      <div className="home-snow-content">
+        <HomeSnow light />
+        <div className="home-discovery-intro">
+        <nav aria-label="Батькам: швидкий доступ" className="parent-shortcuts mx-auto grid max-w-6xl grid-cols-3 gap-2 px-4 sm:px-6">
+          <Link to="/courses"><span>Наші курси</span><ArrowRight className="h-4 w-4" /></Link>
+          <Link to="/schedule"><span>Розклад</span><CalendarDays className="h-4 w-4" /></Link>
+          <Link to="/contacts"><span>Як нас знайти</span><MapPin className="h-4 w-4" /></Link>
+        </nav>
+        <section className="parent-section home-minicourses"><EnrollmentAnnouncement compact sourcePage="Головна — мінікурси" /></section>
         </div>
-      </section>
-      <section className="parent-section">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="home-learning" aria-labelledby="home-learning-title">
-            <h2 id="home-learning-title">Наші переваги</h2>
-            <div className="home-learning__items">
-              {benefits.map(({ icon: Icon, title, text }) => (
-                <article key={title}>
-                  <h3>
-                    <Icon className="h-4 w-4" aria-hidden="true" />
-                    <span className={title === "Навички майбутнього" ? "home-learning__words" : undefined}>
-                      {title === "Навички майбутнього" ? (
-                        <><span>Навички</span>{" "}<span>майбутнього</span></>
-                      ) : title}
-                    </span>
-                  </h3>
-                  <p>{text}</p>
-                </article>
-              ))}
+        <WinterWorkshops />
+        <section id="programs" className="section-art parent-section">
+          <SectionDecor tone="mint" />
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <HomePrograms />
+          </div>
+        </section>
+        <section className="parent-section">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <div className="home-learning" aria-labelledby="home-learning-title">
+              <h2 id="home-learning-title">Наші переваги</h2>
+              <div className="home-learning__items">
+                {benefits.map(({ icon: Icon, title, text }) => (
+                  <article key={title}>
+                    <h3>
+                      <Icon className="h-4 w-4" aria-hidden="true" />
+                      <span className={title === "Навички майбутнього" ? "home-learning__words" : undefined}>
+                        {title === "Навички майбутнього" ? (
+                          <><span>Навички</span>{" "}<span>майбутнього</span></>
+                        ) : title}
+                      </span>
+                    </h3>
+                    <p>{text}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+            <SteamGears />
+          </div>
+        </section>
+        <section className="parent-section home-faq">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6">
+            <div className="parent-section-heading"><h2>Поширені запитання</h2></div>
+            <div className="space-y-3">
+              <details className="parent-details"><summary>Як записатися на заняття?</summary><p>Оберіть напрям і залиште заявку. Ми зв’яжемося, допоможемо з вибором та узгодимо деталі першого заняття.</p><button type="button" onClick={() => openRegistration()} className="parent-button mb-3 bg-ufo-yellow text-primary">Підібрати заняття <ArrowRight className="h-4 w-4" /></button></details>
+              <details className="parent-details"><summary>Для якого віку цей простір?</summary><p>Простір розрахований на дітей 7–14 років. Вік для кожної програми вказано на сторінці курсів.</p></details>
+              <details className="parent-details"><summary>Скільки коштують заняття?</summary><p>Вартість регулярних курсів — від {Math.min(...prices)} до {Math.max(...prices)} грн/місяць залежно від напряму. <Link to="/courses" className="font-semibold text-primary underline">Переглянути ціни</Link>.</p></details>
+              <details className="parent-details"><summary>Як дізнатися, чи підходить розклад?</summary><p>Перегляньте <Link to="/schedule" className="font-semibold text-primary underline">розклад</Link>. Оберіть зручний день і час занять для вашої дитини.</p></details>
             </div>
           </div>
-          <SteamGears />
-        </div>
-      </section>
-      <section className="parent-section home-faq">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6">
-          <div className="parent-section-heading"><h2>Поширені запитання</h2></div>
-          <div className="space-y-3">
-            <details className="parent-details"><summary>Як записатися на заняття?</summary><p>Оберіть напрям і залиште заявку. Ми зв’яжемося, допоможемо з вибором та узгодимо деталі першого заняття.</p><button type="button" onClick={() => openRegistration()} className="parent-button mb-3 bg-ufo-yellow text-primary">Підібрати заняття <ArrowRight className="h-4 w-4" /></button></details>
-            <details className="parent-details"><summary>Для якого віку цей простір?</summary><p>Простір розрахований на дітей 7–14 років. Вік для кожної програми вказано на сторінці курсів.</p></details>
-            <details className="parent-details"><summary>Скільки коштують заняття?</summary><p>Вартість регулярних курсів — від {Math.min(...prices)} до {Math.max(...prices)} грн/місяць залежно від напряму. <Link to="/courses" className="font-semibold text-primary underline">Переглянути ціни</Link>.</p></details>
-            <details className="parent-details"><summary>Як дізнатися, чи підходить розклад?</summary><p>Перегляньте <Link to="/schedule" className="font-semibold text-primary underline">розклад</Link>. Оберіть зручний день і час занять для вашої дитини.</p></details>
+        </section>
+        <section className="parent-section">
+          <div className="mx-auto flex max-w-6xl flex-col justify-between gap-4 px-4 sm:px-6 md:flex-row md:items-center">
+            <div><p className="parent-eyebrow">Поруч із вами</p><h2 className="text-2xl">Чекаємо у Кременчуці</h2><p className="mt-2 text-sm text-muted-foreground">ТЦ «Лідер», каб. 208</p></div>
+            <div className="flex flex-wrap gap-3"><a href="tel:+380960662604" className="parent-button bg-primary text-white"><Phone className="h-4 w-4" />Зателефонувати</a><Link to="/contacts" className="parent-button border border-primary text-primary">Адреса та контакти <MapPin className="h-4 w-4" /></Link></div>
           </div>
-        </div>
-      </section>
-      <section className="parent-section">
-        <div className="mx-auto flex max-w-6xl flex-col justify-between gap-4 px-4 sm:px-6 md:flex-row md:items-center">
-          <div><p className="parent-eyebrow">Поруч із вами</p><h2 className="text-2xl">Чекаємо у Кременчуці</h2><p className="mt-2 text-sm text-muted-foreground">ТЦ «Лідер», каб. 208</p></div>
-          <div className="flex flex-wrap gap-3"><a href="tel:+380960662604" className="parent-button bg-primary text-white"><Phone className="h-4 w-4" />Зателефонувати</a><Link to="/contacts" className="parent-button border border-primary text-primary">Адреса та контакти <MapPin className="h-4 w-4" /></Link></div>
-        </div>
-      </section>
+        </section>
+      </div>
     </>
   );
 }

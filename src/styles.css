@@ -373,8 +373,8 @@ main h3, main h4 { font-weight: 700; }
   .page-intro > svg { opacity: 0.2; }
   .page-intro p { margin-top: 0.75rem; font-size: 0.875rem; line-height: 1.6; }
   .page-intro h1 { font-size: 1.875rem; }
-  main > section:not(.home-hero):not(.page-intro) { padding-block: 1.75rem; }
-  main > section .mb-12, main > section .mb-14 { margin-bottom: 1.5rem; }
+  :is(main, .home-snow-content) > section:not(.home-hero):not(.page-intro) { padding-block: 1.75rem; }
+  :is(main, .home-snow-content) > section :is(.mb-12, .mb-14) { margin-bottom: 1.5rem; }
   .with-mobile-nav { padding-bottom: calc(4.25rem + env(safe-area-inset-bottom)); }
   .mobile-action-nav { position: fixed; inset: auto 0 0; z-index: 40; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); padding: 0.375rem 0.375rem max(0.375rem, env(safe-area-inset-bottom)); border-top: 1px solid var(--border); background: var(--card); box-shadow: 0 -3px 12px rgb(0 0 0 / 0.06); }
   .mobile-action-nav a, .mobile-action-nav button { display: flex; min-height: 3.5rem; flex-direction: column; align-items: center; justify-content: center; gap: 0.25rem; border-radius: 0.375rem; color: var(--primary); font-size: 0.65rem; font-weight: 600; }
@@ -879,19 +879,38 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
   z-index: -1;
   pointer-events: none;
   user-select: none;
+  color: white;
 }
+
+.home-snow-content {
+  isolation: isolate;
+  overflow: clip;
+}
+
+.home-snow--light {
+  position: sticky;
+  inset: auto;
+  top: 0;
+  z-index: 1;
+  height: 100svh;
+  margin-bottom: -100svh;
+  overflow: clip;
+  color: #82c8f2;
+}
+
+main:has(.home-snow-toggle input:checked) .home-snow { visibility: hidden; }
+main:has(.home-snow-toggle input:checked) .home-snow > span { animation-play-state: paused; }
 
 .home-snow > span {
   position: absolute;
   top: 0;
   height: 100%;
-  color: white;
   opacity: 0;
-  animation: home-snow-fall 4.4s linear both;
+  animation: home-snow-fall 12s linear infinite;
 }
 
-.home-snow > span:nth-child(3n + 2) { font-size: 0.65rem; }
-.home-snow > span:nth-child(3n) { font-size: 1.25rem; }
+.home-snow > span:nth-child(3n + 2) { font-size: 0.65rem; animation-duration: 15s; }
+.home-snow > span:nth-child(3n) { font-size: 1.25rem; animation-duration: 18s; }
 
 @keyframes home-snow-fall {
   0% { opacity: 0; transform: translateY(-8%); }
@@ -901,8 +920,7 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home-snow { display: none; }
-  .home-snow > span { animation: none; }
+  .home-snow, .home-snow-toggle { display: none; }
 }
 
 .winter-workshops {
