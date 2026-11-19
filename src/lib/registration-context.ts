@@ -16,6 +16,7 @@ export type RegistrationContext = {
   program?: string;
   day?: string;
   date?: string;
+  availableDates?: readonly string[];
   time?: string;
   age?: string;
   teacher?: string;

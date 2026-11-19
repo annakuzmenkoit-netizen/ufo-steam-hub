@@ -73,7 +73,9 @@ export function RegistrationModal() {
         | undefined;
       const ctx = normalizeRegistrationContext(detail?.context);
       openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-      setContext(ctx);
+      setContext(ctx.availableDates?.length === 1
+        ? { ...ctx, date: ctx.availableDates[0] }
+        : ctx);
       setSuccess(false);
       setError("");
       setOpen(true);
@@ -105,6 +107,11 @@ export function RegistrationModal() {
     }
     if (needsCourseSelect && !course) {
       setError("Оберіть, будь ласка, курс.");
+      return;
+    }
+
+    if (context.availableDates?.length && !context.availableDates.includes(context.date ?? "")) {
+      setError("Оберіть, будь ласка, дату майстерки.");
       return;
     }
 
@@ -215,6 +222,26 @@ export function RegistrationModal() {
                     ))}
                   </dl>
                 </details>
+              )}
+
+              {!!context.availableDates?.length && (
+                <div>
+                  <label htmlFor="registration-workshop-date" className="text-sm font-medium">
+                    Дата майстерки <span aria-hidden="true">*</span>
+                  </label>
+                  <select
+                    id="registration-workshop-date"
+                    name="workshopDate"
+                    required
+                    disabled={submitting}
+                    value={context.date ?? ""}
+                    onChange={(event) => setContext({ ...context, date: event.target.value })}
+                    className="mt-1.5 h-12 w-full min-w-0 rounded-xl border border-input bg-background px-3 text-base text-foreground"
+                  >
+                    <option value="" disabled>Оберіть дату</option>
+                    {context.availableDates.map((date) => <option key={date} value={date}>{date}</option>)}
+                  </select>
+                </div>
               )}
 
               <fieldset disabled={submitting} className="min-w-0 space-y-4 disabled:opacity-70">
