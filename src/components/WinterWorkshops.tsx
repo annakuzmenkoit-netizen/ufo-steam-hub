@@ -1,36 +1,30 @@
 const workshops = [
   {
-    day: "02",
+    days: ["02"],
     icon: "🕯",
     title: "Свічка бажань та лист Святому Миколаю",
     description: "Створимо святкову свічку власноруч та напишемо лист Святому Миколаю з найзаповітнішими бажаннями.",
   },
   {
-    day: "05",
+    days: ["05", "23"],
     icon: "🎨",
     title: "Вітражний розпис",
     description: "Оживимо прозорі прикраси яскравими кольорами та створимо власні малюнки в техніці вітражного розпису.",
   },
   {
-    day: "09",
+    days: ["09"],
     icon: "🧶",
     title: "Ялинкова прикраса з макраме",
     description: "Опануємо основи макраме та сплетемо особливу прикрасу для святкової ялинки.",
   },
   {
-    day: "12",
+    days: ["12", "16"],
     icon: "✨",
     title: "Карбування по металу",
     description: "Познайомимося з традиційною технікою карбування та створимо прикраси для ялинки й оселі з українськими мотивами.",
   },
   {
-    day: "16",
-    icon: "✨",
-    title: "Карбування по металу",
-    description: "Познайомимося з традиційною технікою карбування та створимо прикраси для ялинки й оселі з українськими мотивами.",
-  },
-  {
-    day: "19",
+    days: ["19"],
     icon: "🕸",
     title: "Різдвяний павук із соломи",
     description: "Відродимо давню українську традицію та створимо солом’яного павука — символ добробуту й гармонії в оселі.",
@@ -38,16 +32,10 @@ const workshops = [
     family: true,
   },
   {
-    day: "20",
+    days: ["20"],
     icon: "❄️",
     title: "Сніжинки із соломи",
     description: "Опануємо основи соломоплетіння та створимо витончені сніжинки з натуральної соломи.",
-  },
-  {
-    day: "23",
-    icon: "🌈",
-    title: "Вітражний розпис",
-    description: "Оживимо прозорі прикраси яскравими кольорами та створимо власні малюнки в техніці вітражного розпису.",
   },
 ];
 
@@ -58,11 +46,17 @@ export function WinterWorkshops() {
         <div className="parent-section-heading">
           <h2 id="winter-workshops-title">Розклад зимових майстерок</h2>
         </div>
-        <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {workshops.map(({ day, icon, title, description, family, price = 500 }) => (
-            <li key={day} className="winter-workshops__card flex flex-col gap-3 rounded-xl border p-4">
+        <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {workshops.map(({ days, icon, title, description, family, price = 500 }) => (
+            <li key={title} className="winter-workshops__card flex flex-col gap-3 rounded-xl border p-4">
               <div className="flex items-center justify-between gap-3">
-                <time dateTime={`12-${day}`} className="winter-workshops__date rounded-full px-3 py-1 text-sm font-bold tabular-nums">{day}.12</time>
+                <div className="flex flex-wrap gap-2">
+                  {days.map((day) => (
+                    <time key={day} dateTime={`12-${day}`} className="winter-workshops__date rounded-full px-3 py-1 text-sm font-bold tabular-nums">
+                      {day}.12
+                    </time>
+                  ))}
+                </div>
                 <span aria-hidden="true" className="text-xl">{icon}</span>
               </div>
               <h3 className="text-lg font-bold leading-tight">{title}</h3>
