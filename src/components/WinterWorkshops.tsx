@@ -61,21 +61,23 @@ export function WinterWorkshops() {
         </div>
         <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {workshops.map(({ days, image, imageAlt, title, description, family, price = 500 }) => (
-            <li key={title} className="winter-workshops__card flex flex-col gap-3 rounded-xl border p-4">
-              <div className="winter-workshops__photo h-44 rounded-lg p-3">
-                <img src={image} alt={imageAlt} loading="lazy" decoding="async" className="block h-full w-full object-contain" />
+            <li key={title} className="winter-workshops__card flex flex-col rounded-xl border">
+              <div className="winter-workshops__intro">
+                <div className="min-w-0">
+                  <div className="flex flex-wrap gap-1.5">
+                    {days.map((day) => (
+                      <time key={day} dateTime={`12-${day}`} className="winter-workshops__date rounded-full px-2 py-1 text-xs font-bold tabular-nums">
+                        {day}.12
+                      </time>
+                    ))}
+                  </div>
+                  <h3 className="mt-2.5 text-[clamp(1rem,4vw,1.25rem)] font-bold leading-tight">{title}</h3>
+                  {family && <p className="mt-1.5 text-xs font-semibold text-primary">Сімейна майстерка</p>}
+                </div>
+                <img src={image} alt={imageAlt} loading="lazy" decoding="async" className="winter-workshops__cutout" />
               </div>
-              <div className="flex flex-wrap gap-2">
-                {days.map((day) => (
-                  <time key={day} dateTime={`12-${day}`} className="winter-workshops__date rounded-full px-3 py-1 text-sm font-bold tabular-nums">
-                    {day}.12
-                  </time>
-                ))}
-              </div>
-              <h3 className="text-lg font-bold leading-tight">{title}</h3>
-              {family && <p className="text-sm font-semibold text-primary">Сімейна майстерка</p>}
-              <p className="text-sm leading-relaxed">{description}</p>
-              <p className="mt-auto pt-1 font-bold">{price} грн</p>
+              <p className="winter-workshops__description text-sm leading-relaxed">{description}</p>
+              <p className="winter-workshops__price mt-auto font-bold">{price} грн</p>
             </li>
           ))}
         </ol>

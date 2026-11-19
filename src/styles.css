@@ -928,12 +928,36 @@ main:has(.home-snow-toggle input:checked) .home-snow > span { animation-play-sta
 }
 
 .winter-workshops__card {
-  background: var(--card);
+  padding: clamp(0.875rem, 3vw, 1.125rem);
+  background:
+    radial-gradient(ellipse 55% 9rem at 85% 3.5rem, rgb(184 226 249 / 0.46), transparent),
+    var(--card);
   border-color: color-mix(in srgb, var(--primary) 18%, var(--card));
 }
 
-.winter-workshops__photo {
-  background: radial-gradient(ellipse at center, #fffaf0, #edf7fd);
+.winter-workshops__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 38%);
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.winter-workshops__cutout {
+  display: block;
+  width: 100%;
+  height: clamp(6.25rem, 29vw, 8.25rem);
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgb(28 59 92 / 0.15));
+}
+
+.winter-workshops__description {
+  padding-block: 0.625rem 0.75rem;
+}
+
+.winter-workshops__price {
+  padding-top: 0.625rem;
+  border-top: 1px solid color-mix(in srgb, var(--primary) 16%, transparent);
+  color: var(--primary);
 }
 
 .winter-workshops__date {
