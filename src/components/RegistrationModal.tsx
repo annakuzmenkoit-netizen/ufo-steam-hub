@@ -25,7 +25,6 @@ const COURSE_OPTIONS = [
 
 const EVENT_NAME = "ufo:open-registration";
 // FormSubmit forwards submissions directly to this email — no signup, no API key required.
-const WORKSHOP_FORM_ACTION = "https://formsubmit.co/ufosteamhub@gmail.com";
 const FORM_ENDPOINT = "https://formsubmit.co/ajax/ufosteamhub@gmail.com";
 
 export function openRegistration(context?: RegistrationContext | string) {
@@ -104,28 +103,20 @@ export function RegistrationModal() {
   const rows = summaryRows({ ...context, program: context.program ?? (course || undefined) });
 
   async function onSubmit(e: React.FormEvent) {
-    if (!isWorkshop || submitting) e.preventDefault();
+    e.preventDefault();
     if (submitting) return;
     setDeliveryFailed(false);
     if ((!isInquiry && (!childName.trim() || !childAge.trim())) || !parentName.trim() || !phone.trim()) {
-      e.preventDefault();
       setError("Заповніть, будь ласка, усі обов’язкові поля.");
       return;
     }
     if (needsCourseSelect && !course) {
-      e.preventDefault();
       setError("Оберіть, будь ласка, курс.");
       return;
     }
 
     if (context.availableDates?.length && !context.availableDates.includes(context.date ?? "")) {
-      e.preventDefault();
       setError("Оберіть, будь ласка, дату майстерки.");
-      return;
-    }
-
-    if (isWorkshop) {
-      setError("");
       return;
     }
 
@@ -226,21 +217,10 @@ export function RegistrationModal() {
           ) : (
             <form
               id="registration-form"
-              action={isWorkshop ? WORKSHOP_FORM_ACTION : undefined}
-              method={isWorkshop ? "post" : undefined}
               onSubmit={onSubmit}
               className="space-y-5"
               aria-busy={submitting}
             >
-              {isWorkshop && (
-                <>
-                  <input type="hidden" name="_subject" value={buildRegistrationSubject(context)} />
-                  <input type="hidden" name="_template" value="table" />
-                  {Object.entries(buildRegistrationEmailFields(context, {})).map(([name, value]) => (
-                    <input key={name} type="hidden" name={name} value={value} />
-                  ))}
-                </>
-              )}
               {rows.length > 0 && (context.program || context.eventName || context.date) && (
                 <details className="group rounded-2xl border border-primary/10 bg-primary/5 p-3.5">
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-primary [&::-webkit-details-marker]:hidden">
@@ -284,11 +264,11 @@ export function RegistrationModal() {
                 <legend className="mb-3 text-sm font-semibold text-foreground">Контакти для зв’язку</legend>
                 <div>
                   <label htmlFor="registration-parent" className="text-sm font-medium">Ім’я одного з батьків <span aria-hidden="true">*</span></label>
-                  <Input id="registration-parent" name={isWorkshop ? "Ім’я одного з батьків" : "parentName"} autoComplete="section-parent given-name" required maxLength={120} value={parentName} onChange={(event) => setParentName(event.target.value)} placeholder="Як до вас звертатися?" className="mt-1.5 h-12 rounded-xl" />
+                  <Input id="registration-parent" name="parentName" autoComplete="section-parent given-name" required maxLength={120} value={parentName} onChange={(event) => setParentName(event.target.value)} placeholder="Як до вас звертатися?" className="mt-1.5 h-12 rounded-xl" />
                 </div>
                 <div>
                   <label htmlFor="registration-phone" className="text-sm font-medium">Телефон <span aria-hidden="true">*</span></label>
-                  <Input id="registration-phone" name={isWorkshop ? "Телефон" : "phone"} type="tel" inputMode="tel" autoComplete="section-parent tel" required maxLength={30} value={phone} onChange={(event) => setPhone(event.target.value)} placeholder="+380 XX XXX XX XX" className="mt-1.5 h-12 rounded-xl" />
+                  <Input id="registration-phone" name="phone" type="tel" inputMode="tel" autoComplete="section-parent tel" required maxLength={30} value={phone} onChange={(event) => setPhone(event.target.value)} placeholder="+380 XX XXX XX XX" className="mt-1.5 h-12 rounded-xl" />
                 </div>
               </fieldset>
 
@@ -297,11 +277,11 @@ export function RegistrationModal() {
                 <div className="grid grid-cols-[minmax(0,1fr)_5.5rem] gap-3">
                   <div>
                     <label htmlFor="registration-child" className="text-sm font-medium">Ім’я дитини {!isInquiry && <span aria-hidden="true">*</span>}</label>
-                    <Input id="registration-child" name={isWorkshop ? "Ім’я дитини" : "childName"} autoComplete="section-child given-name" required={!isInquiry} maxLength={120} value={childName} onChange={(event) => setChildName(event.target.value)} placeholder="Ім’я" className="mt-1.5 h-12 rounded-xl" />
+                    <Input id="registration-child" name="childName" autoComplete="section-child given-name" required={!isInquiry} maxLength={120} value={childName} onChange={(event) => setChildName(event.target.value)} placeholder="Ім’я" className="mt-1.5 h-12 rounded-xl" />
                   </div>
                   <div>
                     <label htmlFor="registration-age" className="text-sm font-medium">Вік {!isInquiry && <span aria-hidden="true">*</span>}</label>
-                    <Input id="registration-age" name={isWorkshop ? "Вік дитини" : "childAge"} type="number" inputMode="numeric" required={!isInquiry} min={2} max={18} step={1} value={childAge} onChange={(event) => setChildAge(event.target.value)} placeholder="Років" className="mt-1.5 h-12 rounded-xl" />
+                    <Input id="registration-age" name="childAge" type="number" inputMode="numeric" required={!isInquiry} min={2} max={18} step={1} value={childAge} onChange={(event) => setChildAge(event.target.value)} placeholder="Років" className="mt-1.5 h-12 rounded-xl" />
                   </div>
                 </div>
                 {needsCourseSelect && (
@@ -316,7 +296,7 @@ export function RegistrationModal() {
                 <details className="rounded-xl border border-border px-3.5 py-2">
                   <summary className="min-h-7 cursor-pointer text-sm font-medium text-muted-foreground">Додати коментар <span className="font-normal">(необов’язково)</span></summary>
                   <label htmlFor="registration-comment" className="sr-only">Коментар або побажання</label>
-                  <Textarea id="registration-comment" name={isWorkshop ? "Коментар" : "comment"} value={comment} onChange={(event) => setComment(event.target.value)} maxLength={2000} placeholder="Що нам варто знати?" rows={3} className="mt-2 rounded-xl" />
+                  <Textarea id="registration-comment" name="comment" value={comment} onChange={(event) => setComment(event.target.value)} maxLength={2000} placeholder="Що нам варто знати?" rows={3} className="mt-2 rounded-xl" />
                 </details>
               </fieldset>
             </form>
@@ -337,9 +317,6 @@ export function RegistrationModal() {
               <Button type="submit" form="registration-form" disabled={submitting} className="h-12 w-full gap-2 rounded-lg bg-ufo-yellow text-base font-semibold text-primary hover:bg-ufo-yellow/90">
                 {submitting ? <><Loader2 className="h-4 w-4 animate-spin" /> Надсилаємо…</> : <>{isInquiry ? "Надіслати запит" : "Надіслати заявку"} <ArrowRight className="h-4 w-4" /></>}
               </Button>
-              {isWorkshop && (
-                <p className="mt-2 text-center text-xs text-muted-foreground">Після надсилання відкриється сторінка підтвердження FormSubmit.</p>
-              )}
               <p className="mt-2 flex items-center justify-center gap-1.5 text-xs text-muted-foreground"><Phone className="h-3 w-3" /> {isInquiry ? "Зв’яжемося й відповімо на запитання" : "Підтвердимо запис телефоном або в Telegram"}</p>
             </>
           )}

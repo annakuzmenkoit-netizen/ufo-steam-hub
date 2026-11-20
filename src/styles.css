@@ -225,6 +225,10 @@
 }
 @media (max-width: 639px) {
   .registration-panel {
+    display: block;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scroll-padding-block: 0.75rem;
     top: var(--registration-top, 0px);
     left: 0;
     width: 100%;
@@ -238,6 +242,7 @@
     border: 0;
     border-radius: 0;
   }
+  .registration-body { overflow: visible; }
   .registration-header { padding-top: max(1rem, env(safe-area-inset-top)); }
 }
 
