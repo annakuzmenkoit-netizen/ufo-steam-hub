@@ -76,14 +76,14 @@ const weekdays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"];
 const firstWeekday = (new Date(Date.UTC(calendarYear, calendarMonth - 1, 1)).getUTCDay() + 6) % 7;
 const daysInMonth = new Date(Date.UTC(calendarYear, calendarMonth, 0)).getUTCDate();
 const calendarEvents = workshops
-  .flatMap(({ days, title, image }) => days.map((day) => ({ day: Number(day), title, image })))
+  .flatMap(({ days, title, image }, index) => days.map((day) => ({ day: Number(day), title, image, index })))
   .sort((a, b) => a.day - b.day);
 const eventsByDay = new Map(calendarEvents.map((event) => [event.day, event]));
 const calendarWeeks = Array.from({ length: Math.ceil((daysInMonth + firstWeekday) / 7) }, (_, week) =>
   weekdays.map((_, index) => week * 7 + index + 1 - firstWeekday),
 );
 
-function WorkshopCalendar() {
+function WorkshopCalendar({ onShowWorkshop }: { onShowWorkshop: (index: number) => void }) {
   return (
     <section className="workshop-calendar mt-6 rounded-3xl border p-3 sm:p-5" aria-labelledby="workshop-calendar-title">
       <h3 id="workshop-calendar-title" className="mb-3 text-lg font-extrabold text-primary">Календар майстерок</h3>
@@ -111,9 +111,14 @@ function WorkshopCalendar() {
                             <img src={event.image} alt="" loading="lazy" decoding="async" className="workshop-calendar__photo" />
                             <span className="workshop-calendar__name hidden md:block">{event.title}</span>
                             <a
-                              className="workshop-calendar__day absolute inset-0 md:hidden"
-                              href={`#workshop-calendar-day-${day}`}
-                              aria-label={`${day} грудня · ${event.title}`}
+                              className="workshop-calendar__day absolute inset-0"
+                              href={`#winter-workshop-card-${event.index}`}
+                              aria-label={`${day} грудня · Показати майстерку «${event.title}»`}
+                              onClick={(click) => {
+                                if (click.metaKey || click.ctrlKey || click.shiftKey || click.altKey) return;
+                                click.preventDefault();
+                                onShowWorkshop(event.index);
+                              }}
                             />
                           </>
                         )}
@@ -130,11 +135,7 @@ function WorkshopCalendar() {
         {calendarEvents.map(({ day, title }) => {
           const dayLabel = String(day).padStart(2, "0");
           return (
-            <li
-              key={day}
-              id={`workshop-calendar-day-${day}`}
-              className="workshop-calendar__event flex scroll-mt-24 items-start gap-3 px-2 py-2"
-            >
+            <li key={day} className="flex items-start gap-3 px-2 py-2">
               <time dateTime={`${calendarYear}-${calendarMonth}-${dayLabel}`} className="shrink-0 font-bold tabular-nums text-primary">
                 {dayLabel}.{calendarMonth}
               </time>
@@ -169,14 +170,18 @@ export function WinterWorkshops() {
     setActiveIndex(closestIndex);
   }
 
-  function showWorkshop(index: number) {
+  function showWorkshop(index: number, reveal = false) {
     const track = rail.current;
     const card = track?.querySelectorAll("li")[index];
     if (!track || !card) return;
-    track.scrollTo({
-      left: workshopScrollPosition(track, card),
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
-    });
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth";
+    const canSlide = track.scrollWidth > track.clientWidth;
+
+    if (reveal) {
+      card.focus({ preventScroll: true });
+      (canSlide ? track : card).scrollIntoView({ block: "start", inline: "nearest", behavior });
+    }
+    if (canSlide) track.scrollTo({ left: workshopScrollPosition(track, card), behavior });
   }
 
   return (
@@ -194,8 +199,8 @@ export function WinterWorkshops() {
           tabIndex={0}
           className="winter-workshops__grid grid gap-x-4 gap-y-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary sm:grid-cols-2 lg:grid-cols-3"
         >
-          {workshops.map(({ days, image, imageSize: [width, height], imageAlt, title, titleLead, description, quantity, fullWidthQuantity, largerImage, audience = "Для дітей 7+ років", audienceNote, price = 500 }) => (
-            <li key={title} className="winter-workshops__card flex flex-col border">
+          {workshops.map(({ days, image, imageSize: [width, height], imageAlt, title, titleLead, description, quantity, fullWidthQuantity, largerImage, audience = "Для дітей 7+ років", audienceNote, price = 500 }, index) => (
+            <li key={title} id={`winter-workshop-card-${index}`} tabIndex={-1} className="winter-workshops__card flex flex-col border">
               <div className="winter-workshops__intro">
                 <div className="min-w-0 space-y-1.5 wrap-break-word">
                   <div className="flex flex-wrap gap-1.5">
@@ -256,7 +261,7 @@ export function WinterWorkshops() {
             />
           ))}
         </div>
-        <WorkshopCalendar />
+        <WorkshopCalendar onShowWorkshop={(index) => showWorkshop(index, true)} />
       </div>
     </section>
   );
