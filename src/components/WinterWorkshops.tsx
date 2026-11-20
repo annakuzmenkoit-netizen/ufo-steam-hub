@@ -75,10 +75,9 @@ const calendarMonth = 12;
 const weekdays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"];
 const firstWeekday = (new Date(Date.UTC(calendarYear, calendarMonth - 1, 1)).getUTCDay() + 6) % 7;
 const daysInMonth = new Date(Date.UTC(calendarYear, calendarMonth, 0)).getUTCDate();
-const calendarEvents = workshops
-  .flatMap(({ days, title, image }, index) => days.map((day) => ({ day: Number(day), title, image, index })))
-  .sort((a, b) => a.day - b.day);
-const eventsByDay = new Map(calendarEvents.map((event) => [event.day, event]));
+const eventsByDay = new Map(workshops.flatMap(({ days, title, image }, index) =>
+  days.map((day) => [Number(day), { title, image, index }] as const),
+));
 const calendarWeeks = Array.from({ length: Math.ceil((daysInMonth + firstWeekday) / 7) }, (_, week) =>
   weekdays.map((_, index) => week * 7 + index + 1 - firstWeekday),
 );
@@ -131,19 +130,6 @@ function WorkshopCalendar({ onShowWorkshop }: { onShowWorkshop: (index: number) 
           </tbody>
         </table>
       </div>
-      <ol className="mt-4 divide-y divide-[#dbe5fb] text-sm md:hidden">
-        {calendarEvents.map(({ day, title }) => {
-          const dayLabel = String(day).padStart(2, "0");
-          return (
-            <li key={day} className="flex items-start gap-3 px-2 py-2">
-              <time dateTime={`${calendarYear}-${calendarMonth}-${dayLabel}`} className="shrink-0 font-bold tabular-nums text-primary">
-                {dayLabel}.{calendarMonth}
-              </time>
-              <span>{title}</span>
-            </li>
-          );
-        })}
-      </ol>
     </section>
   );
 }
