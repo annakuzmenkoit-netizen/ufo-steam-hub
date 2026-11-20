@@ -897,7 +897,7 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
   margin-bottom: -100vh;
   margin-bottom: -100svh;
   overflow: hidden;
-  color: #4296d3;
+  color: #84bde6;
 }
 
 .home-snow > span {
@@ -908,19 +908,19 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
   font-size: 1.25rem;
   opacity: 0.62;
   transform: translateY(var(--snow-rest-y));
-  animation: home-snow-fall 10s linear infinite;
+  animation: home-snow-fall 20s linear infinite;
 }
 
 .home-snow > span:nth-child(3n + 2) {
   --snow-rest-y: 42%;
   font-size: 1rem;
-  animation-duration: 13s;
+  animation-duration: 24s;
 }
 
 .home-snow > span:nth-child(3n) {
   --snow-rest-y: 68%;
   font-size: 1.55rem;
-  animation-duration: 16s;
+  animation-duration: 28s;
 }
 
 @keyframes home-snow-fall {
@@ -943,7 +943,7 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
   .home-snow > span {
     animation-name: home-snow-drift;
     /* Allow only the short drift in the mobile reduced-motion mode. */
-    animation-duration: 7s !important;
+    animation-duration: 4.5s !important;
     animation-iteration-count: infinite !important;
   }
 }
@@ -952,7 +952,7 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
   0% { opacity: 0; transform: translateY(var(--snow-rest-y)); }
   18% { opacity: 0.62; }
   82% { opacity: 0.62; }
-  100% { opacity: 0; transform: translateY(calc(var(--snow-rest-y) + 24px)); }
+  100% { opacity: 0; transform: translateY(calc(var(--snow-rest-y) + 108px)); }
 }
 
 .winter-workshops {
