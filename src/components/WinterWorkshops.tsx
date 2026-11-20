@@ -72,15 +72,15 @@ export function WinterWorkshops() {
         <ol className="winter-workshops__grid grid gap-x-4 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
           {workshops.map(({ days, image, imageAlt, title, description, quantity, audience = "Для дітей 7+ років", audienceNote, price = 500 }) => (
             <li key={title} className="winter-workshops__card flex flex-col border">
-              <div className="mb-2 flex flex-wrap gap-1.5">
-                {days.map((day) => (
-                  <time key={day} dateTime={`12-${day}`} className="winter-workshops__date rounded-full px-2 py-1 text-xs font-bold tabular-nums">
-                    {day}.12
-                  </time>
-                ))}
-              </div>
               <div className="winter-workshops__intro">
                 <div className="min-w-0 space-y-2.5 wrap-break-word">
+                  <div className="flex flex-wrap gap-1.5">
+                    {days.map((day) => (
+                      <time key={day} dateTime={`12-${day}`} className="winter-workshops__date rounded-full px-2 py-1 text-xs font-bold tabular-nums">
+                        {day}.12
+                      </time>
+                    ))}
+                  </div>
                   <h3 className="text-[clamp(1rem,4vw,1.25rem)] font-bold leading-tight">{title}</h3>
                   <div className="space-y-1">
                     <p className="text-sm font-semibold">{audience}</p>
