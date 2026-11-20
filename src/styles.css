@@ -1021,6 +1021,7 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
 
 @media (max-width: 639px) {
   .winter-workshops__grid {
+    position: relative;
     display: flex;
     align-items: start;
     margin-inline: -0.75rem;
@@ -1030,8 +1031,11 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
     overscroll-behavior-inline: contain;
     scroll-padding-inline: 0.75rem;
     scroll-snap-type: x mandatory;
-    scrollbar-color: var(--primary) transparent;
-    scrollbar-width: thin;
+    scrollbar-width: none;
+  }
+
+  .winter-workshops__grid::-webkit-scrollbar {
+    display: none;
   }
 
   .winter-workshops__card {
@@ -1069,6 +1073,32 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
   .winter-workshops__card:nth-child(3n) {
     translate: 0 0.5rem;
   }
+}
+
+#winter-workshops .winter-workshops__dot {
+  display: grid;
+  width: 1.75rem;
+  height: 1.75rem;
+  place-items: center;
+  border-radius: 50%;
+  background-image: none;
+  cursor: pointer;
+}
+
+.winter-workshops__dot::before {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background: #9ba8c3;
+  content: "";
+}
+
+.winter-workshops__dot[aria-current="true"]::before {
+  background: var(--primary);
+}
+
+.winter-workshops__dot:focus-visible {
+  outline: 2px solid var(--primary);
 }
 
 .winter-workshops__intro {

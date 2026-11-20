@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import { openRegistration } from "@/components/RegistrationModal";
 import candle from "@/assets/workshops/candle.webp";
 import stainedGlass from "@/assets/workshops/stained-glass.webp";
@@ -69,7 +70,38 @@ const workshops = [
   },
 ];
 
+function workshopScrollPosition(rail: HTMLOListElement, card: HTMLLIElement) {
+  const firstCard = rail.querySelector("li")!;
+  return Math.min(card.offsetLeft - firstCard.offsetLeft, rail.scrollWidth - rail.clientWidth);
+}
+
 export function WinterWorkshops() {
+  const rail = useRef<HTMLOListElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  function updateActive(track: HTMLOListElement) {
+    let closestIndex = 0;
+    let closestDistance = Infinity;
+    track.querySelectorAll("li").forEach((card, index) => {
+      const distance = Math.abs(workshopScrollPosition(track, card) - track.scrollLeft);
+      if (distance < closestDistance) {
+        closestIndex = index;
+        closestDistance = distance;
+      }
+    });
+    setActiveIndex(closestIndex);
+  }
+
+  function showWorkshop(index: number) {
+    const track = rail.current;
+    const card = track?.querySelectorAll("li")[index];
+    if (!track || !card) return;
+    track.scrollTo({
+      left: workshopScrollPosition(track, card),
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+    });
+  }
+
   return (
     <section id="winter-workshops" className="parent-section winter-workshops scroll-mt-24" aria-labelledby="winter-workshops-title">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -79,6 +111,8 @@ export function WinterWorkshops() {
         </div>
         <p className="mb-1 text-xs font-semibold text-primary sm:hidden">Гортайте картки вбік</p>
         <ol
+          ref={rail}
+          onScroll={(event) => updateActive(event.currentTarget)}
           aria-label="Картки зимових майстерок"
           tabIndex={0}
           className="winter-workshops__grid grid gap-x-4 gap-y-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary sm:grid-cols-2 lg:grid-cols-3"
@@ -133,6 +167,18 @@ export function WinterWorkshops() {
             </li>
           ))}
         </ol>
+        <div className="winter-workshops__pagination flex justify-center sm:hidden" role="group" aria-label="Гортання майстерок">
+          {workshops.map(({ title }, index) => (
+            <button
+              key={title}
+              type="button"
+              className="winter-workshops__dot"
+              aria-label={`Показати майстерку «${title}»`}
+              aria-current={index === activeIndex ? "true" : undefined}
+              onClick={() => showWorkshop(index)}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
