@@ -14,6 +14,7 @@ const workshops = [
     imageAlt: "Свічки з вощини у формі чобітка, сніговика та ялинки",
     title: "Свічка бажань та лист Святому Миколаю",
     quantity: "1–2 вироби",
+    compactQuantity: true,
     description: "Створимо святкову свічку власноруч та напишемо лист Святому Миколаю з найзаповітнішими бажаннями.",
   },
   {
@@ -47,10 +48,10 @@ const workshops = [
   {
     days: ["19"],
     image: strawSpider,
+    largerImage: true,
     imageSize: [371, 500],
     imageAlt: "Підвісна геометрична прикраса зі сплетеної соломи",
     title: "Різдвяний павук із соломи",
-    quantity: "1 солом’яний павук",
     description: "Відродимо давню українську традицію та створимо солом’яного павука — символ добробуту й гармонії в оселі.",
     price: 600,
     audience: "Сімейний майстерклас для мам і дітей.",
@@ -76,7 +77,7 @@ export function WinterWorkshops() {
           <span className="winter-workshops__stars" aria-hidden="true">✦ <span>✧</span></span>
         </div>
         <ol className="winter-workshops__grid grid gap-x-4 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
-          {workshops.map(({ days, image, imageSize: [width, height], imageAlt, title, description, quantity, audience = "Для дітей 7+ років", audienceNote, price = 500 }) => (
+          {workshops.map(({ days, image, imageSize: [width, height], imageAlt, title, description, quantity, compactQuantity, largerImage, audience = "Для дітей 7+ років", audienceNote, price = 500 }) => (
             <li key={title} className="winter-workshops__card flex flex-col border">
               <div className="winter-workshops__intro">
                 <div className="min-w-0 space-y-1.5 wrap-break-word">
@@ -92,9 +93,14 @@ export function WinterWorkshops() {
                     <p className="text-sm font-semibold">{audience}</p>
                     {audienceNote && <p className="text-xs leading-normal">* {audienceNote}</p>}
                   </div>
-                  <p className="text-sm"><span className="font-semibold">За майстерку</span> · {quantity}</p>
+                  {quantity && (
+                    <p className={compactQuantity ? "text-sm whitespace-nowrap" : "text-sm"}>
+                      {!compactQuantity && <><span className="font-semibold">За майстерку</span> · </>}
+                      {quantity}
+                    </p>
+                  )}
                 </div>
-                <img src={image} width={width} height={height} alt={imageAlt} loading="lazy" decoding="async" className="winter-workshops__cutout" />
+                <img src={image} width={width} height={height} alt={imageAlt} loading="lazy" decoding="async" className={largerImage ? "winter-workshops__cutout winter-workshops__cutout--large" : "winter-workshops__cutout"} />
               </div>
               <p className="winter-workshops__description mb-2 text-sm leading-[1.45]">{description}</p>
               <div className="winter-workshops__price mt-auto">
