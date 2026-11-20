@@ -1006,8 +1006,8 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
 }
 
 .winter-workshops__card:nth-child(even) {
-  background-color: color-mix(in srgb, var(--ufo-green) 20%, white);
-  border-color: color-mix(in srgb, var(--ufo-green) 32%, white);
+  background-color: #dbe8ce;
+  border-color: #b6cca4;
 }
 
 @media (max-width: 639px) {
