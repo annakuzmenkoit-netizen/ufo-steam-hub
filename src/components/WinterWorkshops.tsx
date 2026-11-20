@@ -70,23 +70,23 @@ export function WinterWorkshops() {
         <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {workshops.map(({ days, image, imageAlt, title, description, quantity, audience = "Для дітей 7+ років", price = 500 }) => (
             <li key={title} className="winter-workshops__card flex flex-col border">
+              <div className="mb-2 flex flex-wrap gap-1.5">
+                {days.map((day) => (
+                  <time key={day} dateTime={`12-${day}`} className="winter-workshops__date rounded-full px-2 py-1 text-xs font-bold tabular-nums">
+                    {day}.12
+                  </time>
+                ))}
+              </div>
               <div className="winter-workshops__intro">
                 <div className="min-w-0 space-y-2.5 wrap-break-word">
                   <h3 className="text-[clamp(1rem,4vw,1.25rem)] font-bold leading-tight">{title}</h3>
                   <p className="text-sm font-semibold">{audience}</p>
                   <p className="text-sm"><span className="font-semibold">За майстерку</span> · {quantity}</p>
-                  <p className="winter-workshops__description text-sm leading-relaxed">{description}</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {days.map((day) => (
-                      <time key={day} dateTime={`12-${day}`} className="winter-workshops__date rounded-full px-2 py-1 text-xs font-bold tabular-nums">
-                        {day}.12
-                      </time>
-                    ))}
-                  </div>
                 </div>
                 <img src={image} alt={imageAlt} loading="lazy" decoding="async" className="winter-workshops__cutout" />
               </div>
-              <div className="winter-workshops__price mt-auto pt-3">
+              <p className="winter-workshops__description mb-3 text-sm leading-relaxed">{description}</p>
+              <div className="winter-workshops__price mt-auto">
                 <p className="font-bold">{price} грн</p>
                 <button
                   type="button"
