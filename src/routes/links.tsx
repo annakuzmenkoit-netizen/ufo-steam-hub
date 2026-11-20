@@ -169,7 +169,7 @@ function LinksPage() {
 
           <Link
             to="/courses"
-            className="mt-3 flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-3.5 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90 active:bg-primary/80"
+            className="button-volume mt-3 flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-3.5 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90 active:bg-primary/80"
           >
             Переглянути всі курси
             <ArrowRight className="h-4 w-4 shrink-0" />
@@ -196,14 +196,14 @@ function LinksPage() {
           <div className="relative mt-4 space-y-3">
             <Link
               to="/contacts"
-              className="flex min-h-14 w-full items-center justify-center rounded-2xl bg-ufo-yellow px-4 py-3.5 text-base font-semibold text-foreground transition-colors hover:bg-ufo-yellow/90"
+              className="button-volume flex min-h-14 w-full items-center justify-center rounded-2xl bg-ufo-yellow px-4 py-3.5 text-base font-semibold text-foreground transition-colors hover:bg-ufo-yellow/90"
             >
               Зв'язатися з нами
             </Link>
 
             <Link
               to="/schedule"
-              className="flex min-h-14 w-full items-center justify-center rounded-2xl border border-white/80 px-4 py-3.5 text-base font-semibold text-white transition-colors hover:bg-white hover:text-primary"
+              className="button-volume flex min-h-14 w-full items-center justify-center rounded-2xl border border-white/80 px-4 py-3.5 text-base font-semibold text-white transition-colors hover:bg-white hover:text-primary"
             >
               Переглянути розклад
             </Link>
@@ -226,7 +226,7 @@ function LinksPage() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="rounded-full border border-border/50 bg-white p-3 shadow-sm transition-colors hover:bg-ufo-yellow/30"
+              className="button-volume rounded-full border border-border/50 bg-white p-3 shadow-sm transition-colors hover:bg-ufo-yellow/30"
             >
               <Instagram className="h-5 w-5 text-primary" />
             </a>
@@ -236,7 +236,7 @@ function LinksPage() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
-              className="rounded-full border border-border/50 bg-white p-3 shadow-sm transition-colors hover:bg-ufo-yellow/30"
+              className="button-volume rounded-full border border-border/50 bg-white p-3 shadow-sm transition-colors hover:bg-ufo-yellow/30"
             >
               <Facebook className="h-5 w-5 text-primary" />
             </a>

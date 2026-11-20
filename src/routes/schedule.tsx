@@ -215,7 +215,7 @@ function SchedulePage() {
 
                 <Link
                   to="/contacts"
-                  className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-ufo-yellow px-7 py-3 text-sm font-semibold text-primary shadow-md transition-all hover:scale-[1.02] hover:shadow-lg"
+                  className="button-volume mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-ufo-yellow px-7 py-3 text-sm font-semibold text-primary shadow-md transition-all hover:scale-[1.02] hover:shadow-lg"
                 >
                   Написати нам
                   <ArrowRight className="h-4 w-4" />
