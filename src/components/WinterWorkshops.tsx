@@ -81,9 +81,7 @@ export function WinterWorkshops() {
                   </div>
                   <h3 className="mt-2.5 text-[clamp(1rem,4vw,1.25rem)] font-bold leading-tight">{title}</h3>
                 </div>
-                <div className="winter-workshops__art">
-                  <img src={image} alt={imageAlt} loading="lazy" decoding="async" className="winter-workshops__cutout" />
-                </div>
+                <img src={image} alt={imageAlt} loading="lazy" decoding="async" className="winter-workshops__cutout" />
               </div>
               <p className="winter-workshops__description text-sm leading-relaxed">{description}</p>
               <div className="mb-3 space-y-1 text-sm">
