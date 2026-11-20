@@ -884,7 +884,6 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
 
 .home-snow-content {
   isolation: isolate;
-  overflow: clip;
 }
 
 .home-snow--light {
@@ -892,14 +891,20 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
   inset: auto;
   top: 0;
   z-index: 1;
+  height: 100vh;
   height: 100svh;
+  margin-bottom: -100vh;
   margin-bottom: -100svh;
-  overflow: clip;
-  color: #55a9df;
+  overflow: hidden;
+  color: #4296d3;
 }
 
-main:has(.home-snow-toggle input:checked) .home-snow { visibility: hidden; }
-main:has(.home-snow-toggle input:checked) .home-snow > span { animation-play-state: paused; }
+.home-snow-toggle--play { display: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  main:has(.home-snow-toggle--pause input:checked) .home-snow { visibility: hidden; }
+  main:has(.home-snow-toggle--pause input:checked) .home-snow > span { animation-play-state: paused; }
+}
 
 .home-snow > span {
   position: absolute;
@@ -926,7 +931,24 @@ main:has(.home-snow-toggle input:checked) .home-snow > span { animation-play-sta
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home-snow, .home-snow-toggle { display: none; }
+  .home-snow-toggle--pause { display: none; }
+  .home-snow-toggle--play { display: inline-flex; }
+
+  .home-snow > span {
+    animation-name: none;
+    height: auto;
+    top: 18%;
+    opacity: 0.6;
+  }
+
+  .home-snow > span:nth-child(3n + 2) { top: 42%; }
+  .home-snow > span:nth-child(3n) { top: 68%; }
+
+  main:has(.home-snow-toggle--play input:checked) .home-snow > span {
+    animation-name: home-snow-fall;
+    height: 100%;
+    top: 0;
+  }
 }
 
 .winter-workshops {

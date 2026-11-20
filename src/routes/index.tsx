@@ -64,9 +64,13 @@ function HomePage() {
               <Link to="/contacts" className="parent-button border border-white/60 text-white">Зв’язатися з нами</Link>
             </div>
             <p className="mt-4 text-xs text-white/85">Для дітей 7–14 років · Міні-групи 4–6 дітей</p>
-            <label className="home-snow-toggle mt-2 inline-flex min-h-6 cursor-pointer items-center gap-2 text-xs text-white">
+            <label className="home-snow-toggle home-snow-toggle--pause mt-2 inline-flex min-h-6 cursor-pointer items-center gap-2 text-xs text-white">
               <input type="checkbox" className="accent-ufo-yellow" />
               Призупинити снігопад
+            </label>
+            <label className="home-snow-toggle home-snow-toggle--play mt-2 inline-flex min-h-6 cursor-pointer items-center gap-2 text-xs text-white">
+              <input type="checkbox" className="accent-ufo-yellow" />
+              Увімкнути анімацію снігу
             </label>
           </div>
           <figure className="hero-moment">
