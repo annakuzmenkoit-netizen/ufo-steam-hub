@@ -459,12 +459,21 @@ main .font-extrabold { font-weight: 800; }
 /* A faint alien drawing hints at the optional puzzle game. */
 .program-discovery__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 1.25rem; }
 .program-discovery__top .program-discovery__heading { margin-bottom: 0; }
-.program-note__trigger::after { content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none; opacity: 0.1; background: var(--alien-art) var(--alien-mobile-x) var(--alien-mobile-y) / 200% 300% no-repeat; mask: var(--puzzle-mask) center / 100% 100% no-repeat; }
+.program-note__trigger::after { content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none; opacity: 0.16; background: var(--alien-art) var(--alien-mobile-x) var(--alien-mobile-y) / 200% 300% no-repeat; mask: var(--puzzle-mask) center / 100% 100% no-repeat; }
 .program-note--math-mind .program-note__trigger::after { filter: brightness(0.4) saturate(2); }
 .alien-game__reward { margin-top: 1rem; padding: 1.25rem; border: 2px solid var(--primary); border-radius: 0.5rem; background: var(--ufo-yellow); color: var(--primary); scroll-margin-block: 6rem; }
 .alien-game__reward h3 { margin-block: 0.5rem; font-size: 1.25rem; }
 .alien-game__reward p { font-size: 0.875rem; line-height: 1.6; }
 .program-discovery__help { color: var(--muted-foreground); font-size: 0.8125rem; line-height: 1.5; }
+.program-discovery__secret {
+  margin-top: 0.875rem;
+  color: var(--primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+}
+
 @media (min-width: 768px) {
   .program-note__trigger::after { background-size: 300% 200%; background-position: var(--alien-desktop-x) var(--alien-desktop-y); }
 }
@@ -956,7 +965,9 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
 }
 
 .winter-workshops {
-  background: var(--ufo-cream);
+  --workshop-red: #bd233c;
+  --workshop-red-hover: #a61d34;
+  background: linear-gradient(155deg, #e5f0ff, #f5f9ff 52%, #eaf2ff);
 }
 
 .winter-workshops__heading {
@@ -965,7 +976,7 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
   justify-content: space-between;
   gap: 0.75rem;
   padding: clamp(1rem, 4vw, 1.75rem);
-  border-radius: 1rem;
+  border-radius: clamp(1.5rem, 4vw, 2rem);
   --ufo-highlight-color: rgb(143 209 252 / 0.35);
   background: var(--ufo-surface-highlight), var(--ufo-blue);
 }
@@ -977,7 +988,7 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
 
 .winter-workshops__stars {
   flex: none;
-  color: var(--ufo-yellow);
+  color: white;
   font-size: clamp(1.6rem, 6vw, 3.5rem);
   line-height: 1;
 }
@@ -990,11 +1001,10 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
 
 .winter-workshops__card {
   padding: clamp(0.875rem, 3vw, 1.125rem);
-  background:
-    radial-gradient(ellipse 68% 13rem at 82% 4rem, color-mix(in srgb, var(--ufo-yellow) 37%, transparent), transparent),
-    var(--card);
-  border-color: color-mix(in srgb, var(--primary) 24%, var(--card));
-  box-shadow: 0 4px 14px rgb(28 59 92 / 0.09);
+  border-radius: clamp(1.375rem, 4vw, 1.75rem);
+  background: white;
+  border-color: #dbe7fb;
+  box-shadow: 0 8px 22px rgb(28 59 92 / 0.08);
 }
 
 .winter-workshops__intro {
@@ -1002,6 +1012,15 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
   grid-template-columns: minmax(0, 1fr) minmax(0, 48%);
   align-items: center;
   gap: 0.625rem;
+}
+
+.winter-workshops__art {
+  min-width: 0;
+  padding: 0.35rem;
+  border-radius: 1.25rem;
+  background:
+    radial-gradient(circle at 78% 18%, rgb(255 255 255 / 0.78), transparent 53%),
+    linear-gradient(145deg, #dce9ff, #a8c3f5);
 }
 
 .winter-workshops__cutout {
@@ -1017,9 +1036,19 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
 }
 
 .winter-workshops__price {
-  padding-top: 0.625rem;
-  border-top: 1px solid color-mix(in srgb, var(--primary) 16%, transparent);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e2eafb;
   color: var(--primary);
+}
+
+.winter-workshops__price > p {
+  font-size: 1.0625rem;
+  white-space: nowrap;
 }
 
 .winter-workshops__date {
@@ -1028,16 +1057,18 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
 }
 
 .winter-workshops__button {
-  background: var(--primary);
-  color: var(--primary-foreground);
+  flex: 0 1 10rem;
+  border-radius: 999px;
+  background: var(--workshop-red);
+  color: white;
 }
 
 .winter-workshops__button:hover {
-  background: color-mix(in srgb, var(--primary) 90%, black);
+  background-color: var(--workshop-red-hover);
 }
 
 .winter-workshops__button:focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--workshop-red);
   outline-offset: 3px;
 }
 
@@ -1048,4 +1079,9 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
   background-image:
     var(--ufo-surface-highlight),
     linear-gradient(to bottom, transparent 54%, rgb(22 48 99 / 0.10));
+}
+
+#programs :is(.program-note__trigger, .program-note__drag) {
+  background-image: none;
+  box-shadow: none;
 }

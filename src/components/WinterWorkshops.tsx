@@ -67,9 +67,9 @@ export function WinterWorkshops() {
           <h2 id="winter-workshops-title">Розклад зимових майстерок</h2>
           <span className="winter-workshops__stars" aria-hidden="true">✦ <span>✧</span></span>
         </div>
-        <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {workshops.map(({ days, image, imageAlt, title, description, quantity, audience = "Для дітей 7+ років", price = 500 }) => (
-            <li key={title} className="winter-workshops__card flex flex-col rounded-xl border">
+            <li key={title} className="winter-workshops__card flex flex-col border">
               <div className="winter-workshops__intro">
                 <div className="min-w-0">
                   <div className="flex flex-wrap gap-1.5">
@@ -81,7 +81,9 @@ export function WinterWorkshops() {
                   </div>
                   <h3 className="mt-2.5 text-[clamp(1rem,4vw,1.25rem)] font-bold leading-tight">{title}</h3>
                 </div>
-                <img src={image} alt={imageAlt} loading="lazy" decoding="async" className="winter-workshops__cutout" />
+                <div className="winter-workshops__art">
+                  <img src={image} alt={imageAlt} loading="lazy" decoding="async" className="winter-workshops__cutout" />
+                </div>
               </div>
               <p className="winter-workshops__description text-sm leading-relaxed">{description}</p>
               <div className="mb-3 space-y-1 text-sm">
@@ -92,7 +94,7 @@ export function WinterWorkshops() {
                 <p className="font-bold">{price} грн</p>
                 <button
                   type="button"
-                  className="parent-button winter-workshops__button mt-2 w-full"
+                  className="parent-button winter-workshops__button"
                   aria-label={`Записатися на майстерку «${title}»`}
                   onClick={() => openRegistration({
                     registrationType: "workshop",
