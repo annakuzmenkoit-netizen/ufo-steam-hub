@@ -46,6 +46,7 @@ export function RegistrationModal() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [deliveryFailed, setDeliveryFailed] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
 
@@ -79,6 +80,7 @@ export function RegistrationModal() {
         : ctx);
       setSuccess(false);
       setError("");
+      setDeliveryFailed(false);
       setOpen(true);
     }
     window.addEventListener(EVENT_NAME, handler);
@@ -94,6 +96,7 @@ export function RegistrationModal() {
     setCourse("");
     setSuccess(false);
     setError("");
+    setDeliveryFailed(false);
   }
 
   const needsCourseSelect = !context.program && !context.eventName;
@@ -102,6 +105,7 @@ export function RegistrationModal() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (submitting) return;
+    setDeliveryFailed(false);
     if ((!isInquiry && (!childName.trim() || !childAge.trim())) || !parentName.trim() || !phone.trim()) {
       setError("Заповніть, будь ласка, усі обов’язкові поля.");
       return;
@@ -123,10 +127,12 @@ export function RegistrationModal() {
 
     setError("");
     setSubmitting(true);
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 20_000);
     try {
       const res = await fetch(FORM_ENDPOINT, {
         method: "POST",
-        signal: AbortSignal.timeout(20000),
+        signal: controller.signal,
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           _subject: buildRegistrationSubject(finalContext),
@@ -138,17 +144,19 @@ export function RegistrationModal() {
           ),
         }),
       });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      if (!res.ok) throw new Error(`FormSubmit HTTP ${res.status}`);
       const result = await res.json();
-      if (result.success !== true && result.success !== "true") {
+      if (result?.success !== true && result?.success !== "true") {
         throw new Error("FormSubmit did not accept the submission");
       }
       setSuccess(true);
       toast.success(isInquiry ? "Запит надіслано!" : "Заявку надіслано!");
     } catch (err) {
       console.error("Registration submit failed", err);
-      setError(`Не вдалося надіслати ${isInquiry ? "запит" : "заявку"}. Ваші дані збережено у формі — перевірте з’єднання та спробуйте ще раз.`);
+      setDeliveryFailed(true);
+      setError(`Не вдалося надіслати ${isInquiry ? "запит" : "заявку"}. Введені дані залишилися у формі.`);
     } finally {
+      window.clearTimeout(timeout);
       setSubmitting(false);
     }
   }
@@ -292,7 +300,12 @@ export function RegistrationModal() {
         </div>
 
         <div className="registration-footer">
-          {error && <p role="alert" className="mb-3 text-sm leading-relaxed text-destructive">{error}</p>}
+          {error && (
+            <p role="alert" className="mb-3 text-sm leading-relaxed text-destructive">
+              {error}
+              {deliveryFailed && <> Спробуйте ще раз або зателефонуйте нам за номером <a href="tel:+380960662604" className="whitespace-nowrap font-semibold underline">+380 (96) 066-26-04</a>.</>}
+            </p>
+          )}
           {success ? (
             <Button type="button" onClick={() => changeOpen(false)} className="h-12 w-full rounded-lg bg-ufo-yellow text-base font-semibold text-primary hover:bg-ufo-yellow/90">Готово</Button>
           ) : (
