@@ -965,8 +965,6 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
 }
 
 .winter-workshops {
-  --workshop-red: #bd233c;
-  --workshop-red-hover: #a61d34;
   background: linear-gradient(155deg, #e5f0ff, #f5f9ff 52%, #eaf2ff);
 }
 
@@ -1002,30 +1000,32 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
 .winter-workshops__card {
   padding: clamp(0.875rem, 3vw, 1.125rem);
   border-radius: clamp(1.375rem, 4vw, 1.75rem);
-  background:
-    radial-gradient(ellipse 67% 15rem at 94% 3rem, #b3cbf7, #e7f0ff 62%, transparent 100%),
-    white;
-  border-color: #dbe7fb;
+  background-color: #edf4ff;
+  border-color: #ccdcf7;
   box-shadow: 0 8px 22px rgb(28 59 92 / 0.08);
 }
 
 .winter-workshops__intro {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 51%);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 54%);
   align-items: center;
   gap: 0.625rem;
+  margin-bottom: 0.75rem;
 }
 
 .winter-workshops__cutout {
   display: block;
   width: 100%;
-  height: clamp(10rem, 42vw, 13rem);
+  height: clamp(11.25rem, 50vw, 15rem);
   object-fit: contain;
   filter: drop-shadow(0 4px 6px rgb(28 59 92 / 0.15));
 }
 
-.winter-workshops__description {
-  padding-block: 0.625rem 0.75rem;
+@media (max-width: 359px) {
+  .winter-workshops__intro {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 52%);
+    gap: 0.375rem;
+  }
 }
 
 .winter-workshops__price {
@@ -1049,19 +1049,49 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
   color: var(--primary);
 }
 
-.winter-workshops__button {
-  flex: 0 1 10rem;
-  border-radius: 999px;
-  background: var(--workshop-red);
+.registration-panel--workshop {
+  background: #edf4ff;
+}
+
+.registration-panel--workshop .registration-header {
+  --ufo-highlight-color: rgb(143 209 252 / 0.35);
+  background: var(--ufo-surface-highlight), var(--ufo-blue);
+  border-bottom-color: #ccdcf7;
+}
+
+.registration-panel--workshop .registration-header > :not(button) {
   color: white;
 }
 
-.winter-workshops__button:hover {
-  background-color: var(--workshop-red-hover);
+.registration-workshop__sparkle {
+  color: #dceaff;
+  font-size: 1.125rem;
+  line-height: 1;
 }
 
-.winter-workshops__button:focus-visible {
-  outline: 2px solid var(--workshop-red);
+.registration-panel--workshop .registration-body :is(input, select, textarea, details),
+.registration-panel--workshop .registration-footer {
+  background: white;
+  border-color: #ccdcf7;
+}
+
+:is(.winter-workshops__button, .registration-panel--workshop .registration-footer button) {
+  border-radius: 999px;
+  --ufo-highlight-color: rgb(255 255 255 / 0.12);
+  background-color: var(--ufo-pink);
+  color: white;
+}
+
+.winter-workshops__button {
+  flex: 0 1 10rem;
+}
+
+:is(.winter-workshops__button, .registration-panel--workshop .registration-footer button):hover {
+  background-color: color-mix(in srgb, var(--ufo-pink) 90%, black);
+}
+
+:is(.winter-workshops__button, .registration-panel--workshop .registration-footer button):focus-visible {
+  outline: 2px solid var(--ufo-pink);
   outline-offset: 3px;
 }
 

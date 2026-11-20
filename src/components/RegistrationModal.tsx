@@ -42,6 +42,7 @@ export function RegistrationModal() {
   const [comment, setComment] = useState("");
   const [course, setCourse] = useState<string>("");
   const isInquiry = context.intent === "inquiry";
+  const isWorkshop = context.registrationType === "workshop";
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -169,7 +170,7 @@ export function RegistrationModal() {
             panel.style.setProperty("--registration-top", `${viewport?.offsetTop ?? 0}px`);
           }
         }}
-        className="registration-panel"
+        className={isWorkshop ? "registration-panel registration-panel--workshop" : "registration-panel"}
         onOpenAutoFocus={(event) => event.preventDefault()}
         onCloseAutoFocus={(event) => {
           event.preventDefault();
@@ -178,10 +179,13 @@ export function RegistrationModal() {
       >
         <DialogHeader className="registration-header">
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            <span className="h-2 w-2 rounded-full bg-ufo-green" /> UFO STEAM HUB
+            {isWorkshop
+              ? <span aria-hidden="true" className="registration-workshop__sparkle">✦</span>
+              : <span className="h-2 w-2 rounded-full bg-ufo-green" />}
+            UFO STEAM HUB
           </div>
           <DialogTitle className="text-xl font-semibold leading-tight text-primary sm:text-2xl">
-            {success ? (isInquiry ? "Запит надіслано!" : "Заявку надіслано!") : (isInquiry ? "Дізнатися про мінікурс" : "Запис на заняття")}
+            {success ? (isInquiry ? "Запит надіслано!" : "Заявку надіслано!") : (isInquiry ? "Дізнатися про мінікурс" : isWorkshop ? "Запис на майстерку" : "Запис на заняття")}
           </DialogTitle>
           <DialogDescription className="text-sm leading-relaxed">
             {success ? "Дякуємо за інтерес до наших занять." : (isInquiry ? "Залиште контакти — розкажемо про програму та відповімо на запитання." : "Залиште контакти — ми зателефонуємо й узгодимо деталі.")}
@@ -209,7 +213,7 @@ export function RegistrationModal() {
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-primary [&::-webkit-details-marker]:hidden">
                     <span className="min-w-0 leading-relaxed">
                       {context.program ?? context.eventName ?? context.title}
-                      {context.registrationType === "workshop" && context.date && ` · ${context.date}`}
+                      {isWorkshop && context.date && ` · ${context.date}`}
                     </span>
                     <ChevronDown className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180" />
                   </summary>

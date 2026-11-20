@@ -12,7 +12,7 @@ const workshops = [
     image: candle,
     imageAlt: "Свічки з вощини у формі чобітка, сніговика та ялинки",
     title: "Свічка бажань та лист Святому Миколаю",
-    quantity: "Орієнтовно 1–2 свічки та лист Святому Миколаю",
+    quantity: "Орієнтовно 1–2 свічки",
     description: "Створимо святкову свічку власноруч та напишемо лист Святому Миколаю з найзаповітнішими бажаннями.",
   },
   {
@@ -71,7 +71,11 @@ export function WinterWorkshops() {
           {workshops.map(({ days, image, imageAlt, title, description, quantity, audience = "Для дітей 7+ років", price = 500 }) => (
             <li key={title} className="winter-workshops__card flex flex-col border">
               <div className="winter-workshops__intro">
-                <div className="min-w-0">
+                <div className="min-w-0 space-y-2.5 wrap-break-word">
+                  <h3 className="text-[clamp(1rem,4vw,1.25rem)] font-bold leading-tight">{title}</h3>
+                  <p className="text-sm font-semibold">{audience}</p>
+                  <p className="text-sm"><span className="font-semibold">За майстерку</span> · {quantity}</p>
+                  <p className="winter-workshops__description text-sm leading-relaxed">{description}</p>
                   <div className="flex flex-wrap gap-1.5">
                     {days.map((day) => (
                       <time key={day} dateTime={`12-${day}`} className="winter-workshops__date rounded-full px-2 py-1 text-xs font-bold tabular-nums">
@@ -79,16 +83,10 @@ export function WinterWorkshops() {
                       </time>
                     ))}
                   </div>
-                  <h3 className="mt-2.5 text-[clamp(1rem,4vw,1.25rem)] font-bold leading-tight">{title}</h3>
                 </div>
                 <img src={image} alt={imageAlt} loading="lazy" decoding="async" className="winter-workshops__cutout" />
               </div>
-              <p className="winter-workshops__description text-sm leading-relaxed">{description}</p>
-              <div className="mb-3 space-y-1 text-sm">
-                <p className="font-semibold">{audience}</p>
-                <p><span className="font-semibold">За майстерку</span> · {quantity}</p>
-              </div>
-              <div className="winter-workshops__price mt-auto">
+              <div className="winter-workshops__price mt-auto pt-3">
                 <p className="font-bold">{price} грн</p>
                 <button
                   type="button"
