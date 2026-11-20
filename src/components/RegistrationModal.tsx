@@ -44,9 +44,10 @@ export function RegistrationModal() {
   const isInquiry = context.intent === "inquiry";
   const isWorkshop = context.registrationType === "workshop";
   const [submitting, setSubmitting] = useState(false);
+  const [waitingForConfirmation, setWaitingForConfirmation] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
-  const [deliveryFailed, setDeliveryFailed] = useState(false);
+  const [deliveryIssue, setDeliveryIssue] = useState<"rejected" | "unconfirmed" | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
 
@@ -80,7 +81,7 @@ export function RegistrationModal() {
         : ctx);
       setSuccess(false);
       setError("");
-      setDeliveryFailed(false);
+      setDeliveryIssue(null);
       setOpen(true);
     }
     window.addEventListener(EVENT_NAME, handler);
@@ -96,7 +97,7 @@ export function RegistrationModal() {
     setCourse("");
     setSuccess(false);
     setError("");
-    setDeliveryFailed(false);
+    setDeliveryIssue(null);
   }
 
   const needsCourseSelect = !context.program && !context.eventName;
@@ -105,7 +106,7 @@ export function RegistrationModal() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (submitting) return;
-    setDeliveryFailed(false);
+    setDeliveryIssue(null);
     if ((!isInquiry && (!childName.trim() || !childAge.trim())) || !parentName.trim() || !phone.trim()) {
       setError("Заповніть, будь ласка, усі обов’язкові поля.");
       return;
@@ -128,7 +129,9 @@ export function RegistrationModal() {
     setError("");
     setSubmitting(true);
     const controller = new AbortController();
-    const timeout = window.setTimeout(() => controller.abort(), 20_000);
+    const slowResponse = window.setTimeout(() => setWaitingForConfirmation(true), 7_000);
+    const timeout = window.setTimeout(() => controller.abort(), 45_000);
+    let rejected = false;
     try {
       const res = await fetch(FORM_ENDPOINT, {
         method: "POST",
@@ -144,19 +147,27 @@ export function RegistrationModal() {
           ),
         }),
       });
-      if (!res.ok) throw new Error(`FormSubmit HTTP ${res.status}`);
+      if (!res.ok) {
+        rejected = res.status >= 400 && res.status < 500 && res.status !== 408;
+        throw new Error(`FormSubmit HTTP ${res.status}`);
+      }
       const result = await res.json();
       if (result?.success !== true && result?.success !== "true") {
-        throw new Error("FormSubmit did not accept the submission");
+        rejected = result?.success === false || result?.success === "false";
+        throw new Error("FormSubmit did not confirm the submission");
       }
       setSuccess(true);
       toast.success(isInquiry ? "Запит надіслано!" : "Заявку надіслано!");
     } catch (err) {
       console.error("Registration submit failed", err);
-      setDeliveryFailed(true);
-      setError(`Не вдалося надіслати ${isInquiry ? "запит" : "заявку"}. Введені дані залишилися у формі.`);
+      setDeliveryIssue(rejected ? "rejected" : "unconfirmed");
+      setError(rejected
+        ? `Не вдалося надіслати ${isInquiry ? "запит" : "заявку"}. Введені дані залишилися у формі.`
+        : `Підтвердження не надійшло, але ${isInquiry ? "запит міг" : "заявка могла"} дійти до нас.`);
     } finally {
+      window.clearTimeout(slowResponse);
       window.clearTimeout(timeout);
+      setWaitingForConfirmation(false);
       setSubmitting(false);
     }
   }
@@ -305,9 +316,13 @@ export function RegistrationModal() {
 
         <div className="registration-footer">
           {error && (
-            <p role="alert" className="mb-3 text-sm leading-relaxed text-destructive">
+            <p role="alert" className={deliveryIssue === "unconfirmed" ? "mb-3 text-sm leading-relaxed text-foreground" : "mb-3 text-sm leading-relaxed text-destructive"}>
               {error}
-              {deliveryFailed && <> Спробуйте ще раз або зателефонуйте нам за номером <a href="tel:+380960662604" className="whitespace-nowrap font-semibold underline">+380 (96) 066-26-04</a>.</>}
+              {deliveryIssue && (
+                <> {deliveryIssue === "unconfirmed" ? "Перед повторним надсиланням уточніть за номером" : "Спробуйте ще раз або зателефонуйте за номером"}{" "}
+                  <a href="tel:+380960662604" className="whitespace-nowrap font-semibold underline">+380 (96) 066-26-04</a>.
+                </>
+              )}
             </p>
           )}
           {success ? (
@@ -315,7 +330,9 @@ export function RegistrationModal() {
           ) : (
             <>
               <Button type="submit" form="registration-form" disabled={submitting} className="h-12 w-full gap-2 rounded-lg bg-ufo-yellow text-base font-semibold text-primary hover:bg-ufo-yellow/90">
-                {submitting ? <><Loader2 className="h-4 w-4 animate-spin" /> Надсилаємо…</> : <>{isInquiry ? "Надіслати запит" : "Надіслати заявку"} <ArrowRight className="h-4 w-4" /></>}
+                {submitting
+                  ? <><Loader2 className="h-4 w-4 animate-spin" /> {waitingForConfirmation ? "Очікуємо підтвердження…" : "Надсилаємо…"}</>
+                  : <>{deliveryIssue === "unconfirmed" ? "Надіслати повторно" : isInquiry ? "Надіслати запит" : "Надіслати заявку"} <ArrowRight className="h-4 w-4" /></>}
               </Button>
               <p className="mt-2 flex items-center justify-center gap-1.5 text-xs text-muted-foreground"><Phone className="h-3 w-3" /> {isInquiry ? "Зв’яжемося й відповімо на запитання" : "Підтвердимо запис телефоном або в Telegram"}</p>
             </>
