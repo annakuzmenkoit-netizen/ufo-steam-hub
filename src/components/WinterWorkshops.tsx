@@ -70,6 +70,77 @@ const workshops = [
   },
 ];
 
+const calendarYear = 2026;
+const calendarMonth = 12;
+const weekdays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"];
+const firstWeekday = (new Date(Date.UTC(calendarYear, calendarMonth - 1, 1)).getUTCDay() + 6) % 7;
+const daysInMonth = new Date(Date.UTC(calendarYear, calendarMonth, 0)).getUTCDate();
+const calendarEvents = workshops
+  .flatMap(({ days, title }) => days.map((day) => ({ day: Number(day), title })))
+  .sort((a, b) => a.day - b.day);
+const eventsByDay = new Map(calendarEvents.map((event) => [event.day, event]));
+const calendarWeeks = Array.from({ length: Math.ceil((daysInMonth + firstWeekday) / 7) }, (_, week) =>
+  weekdays.map((_, index) => week * 7 + index + 1 - firstWeekday),
+);
+
+function WorkshopCalendar() {
+  return (
+    <section className="workshop-calendar mt-6 rounded-3xl border p-3 sm:p-5" aria-labelledby="workshop-calendar-title">
+      <h3 id="workshop-calendar-title" className="mb-3 text-lg font-extrabold text-primary">Календар майстерок</h3>
+      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:gap-6">
+        <table className="w-full table-fixed border-separate border-spacing-0 text-center text-sm tabular-nums">
+          <caption className="pb-2 text-left font-semibold text-primary">Грудень {calendarYear}</caption>
+          <thead>
+            <tr>{weekdays.map((day) => <th key={day} scope="col" className="pb-1 text-xs font-semibold">{day}</th>)}</tr>
+          </thead>
+          <tbody>
+            {calendarWeeks.map((week) => (
+              <tr key={week[0]}>
+                {week.map((day) => {
+                  if (day < 1 || day > daysInMonth) return <td key={day} />;
+                  const event = eventsByDay.get(day);
+                  return (
+                    <td key={day} className="p-0.5">
+                      {event ? (
+                        <a
+                          className="workshop-calendar__day"
+                          href={`#workshop-calendar-day-${day}`}
+                          aria-label={`${day} грудня · ${event.title}`}
+                        >
+                          {day}
+                        </a>
+                      ) : (
+                        <span className="flex min-h-8 items-center justify-center">{day}</span>
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <ol className="divide-y divide-[#dbe5fb] text-sm">
+          {calendarEvents.map(({ day, title }) => {
+            const dayLabel = String(day).padStart(2, "0");
+            return (
+              <li
+                key={day}
+                id={`workshop-calendar-day-${day}`}
+                className="workshop-calendar__event flex scroll-mt-24 items-start gap-3 px-2 py-2"
+              >
+                <time dateTime={`${calendarYear}-${calendarMonth}-${dayLabel}`} className="shrink-0 font-bold tabular-nums text-primary">
+                  {dayLabel}.{calendarMonth}
+                </time>
+                <span>{title}</span>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
 function workshopScrollPosition(rail: HTMLOListElement, card: HTMLLIElement) {
   const firstCard = rail.querySelector("li")!;
   return Math.min(card.offsetLeft - firstCard.offsetLeft, rail.scrollWidth - rail.clientWidth);
@@ -179,6 +250,7 @@ export function WinterWorkshops() {
             />
           ))}
         </div>
+        <WorkshopCalendar />
       </div>
     </section>
   );
