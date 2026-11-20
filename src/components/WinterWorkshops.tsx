@@ -69,7 +69,7 @@ export function WinterWorkshops() {
           <h2 id="winter-workshops-title">Розклад зимових майстерок</h2>
           <span className="winter-workshops__stars" aria-hidden="true">✦ <span>✧</span></span>
         </div>
-        <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ol className="winter-workshops__grid grid gap-x-4 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
           {workshops.map(({ days, image, imageAlt, title, description, quantity, audience = "Для дітей 7+ років", audienceNote, price = 500 }) => (
             <li key={title} className="winter-workshops__card flex flex-col border">
               <div className="mb-2 flex flex-wrap gap-1.5">
