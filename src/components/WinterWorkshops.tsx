@@ -10,6 +10,7 @@ const workshops = [
   {
     days: ["02"],
     image: candle,
+    imageSize: [640, 414],
     imageAlt: "Свічки з вощини у формі чобітка, сніговика та ялинки",
     title: "Свічка бажань та лист Святому Миколаю",
     quantity: "1–2 вироби",
@@ -18,6 +19,7 @@ const workshops = [
   {
     days: ["05", "23"],
     image: stainedGlass,
+    imageSize: [368, 500],
     imageAlt: "Вітражні підвіски з будиночком, ліхтарем і зіркою",
     title: "Вітражний розпис",
     quantity: "3 вітражні вироби",
@@ -26,6 +28,7 @@ const workshops = [
   {
     days: ["09"],
     image: macrame,
+    imageSize: [400, 500],
     imageAlt: "Плетений вінок із червоним бантом і дзвіночками",
     title: "Ялинкова прикраса з макраме",
     quantity: "1–2 вироби",
@@ -35,6 +38,7 @@ const workshops = [
   {
     days: ["12", "16"],
     image: metalBird,
+    imageSize: [535, 500],
     imageAlt: "Карбовані золотисті прикраси у формі сонця, зірки й птаха",
     title: "Карбування по металу",
     quantity: "До 7 виробів залежно від розміру",
@@ -43,6 +47,7 @@ const workshops = [
   {
     days: ["19"],
     image: strawSpider,
+    imageSize: [371, 500],
     imageAlt: "Підвісна геометрична прикраса зі сплетеної соломи",
     title: "Різдвяний павук із соломи",
     quantity: "1 солом’яний павук",
@@ -54,6 +59,7 @@ const workshops = [
   {
     days: ["20"],
     image: strawSnowflakes,
+    imageSize: [375, 500],
     imageAlt: "Три плетені сніжинки з натуральної та кольорової соломи",
     title: "Сніжинки із соломи",
     quantity: "2–3 сніжинки",
@@ -70,10 +76,10 @@ export function WinterWorkshops() {
           <span className="winter-workshops__stars" aria-hidden="true">✦ <span>✧</span></span>
         </div>
         <ol className="winter-workshops__grid grid gap-x-4 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
-          {workshops.map(({ days, image, imageAlt, title, description, quantity, audience = "Для дітей 7+ років", audienceNote, price = 500 }) => (
+          {workshops.map(({ days, image, imageSize: [width, height], imageAlt, title, description, quantity, audience = "Для дітей 7+ років", audienceNote, price = 500 }) => (
             <li key={title} className="winter-workshops__card flex flex-col border">
               <div className="winter-workshops__intro">
-                <div className="min-w-0 space-y-2.5 wrap-break-word">
+                <div className="min-w-0 space-y-1.5 wrap-break-word">
                   <div className="flex flex-wrap gap-1.5">
                     {days.map((day) => (
                       <time key={day} dateTime={`12-${day}`} className="winter-workshops__date rounded-full px-2 py-1 text-xs font-bold tabular-nums">
@@ -88,9 +94,9 @@ export function WinterWorkshops() {
                   </div>
                   <p className="text-sm"><span className="font-semibold">За майстерку</span> · {quantity}</p>
                 </div>
-                <img src={image} alt={imageAlt} loading="lazy" decoding="async" className="winter-workshops__cutout" />
+                <img src={image} width={width} height={height} alt={imageAlt} loading="lazy" decoding="async" className="winter-workshops__cutout" />
               </div>
-              <p className="winter-workshops__description mb-3 text-sm leading-relaxed">{description}</p>
+              <p className="winter-workshops__description mb-2 text-sm leading-[1.45]">{description}</p>
               <div className="winter-workshops__price mt-auto">
                 <p className="font-bold">{price} грн</p>
                 <button
