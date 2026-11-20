@@ -1007,7 +1007,7 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
 }
 
 .winter-workshops__card h3 {
-  color: #172e67;
+  color: var(--primary);
 }
 
 .winter-workshops__card:nth-child(even) {
@@ -1103,18 +1103,70 @@ main:has(.home-hero) { --foreground: var(--ufo-blue); --muted-foreground: var(--
   color: #263752;
 }
 
-.workshop-calendar__day {
-  display: grid;
-  min-height: 2rem;
+.workshop-calendar__month {
+  overflow: hidden;
+  border: 1px solid #dbe5fb;
+  border-radius: 1rem;
+  background: white;
+}
+
+.workshop-calendar__cell {
+  border-top: 1px solid #dbe5fb;
+  border-inline-end: 1px solid #dbe5fb;
+}
+
+.workshop-calendar__cell:last-child { border-inline-end: 0; }
+
+.workshop-calendar__tile {
+  position: relative;
+  min-height: 3.25rem;
+  padding: 0.25rem;
+}
+
+.workshop-calendar__tile--event { background: #eaf1ff; }
+
+.workshop-calendar__number {
+  display: inline-grid;
+  min-width: 1.125rem;
+  min-height: 1.125rem;
   place-items: center;
-  border-radius: 0.5rem;
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  line-height: 1;
+}
+
+.workshop-calendar__tile--event .workshop-calendar__number {
   background: var(--primary);
-  color: var(--primary-foreground);
+  color: white;
   font-weight: 700;
 }
 
-.workshop-calendar__day:hover {
-  background: color-mix(in srgb, var(--primary) 88%, black);
+.workshop-calendar__photo {
+  width: 100%;
+  height: 1.6rem;
+  object-fit: contain;
+}
+
+.workshop-calendar__name {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.workshop-calendar__day:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+}
+
+@media (min-width: 768px) {
+  .workshop-calendar__tile {
+    min-height: 7.5rem;
+    padding: 0.5rem;
+  }
+
+  .workshop-calendar__photo { height: 3rem; }
 }
 
 .workshop-calendar__event:target {

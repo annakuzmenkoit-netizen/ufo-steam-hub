@@ -44,7 +44,7 @@ const workshops = [
     imageSize: [535, 500],
     imageAlt: "Карбовані золотисті прикраси у формі сонця, зірки й птаха",
     title: "Карбування по металу",
-    quantity: "До 7 виробів залежно від розміру",
+    quantity: "До 7 виробів",
     description: "Познайомимося з традиційною технікою карбування та створимо прикраси для ялинки й оселі з українськими мотивами.",
   },
   {
@@ -76,7 +76,7 @@ const weekdays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"];
 const firstWeekday = (new Date(Date.UTC(calendarYear, calendarMonth - 1, 1)).getUTCDay() + 6) % 7;
 const daysInMonth = new Date(Date.UTC(calendarYear, calendarMonth, 0)).getUTCDate();
 const calendarEvents = workshops
-  .flatMap(({ days, title }) => days.map((day) => ({ day: Number(day), title })))
+  .flatMap(({ days, title, image }) => days.map((day) => ({ day: Number(day), title, image })))
   .sort((a, b) => a.day - b.day);
 const eventsByDay = new Map(calendarEvents.map((event) => [event.day, event]));
 const calendarWeeks = Array.from({ length: Math.ceil((daysInMonth + firstWeekday) / 7) }, (_, week) =>
@@ -87,31 +87,37 @@ function WorkshopCalendar() {
   return (
     <section className="workshop-calendar mt-6 rounded-3xl border p-3 sm:p-5" aria-labelledby="workshop-calendar-title">
       <h3 id="workshop-calendar-title" className="mb-3 text-lg font-extrabold text-primary">Календар майстерок</h3>
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:gap-6">
-        <table className="w-full table-fixed border-separate border-spacing-0 text-center text-sm tabular-nums">
-          <caption className="pb-2 text-left font-semibold text-primary">Грудень {calendarYear}</caption>
+      <div className="workshop-calendar__month">
+        <table className="w-full table-fixed border-collapse text-left text-sm tabular-nums">
+          <caption>
+            <span className="flex items-center justify-between gap-2 px-3 py-2.5 font-bold text-primary">
+              <span>Грудень</span><span className="text-xs font-semibold">{calendarYear}</span>
+            </span>
+          </caption>
           <thead>
-            <tr>{weekdays.map((day) => <th key={day} scope="col" className="pb-1 text-xs font-semibold">{day}</th>)}</tr>
+            <tr>{weekdays.map((day) => <th key={day} scope="col" className="px-1.5 py-1.5 text-xs font-semibold sm:px-2">{day}</th>)}</tr>
           </thead>
           <tbody>
             {calendarWeeks.map((week) => (
               <tr key={week[0]}>
                 {week.map((day) => {
-                  if (day < 1 || day > daysInMonth) return <td key={day} />;
                   const event = eventsByDay.get(day);
                   return (
-                    <td key={day} className="p-0.5">
-                      {event ? (
-                        <a
-                          className="workshop-calendar__day"
-                          href={`#workshop-calendar-day-${day}`}
-                          aria-label={`${day} грудня · ${event.title}`}
-                        >
-                          {day}
-                        </a>
-                      ) : (
-                        <span className="flex min-h-8 items-center justify-center">{day}</span>
-                      )}
+                    <td key={day} className="workshop-calendar__cell align-top">
+                      <div className={event ? "workshop-calendar__tile workshop-calendar__tile--event" : "workshop-calendar__tile"}>
+                        {day >= 1 && day <= daysInMonth && <span className="workshop-calendar__number">{day}</span>}
+                        {event && (
+                          <>
+                            <img src={event.image} alt="" loading="lazy" decoding="async" className="workshop-calendar__photo" />
+                            <span className="workshop-calendar__name hidden md:block">{event.title}</span>
+                            <a
+                              className="workshop-calendar__day absolute inset-0 md:hidden"
+                              href={`#workshop-calendar-day-${day}`}
+                              aria-label={`${day} грудня · ${event.title}`}
+                            />
+                          </>
+                        )}
+                      </div>
                     </td>
                   );
                 })}
@@ -119,24 +125,24 @@ function WorkshopCalendar() {
             ))}
           </tbody>
         </table>
-        <ol className="divide-y divide-[#dbe5fb] text-sm">
-          {calendarEvents.map(({ day, title }) => {
-            const dayLabel = String(day).padStart(2, "0");
-            return (
-              <li
-                key={day}
-                id={`workshop-calendar-day-${day}`}
-                className="workshop-calendar__event flex scroll-mt-24 items-start gap-3 px-2 py-2"
-              >
-                <time dateTime={`${calendarYear}-${calendarMonth}-${dayLabel}`} className="shrink-0 font-bold tabular-nums text-primary">
-                  {dayLabel}.{calendarMonth}
-                </time>
-                <span>{title}</span>
-              </li>
-            );
-          })}
-        </ol>
       </div>
+      <ol className="mt-4 divide-y divide-[#dbe5fb] text-sm md:hidden">
+        {calendarEvents.map(({ day, title }) => {
+          const dayLabel = String(day).padStart(2, "0");
+          return (
+            <li
+              key={day}
+              id={`workshop-calendar-day-${day}`}
+              className="workshop-calendar__event flex scroll-mt-24 items-start gap-3 px-2 py-2"
+            >
+              <time dateTime={`${calendarYear}-${calendarMonth}-${dayLabel}`} className="shrink-0 font-bold tabular-nums text-primary">
+                {dayLabel}.{calendarMonth}
+              </time>
+              <span>{title}</span>
+            </li>
+          );
+        })}
+      </ol>
     </section>
   );
 }
@@ -199,7 +205,7 @@ export function WinterWorkshops() {
                       </time>
                     ))}
                   </div>
-                  <h3 className="text-[clamp(1rem,4vw,1.25rem)] font-extrabold leading-tight tracking-tight">
+                  <h3 className="text-[clamp(1rem,4vw,1.25rem)] font-bold leading-tight">
                     {titleLead
                       ? <><span className="winter-workshops__title-lead whitespace-nowrap">{titleLead}</span>{title.slice(titleLead.length)}</>
                       : title}
