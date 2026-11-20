@@ -128,7 +128,7 @@ export function WinterWorkshops() {
                       </time>
                     ))}
                   </div>
-                  <h3 className="text-[clamp(1rem,4vw,1.25rem)] font-bold leading-tight">
+                  <h3 className="text-[clamp(1rem,4vw,1.25rem)] font-extrabold leading-tight tracking-tight">
                     {titleLead
                       ? <><span className="winter-workshops__title-lead whitespace-nowrap">{titleLead}</span>{title.slice(titleLead.length)}</>
                       : title}
@@ -138,13 +138,13 @@ export function WinterWorkshops() {
                     {audienceNote && <p className="text-xs leading-normal">* {audienceNote}</p>}
                   </div>
                   {quantity && !fullWidthQuantity && (
-                    <p className="text-sm"><span className="winter-workshops__quantity-label font-semibold">За майстерку</span> · {quantity}</p>
+                    <p className="text-sm"><span className="font-semibold">За майстерку</span> · {quantity}</p>
                   )}
                 </div>
                 <img src={image} width={width} height={height} alt={imageAlt} loading="lazy" decoding="async" draggable={false} className={largerImage ? "winter-workshops__cutout winter-workshops__cutout--large" : "winter-workshops__cutout"} />
               </div>
               {fullWidthQuantity && (
-                <p className="mb-2 text-sm whitespace-nowrap"><span className="winter-workshops__quantity-label font-semibold">За майстерку:</span> {quantity}</p>
+                <p className="mb-2 text-sm whitespace-nowrap"><span className="font-semibold">За майстерку:</span> {quantity}</p>
               )}
               <p className="winter-workshops__description mb-2 text-sm leading-[1.45]">{description}</p>
               <div className="winter-workshops__price mt-auto">
