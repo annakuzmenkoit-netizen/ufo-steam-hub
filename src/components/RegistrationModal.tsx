@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { sendWorkshopRegistration } from "@/lib/workshop-registration.functions";
 import { CheckCircle2, Loader2, X, ChevronDown, ArrowRight, Phone } from "lucide-react";
 import {
   buildRegistrationEmailFields,
@@ -128,26 +129,38 @@ export function RegistrationModal() {
     setError("");
     setSubmitting(true);
     const controller = new AbortController();
-    const timeout = window.setTimeout(() => controller.abort(), 20_000);
+    const timeout = isWorkshop ? undefined : window.setTimeout(() => controller.abort(), 20_000);
     try {
-      const res = await fetch(FORM_ENDPOINT, {
-        method: "POST",
-        signal: controller.signal,
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          _subject: buildRegistrationSubject(finalContext),
-          _template: "table",
-          ...buildRegistrationEmailFields(
-            finalContext,
-            { childName, childAge, parentName, phone, comment },
-            currentPageMeta(),
-          ),
-        }),
-      });
-      if (!res.ok) throw new Error(`FormSubmit HTTP ${res.status}`);
-      const result = await res.json();
-      if (result?.success !== true && result?.success !== "true") {
-        throw new Error("FormSubmit did not accept the submission");
+      if (isWorkshop) {
+        const result = await sendWorkshopRegistration({
+          data: {
+            program: finalContext.program ?? "",
+            date: finalContext.date ?? "",
+            age: finalContext.age,
+            childName, childAge, parentName, phone, comment,
+          },
+        });
+        if (!result.ok) throw new Error("Workshop email was not accepted");
+      } else {
+        const res = await fetch(FORM_ENDPOINT, {
+          method: "POST",
+          signal: controller.signal,
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            _subject: buildRegistrationSubject(finalContext),
+            _template: "table",
+            ...buildRegistrationEmailFields(
+              finalContext,
+              { childName, childAge, parentName, phone, comment },
+              currentPageMeta(),
+            ),
+          }),
+        });
+        if (!res.ok) throw new Error(`FormSubmit HTTP ${res.status}`);
+        const result = await res.json();
+        if (result?.success !== true && result?.success !== "true") {
+          throw new Error("FormSubmit did not accept the submission");
+        }
       }
       setSuccess(true);
       toast.success(isInquiry ? "Запит надіслано!" : "Заявку надіслано!");
