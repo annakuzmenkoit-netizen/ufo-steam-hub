@@ -228,7 +228,7 @@ export function RegistrationModal() {
                 </details>
               )}
 
-              {!!context.availableDates?.length && (
+              {context.availableDates && context.availableDates.length > 1 && (
                 <div>
                   <label htmlFor="registration-workshop-date" className="text-sm font-medium">
                     Дата майстерки <span aria-hidden="true">*</span>
