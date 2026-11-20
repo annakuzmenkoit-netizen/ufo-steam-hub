@@ -13,8 +13,9 @@ const workshops = [
     imageSize: [640, 414],
     imageAlt: "Свічки з вощини у формі чобітка, сніговика та ялинки",
     title: "Свічка бажань та лист Святому Миколаю",
+    titleLead: "Свічка бажань",
     quantity: "1–2 вироби",
-    compactQuantity: true,
+    fullWidthQuantity: true,
     description: "Створимо святкову свічку власноруч та напишемо лист Святому Миколаю з найзаповітнішими бажаннями.",
   },
   {
@@ -76,8 +77,13 @@ export function WinterWorkshops() {
           <h2 id="winter-workshops-title">Розклад зимових майстерок</h2>
           <span className="winter-workshops__stars" aria-hidden="true">✦ <span>✧</span></span>
         </div>
-        <ol className="winter-workshops__grid grid gap-x-4 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
-          {workshops.map(({ days, image, imageSize: [width, height], imageAlt, title, description, quantity, compactQuantity, largerImage, audience = "Для дітей 7+ років", audienceNote, price = 500 }) => (
+        <p className="mb-1 text-xs font-semibold text-primary sm:hidden">Гортайте картки вбік</p>
+        <ol
+          aria-label="Картки зимових майстерок"
+          tabIndex={0}
+          className="winter-workshops__grid grid gap-x-4 gap-y-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {workshops.map(({ days, image, imageSize: [width, height], imageAlt, title, titleLead, description, quantity, fullWidthQuantity, largerImage, audience = "Для дітей 7+ років", audienceNote, price = 500 }) => (
             <li key={title} className="winter-workshops__card flex flex-col border">
               <div className="winter-workshops__intro">
                 <div className="min-w-0 space-y-1.5 wrap-break-word">
@@ -88,20 +94,24 @@ export function WinterWorkshops() {
                       </time>
                     ))}
                   </div>
-                  <h3 className="text-[clamp(1rem,4vw,1.25rem)] font-bold leading-tight">{title}</h3>
+                  <h3 className="text-[clamp(1rem,4vw,1.25rem)] font-bold leading-tight">
+                    {titleLead
+                      ? <><span className="winter-workshops__title-lead whitespace-nowrap">{titleLead}</span>{title.slice(titleLead.length)}</>
+                      : title}
+                  </h3>
                   <div className="space-y-1">
                     <p className="text-sm font-semibold">{audience}</p>
                     {audienceNote && <p className="text-xs leading-normal">* {audienceNote}</p>}
                   </div>
-                  {quantity && (
-                    <p className={compactQuantity ? "text-sm whitespace-nowrap" : "text-sm"}>
-                      {!compactQuantity && <><span className="font-semibold">За майстерку</span> · </>}
-                      {quantity}
-                    </p>
+                  {quantity && !fullWidthQuantity && (
+                    <p className="text-sm"><span className="winter-workshops__quantity-label font-semibold">За майстерку</span> · {quantity}</p>
                   )}
                 </div>
-                <img src={image} width={width} height={height} alt={imageAlt} loading="lazy" decoding="async" className={largerImage ? "winter-workshops__cutout winter-workshops__cutout--large" : "winter-workshops__cutout"} />
+                <img src={image} width={width} height={height} alt={imageAlt} loading="lazy" decoding="async" draggable={false} className={largerImage ? "winter-workshops__cutout winter-workshops__cutout--large" : "winter-workshops__cutout"} />
               </div>
+              {fullWidthQuantity && (
+                <p className="mb-2 text-sm whitespace-nowrap"><span className="winter-workshops__quantity-label font-semibold">За майстерку:</span> {quantity}</p>
+              )}
               <p className="winter-workshops__description mb-2 text-sm leading-[1.45]">{description}</p>
               <div className="winter-workshops__price mt-auto">
                 <p className="font-bold">{price} грн</p>
