@@ -39,7 +39,9 @@ function HomeSnow({ light = false }: { light?: boolean }) {
   return (
     <div className={light ? "home-snow home-snow--light" : "home-snow"} aria-hidden="true">
       {snowflakePositions.map((position, index) => (
-        <span key={position} style={{ left: `${position}%`, animationDelay: `${index * -1.17}s` }} />
+        <span key={position} style={{ left: `${position}%`, animationDelay: `${index * -1.17}s` }}>
+          ❄︎
+        </span>
       ))}
     </div>
   );
