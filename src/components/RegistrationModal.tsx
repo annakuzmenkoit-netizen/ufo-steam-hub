@@ -188,7 +188,7 @@ export function RegistrationModal() {
             {success ? (isInquiry ? "Запит надіслано!" : "Заявку надіслано!") : (isInquiry ? "Дізнатися про мінікурс" : isWorkshop ? "Запис на майстерку" : "Запис на заняття")}
           </DialogTitle>
           <DialogDescription className="text-sm leading-relaxed">
-            {success ? "Дякуємо за інтерес до наших занять." : (isInquiry ? "Залиште контакти — розкажемо про програму та відповімо на запитання." : "Залиште контакти — ми зателефонуємо й узгодимо деталі.")}
+            {success ? "Дякуємо за інтерес до наших занять." : (isInquiry ? "Залиште контакти — розкажемо про програму та відповімо на запитання." : "Залиште контакти — ми зв’яжемося з вами й узгодимо деталі.")}
           </DialogDescription>
           <DialogClose disabled={submitting} className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full bg-muted text-foreground transition-colors hover:bg-secondary disabled:opacity-40" aria-label="Закрити форму">
             <X className="h-5 w-5" />
@@ -300,7 +300,7 @@ export function RegistrationModal() {
               <Button type="submit" form="registration-form" disabled={submitting} className="h-12 w-full gap-2 rounded-lg bg-ufo-yellow text-base font-semibold text-primary hover:bg-ufo-yellow/90">
                 {submitting ? <><Loader2 className="h-4 w-4 animate-spin" /> Надсилаємо…</> : <>{isInquiry ? "Надіслати запит" : "Надіслати заявку"} <ArrowRight className="h-4 w-4" /></>}
               </Button>
-              <p className="mt-2 flex items-center justify-center gap-1.5 text-xs text-muted-foreground"><Phone className="h-3 w-3" /> {isInquiry ? "Зв’яжемося й відповімо на запитання" : "Підтвердимо запис телефоном"}</p>
+              <p className="mt-2 flex items-center justify-center gap-1.5 text-xs text-muted-foreground"><Phone className="h-3 w-3" /> {isInquiry ? "Зв’яжемося й відповімо на запитання" : "Підтвердимо запис телефоном або в Telegram"}</p>
             </>
           )}
         </div>
