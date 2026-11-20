@@ -39,9 +39,7 @@ function HomeSnow({ light = false }: { light?: boolean }) {
   return (
     <div className={light ? "home-snow home-snow--light" : "home-snow"} aria-hidden="true">
       {snowflakePositions.map((position, index) => (
-        <span key={position} style={{ left: `${position}%`, animationDelay: `${index * -1.17}s` }}>
-          ❄︎
-        </span>
+        <span key={position} style={{ left: `${position}%`, animationDelay: `${index * -1.17}s` }} />
       ))}
     </div>
   );
@@ -64,14 +62,6 @@ function HomePage() {
               <Link to="/contacts" className="parent-button border border-white/60 text-white">Зв’язатися з нами</Link>
             </div>
             <p className="mt-4 text-xs text-white/85">Для дітей 7–14 років · Міні-групи 4–6 дітей</p>
-            <label className="home-snow-toggle home-snow-toggle--pause mt-2 inline-flex min-h-6 cursor-pointer items-center gap-2 text-xs text-white">
-              <input type="checkbox" className="accent-ufo-yellow" />
-              Призупинити снігопад
-            </label>
-            <label className="home-snow-toggle home-snow-toggle--play mt-2 inline-flex min-h-6 cursor-pointer items-center gap-2 text-xs text-white">
-              <input type="checkbox" className="accent-ufo-yellow" />
-              Увімкнути анімацію снігу
-            </label>
           </div>
           <figure className="hero-moment">
             <ResponsiveImage src={heroPhoto} width={1200} height={800} srcSet={`${heroSmall} 320w, ${heroMedium} 640w, ${heroLarge} 960w, ${heroPhoto} 1200w`} alt="Діти разом створюють проєкт на занятті UFO" loading="eager" fetchPriority="high" sizes="(min-width: 768px) 540px, 320px" className="h-full w-full object-contain" />
