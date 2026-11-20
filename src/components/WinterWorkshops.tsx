@@ -48,7 +48,8 @@ const workshops = [
     quantity: "1 солом’яний павук",
     description: "Відродимо давню українську традицію та створимо солом’яного павука — символ добробуту й гармонії в оселі.",
     price: 600,
-    audience: "Сімейний майстерклас для мам і дітей. Діти від 11 років можуть долучитися самостійно.",
+    audience: "Сімейний майстерклас для мам і дітей.",
+    audienceNote: "Діти від 11 років можуть долучитися самостійно.",
   },
   {
     days: ["20"],
@@ -69,7 +70,7 @@ export function WinterWorkshops() {
           <span className="winter-workshops__stars" aria-hidden="true">✦ <span>✧</span></span>
         </div>
         <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {workshops.map(({ days, image, imageAlt, title, description, quantity, audience = "Для дітей 7+ років", price = 500 }) => (
+          {workshops.map(({ days, image, imageAlt, title, description, quantity, audience = "Для дітей 7+ років", audienceNote, price = 500 }) => (
             <li key={title} className="winter-workshops__card flex flex-col border">
               <div className="mb-2 flex flex-wrap gap-1.5">
                 {days.map((day) => (
@@ -81,7 +82,10 @@ export function WinterWorkshops() {
               <div className="winter-workshops__intro">
                 <div className="min-w-0 space-y-2.5 wrap-break-word">
                   <h3 className="text-[clamp(1rem,4vw,1.25rem)] font-bold leading-tight">{title}</h3>
-                  <p className="text-sm font-semibold">{audience}</p>
+                  <div className="space-y-1">
+                    <p className="text-sm font-semibold">{audience}</p>
+                    {audienceNote && <p className="text-xs leading-normal">* {audienceNote}</p>}
+                  </div>
                   <p className="text-sm"><span className="font-semibold">За майстерку</span> · {quantity}</p>
                 </div>
                 <img src={image} alt={imageAlt} loading="lazy" decoding="async" className="winter-workshops__cutout" />
@@ -98,7 +102,7 @@ export function WinterWorkshops() {
                     sourcePage: "Головна — зимові майстерки",
                     program: title,
                     availableDates: days.map((day) => `${day}.12`),
-                    age: audience,
+                    age: audienceNote ? `${audience} ${audienceNote}` : audience,
                   })}
                 >
                   Записатися
